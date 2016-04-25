@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<info>
+    <id>eibd</id>
+    <name>EIB - KNX</name>
+    <description>Connecte Jeedom avec votre installation domotique KNX.</description>
+    <icon>fa fa-sitemap</icon>
+    <licence>AGPL</licence>
+    <author>Halbout Michael</author>
+    <installation>Voir la documentation jointe au plugin</installation>
+    <require>2.0</require>
+    <version>1.7</version>
+    <category>automation protocol</category>
+    <allowRemote>1</allowRemote>
+	<hasDependency>1</hasDependency>
+    <hasOwnDeamon>1</hasOwnDeamon>
+</info>
+

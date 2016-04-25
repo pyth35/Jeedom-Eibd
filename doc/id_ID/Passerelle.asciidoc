@@ -1,0 +1,2 @@
+Jeedom ce comporte donc comme un equipement a part entiere de votre installation KNX.
+Il est donc possible de luis demandé d'envoyé sur le bus KNX des informations issus de jeedom et donc d'autre protocole
