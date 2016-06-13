@@ -173,6 +173,9 @@ class Dpt{
 				$data= array(($value>>24) & 0xFF, ($value>>16) & 0xFF,($value>>8) & 0xFF,$value & 0xFF,$TarifCommande->execCmd(),($validityTarifCommande->execCmd()<< 1) & 0x02 | $validityActiveElectricalEnergyCommande->execCmd());
 				}
 			break;
+			case "232":	
+				$data= array(($value>>16) & 0xFF, ($value>>8) & 0xFF,$value & 0xFF);
+			break;
 			default:
 				switch($dpt){
 					case "x.001":
@@ -461,6 +464,9 @@ class Dpt{
 					}
 				}
 			break;
+			case "232":
+				$value = $data[0] << 16 | $data[1] << 8 | $data[2] ;
+			break;
 			default:
 				switch($dpt){
 					case "x.001":
@@ -533,6 +539,9 @@ class Dpt{
 		case "19":
 			break;
 		case "20":
+			$value=$oldValue+1;
+			break;
+		case "232":
 			$value=$oldValue+1;
 			break;
 		};
@@ -1848,40 +1857,12 @@ class Dpt{
 				"ActionType"=>'message',
 				"Option" =>array(),
 				"Unite" =>"")),
-		"8BitEncAbsValue"=> array(
-			"20.xxx"=> array(
-				"Name"=>"Generic",
-				"Valeurs"=>array(0, 255),
-				"InfoType"=>'string',
-				"ActionType"=>'message',
-				"Option" =>array(),
-				"Unite" =>""),
-			"20.003"=> array(
-				"Name"=>"Occupancy mode",
-				"Valeurs"=>array("occupied","standby","not occupied"),
-				"InfoType"=>'string',
-				"ActionType"=>'message',
-				"Option" =>array(),
-				"Unite" =>""),
-			"20.102"=> array(
-				"Name"=>"Heating mode",
-				"Valeurs"=>array("Auto","Comfort","Standby","Night","Frost"),
-				"InfoType"=>'string',
-				"ActionType"=>'message',
-				"Option" =>array(),
-				"Unite" =>""),
-			"20.102_2"=> array(
-				"Name"=>"MDT Heating mode",
-				"Valeurs"=>array("Auto","Comfort","Standby","Night","Frost"),
-				"InfoType"=>'string',
-				"ActionType"=>'message',
-				"Option" =>array(),
-				"Unite" =>""),
-			"20.105"=> array(
-				"Name"=>"Heating controle mode",
-				"Valeurs"=>array("Auto","Heat","Morning Warmup","Cool","Night Purge","Precool","Off","Test","Emergency Heat","Fan only","Free Cool","Ice"),
-				"InfoType"=>'string',
-				"ActionType"=>'message',
+		"3Bytes"=> array(
+			"232.600"=> array(
+				"Name"=>"Colour RGB",
+				"Valeurs"=>array(),
+				"InfoType"=>'numeric',
+				"ActionType"=>'color',
 				"Option" =>array(),
 				"Unite" =>"")),
 		"Other"=> array(

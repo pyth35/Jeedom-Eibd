@@ -19,7 +19,101 @@ class eibd extends eqLogic {
 	}
     public function preSave() {
 		$this->setLogicalId(trim($this->getLogicalId()));    
-    }	
+    }
+	public function postSave() {
+	}	
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//                                                                                                                                               //
+	//                                                      Gestion des Template d'equipement                                                       // 
+	//                                                                                                                                               //
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	public static function devicesParameters($_device = '') {
+		$path = dirname(__FILE__) . '/../config/devices';
+		if (isset($_device) && $_device != '') {
+			$files = ls($path, $_device . '.json', false, array('files', 'quiet'));
+			if (count($files) == 1) {
+				try {
+					$content = file_get_contents($path . '/' . $files[0]);
+					if (is_json($content)) {
+						$deviceConfiguration = json_decode($content, true);
+						return $deviceConfiguration[$_device];
+					}
+				} catch (Exception $e) {
+					return array();
+				}
+			}
+		}
+		$files = ls($path, '*.json', false, array('files', 'quiet'));
+		$return = array();
+		foreach ($files as $file) {
+			try {
+				$content = file_get_contents($path . '/' . $file);
+				if (is_json($content)) {
+					$return = array_merge($return, json_decode($content, true));
+				}
+			} catch (Exception $e) {
+
+			}
+		}
+		if (isset($_device) && $_device != '') {
+			if (isset($return[$_device])) {
+				return $return[$_device];
+			}
+			return array();
+		}
+		return $return;
+	}
+	public function applyModuleConfiguration() {
+		if ($this->getConfiguration('device') == '') {
+			$this->save();
+			return true;
+		}
+		$device = self::devicesParameters($this->getConfiguration('device'));
+		if (!is_array($device) || !isset($device['cmd'])) {
+			return true;
+		}
+		if (isset($device['configuration'])) {
+			foreach ($device['configuration'] as $key => $value) {
+				$this->setConfiguration($key, $value);
+			}
+		}
+		$cmd_order = 0;
+		$link_cmds = array();
+		foreach ($device['cmd'] as $command) {
+			if (isset($device['cmd']['logicalId'])) {
+				continue;
+			}
+			$cmd = null;
+			foreach ($this->getCmd() as $liste_cmd) {
+				if (isset($command['name']) && $liste_cmd->getName() == $command['name']) {
+					$cmd = $liste_cmd;	
+					break;
+				}
+			}
+			try {
+				if ($cmd == null || !is_object($cmd)) {
+					$cmd = new eibdCmd();
+					$cmd->setOrder($cmd_order);
+					$cmd->setEqLogic_id($this->getId());
+				} else {
+					$command['name'] = $cmd->getName();
+				}
+				utils::a2o($cmd, $command);
+				if (isset($command['value']) && $command['value']!="") {
+					$CmdValue=cmd::byEqLogicIdCmdName($this->getId(),$command['value']);
+					if(is_object($CmdValue))
+						$cmd->setValue($CmdValue->getHumanName());
+					else
+						$cmd->setValue(null);
+				}
+				$cmd->save();
+				$cmd_order++;
+			} catch (Exception $exc) {
+				error_log($exc->getMessage());
+			}
+		$this->save();
+		}
+	}
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//                                                                                                                                               //
 	//                                                      Recherche automatique passerelle                                                       // 
@@ -320,7 +414,7 @@ class eibd extends eqLogic {
 			}
 		else
 			$monitor['data']='0x '.$data["Data"];
-		$commandes=cmd::byLogicalId($monitor['AdresseGroupe']);
+		$commandes=cmd::byLogicalId(trim($monitor['AdresseGroupe']));
 		if(count($commandes)>0){
 			foreach($commandes as $Commande){
 				$monitor['valeur']=trim(self::UpdateCommande($Commande,$data["Mode"],$data["Data"]));
@@ -331,12 +425,12 @@ class eibd extends eqLogic {
 				$monitor['valeur']=Dpt::DptSelectDecode($dpt, $data["Data"]);
 			else
 				$monitor['valeur']="Impossible de converire la valeur";
-			log::add('eibd', 'debug', 'La commande '.$monitor['AdresseGroupe'].' n\'a pas été trouvée dans l\'équipement '.$monitor['AdressePhysique']);
+			log::add('eibd', 'debug', 'Aucune commande avec l\'adresse de groupe  '.$monitor['AdresseGroupe'].' n\'a pas été trouvée');
 			if (config::byKey('autoAddDevice', 'eibd') && $monitor['AdressePhysique'] != config::byKey('EibdGad', 'eibd')){
 				log::add('eibd', 'debug', 'Création de la commande '.$monitor['AdresseGroupe']);
-				$Equipement=self::AddKnxDevice('Equipement '.$monitor['AdressePhysique'],$monitor['AdressePhysique']);
+				$Equipement=self::AddEquipement('Equipement '.$monitor['AdressePhysique'],$monitor['AdressePhysique']);
 				if($dpt!=false){
-					$Commande=self::AddKnxCmd($Equipement,'Nouvelle_Commande_'.$monitor['AdresseGroupe'],$monitor['AdresseGroupe'],'info',$dpt);
+					$Commande=self::AddCommande($Equipement,'Nouvelle_Commande_'.$monitor['AdresseGroupe'],$monitor['AdresseGroupe'],'info',$dpt);
 					$monitor['valeur']=trim(self::UpdateCommande($Commande,$data["Mode"],$data["Data"]));
 				}
 			}
@@ -412,7 +506,7 @@ class eibd extends eqLogic {
 		} 
 		return $valeur.$unite ;
 	}
-	public static function AddKnxDevice($Name,$_logicalId) 	{
+	public static function AddEquipement($Name,$_logicalId) 	{
 			$Equipement = self::byLogicalId($_logicalId, 'eibd');
 			if (is_object($Equipement)) {
 				$Equipement->setIsEnable(1);
@@ -429,22 +523,40 @@ class eibd extends eqLogic {
 			}
 			return $Equipement;
 		}
-	public static function AddKnxCmd($Equipement,$Name,$_logicalId,$Type="info", $Dpt='') 	{
+	public static function AddCommande($Equipement,$Name,$_logicalId,$Type="info", $Dpt='') {
 		$Commande = $Equipement->getCmd(null,$_logicalId);
-		if (!is_object($Commande)){
+		if (!is_object($Commande))
+		{
+			$VerifName=$Name;
 			$Commande = new EibdCmd();
 			$Commande->setId(null);
-			$Commande->setName($Name);
 			$Commande->setLogicalId($_logicalId);
 			$Commande->setEqLogic_id($Equipement->getId());
+			$count=0;
+			while (is_object(cmd::byEqLogicIdCmdName($Equipement->getId(),$VerifName)))
+			{
+				$count++;
+				$VerifName=$Name.'('.$count.')';
+			}
+			$Commande->setName($VerifName);
 			$Commande->setIsVisible(1);
 			$Commande->setType($Type);
-			if($Type=='info')
-				$Commande->setSubType(Dpt::getDptInfoType($Dpt));
-          	else
-				$Commande->setSubType(Dpt::getDptActionType($Dpt));
-			$Commande->setUnite(Dpt::getDptUnite($Dpt));
-			$Commande->setConfiguration('KnxObjectType',$Dpt);
+			$Commande->setUnite($unite);
+			if ($Dpt!=''){
+				if($Type=='info')
+					$Commande->setSubType(Dpt::getDptInfoType($Dpt));
+				else
+					$Commande->setSubType(Dpt::getDptActionType($Dpt));
+				$Commande->setUnite(Dpt::getDptUnite($Dpt));
+				$Commande->setConfiguration('KnxObjectType',$Dpt);
+			}
+			else{
+				if($Type=='info')
+					$Commande->setSubType('string');
+				else
+					$Commande->setSubType('other');
+				$Commande->setConfiguration('KnxObjectType','1.xxx');
+			}
 			$Commande->save();
 		}
 		return $Commande;
@@ -597,7 +709,7 @@ class eibd extends eqLogic {
 								$type='action';
 							else
 								$type='info';
-							$newCommande=self::AddKnxCmd($Equipement,$GroupAddressName,$AdressGroup,$type,$DatapointType);
+							$newCommande=self::AddCommande($Equipement,$GroupAddressName,$AdressGroup,$type,$DatapointType);
 							foreach(eqLogic::byLogicalId($AdressGroup) as $Cmd){
 								if($Cmd!=$newCommande){
 									if($Cmd->getType() == 'info'){
@@ -644,7 +756,7 @@ class eibd extends eqLogic {
 								$DeviceName= "No name - ".$PhysicalAdress;
 							}
 							//Creation d'un equipement dans Jeedom
-							$Equipement=eibd::AddKnxDevice($DeviceName,$PhysicalAdress);
+							$Equipement=self::AddEquipement($DeviceName,$PhysicalAdress);
 							foreach($Device->getElementsByTagName('ComObjectInstanceRefs') as $ComObjectInstanceRefs){
 								foreach($ComObjectInstanceRefs->getElementsByTagName('ComObjectInstanceRef') as $ComObjectInstanceRef){
 									$DataPointType=split('-',$ComObjectInstanceRef->getAttribute('DatapointType'));
@@ -652,8 +764,8 @@ class eibd extends eqLogic {
 										$DatapointType=$DataPointType[1].'.'.sprintf('%1$03d',$DataPointType[2]);
 									else
 										$DatapointType='aucun';
-									AddCommandeETSParse($Projet,$ComObjectInstanceRef,$Equipement,'Receive');
-									AddCommandeETSParse($Projet,$ComObjectInstanceRef,$Equipement,'Send');
+									self::AddCommandeETSParse($Projet,$ComObjectInstanceRef,$Equipement,'Receive');
+									self::AddCommandeETSParse($Projet,$ComObjectInstanceRef,$Equipement,'Send');
 								}
 							}
 						}
@@ -666,7 +778,7 @@ class eibd extends eqLogic {
 			throw new Exception(__( 'Impossible d\'analyser le document '.$ProjetFile, __FILE__));
 		}
 	}
-}
+  }
 class eibdCmd extends cmd {
     public function preSave() 	{ 
         if ($this->getConfiguration('KnxObjectType') == '') 

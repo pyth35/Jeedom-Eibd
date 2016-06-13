@@ -243,6 +243,29 @@ $(function(){
 			}
 		});
 	$("#table_cmd").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
+	$(".eqLogicAttr[data-l1key=configuration][data-l2key=device]").html($(".eqLogicAttr[data-l1key=configuration][data-l2key=device] option").sort(function (a, b) {
+		return a.text == b.text ? 0 : a.text < b.text ? -1 : 1
+	}));
+	$('.Template[data-action=add]').on('click', function () {
+		if($('.eqLogicAttr[data-l1key=configuration][data-l2key=device]').val()!=""){
+			$('.eqLogicAction[data-action=save]').trigger('click');
+			$.ajax({
+				type: 'POST',   
+				url: 'plugins/eibd/core/ajax/eibd.ajax.php',
+				data:
+				{
+					action: 'AppliTemplate',
+					id:$('.eqLogicAttr[data-l1key=id]').val()
+				},
+				dataType: 'json',
+				global: true,
+				error: function(request, status, error) {},
+				success: function(data) {
+					window.location.reload();
+				}
+			});
+		}
+	});
 });
 function UpdateVar(){
 	$.ajax({
@@ -334,65 +357,121 @@ function addCmdToTable(_cmd) {
 				.append($('<i class="fa fa-flag">')).text('Icone'))
 			.append($('<span class="cmdAttr" data-l1key="display" data-l2key="icon" style="margin-left : 10px;">'))));
 	tr.append($('<td class="wizard">')
-		.append($('<label>').text('{{Data Point Type}}'))
+		.append($('<label>')
+			.text('{{Data Point Type}}')
+			.append($('<sup>')
+				.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
+					.attr('title','Selectionner le type de data KNX'))))
 		.append($('<select class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="KnxObjectType">')
 			.append(OptionSelectDpt(AllDpt)))
-		
-		.append($('<label>').text('{{Groupe d\'adresse}}'))
+		.append($('<label>')
+			.text('{{Groupe d\'adresse}}')
+			.append($('<sup>')
+				.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
+					.attr('title','Saisisez l\'adresse de groupe de votre commande KNX'))))
 		.append($('<input class="cmdAttr form-control input-sm" data-l1key="logicalId" placeholder="{{GAD}}" title="GAD">')));
 	tr.append($('<td class="expertModeVisible wizard">')
 		.append($('<span>')
-				.append($('<input type="checkbox" class="cmdAttr bootstrapSwitch" data-size="mini" data-label-text="{{Initialiser}}" data-l1key="configuration"  data-l2key="init"/>')))
+				.append($('<input type="checkbox" class="cmdAttr bootstrapSwitch" data-size="mini" data-label-text="{{Initialiser}}" data-l1key="configuration"  data-l2key="init"/>'))
+				.append($('<sup>')
+					.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
+						.attr('title','Souhaitez vous initialiser cette commande au démarrage?  (Attention: Avant d\'activer cette option veillez a ce que dans ce groupe d\'adresse, le flag READ soit present'))))
 		.append($('<span>')
-				.append($('<input type="checkbox" class="cmdAttr bootstrapSwitch" data-size="mini" data-label-text="{{Evenement}}" data-l1key="configuration"  data-l2key="eventOnly" checked/>')))
+				.append($('<input type="checkbox" class="cmdAttr bootstrapSwitch" data-size="mini" data-label-text="{{Evenement}}" data-l1key="configuration"  data-l2key="eventOnly" checked/>'))
+				.append($('<sup>')
+					.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
+						.attr('title','Souhaitez vous que la valeur soit mise a jours par le bus monitor'))))
 		.append($('<span>')
-				.append($('<input type="checkbox" class="cmdAttr bootstrapSwitch" data-size="mini" data-label-text="{{Transmetre}}" data-l1key="configuration" data-l2key="transmitReponse">'))));	
+				.append($('<input type="checkbox" class="cmdAttr bootstrapSwitch" data-size="mini" data-label-text="{{Transmetre}}" data-l1key="configuration" data-l2key="transmitReponse">')))
+				.append($('<sup>')
+					.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
+						.attr('title','Soutez vous transmetre une information sur ce groupe d\'adresse'))));	
 	tr.append($('<td class="wizard">')
 		.append($('<span>')
-			.append($('<label>').text('{{Objet a transmetre}}'))
+			.append($('<label>')
+				.text('{{Objet a transmetre}}')
+				.append($('<sup>')
+					.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
+						.attr('title','Selectionner un objet Jeedom dont la valeur est a envoyer sur le reseau KNX'))))
 			.append($('<input class="cmdAttr form-control input-sm " data-l1key="configuration" data-l2key="ObjetTransmit" style="width : 90%;display : inline-block;margin:5px;">'))
 			.append($('<a style="display : inline-block;margin:5px;"class="btn btn-default btn-xs cursor bt_selectCmdExpression" style="position : relative; top : 3px;" title="{{Rechercher une commande}}" id="ObjetTransmit">')
 				.append($('<i class="fa fa-list-alt">'))))
 		.append($('<span>')
-			.append($('<label>').text('{{Retour d\'état}}'))
+			.append($('<label>')
+				.text('{{Retour d\'état}}')
+				.append($('<sup>')
+					.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
+						.attr('title','Choisissez un objet jeedom contenant la valeur de votre commande'))))
 			.append($('<input class="cmdAttr form-control input-sm " data-l1key="value" style="width : 90%;display : inline-block;margin:5px;">'))
 			.append($('<a style="display : inline-block;margin:5px;"class="btn btn-default btn-xs cursor bt_selectCmdExpression" style="position : relative; top : 3px;" title="{{Rechercher une commande}}">')
 				.append($('<i class="fa fa-list-alt">'))))
 			.append($('<div id="groupoption1">')
-				.append($("<label>").text("Option1"))
+				.append($("<label>")
+					.text("Option1")
+					.append($('<sup>')
+						.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
+							.attr('title','option1'))))
 				.append($('<input class="cmdAttr form-control input-sm " data-l1key="configuration" data-l2key="option1">'))
 				.append($('<a class="btn btn-default btn-xs cursor bt_selectCmdExpression" style="position : relative; top : 3px;" title="{{Rechercher une commande}}" id="option1">')
 					.append($('<i class="fa fa-list-alt">'))))
 			.append($('<div id="groupoption2">')
-				.append($("<label>").text("option2"))
+				.append($("<label>")
+					.text("Option2")
+					.append($('<sup>')
+						.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
+							.attr('title','option2'))))
 				.append($('<input class="cmdAttr form-control input-sm " data-l1key="configuration" data-l2key="option2">'))
 				.append($('<a class="btn btn-default btn-xs cursor bt_selectCmdExpression" style="position : relative; top : 3px;" title="{{Rechercher une commande}}" id="option2">')
 					.append($('<i class="fa fa-list-alt">'))))
 			.append($('<div id="groupoption3">')
-				.append($("<label>").text("option3"))
+				.append($("<label>")
+					.text("Option3")
+					.append($('<sup>')
+						.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
+							.attr('title','option3'))))
 				.append($('<input class="cmdAttr form-control input-sm " data-l1key="configuration" data-l2key="option3">'))
 				.append($('<a class="btn btn-default btn-xs cursor bt_selectCmdExpression" style="position : relative; top : 3px;" title="{{Rechercher une commande}}" id="option3">')
 					.append($('<i class="fa fa-list-alt">'))))
 			.append($('<div id="groupoption4">')
-				.append($("<label>").text("option4"))
+				.append($("<label>")
+					.text("Option4")
+					.append($('<sup>')
+						.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
+							.attr('title','option4'))))
 				.append($('<input class="cmdAttr form-control input-sm " data-l1key="configuration" data-l2key="option4">'))
 				.append($('<a class="btn btn-default btn-xs cursor bt_selectCmdExpression" style="position : relative; top : 3px;" title="{{Rechercher une commande}}" id="option4">')
 				.append($('<i class="fa fa-list-alt">'))))
 			.append($('<div id="groupoption5">')
-				.append($("<label>").text("option5"))
+				.append($("<label>")
+					.text("Option5")
+					.append($('<sup>')
+						.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
+							.attr('title','option5'))))
 				.append($('<input class="cmdAttr form-control input-sm " data-l1key="configuration" data-l2key="option5">'))
 			.append($('<a class="btn btn-default btn-xs cursor bt_selectCmdExpression" style="position : relative; top : 3px;" title="{{Rechercher une commande}}" id="option5">')
 				.append($('<i class="fa fa-list-alt">'))))
 			.append($('<input style="width : 120px; margin-bottom : 3px;" class="cmdAttr form-control input-sm" data-l1key="unite" placeholder="{{Unitée}}" title="Unitée">'))
 			.append($('<input style="width : 120px; margin-bottom : 3px;" class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="KnxObjectValue">').hide())
 		.append($('<span>')
-			.append($('<input type="checkbox" class="cmdAttr bootstrapSwitch" data-size="mini" data-label-text="{{Historiser}}" data-l1key="isHistorized" checked/>')))
+			.append($('<input type="checkbox" class="cmdAttr bootstrapSwitch" data-size="mini" data-label-text="{{Historiser}}" data-l1key="isHistorized" checked/>'))
+			.append($('<sup>')
+				.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
+					.attr('title','Souhaitez vous Historiser les changements de valeur'))))
 		.append($('<span>')
-			.append($('<input type="checkbox" class="cmdAttr bootstrapSwitch" data-size="mini" data-label-text="{{Afficher}}" data-l1key="isVisible" checked/>')))
+			.append($('<input type="checkbox" class="cmdAttr bootstrapSwitch" data-size="mini" data-label-text="{{Afficher}}" data-l1key="isVisible" checked/>'))
+			.append($('<sup>')
+				.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
+					.attr('title','Souhaitez vous afficher cette commande sur le dashboard'))))
 		.append($('<span>')
-			.append($('<input type="checkbox" class="cmdAttr bootstrapSwitch" data-size="mini" data-label-text="{{Inverser}}" data-l1key="configuration" data-l2key="inverse">')))
+			.append($('<input type="checkbox" class="cmdAttr bootstrapSwitch" data-size="mini" data-label-text="{{Inverser}}" data-l1key="configuration" data-l2key="inverse">'))
+			.append($('<sup>')
+				.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
+					.attr('title','Souhaitez vous inverser l\'état de la valeur'))))
 		.append($('<span>')
-            .append($('<input type="checkbox" class="cmdAttr bootstrapSwitch" data-size="mini" data-label-text="{{Niveau Batterie}}" data-l1key="configuration" data-l2key="noBatterieCheck">')))
+            .append($('<input type="checkbox" class="cmdAttr bootstrapSwitch" data-size="mini" data-label-text="{{Niveau Batterie}}" data-l1key="configuration" data-l2key="noBatterieCheck">'))
+			.append($('<sup>')
+				.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
+					.attr('title','Activer cette option uniquement si votre équipement est sur batterie. Ce groupe d\'adresse correspond au niveau de batterie'))))
 			.append($('<input class="tooltips cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="minValue" placeholder="{{Min}}" title="{{Min}}" >'))
 			.append($('<input class="tooltips cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="maxValue" placeholder="{{Max}}" title="{{Max}}" >')));
 	tr.append($('<td class="wizard">')
@@ -428,21 +507,36 @@ function wizard(){
 		//Ajouter un test si mode expert ?
 		$('#md_modal').find('.eqLogic').append(
 			$('<div>').addClass('stepWizard')
-				.append($(this).clone())
-				.append($('<div>').addClass('form-group')
-					.append($('<center>')
-						.append($('<a class="btn btn-success btn-sm wizardAction" data-action="prev">')
-							.append($('<i class="fa fa-plus-circle">'))
-							.text('{{Précédent}}'))
-						.append($('<a class="btn btn-success btn-sm wizardAction" data-action="next">')
-							.append($('<i class="fa fa-plus-circle">'))
-							.text('{{Suivant}}'))
-						.append($('<a class="btn btn-success btn-sm wizardAction" data-action="cmd">')
-							.append($('<i class="fa fa-plus-circle">'))
-							.text('{{Ajouter une commande}}').hide())
-						.append($('<a class="btn btn-success btn-sm wizardAction" data-action="save">')
-							.append($('<i class="fa fa-plus-circle">'))
-							.text('{{Sauvgarder}}').hide()))));
+				.append($('<table>')
+					.append($('<tr>')
+						.append($('<td colspan="2">')
+							.append($('<center>')
+								.text($(this).find('.control-label').text()))))
+					.append($('<tr>')
+						.append($('<td>')
+							.append($('<center>')
+								.append($(this).find('.form-control').clone())))
+						.append($('<td>')
+							.append($('<center>')
+								.text($(this).find('sup i').attr('title')))))
+					.append($('<tr>')
+						.append($('<td>')
+							.append($('<center>')
+								.append($('<a class="btn btn-success btn-sm wizardAction" data-action="prev">')
+									.append($('<i class="fa fa-plus-circle">'))
+									.text('{{Précédent}}'))
+								.append($('<a class="btn btn-success btn-sm wizardAction" data-action="next">')
+									.append($('<i class="fa fa-plus-circle">'))
+									.text('{{Suivant}}'))))
+						.append($('<td>')
+							.append($('<center>')
+								.append($('<a class="btn btn-success btn-sm wizardAction" data-action="cmd">')
+									.append($('<i class="fa fa-plus-circle">'))
+									.text('{{Ajouter une commande}}').hide())
+								.append($('<a class="btn btn-success btn-sm wizardAction" data-action="save">')
+									.append($('<i class="fa fa-plus-circle">'))
+									.text('{{Sauvgarder}}').hide()))))));
+
 	});
 	$('#md_modal .data-info').show();
 	$('.stepWizard').hide();

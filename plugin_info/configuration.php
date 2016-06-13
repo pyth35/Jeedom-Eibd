@@ -70,44 +70,6 @@ if (!isConnect()) {
    </fieldset>
 </form>
 <script>
-var ConfKnx=null;
-/*$('.configKey[data-l1key=KNXgateway]').on('change',function(){
-	$('.configKey[data-l1key=TypeKNXgateway]').trigger('change');
-});*/
-$.ajax({
-	async: false,
-	type: 'POST',
-	url: 'plugins/eibd/core/ajax/eibd.ajax.php',
-	data:
-		{
-		action: 'KnxEquipements'
-		},
-	dataType: 'json',
-	global: false,
-	error: function(request, status, error) {},
-	success: function(data) {
-		if (data.state != 'ok') {
-			$('#div_alert').showAlert({message: data.result, level: 'danger'});
-			return;
-		}
-		if(data.result.length > 0)
-		{
-			bootbox.confirm('{{Voulez vous importer la configuration du plugin Knx ? }}', function (result) {
-				if (result) {
-					ConfKnx=data.result
-					$('#md_modal').dialog({
-						title: "{{Importer la configuration du plugin KNX}}",
-						position:{ my: "center", at: "center", of: window },
-						resizable: false,
-						width: 400,
-						height: 200,
-					});
-					$('#md_modal').load('index.php?v=d&plugin=eibd&modal=eibd.ImportKnxConf').dialog('open');
-				}
-			});
-		}
-	}
-});
 $('.SearchGatway').on('click',function(){
 //$('.configKey[data-l1key=TypeKNXgateway]').on('change',function(){
 	if($('.configKey[data-l1key=KNXgateway]').val()==''){

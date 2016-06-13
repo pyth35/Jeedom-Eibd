@@ -1,21 +1,4 @@
 <?php
-
-/* This file is part of Jeedom.
- *
- * Jeedom is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Jeedom is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
- */
-
 try {
     require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
     include_file('core', 'authentification', 'php');
@@ -55,23 +38,6 @@ try {
 		$All_DPT=Dpt::All_DPT();
 		 ajax::success(json_encode($All_DPT));
 	}
-	if (init('action') == 'KnxEquipements') {
-		$Equipements=array();
-		foreach (eqLogic::byType('knx') as $Equipement)
-			$Equipements[]=$Equipement->getId();
-		ajax::success($Equipements);
-	}
-	if (init('action') == 'KnxToEibd') {
-		$Equipements=eqLogic::byId(init('id'));
-		$Equipements->setEqType_name('eibd');
-		$Equipements->save();
-		foreach($Equipements->getCmd() as $Commande)
-		{
-			$Commande->setEqType('eibd');
-			$Commande->save();
-		}
-		ajax::success(true);
-	}
 	if (init('action') == 'Read') {
 		$Commande=cmd::byLogicalId(init('Gad'))[0];
 		if (is_object($Commande)){
@@ -105,6 +71,13 @@ try {
 		if (isset($_FILES['Knxproj'])){
 			ajax::success(eibd::ParserEtsFile($_FILES['Knxproj']['tmp_name']));
 		}
+	}
+  if (init('action') == 'AppliTemplate') {
+		$EqLogic=eqLogic::byId(init('id'));
+		if (is_object($EqLogic)){
+			$EqLogic->applyModuleConfiguration();
+		}
+		ajax::success(true);
 	}
    throw new Exception(__('Aucune methode correspondante à : ', __FILE__) . init('action'));
     /*     * *********Catch exeption*************** */
