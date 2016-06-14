@@ -82,130 +82,119 @@ $eqLogics = eqLogic::byType('eibd');
             echo '<div class="alert alert-danger" >{{Attention le démon KNX n\'est pas en marche. Vérifiez pourquoi.}}</div>';
         }
         ?>
-		<div class="row">
-            <div class="col-sm-6">
-				<form class="form-horizontal">
-					<fieldset>			
-						<legend>
-								<i class="fa fa-arrow-circle-left eqLogicAction cursor" data-action="returnToThumbnailDisplay"></i> {{Général}}  
-								<i class="fa fa-cogs eqLogicAction pull-right cursor expertModeVisible" data-action="configure"></i>
-								<a class="btn btn-default btn-xs pull-right expertModeVisible eqLogicAction" data-action="copy"><i class="fa fa-copy"></i>{{Dupliquer}}</a>
-								<a class="btn btn-success btn-xs eqLogicAction pull-right" data-action="save"><i class="fa fa-check-circle"></i> Sauvegarder</a>
-								<a class="btn btn-danger btn-xs eqLogicAction pull-right" data-action="remove"><i class="fa fa-minus-circle"></i> Supprimer</a>
-						</legend>  
-						<div class="form-group wizard">
-							<label class="col-md-2 control-label">
-								{{Nom de l'équipement KNX}}
-								<sup>
-									<i class="fa fa-question-circle tooltips" title="Indiquez le nom de votre équipement" style="font-size : 1em;color:grey;"></i>
-								</sup>
-							</label>
-							<div class="col-md-3">
-								<input type="text" class="eqLogicAttr form-control" data-l1key="id" style="display : none;" />
-								<input type="text" class="eqLogicAttr form-control" data-l1key="name" placeholder="{{Nom de l'équipement KNX}}"/>
-							</div>
-						</div>
-						<div class="form-group wizard expertModeVisible">
-							<label class="col-md-2 control-label ">{{Adresse Physique de l'équipement}}
-								<sup>
-									<i class="fa fa-question-circle tooltips" title="Indiquez l'adresse physique de votre équipement. Cette information n'est pas obigatoire mais peut etre utile dans certain cas. Pour la trouver, il faut la retrouver sur le logiciel ETS" style="font-size : 1em;color:grey;"></i>
-								</sup>
-							</label>
-							<div class="col-lg-3">
-								<input type="text" class="eqLogicAttr form-control" data-l1key="logicalId"/>
-							</div>
-						</div>
-						<div class="form-group wizard">
-							<label class="col-md-2 control-label" >
-								{{Objet parent}}
-								<sup>
-									<i class="fa fa-question-circle tooltips" title="Indiquez l'objet dans lequel le widget de cette equipement apparaiterai sur le dashboard" style="font-size : 1em;color:grey;"></i>
-								</sup>
-							</label>
-							<div class="col-md-3">
-								<select id="sel_object" class="eqLogicAttr form-control" data-l1key="object_id">
-									<?php
-									foreach (object::all() as $object) {
-										echo '<option value="' . $object->getId() . '">' . $object->getName() . '</option>';
-									}
-									?>
-								</select>
-							</div>
-						</div>
-						<div class="form-group wizard">
-							<label class="col-md-2 control-label">
-								{{Catégorie}}
-								<sup>
-									<i class="fa fa-question-circle tooltips" title="Choisissez une catégorie
-								Cette information n'est pas obigatoire mais peut etre utile pour filtrer les widget" style="font-size : 1em;color:grey;"></i>
-								</sup>
-							</label>
-							<div class="col-md-8">
-								<?php
-								foreach (jeedom::getConfiguration('eqLogic:category') as $key => $value) {
-									echo '<label class="checkbox-inline">';
-									echo '<input type="checkbox" class="eqLogicAttr" data-l1key="category" data-l2key="' . $key . '" />' . $value['name'];
-									echo '</label>';
-								}
-								?>
-
-							</div>
-						</div>
-						<div class="form-group wizard">
-							<label class="col-sm-2 control-label" >
-								{{Etat du widget}}
-								<sup>
-									<i class="fa fa-question-circle tooltips" title="Choisissez les options de visibilité et d'activation
-								Si l'equipement n'est pas activé il ne sera pas utilisable dans jeedom, mais visible sur le dashboard
-								Si l'equipement n'est pas visible il ne sera caché sur le dashbord, mais utilisable dans jeedom" style="font-size : 1em;color:grey;"></i>
-								</sup>
-							</label>
-							<div class="col-sm-9">
-								<input type="checkbox" class="eqLogicAttr bootstrapSwitch" data-label-text="{{Activer}}" data-l1key="isEnable" checked/>
-								<input type="checkbox" class="eqLogicAttr bootstrapSwitch" data-label-text="{{Visible}}" data-l1key="isVisible" checked/>
-							</div>
-						</div>
-						<div class="form-group expertModeVisible wizard">
-							<label class="col-md-2 control-label">
-								{{Délai max entre 2 messages}}
-								<sup>
-									<i class="fa fa-question-circle tooltips" title="Cette information est optionnel et permet de définir si un équipement est fonctionnel ou non. Il ne peut etre utilisé que si votre équipement envoi régulierement des information (sonde de température, horloge, ...)" style="font-size : 1em;color:grey;"></i>
-								</sup>
-							</label>
-							<div class="col-md-3">
-								<input class="eqLogicAttr form-control" data-l1key="timeout" placeholder="Délai maximum autorisé entre 2 messages (en mn)"/>
-							</div>
-						</div>
-					</fieldset> 
-				</form>
+	<form class="form-horizontal">
+		<fieldset>			
+			<legend>
+					<i class="fa fa-arrow-circle-left eqLogicAction cursor" data-action="returnToThumbnailDisplay"></i> {{Général}}  
+					<i class="fa fa-cogs eqLogicAction pull-right cursor expertModeVisible" data-action="configure"></i>
+					<a class="btn btn-default btn-xs pull-right expertModeVisible eqLogicAction" data-action="copy"><i class="fa fa-copy"></i>{{Dupliquer}}</a>
+					<a class="btn btn-success btn-xs eqLogicAction pull-right" data-action="save"><i class="fa fa-check-circle"></i> Sauvegarder</a>
+					<a class="btn btn-danger btn-xs eqLogicAction pull-right" data-action="remove"><i class="fa fa-minus-circle"></i> Supprimer</a>
+			</legend>  
+			<div class="form-group wizard">
+				<label class="col-md-2 control-label">
+					{{Nom de l'équipement KNX}}
+					<sup>
+						<i class="fa fa-question-circle tooltips" title="Indiquez le nom de votre équipement" style="font-size : 1em;color:grey;"></i>
+					</sup>
+				</label>
+				<div class="col-md-3">
+					<input type="text" class="eqLogicAttr form-control" data-l1key="id" style="display : none;" />
+					<input type="text" class="eqLogicAttr form-control" data-l1key="name" placeholder="{{Nom de l'équipement KNX}}"/>
+				</div>
 			</div>
-			<div class="col-sm-6">
-				<form class="form-horizontal">
-					<fieldset>
-						<legend><i class="fa fa-wrench"></i>  {{Configuration}}</legend>
-						<div class="form-group">
-							<label class="col-sm-2 control-label">
-								{{Modèle}}
-								<sup>
-									<i class="fa fa-question-circle tooltips" title="Choisissez si vous le souhaité un model de configuration d'équipement" style="font-size : 1em;color:grey;"></i>
-								</sup>
-							</label>
-							<div class="col-sm-5">
-								<select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="device">
-									<option value="">{{Aucun}}</option>
-									<?php
-									foreach (eibd::devicesParameters() as $id => $info) {
-										echo '<option value="' . $id . '">' . $info['name'] . '</option>';
-									}
-									?>
-								</select>
-								<a class="btn btn-success btn-sm Template" data-action="add"><i class="fa fa-plus-circle"></i> {{Ajouter les Commande}}</a>
-						   </div>
-					   </div>
-					</fieldset>
-				</form>
+			<div class="form-group wizard expertModeVisible">
+				<label class="col-md-2 control-label ">{{Adresse Physique de l'équipement}}
+					<sup>
+						<i class="fa fa-question-circle tooltips" title="Indiquez l'adresse physique de votre équipement. Cette information n'est pas obigatoire mais peut etre utile dans certain cas. Pour la trouver, il faut la retrouver sur le logiciel ETS" style="font-size : 1em;color:grey;"></i>
+					</sup>
+				</label>
+				<div class="col-lg-3">
+					<input type="text" class="eqLogicAttr form-control" data-l1key="logicalId"/>
+				</div>
 			</div>
-		</div>
+			<div class="form-group wizard">
+				<label class="col-md-2 control-label" >
+					{{Objet parent}}
+					<sup>
+						<i class="fa fa-question-circle tooltips" title="Indiquez l'objet dans lequel le widget de cette equipement apparaiterai sur le dashboard" style="font-size : 1em;color:grey;"></i>
+					</sup>
+				</label>
+				<div class="col-md-3">
+					<select id="sel_object" class="eqLogicAttr form-control" data-l1key="object_id">
+						<?php
+						foreach (object::all() as $object) {
+							echo '<option value="' . $object->getId() . '">' . $object->getName() . '</option>';
+						}
+						?>
+					</select>
+				</div>
+			</div>
+			<div class="form-group wizard">
+				<label class="col-md-2 control-label">
+					{{Catégorie}}
+					<sup>
+						<i class="fa fa-question-circle tooltips" title="Choisissez une catégorie
+					Cette information n'est pas obigatoire mais peut etre utile pour filtrer les widget" style="font-size : 1em;color:grey;"></i>
+					</sup>
+				</label>
+				<div class="col-md-8">
+					<?php
+					foreach (jeedom::getConfiguration('eqLogic:category') as $key => $value) {
+						echo '<label class="checkbox-inline">';
+						echo '<input type="checkbox" class="eqLogicAttr" data-l1key="category" data-l2key="' . $key . '" />' . $value['name'];
+						echo '</label>';
+					}
+					?>
+	
+				</div>
+			</div>
+			<div class="form-group wizard">
+				<label class="col-sm-2 control-label" >
+					{{Etat du widget}}
+					<sup>
+						<i class="fa fa-question-circle tooltips" title="Choisissez les options de visibilité et d'activation
+					Si l'equipement n'est pas activé il ne sera pas utilisable dans jeedom, mais visible sur le dashboard
+					Si l'equipement n'est pas visible il ne sera caché sur le dashbord, mais utilisable dans jeedom" style="font-size : 1em;color:grey;"></i>
+					</sup>
+				</label>
+				<div class="col-sm-9">
+					<input type="checkbox" class="eqLogicAttr bootstrapSwitch" data-label-text="{{Activer}}" data-l1key="isEnable" checked/>
+					<input type="checkbox" class="eqLogicAttr bootstrapSwitch" data-label-text="{{Visible}}" data-l1key="isVisible" checked/>
+				</div>
+			</div>
+			<div class="form-group expertModeVisible wizard">
+				<label class="col-md-2 control-label">
+					{{Délai max entre 2 messages}}
+					<sup>
+						<i class="fa fa-question-circle tooltips" title="Cette information est optionnel et permet de définir si un équipement est fonctionnel ou non. Il ne peut etre utilisé que si votre équipement envoi régulierement des information (sonde de température, horloge, ...)" style="font-size : 1em;color:grey;"></i>
+					</sup>
+				</label>
+				<div class="col-md-3">
+					<input class="eqLogicAttr form-control" data-l1key="timeout" placeholder="Délai maximum autorisé entre 2 messages (en mn)"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">
+					{{Modèle}}
+					<sup>
+						<i class="fa fa-question-circle tooltips" title="Choisissez si vous le souhaité un model de configuration d'équipement" style="font-size : 1em;color:grey;"></i>
+					</sup>
+				</label>
+				<div class="col-sm-5">
+					<select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="device">
+						<option value="">{{Aucun}}</option>
+						<?php
+						foreach (eibd::devicesParameters() as $id => $info) {
+							echo '<option value="' . $id . '">' . $info['name'] . '</option>';
+						}
+						?>
+					</select>
+					<a class="btn btn-success btn-sm Template" data-action="add"><i class="fa fa-plus-circle"></i> {{Ajouter les Commande}}</a>
+			   </div>
+		   </div>
+		</fieldset> 
+	</form>
         <legend>{{Commandes}}</legend>
         <a class="btn btn-success btn-sm cmdAction" data-action="add"><i class="fa fa-plus-circle"></i> {{Ajouter une commande KNX}}</a>
 		<a class="btn btn-danger btn-sm eqLogicAction" data-action="remove"><i class="fa fa-minus-circle"></i> {{Supprimer}}</a>
