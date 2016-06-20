@@ -122,10 +122,9 @@ class Dpt{
 			$data = array(($value[1]>>24)& 0xff, ($value[1]>>16)& 0xff, ($value[1]>>8)& 0xff,$value[1]& 0xff);
 			break;
 		case "16":
-			/*data = 0x00
-			for shift in range(104, -1, -8):
-				data |= value[13 - shift / 8] << shift*/
-			$data= array($value);
+			$data= array();
+			for ($i=0; $i < strlen($value); $i++)
+				$data[]= dechex(ord($value[$i]));
 			break;
 		case "17":
 		/*ctrl = value[0]
@@ -309,7 +308,9 @@ class Dpt{
 			$value = unpack("f", pack("L", $value))[1];
 			break;
 		case "16":
-		   // $value = tuple([int((data >> shift) & 0xff) for shift in range(104, -1, -8)])
+			$value='';
+			foreach($data as $chr)
+				$value .= chr(hexdec($chr));
 			break;
 		case "17":
 			  $ctrl = ($data[0] >> 7) & 0x01;
