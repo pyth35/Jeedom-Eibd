@@ -17,9 +17,9 @@ class eibd extends eqLogic {
 		if (is_object(eqLogic::byLogicalId($this->getLogicalId(),'eibd')))     
 			$this->setLogicalId('');
 	}
-    public function preSave() {
+	public function preSave() {
 		$this->setLogicalId(trim($this->getLogicalId()));    
-    }
+	}
 	public function postSave() {
 	}	
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -63,12 +63,12 @@ class eibd extends eqLogic {
 		}
 		return $return;
 	}
-	public function applyModuleConfiguration() {
-		if ($this->getConfiguration('device') == '') {
+	public function applyModuleConfiguration($template) {
+		if ($template == '') {
 			$this->save();
 			return true;
 		}
-		$device = self::devicesParameters($this->getConfiguration('device'));
+		$device = self::devicesParameters($template);
 		if (!is_array($device) || !isset($device['cmd'])) {
 			return true;
 		}
