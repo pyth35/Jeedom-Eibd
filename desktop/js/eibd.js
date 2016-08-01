@@ -1,5 +1,5 @@
-var AllDpt;
-var DptSelectorOption;
+var AllDpt=null;
+var DptSelectorOption=null;
 $(function(){
 	UpdateVar();
 	if (getUrlVars('wizard') == 1) {
@@ -272,18 +272,17 @@ function UpdateVar(){
 		type: 'POST',            
 		async: false,
 		url: 'plugins/eibd/core/ajax/eibd.ajax.php',
-		data:
-			{
+		data:{
 			action: 'getAllDpt'
-			},
+		},
 		dataType: 'json',
 		global: false,
 		error: function(request, status, error) {},
 		success: function(data) {
 			AllDpt=jQuery.parseJSON(data.result);
-			}
-		});
-	}
+		}
+	});
+}
 function DptUnit(Dpt)	{
 	var result;
 	$.each(AllDpt, function(key, value){
@@ -310,31 +309,27 @@ function getDptSousType(Dpt,type)	{
 }
 function DptValue(Dpt){
 	var result='<option value="">{{Imposer une valeur}}</option>';
-		$.each(AllDpt, function(key, value){
-			$.each(value, function(key, value){
-				if (key==Dpt)
-					{
-					$.each(value.Valeurs, function(key, value){
-						result+='<option value="'+key+'">{{'+value+'}}</option>';
-						});
-					}
+	$.each(AllDpt, function(key, value){
+		$.each(value, function(key, value){
+			if (key==Dpt)
+			{
+				$.each(value.Valeurs, function(key, value){
+					result+='<option value="'+key+'">{{'+value+'}}</option>';
 				});
-			});
+			}
+		});
+	});
 	return result;
-	}
+}
 function OptionSelectDpt(AllDpt){
-	if(DptSelectorOption == undefined)
-		{
-		DptSelectorOption='<option value="">{{Sélèctionner un DPT}}</option>';
-		
-			$.each(AllDpt, function(key, value){
-				DptSelectorOption+= '<optgroup label="{{'+key+'}}">';
-				$.each(value, function(key, value){
-					DptSelectorOption+='<option value="'+key+'">{{'+key+' - '+value["Name"]+'}}</option>';
-					});
-				DptSelectorOption+='</optgroup>';
-				});
-		}
+	DptSelectorOption='<option value="">{{Sélèctionner un DPT}}</option>';
+	$.each(AllDpt, function(key, value){
+		DptSelectorOption+= '<optgroup label="{{'+key+'}}">';
+		$.each(value, function(key, value){
+			DptSelectorOption+='<option value="'+key+'">{{'+key+' - '+value["Name"]+'}}</option>';
+		});
+	DptSelectorOption+='</optgroup>';
+	});
 	return DptSelectorOption;
 	}
 function addCmdToTable(_cmd) {
