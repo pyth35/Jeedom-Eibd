@@ -255,7 +255,8 @@ $(function(){
 				data:
 				{
 					action: 'AppliTemplate',
-					id:$('.eqLogicAttr[data-l1key=id]').val()
+					id:$('.eqLogicAttr[data-l1key=id]').val(),
+					template:$('.Template[data-l1key=type]').val()
 				},
 				dataType: 'json',
 				global: true,
