@@ -247,7 +247,7 @@ $(function(){
 		return a.text == b.text ? 0 : a.text < b.text ? -1 : 1
 	}));
 	$('.Template[data-action=add]').on('click', function () {
-		if($('.eqLogicAttr[data-l1key=configuration][data-l2key=device]').val()!=""){
+		if($('.Template[data-l1key=type]').val()!=""){
 			$('.eqLogicAction[data-action=save]').trigger('click');
 			$.ajax({
 				type: 'POST',   
