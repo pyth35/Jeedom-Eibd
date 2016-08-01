@@ -186,7 +186,7 @@ $eqLogics = eqLogic::byType('eibd');
         <a class="btn btn-success btn-sm cmdAction" data-action="add"><i class="fa fa-plus-circle"></i> {{Ajouter une commande KNX}}</a>
 		<a class="btn btn-danger btn-sm eqLogicAction" data-action="remove"><i class="fa fa-minus-circle"></i> {{Supprimer}}</a>
 		<a class="btn btn-success btn-sm eqLogicAction" data-action="save"><i class="fa fa-check-circle"></i> {{Sauvegarder}}</a>
-			<div class="form-group pull-right">
+			<div class="form-group pull-right" style="display:inline">
 				<select class="Template form-control" data-l1key="type">
 					<option value="">{{Aucun}}</option>
 					<?php
