@@ -75,7 +75,7 @@ try {
   if (init('action') == 'AppliTemplate') {
 		$EqLogic=eqLogic::byId(init('id'));
 		if (is_object($EqLogic)){
-			$EqLogic->applyModuleConfiguration();
+			$EqLogic->applyModuleConfiguration(init('template'));
 		}
 		ajax::success(true);
 	}
