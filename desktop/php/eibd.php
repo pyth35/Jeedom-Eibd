@@ -187,7 +187,7 @@ $eqLogics = eqLogic::byType('eibd');
 		<a class="btn btn-danger btn-sm eqLogicAction" data-action="remove"><i class="fa fa-minus-circle"></i> {{Supprimer}}</a>
 		<a class="btn btn-success btn-sm eqLogicAction" data-action="save"><i class="fa fa-check-circle"></i> {{Sauvegarder}}</a>
 		<div class="pull-right" >
-			<select class="Template form-control" data-l1key="type">
+			<select class="Template input-sm" data-l1key="type">
 				<option value="">{{Aucun}}</option>
 				<?php
 				foreach (eibd::devicesParameters() as $id => $info) {
