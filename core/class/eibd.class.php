@@ -102,7 +102,7 @@ class eibd extends eqLogic {
 				if (isset($command['value']) && $command['value']!="") {
 					$CmdValue=cmd::byEqLogicIdCmdName($this->getId(),$command['value']);
 					if(is_object($CmdValue))
-						$cmd->setValue($CmdValue->getHumanName());
+						$cmd->setValue('#'.$CmdValue->getId().'#');
 					else
 						$cmd->setValue(null);
 				}
