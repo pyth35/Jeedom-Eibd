@@ -309,8 +309,8 @@ class Dpt{
 			break;
 		case "16":
 			$value='';
-			foreach($data as $chr)
-					$value.=chr(bin2hex($chr));
+			/*foreach($data as $chr)
+					$value.=chr(bin2hex($chr));*/
 			break;
 		case "17":
 			  $ctrl = ($data[0] >> 7) & 0x01;
