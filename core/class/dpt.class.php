@@ -122,7 +122,9 @@ class Dpt{
 			$data = array(($value[1]>>24)& 0xff, ($value[1]>>16)& 0xff, ($value[1]>>8)& 0xff,$value[1]& 0xff);
 			break;
 		case "16":
-			$data=str_split(self::strToHex($value),2);
+			$data=array();
+			foreach($value as $chr)
+				$data[]=ord($chr));
 			break;
 		case "17":
 		/*ctrl = value[0]
@@ -306,7 +308,9 @@ class Dpt{
 			$value = unpack("f", pack("L", $value))[1];
 			break;
 		case "16":
-			$value=self::hexToStr(implode($data));
+			$value='';
+			foreach($data as $chr)
+					$value.=chr(bin2hex($chr));
 			break;
 		case "17":
 			  $ctrl = ($data[0] >> 7) & 0x01;
@@ -575,20 +579,6 @@ class Dpt{
 		$color .= (strlen($g) < 2?'0':'').$g;
 		$color .= (strlen($b) < 2?'0':'').$b;
 		return '#'.$color;
-	}
-	private function strToHex($string){
-		$hex='';
-		for ($i=0; $i < strlen($string); $i++){
-			$hex .= dechex(ord($string[$i]));
-		}
-		return $hex;
-	}
-	private function hexToStr($hex){
-		$string='';
-		for ($i=0; $i < strlen($hex)-1; $i+=2){
-			$string .= chr(hexdec($hex[$i].$hex[$i+1]));
-		}
-		return $string;
 	}
 	public function getDptUnite($dpt){
 		$All_DPT=self::All_DPT();
