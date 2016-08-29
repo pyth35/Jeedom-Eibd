@@ -173,7 +173,7 @@ class Dpt{
 				}
 			break;
 			case "232":	
-				$data= array(($value>>16) & 0xFF, ($value>>8) & 0xFF,$value & 0xFF);
+				$data= self::html2rgb($value);
 			break;
 			default:
 				switch($dpt){
@@ -466,7 +466,7 @@ class Dpt{
 				}
 			break;
 			case "232":
-				$value = $data[0] << 16 | $data[1] << 8 | $data[2] ;
+				$value= self::rgb2html($data[0] << 16 ,$data[1] << 8 , $data[2]);
 			break;
 			default:
 				switch($dpt){
@@ -547,6 +547,38 @@ class Dpt{
 			break;
 		};
 		return $value;
+	}
+	private function html2rgb($color){
+		if ($color[0] == '#')
+			$color = substr($color, 1);
+		if (strlen($color) == 6)
+			list($r, $g, $b) = array($color[0].$color[1],
+		$color[2].$color[3],
+		$color[4].$color[5]);
+		elseif (strlen($color) == 3)
+			list($r, $g, $b) = array($color[0].$color[0], $color[1].$color[1], $color[2].$color[2]);
+		else
+			return false;
+		$r = hexdec($r); 
+		$g = hexdec($g);
+		$b = hexdec($b);
+		return array($r, $g, $b);
+	}
+	private function rgb2html($r, $g=-1, $b=-1)	{
+		if (is_array($r) && sizeof($r) == 3)
+			list($r, $g, $b) = $r;
+		$r = intval($r); 
+		$g = intval($g);
+		$b = intval($b);
+		
+		$r = dechex($r<0?0:($r>255?255:$r));
+		$g = dechex($g<0?0:($g>255?255:$g));
+		$b = dechex($b<0?0:($b>255?255:$b));
+		
+		$color = (strlen($r) < 2?'0':'').$r;
+		$color .= (strlen($g) < 2?'0':'').$g;
+		$color .= (strlen($b) < 2?'0':'').$b;
+		return '#'.$color;
 	}
 	public function getDptUnite($dpt)	{
 		$All_DPT=self::All_DPT();
@@ -1898,7 +1930,7 @@ class Dpt{
 			"232.600"=> array(
 				"Name"=>"Colour RGB",
 				"Valeurs"=>array(),
-				"InfoType"=>'numeric',
+				"InfoType"=>'string',
 				"ActionType"=>'color',
 				"Option" =>array(),
 				"Unite" =>"")),
