@@ -123,7 +123,7 @@ class Dpt{
 			break;
 		case "16":
 			$data=array();
-			foreach($value as $chr)
+			foreach(str_split($value) as $chr)
 				$data[]=ord($chr);
 			break;
 		case "17":
