@@ -124,7 +124,7 @@ class Dpt{
 		case "16":
 			$data=array();
 			foreach($value as $chr)
-				$data[]=ord($chr));
+				$data[]=ord($chr);
 			break;
 		case "17":
 		/*ctrl = value[0]
