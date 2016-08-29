@@ -123,8 +123,8 @@ class Dpt{
 			break;
 		case "16":
 			$data= array();
-			for ($i=0; $i < strlen($value); $i=$i+2)
-				$data[]= dechex(ord($value[$i].$value[$i+1]));
+			for ($i=0; $i < strlen($value); $i=$i)
+				$data[]= dechex(ord($value[$i]));
 			break;
 		case "17":
 		/*ctrl = value[0]
