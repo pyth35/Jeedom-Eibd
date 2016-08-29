@@ -1,54 +1,111 @@
 #!/bin/bash
-INSTALL_DIR=/usr/local/bin
-TEMP_DIR=`mktemp -d /tmp/knxd.XXXXXX`
-KNXD_bin=$INSTALL_DIR/knxd
-echo "*****************************************************************************************************"
-echo "*                                   Installation des dépendance                                     *"
-echo "*****************************************************************************************************"
-apt-get -qy install update
-apt-get -qy install git-core
-apt-get -qy install build-essential 
-apt-get -qy install cdbs
-apt-get -qy install autoconf
-apt-get -qy install libtool
-apt-get -qy install libusb-1.0-0-dev
-apt-get -qy install pkg-config
-apt-get -qy install libsystemd-deamon-dev 
-apt-get -qy install dh-systemd
-mkdir -p /etc/knxd
-if [ "$(cat /etc/knxd/pthsem_VERSION)" != "v2.0.8" ]
-then
-echo "*****************************************************************************************************"
-echo "*                                       Installation de pthsem                                      *"
-echo "*****************************************************************************************************"
-cd $TEMP_DIR
-wget https://www.auto.tuwien.ac.at/~mkoegler/pth/pthsem_2.0.8.tar.gz
-tar xzf pthsem_2.0.8.tar.gz
-cd pthsem-2.0.8
-dpkg-buildpackage -b -uc -d
-cd ..
-sudo dpkg -i libpthsem*.deb
-echo "v2.0.8" > /etc/knxd/pthsem_VERSION
+install_dependances ()
+{
+  echo "-------------------------------------------------------------------"
+  echo "Installation des dependances                    "
+  echo "-------------------------------------------------------------------"
+  #sudo apt-get install gcc g++ make locales --yes -y -qq
+
+  sudo apt-get update --yes -y -qq
+  sudo apt-get upgrade --yes -y -qq
+
+
+  PAQUAGES=${PAQUAGES}" gcc g++ make"
+  echo "-------------------------------------------------------------------"
+  echo "Liste des paquets installés 1/3 : "
+  echo ${PAQUAGES}
+  echo "-------------------------------------------------------------------"
+  sudo apt-get install ${PAQUAGES} --yes -y -qq
+  PAQUAGES=" ";
+
+  PAQUAGES=${PAQUAGES}" liblog4cpp5-dev libesmtp-dev liblua5.1-0-dev libxml2 dpkg"
+  echo "-------------------------------------------------------------------"
+  echo "Liste des paquets installés 2/3 : "
+  echo ${PAQUAGES}
+  echo "-------------------------------------------------------------------"
+  sudo apt-get install ${PAQUAGES} --yes -y -qq
+  PAQUAGES=" ";
+  PAQUAGES=${PAQUAGES}" libcurl4-openssl-dev openssl libssl-dev build-essential file autoconf dh-make debhelper devscripts fakeroot gnupg"
+  echo "-------------------------------------------------------------------"
+  echo "Liste des paquets installés 3/3 : "
+  echo ${PAQUAGES}
+  echo "-------------------------------------------------------------------"
+  sudo apt-get install ${PAQUAGES} --yes -y -qq
+  PAQUAGES=" ";
+  echo "-------------------------------------------------------------------"
+  echo " Fin de l'install des paquets nécessaires : "
+  echo "-------------------------------------------------------------------"
+  sudo apt-get install -f -y -qq --yes
+  PAQUAGES=" ";
+}
+install_knxd ()
+{
+echo "-------------------------------------------------------------------"
+echo "----======  knxd 0.10  ======----"
+KNXD_PATH=`which knxd`
+if test x$KNXD_PATH = x; then :
+  echo "Installation de knxd 0.10                    "
+
+  sudo apt-get install cdbs --yes -y -qq
+
+  wget https://www.auto.tuwien.ac.at/~mkoegler/pth/pthsem_2.0.8.tar.gz
+  tar xzf pthsem_2.0.8.tar.gz
+  cd pthsem-2.0.8
+  sudo dpkg-buildpackage -b -uc
+  cd ..
+  sudo dpkg -i libpthsem*.deb
+
+  echo "Installation de pthsem terminée "
+
+  #echo " executer sudo VISUDO et ajouter: www-data ALL=(ALL) NOPASSWD: ALL "
+  #sudo wget -O knxd.zip https://github.com/knxd/knxd/archive/master.zip
+
+  sudo apt-get install git-core build-essential debhelper cdbs autoconf automake libtool libusb-1.0-0-dev libsystemd-daemon-dev dh-systemd --yes -y -qq
+  git clone https://github.com/knxd/knxd.git
+
+  sudo mv knxd-master knxd
+  cd knxd
+
+  sudo dpkg-buildpackage -b -uc
+  cd ..
+  sudo dpkg -i knxd_*.deb knxd-tools_*.deb
+
+  echo " " > /var/log/knxd.log
+  sudo chmod 777 /var/log/knxd.log
+
+# sudo nano /etc/knxd.conf
+# KNXD_OPTS=="-u /tmp/eib -u /var/run/knx -i -b ipt:192.168.188.XX"
+# KNXD_OPTS=="-u /tmp/eib -u /var/run/knx -i -b ipt:$knxd_ipport"
+# sudo nano /etc/default/knxd
+# START_KNXD=YES
+
+  # KNXD_OPTS="-u /tmp/eib -b ip:"
+  # try KNXnet/IP Routing with default Multicast 224.0.23.12
+  echo "\t *** Autodetecting Interface IP/KNX."
+  EIBNETTMP=`mktemp`
+  eibnetsearch - > $EIBNETTMP
+  # Take only first :
+  EIBD_NET_MCAST=`grep Multicast $EIBNETTMP | cut -d' ' -f2 | sed -n '1p'`
+  # Take only first :
+  EIBD_NET_HOST=`grep Answer $EIBNETTMP | cut -d' ' -f3 | sed -n '1p'`
+  EIBD_NET_PORT=`grep Answer $EIBNETTMP | cut -d' ' -f6 | sed -n '1p'`
+  # Take only first :
+  EIBD_NET_NAME=`grep Name $EIBNETTMP | cut -d' ' -f2 | sed -n '1p'`
+
+  EIBD_MY_IP=`ifconfig eth0 | grep 'inet addr' | sed -e 's/:/ /' | awk '{print $3}'`
+  rm $EIBNETTMP
+  if [ "$EIBD_NET_MCAST" != "" -a "$EIBD_NET_HOST" != "$EIBD_MY_IP" ]; then
+    echo "Found KNXnet/IP Router $EIBD_NET_NAME on $EIBD_NET_HOST with $EIBD_NET_MCAST"
+    #sudo echo "KNXD_OPTS=\"--daemon=/var/log/knxd.log -D -T -R -S ip:$EIBD_NET_HOST\"" >> /etc/knxd.conf
+    sudo echo "KNXD_OPTS=\"-u /tmp/eib -b ip:$EIBD_NET_HOST\"" >> /etc/knxd.conf
+  fi
+
+else
+  KNXD_VERSION=`$KNXD_PATH -V`
+  echo "KNXD deja installe : $KNXD_VERSION "
 fi
-if [ "$(cat /etc/knxd/KNXD_VERSION)" != "v0.10" ]
-then
-echo "*****************************************************************************************************"
-echo "*                                       Installation de KNXD                                        *"
-echo "*****************************************************************************************************"
-cd $TEMP_DIR
-git clone https://github.com/knxd/knxd.git
-cd knxd
-dpkg-buildpackage -b -uc -d
-cd ..
-sudo dpkg -i knxd_*.deb knxd-tools_*.deb
-echo "v0.10" > /etc/knxd/KNXD_VERSION
-fi
-echo "*****************************************************************************************************"
-echo "*                                       Configuration de KNXD                                       *"
-echo "*****************************************************************************************************"+
-tee /etc/knxd.conf <<- 'EOF'
-KNXD_OPTS ="-D -T -R -S -b ipt:"
-EOF
-sudo chmod 777 /etc/knxd.conf
-sudo systemctl enable knxd.service
-sudo systemctl start knxd.service
+echo "-------------------------------------------------------------------"
+}
+
+install_dependances
+install_knxd
