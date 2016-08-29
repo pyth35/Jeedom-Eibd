@@ -122,9 +122,7 @@ class Dpt{
 			$data = array(($value[1]>>24)& 0xff, ($value[1]>>16)& 0xff, ($value[1]>>8)& 0xff,$value[1]& 0xff);
 			break;
 		case "16":
-			$data= array();
-			for ($i=0; $i < strlen($value); $i=$i)
-				$data[]= dechex(ord($value[$i]));
+			$data=str_split(self::strToHex($value),2);
 			break;
 		case "17":
 		/*ctrl = value[0]
@@ -308,9 +306,7 @@ class Dpt{
 			$value = unpack("f", pack("L", $value))[1];
 			break;
 		case "16":
-			$value='';
-			/*foreach($data as $chr)
-				$value .= chr(hexdec($chr));*/
+			$value=self::hexToStr(implode($data));
 			break;
 		case "17":
 			  $ctrl = ($data[0] >> 7) & 0x01;
@@ -580,7 +576,23 @@ class Dpt{
 		$color .= (strlen($b) < 2?'0':'').$b;
 		return '#'.$color;
 	}
-	public function getDptUnite($dpt)	{
+	private function strToHex($string){
+		$hex = '';
+		for ($i=0; $i<strlen($string); $i++){
+			$ord = ord($string[$i]);
+			$hexCode = dechex($ord);
+			$hex .= substr('0'.$hexCode, -2);
+		}
+		return strToUpper($hex);
+	}
+	private function hexToStr($hex){
+		$string='';
+		for ($i=0; $i < strlen($hex)-1; $i+=2){
+			$string .= chr(hexdec($hex[$i].$hex[$i+1]));
+		}
+		return $string;
+	}
+	public function getDptUnite($dpt){
 		$All_DPT=self::All_DPT();
 		while ($Type = current($All_DPT))
 			{
