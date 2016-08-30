@@ -1,11 +1,5 @@
 #!/bin/bash
-#PWD=$(pwd | awk -F'/jeedom' '{print $NR}')
-#PWDRESSOURCE="$PWD/jeedom/plugins/eibd/ressources"
-
-#PWD=$(pwd | awk -F'/plugins/eibd' '{print $NR}')
-#PWDRESSOURCE="$PWD/plugins/eibd/ressources"
-PWD=$(pwd | awk -F'/plugins/eibd' '{print $NR}')
-PWDRESSOURCE="$PWD/../../plugins/eibd/ressources"
+PWDRESSOURCE=$(cd ${0%/*}; pwd)
 INSTALL_DIR=/usr/local/bin
 TEMP_DIR=`mktemp -d /tmp/eibd.XXXXXX`
 EIBD_bin=$INSTALL_DIR/eibd
