@@ -109,37 +109,37 @@ class eibd extends eqLogic {
 				if (isset($command['configuration']['option1']) && $command['configuration']['option1']!="") {
 					$CmdValue=cmd::byEqLogicIdCmdName($this->getId(),$command['configuration']['option1']);
 					if(is_object($CmdValue))
-						$cmd->setConfiguraion('option1','#'.$CmdValue->getId().'#');
+						$cmd->setConfiguration('option1','#'.$CmdValue->getId().'#');
 					else
-						$cmd->setConfiguraion('option1',null);
+						$cmd->setConfiguration('option1',null);
 				}
 				if (isset($command['configuration']['option2']) && $command['configuration']['option2']!="") {
 					$CmdValue=cmd::byEqLogicIdCmdName($this->getId(),$command['configuration']['option2']);
 					if(is_object($CmdValue))
-						$cmd->setConfiguraion('option2','#'.$CmdValue->getId().'#');
+						$cmd->setConfiguration('option2','#'.$CmdValue->getId().'#');
 					else
-						$cmd->setConfiguraion('option2',null);
+						$cmd->setConfiguration('option2',null);
 				}
 				if (isset($command['configuration']['option3']) && $command['configuration']['option3']!="") {
 					$CmdValue=cmd::byEqLogicIdCmdName($this->getId(),$command['configuration']['option3']);
 					if(is_object($CmdValue))
-						$cmd->setConfiguraion('option3','#'.$CmdValue->getId().'#');
+						$cmd->setConfiguration('option3','#'.$CmdValue->getId().'#');
 					else
-						$cmd->setConfiguraion('option3',null);
+						$cmd->setConfiguration('option3',null);
 				}
 				if (isset($command['configuration']['option4']) && $command['configuration']['option4']!="") {
 					$CmdValue=cmd::byEqLogicIdCmdName($this->getId(),$command['configuration']['option4']);
 					if(is_object($CmdValue))
-						$cmd->setConfiguraion('option4','#'.$CmdValue->getId().'#');
+						$cmd->setConfiguration('option4','#'.$CmdValue->getId().'#');
 					else
-						$cmd->setConfiguraion('option4',null);
+						$cmd->setConfiguration('option4',null);
 				}
 				if (isset($command['configuration']['option5']) && $command['configuration']['option5']!="") {
 					$CmdValue=cmd::byEqLogicIdCmdName($this->getId(),$command['configuration']['option5']);
 					if(is_object($CmdValue))
-						$cmd->setConfiguraion('option5','#'.$CmdValue->getId().'#');
+						$cmd->setConfiguration('option5','#'.$CmdValue->getId().'#');
 					else
-						$cmd->setConfiguraion('option5',null);
+						$cmd->setConfiguration('option5',null);
 				}
 				$cmd->save();
 				$cmd_order++;
