@@ -1,52 +1,53 @@
 {
-	"teleinfo":{
-		"name":"TéléInformation",
+    "teleinfo": {
+		"name":"Teleinfo",
 		"isVisible":"1",
 		"isEnable":"1",
-		"cmd":[{
-				"logicalId":"255\/255\/255",
-				"eqType":"eibd",
+		"cmd":
+		[
+			{
 				"name":"Tarif",
+				"logicalId":"255/255/255",
 				"type":"info",
 				"subType":"numeric",
-				"isHistorized":"1",
-				"unite":"€",
+				"isHistorized":"0",
+				"unite":"kW/H",
 				"configuration":{
 					"KnxObjectType":"9.xxx",
-					"init":"0",
-					"eventOnly":"1",
-					"transmitReponse":"0",
-					"ObjetTransmit":"",
 					"option1":"",
 					"option2":"",
 					"option3":"",
 					"option4":"",
 					"option5":"",
+					"KnxObjectValue":"",
 					"inverse":"0",
-					"noBatterieCheck":"0",
 					"minValue":"",
 					"maxValue":"",
-					"KnxObjectValue":"",
-					"subTypeAuto":"0"
+					"transmitReponse":"0",
+					"ObjetTransmit":"",
+					"init":"1",
+					"eventOnly":"1",
+					"subTypeAuto":"0",
+					"noBatterieCheck":"0"
 				},
-				"template":"",
-				"display":{"icon":""},
-				"html":"",
+				"template":{
+					"dashboard":"",
+					"mobile":""
+				},
+				"display":{
+					"icon":"",
+					"generic_type":""
+				},
 				"isVisible":"1"
 			},{
-				"logicalId":"255\/255\/255",
-				"eqType":"eibd",
 				"name":"Validité du Tarif",
+				"logicalId":"255/255/255",
 				"type":"info",
 				"subType":"binary",
-				"isHistorized":"1",
+				"isHistorized":"0",
 				"unite":"",
 				"configuration":{
 					"KnxObjectType":"1.xxx",
-					"init":"0",
-					"eventOnly":"1",
-					"transmitReponse":"0",
-					"ObjetTransmit":"",
 					"option1":"",
 					"option2":"",
 					"option3":"",
@@ -54,28 +55,33 @@
 					"option5":"",
 					"KnxObjectValue":"",
 					"inverse":"0",
-					"noBatterieCheck":"0",
 					"minValue":"",
 					"maxValue":"",
-					"subTypeAuto":"0"
+					"transmitReponse":"0",
+					"ObjetTransmit":"",
+					"init":"1",
+					"eventOnly":"1",
+					"subTypeAuto":"0",
+					"noBatterieCheck":"0"
 				},
-				"template":"",
-				"display":{"icon":""},,
+				"template":{
+					"dashboard":"",
+					"mobile":""
+				},
+				"display":{
+					"icon":"",
+					"generic_type":""
+				},
 				"isVisible":"1"
 			},{
-				"logicalId":"255\/255\/255",
-				"eqType":"eibd",
 				"name":"Validité Energie",
+				"logicalId":"255/255/255",
 				"type":"info",
 				"subType":"binary",
-				"isHistorized":"1",
-				"unite":"",
+				"isHistorized":"0",
+				"unite":"°C",
 				"configuration":{
 					"KnxObjectType":"1.xxx",
-					"init":"0",
-					"eventOnly":"1",
-					"transmitReponse":"0",
-					"ObjetTransmit":"",
 					"option1":"",
 					"option2":"",
 					"option3":"",
@@ -83,27 +89,32 @@
 					"option5":"",
 					"KnxObjectValue":"",
 					"inverse":"0",
-					"noBatterieCheck":"0",
 					"minValue":"",
 					"maxValue":"",
-					"subTypeAuto":"0"
+					"transmitReponse":"0",
+					"ObjetTransmit":"",
+					"init":"1",
+					"eventOnly":"1",
+					"subTypeAuto":"0",
+					"noBatterieCheck":"0"
 				},
-				"template":"",
-				"display":{"icon":""},
+				"template":{
+					"dashboard":"",
+					"mobile":""
+				},
+				"display":{
+					"icon":"",
+					"generic_type":""
+				},
 				"isVisible":"1"
 			},{
-				"eqType":"eibd",
 				"name":"Index",
 				"type":"info",
-				"subType":"string",
-				"isHistorized":"1",
+				"subType":"numeric",
+				"isHistorized":"0",
 				"unite":"kW/H",
 				"configuration":{
 					"KnxObjectType":"235.001",
-					"init":"0",
-					"eventOnly":"1",
-					"transmitReponse":"0",
-					"ObjetTransmit":"",
 					"option1":"Tarif",
 					"option2":"Validité du Tarif",
 					"option3":"Validité Energie",
@@ -111,17 +122,25 @@
 					"option5":"",
 					"KnxObjectValue":"",
 					"inverse":"0",
-					"noBatterieCheck":"0",
 					"minValue":"",
 					"maxValue":"",
-					"subTypeAuto":"0"
+					"transmitReponse":"0",
+					"ObjetTransmit":"",
+					"init":"1",
+					"eventOnly":"1",
+					"subTypeAuto":"0",
+					"noBatterieCheck":"0"
 				},
-				"template":"",
-				"display":{"icon":""},
-				"html":"",
-				"value":"",
+				"template":{
+					"dashboard":"",
+					"mobile":""
+				},
+				"display":{
+					"icon":"",
+					"generic_type":""
+				},
 				"isVisible":"1"
 			}
 		]
-	}
+    }
 }
