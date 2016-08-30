@@ -106,6 +106,41 @@ class eibd extends eqLogic {
 					else
 						$cmd->setValue(null);
 				}
+				if (isset($command['configuration']['option1']) && $command['configuration']['option1']!="") {
+					$CmdValue=cmd::byEqLogicIdCmdName($this->getId(),$command['configuration']['option1']);
+					if(is_object($CmdValue))
+						$cmd->setValue('#'.$CmdValue->getId().'#');
+					else
+						$cmd->setValue(null);
+				}
+				if (isset($command['configuration']['option2']) && $command['configuration']['option2']!="") {
+					$CmdValue=cmd::byEqLogicIdCmdName($this->getId(),$command['configuration']['option2']);
+					if(is_object($CmdValue))
+						$cmd->setValue('#'.$CmdValue->getId().'#');
+					else
+						$cmd->setValue(null);
+				}
+				if (isset($command['configuration']['option3']) && $command['configuration']['option3']!="") {
+					$CmdValue=cmd::byEqLogicIdCmdName($this->getId(),$command['configuration']['option3']);
+					if(is_object($CmdValue))
+						$cmd->setValue('#'.$CmdValue->getId().'#');
+					else
+						$cmd->setValue(null);
+				}
+				if (isset($command['configuration']['option4']) && $command['configuration']['option4']!="") {
+					$CmdValue=cmd::byEqLogicIdCmdName($this->getId(),$command['configuration']['option4']);
+					if(is_object($CmdValue))
+						$cmd->setValue('#'.$CmdValue->getId().'#');
+					else
+						$cmd->setValue(null);
+				}
+				if (isset($command['configuration']['option5']) && $command['configuration']['option5']!="") {
+					$CmdValue=cmd::byEqLogicIdCmdName($this->getId(),$command['configuration']['option5']);
+					if(is_object($CmdValue))
+						$cmd->setValue('#'.$CmdValue->getId().'#');
+					else
+						$cmd->setValue(null);
+				}
 				$cmd->save();
 				$cmd_order++;
 			} catch (Exception $exc) {
