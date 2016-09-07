@@ -46,6 +46,7 @@ class Dpt{
 					$value = round(intval($value) * 255);
 					break;
 			}
+			$
 			$data= array($value);
 			break;
 		case "6":
@@ -54,7 +55,7 @@ class Dpt{
 			$data= array($value);
 			break;
 		case "7":
-			$data= array($value);
+			$data= array(($value >> 8)&0xff, ($value& 0xff));
 			break;
 		case "8":
 		  /*      if data >= 0x8000:
@@ -249,24 +250,12 @@ class Dpt{
 				$value = $data[0];
 			break;
 		case "7":
-		/* if self._dpt is self.DPT_TimePeriod10Msec:
-				$value = data * 10.
-			elif self._dpt is self.DPT_TimePeriod100Msec:
-				$value = data * 100.
-			else:*/
-				$value = $data;
+			$value = $data[0] << 8 | $data[1];
 			break;
 		case "8":
 			if ($data[0] >= 0x8000)
 				$data[0] = -(($data - 1) ^ 0xffff);  # invert twos complement
-			/*if self._dpt is self.DPT_DeltaTime10Msec:
-				$value = data * 10.
-			elif self._dpt is self.DPT_DeltaTime100Msec:
-				$value =data * 100.
-			elif self._dpt is self.DPT_Percent_V16:
-				$value = data / 100.
-			else:*/
-				$value = $data[0];
+			$value = $data[0];
 			break;
 		case "9": 
 			$exp = ($data[0] & 0x78) >> 3;
@@ -1039,10 +1028,10 @@ class Dpt{
 				"InfoType"=>'numeric',
 				"ActionType"=>'slider',
 				"Unite"=>"mm"),
-		//	"7.012"=> array(
-		//		"Name"=>"Electrical current",
-		//		"Valeurs"=>array(0, 65535),
-		//		"Unite"=>"mA")  # Add special meaning for 0 (create Limit object),
+			"7.012"=> array(
+				"Name"=>"Electrical current",
+				"Valeurs"=>array(0, 65535),
+				"Unite"=>"mA"),  # Add special meaning for 0 (create Limit object)
 			"7.013"=> array(
 				"Name"=>"Brightness",
 				"Valeurs"=>array(0, 65535),
@@ -1351,10 +1340,6 @@ class Dpt{
 				"ActionType"=>'slider',
 				"Option" =>array(),
 				"Unite" =>""),
-		//	"14.xxx"=> array(
-		//		"Name"=>"Generic",
-		//		"Valeurs"=>array(-340282346638528859811704183484516925440, 340282346638528859811704183484516925440)
-		//		"Unite"=>""),
 			"14.000"=> array(
 				"Name"=>"Acceleration",
 				"Valeurs"=>array(-3.4028234663852886e+38, 3.4028234663852886e+38),
