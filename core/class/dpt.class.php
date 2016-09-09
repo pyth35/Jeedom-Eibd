@@ -1031,6 +1031,8 @@ class Dpt{
 			"7.012"=> array(
 				"Name"=>"Electrical current",
 				"Valeurs"=>array(0, 65535),
+                                "InfoType"=>'numeric',
+                                "ActionType"=>'slider',
 				"Unite"=>"mA"),  # Add special meaning for 0 (create Limit object)
 			"7.013"=> array(
 				"Name"=>"Brightness",
