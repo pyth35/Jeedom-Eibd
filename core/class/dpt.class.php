@@ -46,7 +46,6 @@ class Dpt{
 					$value = round(intval($value) * 255);
 					break;
 			}
-			$
 			$data= array($value);
 			break;
 		case "6":
