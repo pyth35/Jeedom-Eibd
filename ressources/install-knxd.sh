@@ -1,78 +1,79 @@
 #!/bin/bash
-remove_eibd(){
-
+INSTALL_DIR=/usr/local/bin
+TEMP_DIR=`mktemp -d /tmp/knxd.XXXXXX`
+KNXD_bin=$INSTALL_DIR/knxd
+if [ -f "/etc/eibd/pthsem_VERSION" ]
+then
+  echo "*****************************************************************************************************"
+  echo "*                              Remove PTHSEM V2.0.8 libraries                                       *"
+  echo "*****************************************************************************************************"
+  sudo rm /etc/eibd/pthsem_VERSION
+  echo $LD_LIBRARY_PATH
+  export LD_LIBRARY_PATH="/usr/local/lib"
+  sudo ldconfig 
+  rm $TEMP_DIR/pthsem-2.0.8
+fi
+if [ -f "/etc/eibd/bcusdk_VERSION" ]
+then
+  echo "*****************************************************************************************************"
+  echo "*                              Remove BCUSDK V0.0.5 libraries                                       *"
+  echo "*****************************************************************************************************"
+  rm $TEMP_DIR/bcusdk-0.0.5 
+  rm /etc/eibd/bcusdk_VERSION
+fi
 echo "*****************************************************************************************************"
-echo "*                              Del PTHSEM V2.0.8 libraries                                   *"
+echo "*                                         Remove eibd                                               *"
 echo "*****************************************************************************************************"
-sudo rm /etc/eibd/pthsem_VERSION
-echo $LD_LIBRARY_PATH
-export LD_LIBRARY_PATH="/usr/local/lib"
-sudo ldconfig 
-rm $TEMP_DIR/pthsem-2.0.8
-
-echo "*****************************************************************************************************"
-echo "*                              del BCUSDK V0.0.5 libraries                                   *"
-echo "*****************************************************************************************************"
-
-rm $TEMP_DIR/bcusdk-0.0.5 
-rm /etc/eibd/bcusdk_VERSION
-
-echo "*****************************************************************************************************"
-echo "*                                 Del eibd startup script                                      *"
-echo "*****************************************************************************************************"
-rm /etc/logrotate.d/eibd
-rm /etc/default/eibd
-rm /var/log/eibd.log
+if [ -f "/etc/logrotate.d/eibd" ]
+then
+  rm /etc/logrotate.d/eibd
+fi
+if [ -f "/etc/default/eibd" ]
+then
+  rm /etc/default/eibd
+fi
+if [ -f "/etc/log/eibd.log" ]
+then
+  rm /etc/log/eibd.log
+fi
 rm -R /etc/eibd
 rm -rf /usr/local/lib/libeibclient.so
 rm -rf /usr/local/lib/libeibclient.so.0
 rm -rf /usr/local/lib/libeibclient.a
 rm -rf /usr/local/lib/libeibclient.la
 rm -rf /usr/local/lib/libeibclient.so.0.0.0
-}
-install_dependances ()
-{
-  echo "-------------------------------------------------------------------"
-  echo "Installation des dependances                    "
-  echo "-------------------------------------------------------------------"
-  #sudo apt-get install gcc g++ make locales --yes -y -qq
+echo "*****************************************************************************************************"
+echo "*                                Installation des dependances                                       *"
+echo "*****************************************************************************************************"
+sudo apt-get update --yes -y -qq
+sudo apt-get upgrade --yes -y -qq
 
-  sudo apt-get update --yes -y -qq
-  sudo apt-get upgrade --yes -y -qq
-
-
-  PAQUAGES=${PAQUAGES}" gcc g++ make"
-  echo "-------------------------------------------------------------------"
-  echo "Liste des paquets installés 1/3 : "
-  echo ${PAQUAGES}
-  echo "-------------------------------------------------------------------"
-  sudo apt-get install ${PAQUAGES} --yes -y -qq
-  PAQUAGES=" ";
-
-  PAQUAGES=${PAQUAGES}" liblog4cpp5-dev libesmtp-dev liblua5.1-0-dev libxml2 dpkg"
-  echo "-------------------------------------------------------------------"
-  echo "Liste des paquets installés 2/3 : "
-  echo ${PAQUAGES}
-  echo "-------------------------------------------------------------------"
-  sudo apt-get install ${PAQUAGES} --yes -y -qq
-  PAQUAGES=" ";
-  PAQUAGES=${PAQUAGES}" libcurl4-openssl-dev openssl libssl-dev build-essential file autoconf dh-make debhelper devscripts fakeroot gnupg"
-  echo "-------------------------------------------------------------------"
-  echo "Liste des paquets installés 3/3 : "
-  echo ${PAQUAGES}
-  echo "-------------------------------------------------------------------"
-  sudo apt-get install ${PAQUAGES} --yes -y -qq
-  PAQUAGES=" ";
-  echo "-------------------------------------------------------------------"
-  echo " Fin de l'install des paquets nécessaires : "
-  echo "-------------------------------------------------------------------"
-  sudo apt-get install -f -y -qq --yes
-  PAQUAGES=" ";
-}
-install_knxd ()
-{
+PAQUAGES=${PAQUAGES}" gcc g++ make"
 echo "-------------------------------------------------------------------"
-echo "----======  knxd 0.10  ======----"
+echo "Liste des paquets installés 1/2 : "
+echo ${PAQUAGES}
+echo "-------------------------------------------------------------------"
+sudo apt-get install ${PAQUAGES} --yes -y -qq
+PAQUAGES=" ";
+
+PAQUAGES=${PAQUAGES}" libcurl4-openssl-dev openssl libssl-dev build-essential file autoconf dh-make debhelper devscripts fakeroot gnupg"
+echo "-------------------------------------------------------------------"
+echo "Liste des paquets installés 2/2 : "
+echo ${PAQUAGES}
+echo "-------------------------------------------------------------------"
+sudo apt-get install ${PAQUAGES} --yes -y -qq
+PAQUAGES=" ";
+  
+echo "-------------------------------------------------------------------"
+echo " Fin de l'install des paquets nécessaires : "
+echo "-------------------------------------------------------------------"
+sudo apt-get install -f -y -qq --yes
+PAQUAGES=" ";
+
+echo "*****************************************************************************************************"
+echo "*                                      Installation de KnxD                                         *"
+echo "*****************************************************************************************************"
+
 KNXD_PATH=`which knxd`
 if test x$KNXD_PATH = x; then :
   echo "Installation de knxd 0.10                    "
@@ -103,42 +104,8 @@ if test x$KNXD_PATH = x; then :
 
   echo " " > /var/log/knxd.log
   sudo chmod 777 /var/log/knxd.log
-
-# sudo nano /etc/knxd.conf
-# KNXD_OPTS=="-u /tmp/eib -u /var/run/knx -i -b ipt:192.168.188.XX"
-# KNXD_OPTS=="-u /tmp/eib -u /var/run/knx -i -b ipt:$knxd_ipport"
-# sudo nano /etc/default/knxd
-# START_KNXD=YES
-
-  # KNXD_OPTS="-u /tmp/eib -b ip:"
-  # try KNXnet/IP Routing with default Multicast 224.0.23.12
-  echo "\t *** Autodetecting Interface IP/KNX."
-  EIBNETTMP=`mktemp`
-  eibnetsearch - > $EIBNETTMP
-  # Take only first :
-  EIBD_NET_MCAST=`grep Multicast $EIBNETTMP | cut -d' ' -f2 | sed -n '1p'`
-  # Take only first :
-  EIBD_NET_HOST=`grep Answer $EIBNETTMP | cut -d' ' -f3 | sed -n '1p'`
-  EIBD_NET_PORT=`grep Answer $EIBNETTMP | cut -d' ' -f6 | sed -n '1p'`
-  # Take only first :
-  EIBD_NET_NAME=`grep Name $EIBNETTMP | cut -d' ' -f2 | sed -n '1p'`
-
-  EIBD_MY_IP=`ifconfig eth0 | grep 'inet addr' | sed -e 's/:/ /' | awk '{print $3}'`
-  rm $EIBNETTMP
-  if [ "$EIBD_NET_MCAST" != "" -a "$EIBD_NET_HOST" != "$EIBD_MY_IP" ]; then
-    echo "Found KNXnet/IP Router $EIBD_NET_NAME on $EIBD_NET_HOST with $EIBD_NET_MCAST"
-    #sudo echo "KNXD_OPTS=\"--daemon=/var/log/knxd.log -D -T -R -S ip:$EIBD_NET_HOST\"" >> /etc/knxd.conf
-    sudo echo "KNXD_OPTS=\"-u /tmp/eib -b ip:$EIBD_NET_HOST\"" >> /etc/knxd.conf
-  fi
-
 else
   KNXD_VERSION=`$KNXD_PATH -V`
   echo "KNXD deja installe : $KNXD_VERSION "
 fi
 echo "-------------------------------------------------------------------"
-echo "v0.10" > /etc/eibd/knxd_VERSION
-}
-
-remove_eibd
-install_dependances
-install_knxd
