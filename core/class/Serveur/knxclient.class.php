@@ -676,7 +676,7 @@ class KNXnet{
 		return $msg;
 	}
 	private function Gad2Hex($addr){
-		$addr = split ("/", $addr);
+		$addr = explode("/", $addr);
 		if (count ($addr) >= 3)
 			$r =(($addr[0] & 0x1f) << 11) | (($addr[1] & 0x7) << 8) | (($addr[2] & 0xff));
 		if (count ($addr) == 2)
@@ -692,7 +692,7 @@ class KNXnet{
 		return sprintf ("%d.%d.%d", ($addr >> 12) & 0x0f, ($addr >> 8) & 0x0f, ($addr >> 0) & 0xff);
 	}
 	private function AddrPhy2Hex ($addr){
-		$addr = split (".", $addr);
+		$addr = explode(".", $addr);
 		$r=(($addr[0] << 12) & 0x0f) | (($addr[1] << 8) & 0x0f) | (($addr[2] << 0) & 0xff);
 		return $r;
 	}
