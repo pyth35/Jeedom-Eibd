@@ -131,8 +131,7 @@ class Dpt{
 			break;
 		case "18":
 			$control=cmd::byId(str_replace('#','',$option["control"]));
-			$value=($control << 8) & 0x80 | $value & 0x3f
-			$data= array($value);
+			$data= array(($control << 8) & 0x80 | $value & 0x3f);
 			break;
 		case "19": 
 			$value   = new DateTime($value);
