@@ -255,7 +255,7 @@ class eibd extends eqLogic {
 		}
 	}
     	private static function gaddrparse ($addr)	{
-		$addr = split ("/", $addr);
+		$addr = explode("/", $addr);
 		if (count ($addr) >= 3)
 			$r =(($addr[0] & 0x1f) << 11) | (($addr[1] & 0x7) << 8) | (($addr[2] & 0xff));
 		if (count ($addr) == 2)
@@ -521,7 +521,7 @@ class eibd extends eqLogic {
 					$valeur=Dpt::DptSelectDecode($dpt, $data, $inverse, $option);
 					$unite=Dpt::getDptUnite($dpt);
 					if($Commande->getConfiguration('noBatterieCheck')){
-						switch(split($dpt,'.')[0]){
+						switch(explode($dpt,'.')[0]){
 							case 1 :
 								$valeur=$valeur*100;
 							break;
@@ -799,7 +799,7 @@ class eibd extends eqLogic {
 							$Equipement=self::AddEquipement($DeviceName,$PhysicalAdress);
 							foreach($Device->getElementsByTagName('ComObjectInstanceRefs') as $ComObjectInstanceRefs){
 								foreach($ComObjectInstanceRefs->getElementsByTagName('ComObjectInstanceRef') as $ComObjectInstanceRef){
-									$DataPointType=split('-',$ComObjectInstanceRef->getAttribute('DatapointType'));
+									$DataPointType=explode('-',$ComObjectInstanceRef->getAttribute('DatapointType'));
 									if ($DataPointType[1] >0)
 										$DatapointType=$DataPointType[1].'.'.sprintf('%1$03d',$DataPointType[2]);
 									else
