@@ -127,9 +127,11 @@ class Dpt{
 				$data[]=ord($chr);
 			break;
 		case "17":
-		/*ctrl = value[0]
-			scene = value[1]
-			data = ctrl << 7 | scene*/
+			$data= array($value& 0x3f);
+			break;
+		case "18":
+			$control=cmd::byId(str_replace('#','',$option["control"]));
+			$value=($control << 8) & 0x80 | $value & 0x3f
 			$data= array($value);
 			break;
 		case "19": 
@@ -300,10 +302,26 @@ class Dpt{
 			foreach($data as $chr)
 					$value.=chr(($chr));
 			break;
+		
 		case "17":
-			  $ctrl = ($data[0] >> 7) & 0x01;
-				$scene = $data[0] & 0x3f;
-		  //  $value = ($ctrl, $scene);
+			$value = $data[0] & 0x3f;
+			break;
+		case "18":
+			if ($option != null)	{
+				//Mise a jours de l'objet Jeedom ValInfField
+				if ($option["control"] !=''){	
+					//log::add('eibd', 'debug', 'Mise a jours de l\'objet Jeedom ValInfField: '.$option["ValInfField"]);
+					$control=cmd::byId(str_replace('#','',$option["control"]));
+					if (is_object($control)){
+						$ctrl = ($data[0] >> 7) & 0x01;
+						log::add('eibd', 'debug', 'L\'objet '.$control->getName().' à été trouvé et vas etre mis a jours avec la valeur '. $ctrl);
+						$control->setCollectDate('');
+						$control->event($ctrl);
+						$control->save();
+					}
+				}
+			}
+			$value = $data[0] & 0x3f;
 			break;
 		case "19":
 			$year=$data[0]+1900;
@@ -1854,6 +1872,23 @@ class Dpt{
 				"Unite" =>""),
 			"17.001"=> array(
 				"Name"=>"Scene",
+				"Valeurs"=>array(
+					array(0, 0), 
+					array(1, 63)),
+				"InfoType"=>'string',
+				"ActionType"=>'message',
+				"Option" =>array(),
+				"Unite" =>"")),
+		"Scene Control"=> array(
+			"18.xxx"=> array(
+				"Name"=>"Generic",
+				"Valeurs"=>array(0, 255),
+				"InfoType"=>'string',
+				"ActionType"=>'message',
+				"Option" =>array(),
+				"Unite" =>""),
+			"18.001"=> array(
+				"Name"=>"Scene Control",
 				"Valeurs"=>array(
 					array(0, 0), 
 					array(1, 63)),
