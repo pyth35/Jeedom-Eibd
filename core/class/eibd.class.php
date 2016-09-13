@@ -254,7 +254,7 @@ class eibd extends eqLogic {
 			log::add('eibd','debug','Valeur du Header '.$buf[2] & 0xC0);
 		}
 	}
-    private static function gaddrparse ($addr)	{
+    	private static function gaddrparse ($addr)	{
 		$addr = split ("/", $addr);
 		if (count ($addr) >= 3)
 			$r =(($addr[0] & 0x1f) << 11) | (($addr[1] & 0x7) << 8) | (($addr[2] & 0xff));
@@ -264,10 +264,10 @@ class eibd extends eqLogic {
 			$r = (($addr[1] & 0xffff));
 		return $r;
 	}
-    private static function formatiaddr ($addr){
+	private static function formatiaddr ($addr){
 		return sprintf ("%d.%d.%d", ($addr >> 12) & 0x0f, ($addr >> 8) & 0x0f, $addr & 0xff);
 	}
-    private static function formatgaddr ($addr)	{
+	private static function formatgaddr ($addr)	{
 		if (config::byKey('level', 'eibd'))
 			return sprintf ("%d/%d/%d", ($addr >> 11) & 0x1f, ($addr >> 8) & 0x07,$addr & 0xff);
 		else
@@ -312,7 +312,7 @@ class eibd extends eqLogic {
 		$EibdConnexion->EIBClose();
 		return $return;
 	}		
-    public static function EibdReponse($addr, $val){
+    	public static function EibdReponse($addr, $val){
 		$host=config::byKey('EibdHost', 'eibd');
 		$port=config::byKey('EibdPort', 'eibd');
 		$EibdConnexion = new EIBConnection($host,$port);
@@ -336,7 +336,7 @@ class eibd extends eqLogic {
 		$EibdConnexion->EIBClose();
 		return true;
 	}
-    public static function EibdWrite($addr, $val){
+    	public static function EibdWrite($addr, $val){
 		$host=config::byKey('EibdHost', 'eibd');
 		$port=config::byKey('EibdPort', 'eibd');
 		$EibdConnexion = new EIBConnection($host,$port);
@@ -609,14 +609,18 @@ class eibd extends eqLogic {
 				return true;
 			}
 		}
-        return false;
-    }
+        	return false;
+    	}
 	public static function dependancy_info() {
 		$return = array();
 		$return['log'] = 'eibd_update';
 		$return['progress_file'] = '/tmp/compilation_eibd_in_progress';
-		if(file_exists('/etc/eibd/bcusdk_VERSION')&&file_exists('/etc/eibd/pthsem_VERSION')){
+		/*if(file_exists('/etc/eibd/bcusdk_VERSION')&&file_exists('/etc/eibd/pthsem_VERSION')){
 			if(exec("cat /etc/eibd/bcusdk_VERSION")=="v0.0.5.1" && exec("cat /etc/eibd/pthsem_VERSION")=="v2.0.8.1")
+				$return['state'] = 'ok';
+		}*/
+		if(file_exists('/etc/eibd/knxd_VERSION')){
+			if(exec("cat /etc/eibd/knxd_VERSION")=="v0.10")
 				$return['state'] = 'ok';
 		}
 		else
@@ -628,7 +632,8 @@ class eibd extends eqLogic {
 			return;
 		}
 		log::remove('eibd_update');
-		$cmd = 'sudo /bin/bash ' . dirname(__FILE__) . '/../../ressources/install-eibd.sh';
+		//$cmd = 'sudo /bin/bash ' . dirname(__FILE__) . '/../../ressources/install-eibd.sh';
+		$cmd = 'sudo /bin/bash ' . dirname(__FILE__) . '/../../ressources/install-knxd.sh';
 		$cmd .= ' >> ' . log::getPathToLog('eibd_update') . ' 2>&1 &';
 		exec($cmd);
 	}
