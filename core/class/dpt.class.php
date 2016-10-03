@@ -684,7 +684,7 @@ class Dpt{
 				"Valeurs"=>array(0, 1),
 				"InfoType"=>'binary',
 				"ActionType"=>'other',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"1.001"=> array(
@@ -692,7 +692,7 @@ class Dpt{
 				"Valeurs"=>array("Off", "On"),
 				"InfoType"=>'binary',
 				"ActionType"=>'other',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"1.002"=> array(
@@ -700,7 +700,7 @@ class Dpt{
 				"Valeurs"=>array("False", "True"),
 				"InfoType"=>'binary',
 				"ActionType"=>'other',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"1.003"=> array(
@@ -708,7 +708,7 @@ class Dpt{
 				"Valeurs"=>array("Disable", "Enable"),
 				"InfoType"=>'binary',
 				"ActionType"=>'other',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"1.004"=> array(
@@ -716,7 +716,7 @@ class Dpt{
 				"Valeurs"=>array("No ramp", "Ramp"),
 				"InfoType"=>'binary',
 				"ActionType"=>'other',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"1.005"=> array(
@@ -724,7 +724,7 @@ class Dpt{
 				"Valeurs"=>array("No alarm", "Alarm"),
 				"InfoType"=>'binary',
 				"ActionType"=>'other',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"1.006"=> array(
@@ -732,7 +732,7 @@ class Dpt{
 				"Valeurs"=>array("Low", "High"),
 				"InfoType"=>'binary',
 				"ActionType"=>'other',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"1.007"=> array(
@@ -740,7 +740,7 @@ class Dpt{
 				"Valeurs"=>array("Decrease", "Increase"),
 				"InfoType"=>'binary',
 				"ActionType"=>'other',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"1.008"=> array(
@@ -748,7 +748,7 @@ class Dpt{
 				"Valeurs"=>array("Up", "Down"),
 				"InfoType"=>'binary',
 				"ActionType"=>'other',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"1.009"=> array(
@@ -756,7 +756,7 @@ class Dpt{
 				"Valeurs"=>array("Open", "Close"),
 				"InfoType"=>'binary',
 				"ActionType"=>'other',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"1.010"=> array(
@@ -764,7 +764,7 @@ class Dpt{
 				"Valeurs"=>array("Stop", "Start"),
 				"InfoType"=>'binary',
 				"ActionType"=>'other',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"1.011"=> array(
@@ -772,7 +772,7 @@ class Dpt{
 				"Valeurs"=>array("Inactive", "Active"),
 				"InfoType"=>'binary',
 				"ActionType"=>'other',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"1.012"=> array(
@@ -780,7 +780,7 @@ class Dpt{
 				"Valeurs"=>array("Not inverted", "Inverted"),
 				"InfoType"=>'binary',
 				"ActionType"=>'other',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"1.013"=> array(
@@ -788,7 +788,7 @@ class Dpt{
 				"Valeurs"=>array("Start/stop", "Cyclically"),
 				"InfoType"=>'binary',
 				"ActionType"=>'other',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"1.014"=> array(
@@ -796,7 +796,7 @@ class Dpt{
 				"Valeurs"=>array("Fixed", "Calculated"),
 				"InfoType"=>'binary',
 				"ActionType"=>'other',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"1.015"=> array(
@@ -804,7 +804,7 @@ class Dpt{
 				"Valeurs"=>array("No action", "Reset"),
 				"InfoType"=>'binary',
 				"ActionType"=>'other',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"1.016"=> array(
@@ -812,7 +812,7 @@ class Dpt{
 				"Valeurs"=>array("No action", "Acknowledge"),
 				"InfoType"=>'binary',
 				"ActionType"=>'other',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"1.017"=> array(
@@ -820,7 +820,7 @@ class Dpt{
 				"Valeurs"=>array("Trigger", "Trigger"),
 				"InfoType"=>'binary',
 				"ActionType"=>'other',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"1.018"=> array(
@@ -828,7 +828,7 @@ class Dpt{
 				"Valeurs"=>array("Not occupied", "Occupied"),
 				"InfoType"=>'binary',
 				"ActionType"=>'other',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"1.019"=> array(
@@ -836,7 +836,7 @@ class Dpt{
 				"Valeurs"=>array("Closed", "Open"),
 				"InfoType"=>'binary',
 				"ActionType"=>'other',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"1.021"=> array(
@@ -844,7 +844,7 @@ class Dpt{
 				"Valeurs"=>array("OR", "AND"),
 				"InfoType"=>'binary',
 				"ActionType"=>'other',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"1.022"=> array(
@@ -852,7 +852,7 @@ class Dpt{
 				"Valeurs"=>array("Scene A", "Scene B"),
 				"InfoType"=>'binary',
 				"ActionType"=>'other',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"1.023"=> array(
@@ -860,7 +860,7 @@ class Dpt{
 				"Valeurs"=>array("Only move Up/Down", "Move Up/Down + StepStop"),
 				"InfoType"=>'binary',
 				"ActionType"=>'other',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>"")),
 		"1BitPriorityControl"=> array(
@@ -869,7 +869,7 @@ class Dpt{
 				"Valeurs"=>array(),
 				"InfoType"=>'binary',
 				"ActionType"=>'other',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"2.002"=> array(
@@ -877,7 +877,7 @@ class Dpt{
 				"Valeurs"=>array(),
 				"InfoType"=>'binary',
 				"ActionType"=>'other',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"2.003"=> array(
@@ -885,7 +885,7 @@ class Dpt{
 				"Valeurs"=>array(),
 				"InfoType"=>'binary',
 				"ActionType"=>'other',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"2.004"=> array(
@@ -893,7 +893,7 @@ class Dpt{
 				"Valeurs"=>array(),
 				"InfoType"=>'binary',
 				"ActionType"=>'other',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"2.005"=> array(
@@ -901,7 +901,7 @@ class Dpt{
 				"Valeurs"=>array(),
 				"InfoType"=>'binary',
 				"ActionType"=>'other',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"2.006"=> array(
@@ -909,7 +909,7 @@ class Dpt{
 				"Valeurs"=>array(),
 				"InfoType"=>'binary',
 				"ActionType"=>'other',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"2.007"=> array(
@@ -917,7 +917,7 @@ class Dpt{
 				"Valeurs"=>array(),
 				"InfoType"=>'binary',
 				"ActionType"=>'other',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"2.010"=> array(
@@ -925,7 +925,7 @@ class Dpt{
 				"Valeurs"=>array(),
 				"InfoType"=>'binary',
 				"ActionType"=>'other',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"2.011"=> array(
@@ -933,7 +933,7 @@ class Dpt{
 				"Valeurs"=>array(),
 				"InfoType"=>'binary',
 				"ActionType"=>'other',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"2.012"=> array(
@@ -941,7 +941,7 @@ class Dpt{
 				"Valeurs"=>array(),
 				"InfoType"=>'binary',
 				"ActionType"=>'other',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>"")),
 		"3BitControl"=> array(
@@ -950,7 +950,7 @@ class Dpt{
 				"Valeurs"=>array(-7, 7),
 				"InfoType"=>'numeric',
 				"ActionType"=>'slider',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"3.007"=> array(
@@ -958,7 +958,7 @@ class Dpt{
 				"Valeurs"=>array(-7, 7),
 				"InfoType"=>'numeric',
 				"ActionType"=>'slider',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"3.008"=> array(
@@ -966,7 +966,7 @@ class Dpt{
 				"Valeurs"=>array(-7, 7),
 				"InfoType"=>'numeric',
 				"ActionType"=>'slider',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>"")),
 		"8BitUnsigned"=> array(
@@ -975,7 +975,7 @@ class Dpt{
 				"Valeurs"=>array(0, 255),
 				"InfoType"=>'numeric',
 				"ActionType"=>'slider',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"5.001"=> array(
@@ -1018,7 +1018,7 @@ class Dpt{
 				"Valeurs"=>array(-128, 127),
 				"InfoType"=>'numeric',
 				"ActionType"=>'slider',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"6.001"=> array(
@@ -1039,7 +1039,7 @@ class Dpt{
 				"Valeurs"=>array(0, 65535),
 				"InfoType"=>'numeric',
 				"ActionType"=>'slider',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"7.001"=> array(
@@ -1089,7 +1089,7 @@ class Dpt{
 				"Valeurs"=>array(0, 65535),
 				"InfoType"=>'numeric',
 				"ActionType"=>'slider',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"7.011"=> array(
@@ -1116,7 +1116,7 @@ class Dpt{
 				"Valeurs"=>array(-32768, 32767),
 				"InfoType"=>'numeric',
 				"ActionType"=>'slider',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"8.001"=> array(
@@ -1179,7 +1179,7 @@ class Dpt{
 				"Valeurs"=>array(-671088.64, +670760.96),
 				"InfoType"=>'numeric',
 				"ActionType"=>'slider',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"9.001"=> array(
@@ -1302,7 +1302,7 @@ class Dpt{
 				"Valeurs"=>array(0, 16777215),
 				"InfoType"=>'numeric',
 				"ActionType"=>'slider',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"10.001"=> array(
@@ -1312,7 +1312,7 @@ class Dpt{
 					array(7, 23, 59, 59)),
 				"InfoType"=>'numeric',
 				"ActionType"=>'slider',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>"")),
 		"Date"=> array(
@@ -1321,7 +1321,7 @@ class Dpt{
 				"Valeurs"=>array(0, 16777215),
 				"InfoType"=>'numeric',
 				"ActionType"=>'slider',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"11.001"=> array(
@@ -1331,7 +1331,7 @@ class Dpt{
 					array(31, 12, 2068)),
 				"InfoType"=>'numeric',
 				"ActionType"=>'slider',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>"")),
 		"4ByteUnsigned"=> array(
@@ -1340,7 +1340,7 @@ class Dpt{
 				"Valeurs"=>array(0, 4294967295),
 				"InfoType"=>'numeric',
 				"ActionType"=>'slider',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"12.001"=> array(
@@ -1355,7 +1355,7 @@ class Dpt{
 				"Valeurs"=>array(-2147483648, 2147483647),
 				"InfoType"=>'numeric',
 				"ActionType"=>'slider',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"13.001"=> array(
@@ -1418,7 +1418,7 @@ class Dpt{
 				"Valeurs"=>array(-3.4028234663852886e+38, 3.4028234663852886e+38),
 				"InfoType"=>'numeric',
 				"ActionType"=>'slider',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"14.000"=> array(
@@ -1456,7 +1456,7 @@ class Dpt{
 				"Valeurs"=>array(-3.4028234663852886e+38, 3.4028234663852886e+38),
 				"InfoType"=>'numeric',
 				"ActionType"=>'slider',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"14.006"=> array(
@@ -1909,7 +1909,7 @@ class Dpt{
 				"Valeurs"=>array(0, 5192296858534827628530496329220095),
 				"InfoType"=>'string',
 				"ActionType"=>'message',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"16.000"=> array(
@@ -1917,7 +1917,7 @@ class Dpt{
 				"Valeurs"=>array(/*14 * (0,), 14 * (127,)*/),
 				"InfoType"=>'string',
 				"ActionType"=>'message',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"16.001"=> array(
@@ -1925,7 +1925,7 @@ class Dpt{
 				"Valeurs"=>array(/*14 * (0,), 14 * (255,)*/),
 				"InfoType"=>'string',
 				"ActionType"=>'message',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>"")),
 		"Scene"=> array(
@@ -1934,7 +1934,7 @@ class Dpt{
 				"Valeurs"=>array(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63),
 				"InfoType"=>'string',
 				"ActionType"=>'message',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"17.001"=> array(
@@ -1942,7 +1942,7 @@ class Dpt{
 				"Valeurs"=>array(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63),
 				"InfoType"=>'string',
 				"ActionType"=>'message',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>"")),
 		"Scene Control"=> array(
@@ -1951,7 +1951,7 @@ class Dpt{
 				"Valeurs"=>array(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63),
 				"InfoType"=>'string',
 				"ActionType"=>'message',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"18.001"=> array(
@@ -1959,7 +1959,7 @@ class Dpt{
 				"Valeurs"=>array(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63),
 				"InfoType"=>'string',
 				"ActionType"=>'message',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>"")),
 		"DateTime"=> array(
@@ -1968,7 +1968,7 @@ class Dpt{
 				"Valeurs"=>array(),
 				"InfoType"=>'string',
 				"ActionType"=>'message',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"19.001"=> array(
@@ -1976,7 +1976,7 @@ class Dpt{
 				"Valeurs"=>array(),
 				"InfoType"=>'string',
 				"ActionType"=>'message',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>"")),
 		"8BitEncAbsValue"=> array(
@@ -1985,7 +1985,7 @@ class Dpt{
 				"Valeurs"=>array(0, 255),
 				"InfoType"=>'string',
 				"ActionType"=>'message',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"20.003"=> array(
@@ -1993,7 +1993,7 @@ class Dpt{
 				"Valeurs"=>array("occupied","standby","not occupied"),
 				"InfoType"=>'string',
 				"ActionType"=>'message',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"20.102"=> array(
@@ -2001,7 +2001,7 @@ class Dpt{
 				"Valeurs"=>array("Auto","Comfort","Standby","Night","Frost"),
 				"InfoType"=>'string',
 				"ActionType"=>'message',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"20.102_2"=> array(
@@ -2009,7 +2009,7 @@ class Dpt{
 				"Valeurs"=>array("Auto","Comfort","Standby","Night","Frost"),
 				"InfoType"=>'string',
 				"ActionType"=>'message',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"20.105"=> array(
@@ -2017,7 +2017,7 @@ class Dpt{
 				"Valeurs"=>array("Auto","Heat","Morning Warmup","Cool","Night Purge","Precool","Off","Test","Emergency Heat","Fan only","Free Cool","Ice"),
 				"InfoType"=>'string',
 				"ActionType"=>'message',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>"")),
 		"3Bytes"=> array(
@@ -2026,7 +2026,7 @@ class Dpt{
 				"Valeurs"=>array(),
 				"InfoType"=>'string',
 				"ActionType"=>'color',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>"")),
 		"Other"=> array(
@@ -2035,7 +2035,7 @@ class Dpt{
 				"Valeurs"=>array(),
 				"InfoType"=>'string',
 				"ActionType"=>'message',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
 			"229.001"=> array(
@@ -2043,7 +2043,7 @@ class Dpt{
 				"Valeurs"=>array(),
 				"InfoType"=>'numeric',
 				"ActionType"=>'slider',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>"")),
 		"Spécifique"=> array(
@@ -2052,7 +2052,7 @@ class Dpt{
 				"Valeurs"=>array(),
 				"InfoType"=>'string',
 				"ActionType"=>'message',
-				"GenericType"=>"",
+				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""))
 		);
