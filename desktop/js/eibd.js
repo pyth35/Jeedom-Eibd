@@ -115,36 +115,36 @@ $(function(){
 		switch($(this).val())
 			{
 			case '229.001':
-				$(this).closest('.cmd').find('#groupoption1').show();
-				$(this).closest('.cmd').find('#groupoption1').find('label').text('ValInfField');
-				$(this).closest('.cmd').find('#groupoption2').show();
-				$(this).closest('.cmd').find('#groupoption2').find('label').text('StatusCommande');
+				$(this).closest('.cmd').find('.groupoption1').show();
+				$(this).closest('.cmd').find('.groupoption1').find('label').text('ValInfField');
+				$(this).closest('.cmd').find('.groupoption2').show();
+				$(this).closest('.cmd').find('.groupoption2').find('label').text('StatusCommande');
 			break;
 			case '235.001':
-				$(this).closest('.cmd').find('#groupoption1').show();
-				$(this).closest('.cmd').find('#groupoption1').find('label').text('Tarif');
-				$(this).closest('.cmd').find('#groupoption2').show();
-				$(this).closest('.cmd').find('#groupoption2').find('label').text('Validité du Tarif');
-				$(this).closest('.cmd').find('#groupoption3').show();
-				$(this).closest('.cmd').find('#groupoption3').find('label').text('Validité Energie');
-				$(this).closest('.cmd').find('#groupoption4').hide();
-				$(this).closest('.cmd').find('#groupoption5').hide();
+				$(this).closest('.cmd').find('.groupoption1').show();
+				$(this).closest('.cmd').find('.groupoption1').find('label').text('Tarif');
+				$(this).closest('.cmd').find('.groupoption2').show();
+				$(this).closest('.cmd').find('.groupoption2').find('label').text('Validité du Tarif');
+				$(this).closest('.cmd').find('.groupoption3').show();
+				$(this).closest('.cmd').find('.groupoption3').find('label').text('Validité Energie');
+				$(this).closest('.cmd').find('.groupoption4').hide();
+				$(this).closest('.cmd').find('.groupoption5').hide();
 			break;
 			case 'x.001':
-				$(this).closest('.cmd').find('#groupoption1').show();
-				$(this).closest('.cmd').find('#groupoption1').find('label').text('Mode');
+				$(this).closest('.cmd').find('.groupoption1').show();
+				$(this).closest('.cmd').find('.groupoption1').find('label').text('Mode');
 			break;
 			default:
-				$(this).closest('.cmd').find('#groupoption1').hide();
-				$(this).closest('.cmd').find('#groupoption1').find('label').text('Option 1');
-				$(this).closest('.cmd').find('#groupoption2').hide();
-				$(this).closest('.cmd').find('#groupoption2').find('label').text('Option 2');
-				$(this).closest('.cmd').find('#groupoption3').hide();
-				$(this).closest('.cmd').find('#groupoption3').find('label').text('Option 3');
-				$(this).closest('.cmd').find('#groupoption4').hide();
-				$(this).closest('.cmd').find('#groupoption4').find('label').text('Option 4');
-				$(this).closest('.cmd').find('#groupoption5').hide();
-				$(this).closest('.cmd').find('#groupoption5').find('label').text('Option 5');
+				$(this).closest('.cmd').find('.groupoption1').hide();
+				$(this).closest('.cmd').find('.groupoption1').find('label').text('Option 1');
+				$(this).closest('.cmd').find('.groupoption2').hide();
+				$(this).closest('.cmd').find('.groupoption2').find('label').text('Option 2');
+				$(this).closest('.cmd').find('.groupoption3').hide();
+				$(this).closest('.cmd').find('.groupoption3').find('label').text('Option 3');
+				$(this).closest('.cmd').find('.groupoption4').hide();
+				$(this).closest('.cmd').find('.groupoption4').find('label').text('Option 4');
+				$(this).closest('.cmd').find('.groupoption5').hide();
+				$(this).closest('.cmd').find('.groupoption5').find('label').text('Option 5');
 			break;
 			}
 		var valeur =$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').val();
@@ -161,6 +161,7 @@ $(function(){
 		switch ($(this).value())
 			{
 			case "info":
+				$(this).closest('.cmd').find('.ValeurDefaut').hide();
 				$(this).closest('.cmd').find('.RetourEtat').hide();
 				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=init]').parent().show();
 				$(this).closest('.cmd').find('.bt_read').show();
@@ -172,6 +173,7 @@ $(function(){
 					$(this).closest('.cmd').find('.ObjetTransmit').hide();
 			break;
 			case "action":		
+				$(this).closest('.cmd').find('.ValeurDefaut').show();
 				$(this).closest('.cmd').find('.RetourEtat').show();
 				$(this).closest('.cmd').find('.ObjetTransmit').hide();
 				$(this).closest('.cmd').find('.bt_read').hide();
@@ -196,12 +198,18 @@ $(function(){
 		switch ($(this).value())
 		{
 			case "numeric":
+				$(this).closest('.cmd').find('.ValeurMinMax').show();
+				$(this).closest('.cmd').find('.ValeurUnite').show();
 				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=inverse]').show();
 			break;
 			case "binary":
+				$(this).closest('.cmd').find('.ValeurMinMax').hide();
+				$(this).closest('.cmd').find('.ValeurUnite').hide();
 				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=inverse]').show();
 			break;
 			case "other":
+				$(this).closest('.cmd').find('.ValeurMinMax').hide();
+				$(this).closest('.cmd').find('.ValeurUnite').hide();
 				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=inverse]').hide();
 				if ($(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]').val()!="")
 					{
@@ -217,6 +225,8 @@ $(function(){
 					}
 			break;
 			default:
+				$(this).closest('.cmd').find('.ValeurMinMax').show();
+				$(this).closest('.cmd').find('.ValeurUnite').show();
 				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=inverse]').hide();
 				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').hide();
 			break;
