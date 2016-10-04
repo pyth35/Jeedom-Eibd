@@ -495,9 +495,8 @@ function addCmdToTable(_cmd) {
 						.append($('<sup>')
 							.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
 							.attr('title','Choisissez, si vous le souhaitez la valeur fixe de votre commande'))))
-			.append($('<input style="width : 120px; margin-bottom : 3px;" class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="KnxObjectValue">'))));
+			.append($('<input style="width : 120px; margin-bottom : 3px;" class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="KnxObjectValue">')))));
 	tr.append($('<td class="wizard">')
-	
 		.append($('<span>')
 			.append($('<input type="checkbox" class="cmdAttr bootstrapSwitch" data-size="mini" data-label-text="{{Historiser}}" data-l1key="isHistorized" checked/>'))
 			.append($('<sup>')
