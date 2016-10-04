@@ -161,21 +161,33 @@ $(function(){
 		switch ($(this).value())
 			{
 			case "info":
+				$(this).closest('.cmd').find('.RetourEtat').remove();
 				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=init]').parent().show();
-				$(this).closest('.cmd').find('.cmdAttr[data-l1key=value]').parent().hide();
 				$(this).closest('.cmd').find('.bt_read').show();
 				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=transmitReponse]').parent().show();
 				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').hide();
 				if($(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=transmitReponse]').is(':checked'))
-					$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=ObjetTransmit]').parent().show();
+					$(this).closest('.cmd').find('.ObjetTransmit').remove();
 				else
-					$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=ObjetTransmit]').parent().hide();
+					$(this).closest('.cmd').find('.ObjetTransmit').remove();
 			break;
-			case "action":
+			case "action":		
+				$(this).closest('.cmd').find('.CmdParametter')
+					.append($('<span class="RetourEtat">')
+						.append($('<label>')
+							.text('{{Retour d\'état}}'))
+						.append($('<div class="input-group">')
+							.append($('<span class="input-group-btn">')
+								.append($('<sup>')
+									.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
+									.attr('title','Choisissez un objet jeedom contenant la valeur de votre commande'))))
+							.append($('<input cmdAttr form-control input-sm " data-l1key="value">'))
+							.append($('<span class="input-group-btn">')
+								.append($('<a class="btn btn-success btn-sm bt_selectCmdExpression" data-type="inAction">')
+									.append($('<i class="fa fa-list-alt">'))))));
 				$(this).closest('.cmd').find('.bt_read').hide();
-				$(this).closest('.cmd').find('.cmdAttr[data-l1key=value]').parent().show();
 				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=init]').parent().hide();
-				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=ObjetTransmit]').parent().hide();
+				//$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=ObjetTransmit]').parent().hide();
 				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=transmitReponse]').parent().hide();
 				if ($(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]').val()!="")
 					{
@@ -223,10 +235,23 @@ $(function(){
 		}
 	});			
 	$('body').on('switchChange.bootstrapSwitch change','.cmd .cmdAttr[data-l1key=configuration][data-l2key=transmitReponse]',function(){
-		if($(this).is(':checked'))
-			$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=ObjetTransmit]').parent().show();
-		else
-			$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=ObjetTransmit]').parent().hide();	
+		if($(this).is(':checked')){
+			$(this).closest('.cmd').find('.CmdParametter')
+					.append($('<span class="ObjetTransmit">')
+						.append($('<label>')
+							.text('{{Objet a transmetre}}'))
+						.append($('<div class="input-group">')
+							.append($('<span class="input-group-btn">')
+								.append($('<sup>')
+									.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
+									.attr('title','Selectionner un objet Jeedom dont la valeur est a envoyer sur le reseau KNX'))))
+							.append($('<input cmdAttr form-control input-sm " data-l1key="configuration" data-l2key="ObjetTransmit">'))
+							.append($('<span class="input-group-btn">')
+								.append($('<a class="btn btn-success btn-sm bt_selectCmdExpression" data-type="inAction">')
+									.append($('<i class="fa fa-list-alt">'))))));
+		}else{
+			$(this).closest('.cmd').find('.ObjetTransmit').remove();
+		}
 	});
 	$('body').on('switchChange.bootstrapSwitch change','.cmd .cmdAttr[data-l1key=configuration][data-l2key=subTypeAuto]', function() {
 			if($(this).is(':checked'))
@@ -382,26 +407,32 @@ function addCmdToTable(_cmd) {
 				.append($('<sup>')
 					.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
 						.attr('title','Soutez vous transmetre une information sur ce groupe d\'adresse'))));	
-	tr.append($('<td class="wizard">')
-		.append($('<span>')
-			.append($('<label>')
-				.text('{{Objet a transmetre}}')
-				.append($('<sup>')
-					.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
-						.attr('title','Selectionner un objet Jeedom dont la valeur est a envoyer sur le reseau KNX'))))
-			.append($('<input class="cmdAttr form-control input-sm " data-l1key="configuration" data-l2key="ObjetTransmit" style="width : 90%;display : inline-block;margin:5px;">'))
-			.append($('<a style="display : inline-block;margin:5px;"class="btn btn-default btn-xs cursor bt_selectCmdExpression" style="position : relative; top : 3px;" title="{{Rechercher une commande}}" id="ObjetTransmit">')
-				.append($('<i class="fa fa-list-alt">'))))
-		.append($('<span>')
-			.append($('<label>')
-				.text('{{Retour d\'état}}')
-				.append($('<sup>')
-					.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
-						.attr('title','Choisissez un objet jeedom contenant la valeur de votre commande'))))
-			.append($('<input class="cmdAttr form-control input-sm " data-l1key="value" style="width : 90%;display : inline-block;margin:5px;">'))
-			.append($('<a style="display : inline-block;margin:5px;"class="btn btn-default btn-xs cursor bt_selectCmdExpression" style="position : relative; top : 3px;" title="{{Rechercher une commande}}">')
-				.append($('<i class="fa fa-list-alt">'))))
-			.append($('<div id="groupoption1">')
+	tr.append($('<td class="wizard" CmdParametter>')
+		.append($('<span class="ObjetTransmit">')
+						.append($('<label>')
+							.text('{{Objet a transmetre}}'))
+						.append($('<div class="input-group">')
+							.append($('<span class="input-group-btn">')
+								.append($('<sup>')
+									.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
+									.attr('title','Selectionner un objet Jeedom dont la valeur est a envoyer sur le reseau KNX'))))
+							.append($('<input cmdAttr form-control input-sm " data-l1key="configuration" data-l2key="ObjetTransmit">'))
+							.append($('<span class="input-group-btn">')
+								.append($('<a class="btn btn-success btn-sm bt_selectCmdExpression" data-type="inAction">')
+									.append($('<i class="fa fa-list-alt">'))))))
+		.append($('<span class="RetourEtat">')
+						.append($('<label>')
+							.text('{{Retour d\'état}}'))
+						.append($('<div class="input-group">')
+							.append($('<span class="input-group-btn">')
+								.append($('<sup>')
+									.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
+									.attr('title','Choisissez un objet jeedom contenant la valeur de votre commande'))))
+							.append($('<input cmdAttr form-control input-sm " data-l1key="value">'))
+							.append($('<span class="input-group-btn">')
+								.append($('<a class="btn btn-success btn-sm bt_selectCmdExpression" data-type="inAction">')
+									.append($('<i class="fa fa-list-alt">'))))))
+			/*.append($('<div id="groupoption1">')
 				.append($("<label>")
 					.text("Option1")
 					.append($('<sup>')
@@ -409,8 +440,8 @@ function addCmdToTable(_cmd) {
 							.attr('title','option1'))))
 				.append($('<input class="cmdAttr form-control input-sm " data-l1key="configuration" data-l2key="option1">'))
 				.append($('<a class="btn btn-default btn-xs cursor bt_selectCmdExpression" style="position : relative; top : 3px;" title="{{Rechercher une commande}}" id="option1">')
-					.append($('<i class="fa fa-list-alt">'))))
-			.append($('<div id="groupoption2">')
+					.append($('<i class="fa fa-list-alt">'))))*/
+			/*.append($('<div id="groupoption2">')
 				.append($("<label>")
 					.text("Option2")
 					.append($('<sup>')
@@ -418,8 +449,8 @@ function addCmdToTable(_cmd) {
 							.attr('title','option2'))))
 				.append($('<input class="cmdAttr form-control input-sm " data-l1key="configuration" data-l2key="option2">'))
 				.append($('<a class="btn btn-default btn-xs cursor bt_selectCmdExpression" style="position : relative; top : 3px;" title="{{Rechercher une commande}}" id="option2">')
-					.append($('<i class="fa fa-list-alt">'))))
-			.append($('<div id="groupoption3">')
+					.append($('<i class="fa fa-list-alt">'))))*/
+			/*.append($('<div id="groupoption3">')
 				.append($("<label>")
 					.text("Option3")
 					.append($('<sup>')
@@ -427,8 +458,8 @@ function addCmdToTable(_cmd) {
 							.attr('title','option3'))))
 				.append($('<input class="cmdAttr form-control input-sm " data-l1key="configuration" data-l2key="option3">'))
 				.append($('<a class="btn btn-default btn-xs cursor bt_selectCmdExpression" style="position : relative; top : 3px;" title="{{Rechercher une commande}}" id="option3">')
-					.append($('<i class="fa fa-list-alt">'))))
-			.append($('<div id="groupoption4">')
+					.append($('<i class="fa fa-list-alt">'))))*/
+			/*.append($('<div id="groupoption4">')
 				.append($("<label>")
 					.text("Option4")
 					.append($('<sup>')
@@ -436,8 +467,8 @@ function addCmdToTable(_cmd) {
 							.attr('title','option4'))))
 				.append($('<input class="cmdAttr form-control input-sm " data-l1key="configuration" data-l2key="option4">'))
 				.append($('<a class="btn btn-default btn-xs cursor bt_selectCmdExpression" style="position : relative; top : 3px;" title="{{Rechercher une commande}}" id="option4">')
-				.append($('<i class="fa fa-list-alt">'))))
-			.append($('<div id="groupoption5">')
+				.append($('<i class="fa fa-list-alt">'))))*/
+			/*.append($('<div id="groupoption5">')
 				.append($("<label>")
 					.text("Option5")
 					.append($('<sup>')
@@ -445,7 +476,7 @@ function addCmdToTable(_cmd) {
 							.attr('title','option5'))))
 				.append($('<input class="cmdAttr form-control input-sm " data-l1key="configuration" data-l2key="option5">'))
 			.append($('<a class="btn btn-default btn-xs cursor bt_selectCmdExpression" style="position : relative; top : 3px;" title="{{Rechercher une commande}}" id="option5">')
-				.append($('<i class="fa fa-list-alt">'))))
+				.append($('<i class="fa fa-list-alt">'))))*/
 			.append($('<input style="width : 120px; margin-bottom : 3px;" class="cmdAttr form-control input-sm" data-l1key="unite" placeholder="{{Unitée}}" title="Unitée">'))
 			.append($('<input style="width : 120px; margin-bottom : 3px;" class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="KnxObjectValue">').hide())
 		.append($('<span>')
