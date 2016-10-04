@@ -161,33 +161,21 @@ $(function(){
 		switch ($(this).value())
 			{
 			case "info":
-				$(this).closest('.cmd').find('.RetourEtat').remove();
+				$(this).closest('.cmd').find('.RetourEtat').hide();
 				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=init]').parent().show();
 				$(this).closest('.cmd').find('.bt_read').show();
 				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=transmitReponse]').parent().show();
 				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').hide();
 				if($(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=transmitReponse]').is(':checked'))
-					$(this).closest('.cmd').find('.ObjetTransmit').remove();
+					$(this).closest('.cmd').find('.ObjetTransmit').show();
 				else
-					$(this).closest('.cmd').find('.ObjetTransmit').remove();
+					$(this).closest('.cmd').find('.ObjetTransmit').hide();
 			break;
 			case "action":		
-				$(this).closest('.cmd').find('.CmdParametter')
-					.append($('<span class="RetourEtat">')
-						.append($('<label>')
-							.text('{{Retour d\'état}}'))
-						.append($('<div class="input-group">')
-							.append($('<span class="input-group-btn">')
-								.append($('<sup>')
-									.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
-									.attr('title','Choisissez un objet jeedom contenant la valeur de votre commande'))))
-							.append($('<input cmdAttr form-control input-sm " data-l1key="value">'))
-							.append($('<span class="input-group-btn">')
-								.append($('<a class="btn btn-success btn-sm bt_selectCmdExpression" data-type="inAction">')
-									.append($('<i class="fa fa-list-alt">'))))));
+				$(this).closest('.cmd').find('.RetourEtat').show();
+				$(this).closest('.cmd').find('.ObjetTransmit').hide();
 				$(this).closest('.cmd').find('.bt_read').hide();
 				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=init]').parent().hide();
-				//$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=ObjetTransmit]').parent().hide();
 				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=transmitReponse]').parent().hide();
 				if ($(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]').val()!="")
 					{
@@ -236,21 +224,9 @@ $(function(){
 	});			
 	$('body').on('switchChange.bootstrapSwitch change','.cmd .cmdAttr[data-l1key=configuration][data-l2key=transmitReponse]',function(){
 		if($(this).is(':checked')){
-			$(this).closest('.cmd').find('.CmdParametter')
-					.append($('<span class="ObjetTransmit">')
-						.append($('<label>')
-							.text('{{Objet a transmetre}}'))
-						.append($('<div class="input-group">')
-							.append($('<span class="input-group-btn">')
-								.append($('<sup>')
-									.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
-									.attr('title','Selectionner un objet Jeedom dont la valeur est a envoyer sur le reseau KNX'))))
-							.append($('<input cmdAttr form-control input-sm " data-l1key="configuration" data-l2key="ObjetTransmit">'))
-							.append($('<span class="input-group-btn">')
-								.append($('<a class="btn btn-success btn-sm bt_selectCmdExpression" data-type="inAction">')
-									.append($('<i class="fa fa-list-alt">'))))));
+			$(this).closest('.cmd').find('.ObjetTransmit').show();
 		}else{
-			$(this).closest('.cmd').find('.ObjetTransmit').remove();
+			$(this).closest('.cmd').find('.ObjetTransmit').hide();
 		}
 	});
 	$('body').on('switchChange.bootstrapSwitch change','.cmd .cmdAttr[data-l1key=configuration][data-l2key=subTypeAuto]', function() {
