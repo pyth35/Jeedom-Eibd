@@ -502,7 +502,7 @@ function addCmdToTable(_cmd) {
 						.append($('<sup  class="btn btn-success btn-sm">')
 							.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
 							.attr('title','Saisisez l\'unitée de cette commande'))))
-			.append($('<input style="width : 120px; margin-bottom : 3px;" class="cmdAttr form-control input-sm" data-l1key="unite" placeholder="{{Unitée}}" title="Unitée">'))))
+			.append($('<input class="cmdAttr form-control input-sm" data-l1key="unite" placeholder="{{Unitée}}" title="Unitée">'))))
 		.append($('<div class="ValeurDefaut">')
 				.append($('<label>')
 					.text('{{Valeur figer de cette commande}}'))
@@ -511,9 +511,9 @@ function addCmdToTable(_cmd) {
 						.append($('<sup class="btn  btn-sm">')
 							.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
 							.attr('title','Choisissez, si vous le souhaitez la valeur fixe de votre commande'))))
-			.append($('<input style="width : 120px; margin-bottom : 3px;" class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="KnxObjectValue">')))));
+			.append($('<input class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="KnxObjectValue">')))));
 	tr.append($('<td class="wizard">')	
-		.append($('<div class="parametre" style="width : 30%;display : inline-block;margin:5px;">')
+		.append($('<div class="parametre">')
 			.append($('<span class="type" type="' + init(_cmd.type) + '">')
 				.append(jeedom.cmd.availableType()))
 		.append($('<span class="expertModeVisible">')
