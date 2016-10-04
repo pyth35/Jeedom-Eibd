@@ -164,8 +164,9 @@ $(function(){
 				$(this).closest('.cmd').find('.ValeurDefaut').hide();
 				$(this).closest('.cmd').find('.RetourEtat').hide();
 				$(this).closest('.cmd').find('.bt_read').show();
-				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=init]').parent().show();
-				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=transmitReponse]').parent().show();
+				$(this).closest('.cmd').find('.cmdAttr[data-l1key=isHistorized]').closest('.input-group').parent().show();
+				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=init]').closest('.input-group').parent().show();
+				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=transmitReponse]').closest('.input-group').parent().show();
 				if($(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=transmitReponse]').is(':checked'))
 					$(this).closest('.cmd').find('.ObjetTransmit').show();
 				else
@@ -176,8 +177,9 @@ $(function(){
 				$(this).closest('.cmd').find('.RetourEtat').show();
 				$(this).closest('.cmd').find('.ObjetTransmit').hide();
 				$(this).closest('.cmd').find('.bt_read').hide();
-				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=init]').parent().hide();
-				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=transmitReponse]').parent().hide();
+				$(this).closest('.cmd').find('.cmdAttr[data-l1key=isHistorized]').closest('.input-group').parent().hide();
+				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=init]').closest('.input-group').parent().hide();
+				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=transmitReponse]').closest('.input-group').parent().hide();
 				if ($(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]').val()!="")
 					{
 					var _this=$(this);
@@ -200,7 +202,7 @@ $(function(){
 			case "numeric":
 				$(this).closest('.cmd').find('.ValeurMinMax').show();
 				$(this).closest('.cmd').find('.ValeurUnite').show();
-				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=inverse]').parent().show();
+				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=inverse]').closest('.input-group').parent().show();
 			break;
 			case "other":
 				if ($(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]').val()!="")
@@ -218,12 +220,12 @@ $(function(){
 			case "binary":
 				$(this).closest('.cmd').find('.ValeurMinMax').hide();
 				$(this).closest('.cmd').find('.ValeurUnite').hide();
-				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=inverse]').parent().show();
+				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=inverse]').closest('.input-group').parent().show();
 			break;
 			default:
 				$(this).closest('.cmd').find('.ValeurMinMax').hide();
 				$(this).closest('.cmd').find('.ValeurUnite').hide();
-				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=inverse]').parent().hide();
+				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=inverse]').closest('.input-group').parent().hide();
 				$(this).closest('.cmd').find('.ValeurDefaut').hide();
 			break;
 		}
