@@ -396,6 +396,13 @@ function addCmdToTable(_cmd) {
 						.attr('title','Souhaitez vous transmetre une information sur ce groupe d\'adresse'))))
 			.append($('<input type="checkbox" class="cmdAttr bootstrapSwitch" data-size="mini" data-label-text="{{Transmetre}}" data-l1key="configuration" data-l2key="transmitReponse"/>')))));	
 	tr.append($('<td class="wizard">')
+		.append($('<div>')
+				.append($('<div class="input-group">')
+					.append($('<span class="input-group-btn">')
+						.append($('<sup class="btn  btn-sm">')
+							.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
+							.attr('title','Souhaitez vous inverser l\'état de la valeur'))))
+				.append($('<input type="checkbox" class="cmdAttr bootstrapSwitch" data-size="mini" data-label-text="{{Inverser}}" data-l1key="configuration" data-l2key="inverse" checked/>'))))
 		.append($('<div class="ObjetTransmit">')
 			.append($('<label>')
 				.text('{{Objet a transmetre}}'))
@@ -542,13 +549,6 @@ function addCmdToTable(_cmd) {
 							.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
 							.attr('title','Souhaitez vous afficher cette commande sur le dashboard'))))
 				.append($('<input type="checkbox" class="cmdAttr bootstrapSwitch" data-size="mini" data-label-text="{{Afficher}}" data-l1key="isVisible" checked/>'))));
-		parmetre.append($('<div>')
-				.append($('<div class="input-group">')
-					.append($('<span class="input-group-btn">')
-						.append($('<sup class="btn  btn-sm">')
-							.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
-							.attr('title','Souhaitez vous inverser l\'état de la valeur'))))
-				.append($('<input type="checkbox" class="cmdAttr bootstrapSwitch" data-size="mini" data-label-text="{{Inverser}}" data-l1key="configuration" data-l2key="inverse" checked/>'))));
 		parmetre.append($('<div>')
 				.append($('<div class="input-group">')
 					.append($('<span class="input-group-btn">')
