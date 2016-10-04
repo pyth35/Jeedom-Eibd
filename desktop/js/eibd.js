@@ -398,7 +398,7 @@ function addCmdToTable(_cmd) {
 					.append($('<sup class="btn  btn-sm">')
 						.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
 						.attr('title','Souhaitez vous transmetre une information sur ce groupe d\'adresse'))))
-			.append($('<input type="checkbox" class="cmdAttr bootstrapSwitch" data-size="mini" data-label-text="{{Transmetre}}" data-l1key="configuration" data-l2key="transmitReponse"/>'))));	
+			.append($('<input type="checkbox" class="cmdAttr bootstrapSwitch" data-size="mini" data-label-text="{{Transmetre}}" data-l1key="configuration" data-l2key="transmitReponse"/>')))));	
 	tr.append($('<td class="wizard">')
 		.append($('<div class="ObjetTransmit">')
 			.append($('<label>')
