@@ -163,10 +163,9 @@ $(function(){
 			case "info":
 				$(this).closest('.cmd').find('.ValeurDefaut').hide();
 				$(this).closest('.cmd').find('.RetourEtat').hide();
-				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=init]').parent().show();
 				$(this).closest('.cmd').find('.bt_read').show();
+				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=init]').parent().show();
 				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=transmitReponse]').parent().show();
-				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').hide();
 				if($(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=transmitReponse]').is(':checked'))
 					$(this).closest('.cmd').find('.ObjetTransmit').show();
 				else
@@ -197,20 +196,13 @@ $(function(){
 	$('body').on('change', '.cmd .cmdAttr[data-l1key=subType]',function() {
 		switch ($(this).value())
 		{
+			case "cursor":
 			case "numeric":
 				$(this).closest('.cmd').find('.ValeurMinMax').show();
 				$(this).closest('.cmd').find('.ValeurUnite').show();
-				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=inverse]').show();
-			break;
-			case "binary":
-				$(this).closest('.cmd').find('.ValeurMinMax').hide();
-				$(this).closest('.cmd').find('.ValeurUnite').hide();
-				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=inverse]').show();
+				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=inverse]').parent().show();
 			break;
 			case "other":
-				$(this).closest('.cmd').find('.ValeurMinMax').hide();
-				$(this).closest('.cmd').find('.ValeurUnite').hide();
-				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=inverse]').hide();
 				if ($(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]').val()!="")
 					{
 					var _this=$(this);
@@ -223,12 +215,16 @@ $(function(){
 					$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue] option[value="'+valeur+'"]')
 						.prop('selected', true);
 					}
+			case "binary":
+				$(this).closest('.cmd').find('.ValeurMinMax').hide();
+				$(this).closest('.cmd').find('.ValeurUnite').hide();
+				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=inverse]').parent().show();
 			break;
 			default:
-				$(this).closest('.cmd').find('.ValeurMinMax').show();
-				$(this).closest('.cmd').find('.ValeurUnite').show();
-				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=inverse]').hide();
-				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').hide();
+				$(this).closest('.cmd').find('.ValeurMinMax').hide();
+				$(this).closest('.cmd').find('.ValeurUnite').hide();
+				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=inverse]').parent().hide();
+				$(this).closest('.cmd').find('.ValeurDefaut').hide();
 			break;
 		}
 	});			
@@ -499,7 +495,7 @@ function addCmdToTable(_cmd) {
 					.text('{{Unitée de cette commande}}'))
 				.append($('<div class="input-group">')
 					.append($('<span class="input-group-btn">')
-						.append($('<sup  class="btn btn-success btn-sm">')
+						.append($('<sup class="btn btn-sm">')
 							.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
 							.attr('title','Saisisez l\'unitée de cette commande'))))
 			.append($('<input class="cmdAttr form-control input-sm" data-l1key="unite" placeholder="{{Unitée}}" title="Unitée">'))))
