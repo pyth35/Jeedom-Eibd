@@ -3,8 +3,7 @@
 		"name":"BSO",
 		"isVisible":"1",
 		"isEnable":"1",
-		"cmd":
-		[
+		"cmd":[
 			{				
 				"name":"Haut",
 				"type":"action",
