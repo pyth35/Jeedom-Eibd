@@ -9,7 +9,7 @@ Attention, la compilation est gourmande en ressource et peux entrainer des ralen
 image::../images/Installation_dependance.jpg[]
 
 === Configuration du plugin et de ses dépendances
-image::../images/eibd_screenshot_configuration.jpg[]
+image::../images/eibd_screenshot_Configuration.jpg[]
 
 Pendant ou après l'installation des dépendances, nous pouvons configurer le plugin et la connexion EIBD à notre passerelle.
 
