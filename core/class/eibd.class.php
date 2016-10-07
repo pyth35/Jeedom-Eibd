@@ -402,7 +402,7 @@ class eibd extends eqLogic {
 							$BusValue=Dpt::DptSelectDecode($dpt, $DataBus, $inverse,$option);
 							log::add('eibd', 'debug', '['.$Equipement->getName().']['.$Commande->getName().'] => '.$BusValue);
 							$Commande->setCollectDate(date('Y-m-d H:i:s'));
-							$commande->setConfiguration('doNotRepeatEvent', 1);
+							$Commande->setConfiguration('doNotRepeatEvent', 1);
 							$Commande->event($BusValue);
 							$Commande->save();
 						}
