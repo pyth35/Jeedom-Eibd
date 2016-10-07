@@ -4,7 +4,41 @@
 		"isVisible":"1",
 		"isEnable":"1",
 		"cmd":[
-			{				
+			{
+				"name":"Position Etat",
+				"type":"info",
+				"subType":"numeric",
+				"isHistorized":"0",
+				"unite":"",
+				"configuration":{
+					"KnxObjectType":"5.xxx",
+					"init":"0",
+					"eventOnly":"1",
+					"transmitReponse":"0",
+					"ObjetTransmit":"",
+					"option1":"",
+					"option2":"",
+					"option3":"",
+					"option4":"",
+					"option5":"",
+					"KnxObjectValue":"",
+					"inverse":"0",
+					"noBatterieCheck":"0",
+					"minValue":"0",
+					"maxValue":"255",
+					"subTypeAuto":"0"
+				},
+				"template":{
+					"dashboard":"default",
+					"mobile":"default"
+				},
+				"display":{
+					"icon":"",
+					"generic_type":""
+				},
+				"value":"",
+				"isVisible":"1"
+			},{				
 				"name":"Haut",
 				"type":"action",
 				"subType":"other",
@@ -105,40 +139,6 @@
 					"generic_type":"FLAP_DOWN"
 				},
 				"value":"Position Etat",
-				"isVisible":"1"
-			},{
-				"name":"Position Etat",
-				"type":"info",
-				"subType":"numeric",
-				"isHistorized":"0",
-				"unite":"",
-				"configuration":{
-					"KnxObjectType":"5.xxx",
-					"init":"0",
-					"eventOnly":"1",
-					"transmitReponse":"0",
-					"ObjetTransmit":"",
-					"option1":"",
-					"option2":"",
-					"option3":"",
-					"option4":"",
-					"option5":"",
-					"KnxObjectValue":"",
-					"inverse":"0",
-					"noBatterieCheck":"0",
-					"minValue":"0",
-					"maxValue":"255",
-					"subTypeAuto":"0"
-				},
-				"template":{
-					"dashboard":"default",
-					"mobile":"default"
-				},
-				"display":{
-					"icon":"",
-					"generic_type":""
-				},
-				"value":"",
 				"isVisible":"1"
 			},{
 				"name":"Lames Etat",
