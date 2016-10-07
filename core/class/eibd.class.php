@@ -532,7 +532,7 @@ class eibd extends eqLogic {
 					if($Commande->getType() == 'info' && $Commande->getConfiguration('eventOnly')){
 						log::add('eibd', 'debug',$Commande->getLogicalId().' : Mise a jours de la valeur : '.$valeur.$unite);
 						$Commande->setCollectDate(date('Y-m-d H:i:s'));
-						$commande->setConfiguration('doNotRepeatEvent', 1);
+						$Commande->setConfiguration('doNotRepeatEvent', 1);
 						$Commande->event($valeur);
 						$Commande->save();
 					}
