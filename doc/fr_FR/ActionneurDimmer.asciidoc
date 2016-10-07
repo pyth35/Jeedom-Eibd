@@ -16,8 +16,8 @@ image::../images/Eibd_Exemple_ETS_dimmer.jpg[]
 
 ==== Créer la commande pour dimmer votre lumière :
 
-La commande Write brightness 5.001 0/0/10 doit avoir le paramètre "Slider" et comme retour état la commande crée précédemment "brightness value"
+La commande Write brightness 5.001 0/0/10 doit avoir le paramètre "Slider" et comme retour état la commande créée précédemment "brightness value"
 
-La commande Diming 3.007 est uniquement là pour que jeedom reconnaissance des variations faites depuis des intérrupteurs poussoir KNX.
+La commande Diming 3.007 est uniquement là pour que jeedom reconnaissance des variations faites depuis des interrupteurs poussoir KNX.
 
 image::../images/Eibd_Exemple_dimmer.jpg[]
