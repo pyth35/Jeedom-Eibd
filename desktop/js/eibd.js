@@ -382,21 +382,24 @@ function addCmdToTable(_cmd) {
 					.append($('<sup class="btn  btn-sm">')
 						.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
 						.attr('title','Souhaitez vous initialiser cette commande au démarrage?  (Attention: Avant d\'activer cette option veillez a ce que dans ce groupe d\'adresse, le flag READ soit present'))))
-			.append($('<input type="checkbox" class="cmdAttr" data-size="mini" data-label-text="{{Initialiser}}" data-l1key="configuration" data-l2key="init"/>'))))
+			.append($('<input type="checkbox" class="cmdAttr" data-size="mini" data-label-text="{{Initialiser}}" data-l1key="configuration" data-l2key="init"/>'))
+			       .text('{{Initialiser}}')))
 		.append($('<div>')
 			.append($('<div class="input-group">')
 				.append($('<span class="input-group-btn">')
 					.append($('<sup class="btn  btn-sm">')
 						.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
 						.attr('title','Souhaitez vous que la valeur soit mise a jours par le bus monitor'))))
-			.append($('<input type="checkbox" class="cmdAttr" data-size="mini" data-label-text="{{Evenement}}" data-l1key="configuration" data-l2key="eventOnly" checked/>'))))
+			.append($('<input type="checkbox" class="cmdAttr" data-size="mini" data-label-text="{{Evenement}}" data-l1key="configuration" data-l2key="eventOnly" checked/>'))
+			        .text('{{Evenement}}')))
 		.append($('<div>')
 			.append($('<div class="input-group">')
 				.append($('<span class="input-group-btn">')
 					.append($('<sup class="btn  btn-sm">')
 						.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
 						.attr('title','Souhaitez vous transmetre une information sur ce groupe d\'adresse'))))
-			.append($('<input type="checkbox" class="cmdAttr" data-size="mini" data-label-text="{{Transmetre}}" data-l1key="configuration" data-l2key="transmitReponse"/>')))));	
+			.append($('<input type="checkbox" class="cmdAttr" data-size="mini" data-label-text="{{Transmetre}}" data-l1key="configuration" data-l2key="transmitReponse"/>'))
+			       .text('{{Transmetre}}')))));	
 	tr.append($('<td class="wizard">')
 		.append($('<div>')
 				.append($('<div class="input-group">')
@@ -404,7 +407,8 @@ function addCmdToTable(_cmd) {
 						.append($('<sup class="btn  btn-sm">')
 							.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
 							.attr('title','Souhaitez vous inverser l\'état de la valeur'))))
-				.append($('<input type="checkbox" class="cmdAttr" data-size="mini" data-label-text="{{Inverser}}" data-l1key="configuration" data-l2key="inverse" checked/>'))))
+				.append($('<input type="checkbox" class="cmdAttr" data-size="mini" data-label-text="{{Inverser}}" data-l1key="configuration" data-l2key="inverse" checked/>'))
+				       .text('{{Inverser}}'))))
 		.append($('<div class="ObjetTransmit">')
 			.append($('<label>')
 				.text('{{Objet a transmetre}}'))
@@ -522,7 +526,8 @@ function addCmdToTable(_cmd) {
 			.append($('<span class="type" type="' + init(_cmd.type) + '">')
 				.append(jeedom.cmd.availableType()))
 		.append($('<span class="expertModeVisible">')
-			.append($('<input type="checkbox" class="cmdAttr" data-size="mini" data-label-text="{{Sous type}}" data-l1key="configuration"  data-l2key="subTypeAuto"/>')))
+			.append($('<input type="checkbox" class="cmdAttr" data-size="mini" data-label-text="{{Sous type}}" data-l1key="configuration"  data-l2key="subTypeAuto"/>'))
+			.text('{{Sous type automatique}}')))
 			.append($('<span class="subType" subType="'+init(_cmd.subType)+'">'))));
 		var parmetre=$('<td>');
 	if (is_numeric(_cmd.id)) {
@@ -543,21 +548,24 @@ function addCmdToTable(_cmd) {
 						.append($('<sup class="btn  btn-sm">')
 							.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
 							.attr('title','Souhaitez vous Historiser les changements de valeur'))))
-				.append($('<input type="checkbox" class="cmdAttr" data-size="mini" data-label-text="{{Historiser}}" data-l1key="isHistorized" checked/>'))));
+				.append($('<input type="checkbox" class="cmdAttr" data-size="mini" data-label-text="{{Historiser}}" data-l1key="isHistorized" checked/>'))
+				       .text('{{Historiser}}')));
 		parmetre.append($('<div>')
 				.append($('<div class="input-group">')
 					.append($('<span class="input-group-btn">')
 						.append($('<sup class="btn  btn-sm">')
 							.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
 							.attr('title','Souhaitez vous afficher cette commande sur le dashboard'))))
-				.append($('<input type="checkbox" class="cmdAttr" data-size="mini" data-label-text="{{Afficher}}" data-l1key="isVisible" checked/>'))));
+				.append($('<input type="checkbox" class="cmdAttr" data-size="mini" data-label-text="{{Afficher}}" data-l1key="isVisible" checked/>'))
+				       .text('{{Afficher}}')));
 		parmetre.append($('<div>')
 				.append($('<div class="input-group">')
 					.append($('<span class="input-group-btn">')
 						.append($('<sup class="btn  btn-sm">')
 							.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
 							.attr('title','Activer cette option uniquement si votre équipement est sur batterie. Ce groupe d\'adresse correspond au niveau de batterie'))))
-				.append($('<input type="checkbox" class="cmdAttr" data-size="mini" data-label-text="{{Niveau Batterie}}" data-l1key="configuration" data-l2key="noBatterieCheck" checked/>'))));
+				.append($('<input type="checkbox" class="cmdAttr" data-size="mini" data-label-text="{{Niveau Batterie}}" data-l1key="configuration" data-l2key="noBatterieCheck" checked/>'))
+				       .text('{{Niveau Batterie}}'));
 	tr.append(parmetre);
 	$('#table_cmd tbody').append(tr);
 	$('#table_cmd tbody tr:last').setValues(_cmd, '.cmdAttr');
