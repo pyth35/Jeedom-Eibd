@@ -203,13 +203,13 @@ $eqLogics = eqLogic::byType('eibd');
         <table id="table_cmd" class="table table-bordered table-condensed">
             <thead>
                 <tr>
-                    <th style="width : 50px;"></th>
+                    <th ></th>
                     <th>Nom</th>
-                    <th style="width : 300px;">Configuration KNX</th>
-                    <th class="expertModeVisible" style="width : 100px;">Flag</th>
-                    <th style="width : 300px;">Valeur</th>
-                    <th style="width : 200px;">Paramètre</th>
-                    <th style="width : 40px;"></th>
+                    <th>Configuration KNX</th>
+                    <th class="expertModeVisible">Flag</th>
+                    <th>Valeur</th>
+                    <th>Paramètre</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
