@@ -563,9 +563,9 @@ function addCmdToTable(_cmd) {
 					.append($('<span class="input-group-btn">')
 						.append($('<sup class="btn  btn-sm">')
 							.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
-							.attr('title','Activer cette option uniquement si votre équipement est sur batterie. Ce groupe d\'adresse correspond au niveau de batterie'))))
-				.append($('<input type="checkbox" class="cmdAttr" data-size="mini" data-label-text="{{Niveau Batterie}}" data-l1key="configuration" data-l2key="noBatterieCheck" checked/>'))
-				       .text('{{Niveau Batterie}}'));
+								.attr('title','Activer cette option uniquement si votre équipement est sur batterie. Ce groupe d\'adresse correspond au niveau de batterie'))))
+					.append($('<input type="checkbox" class="cmdAttr" data-size="mini" data-label-text="{{Niveau Batterie}}" data-l1key="configuration" data-l2key="noBatterieCheck" checked/>'))
+					       .text('{{Niveau Batterie}}')));
 	tr.append(parmetre);
 	$('#table_cmd tbody').append(tr);
 	$('#table_cmd tbody tr:last').setValues(_cmd, '.cmdAttr');
