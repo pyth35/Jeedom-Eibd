@@ -527,7 +527,7 @@ function addCmdToTable(_cmd) {
 				.append(jeedom.cmd.availableType()))
 		.append($('<span class="expertModeVisible">')
 			.append($('<input type="checkbox" class="cmdAttr" data-size="mini" data-label-text="{{Sous type}}" data-l1key="configuration"  data-l2key="subTypeAuto"/>'))
-			.text('{{Sous type automatique}}')))
+			.text('{{Sous type automatique}}'))
 			.append($('<span class="subType" subType="'+init(_cmd.subType)+'">'))));
 		var parmetre=$('<td>');
 	if (is_numeric(_cmd.id)) {
