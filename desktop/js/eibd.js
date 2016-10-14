@@ -399,7 +399,7 @@ function addCmdToTable(_cmd) {
 						.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
 						.attr('title','Souhaitez vous transmetre une information sur ce groupe d\'adresse'))))
 			.append($('<input type="checkbox" class="cmdAttr" data-size="mini" data-label-text="{{Transmetre}}" data-l1key="configuration" data-l2key="transmitReponse"/>'))
-			       .text('{{Transmetre}}')))));	
+			       .text('{{Transmetre}}'))));	
 	tr.append($('<td class="wizard">')
 		.append($('<div>')
 				.append($('<div class="input-group">')
