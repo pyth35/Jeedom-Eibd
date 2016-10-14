@@ -51,19 +51,19 @@ if (!isConnect()) {
 			<div class="form-group">
 				<label class="col-lg-4 control-label">Adresse de groupe 2 ou 3 niveau</label>
 				<div class="col-lg-4">
-					<input type="checkbox" class="configKey bootstrapSwitch" data-label-text="{{3 niveau}}" data-l1key="level"/>
+					<label class="checkbox-inline"><input type="checkbox" class="configKey" data-l1key="level" checked/>{{3 niveau}}</label>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-lg-4 control-label">Ajouter automatiquement les equipements </label>
 				<div class="col-lg-4">
-					<input type="checkbox" class="configKey bootstrapSwitch" data-label-text="{{Automatique}}" data-l1key="autoAddDevice"/>
+					<label class="checkbox-inline"><input type="checkbox" class="configKey" data-l1key="autoAddDevice" checked/>{{Automatique}}</label>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-lg-4 control-label">Initialiser les retours d'etat au lancement</label>
 				<div class="col-lg-4">
-					<input type="checkbox" class="configKey bootstrapSwitch" data-label-text="{{Activer}}" data-l1key="initInfo"/>
+					<label class="checkbox-inline"><input type="checkbox" class="configKey" data-l1key="initInfo" checked/>{{Activer}}</label>
 				</div>
 			</div>
 		</div>
