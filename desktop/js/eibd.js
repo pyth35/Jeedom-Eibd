@@ -295,6 +295,10 @@ function UpdateVar(){
 }
 function DptUnit(Dpt)	{
 	var result;
+	if(AllDpt.length==0){
+		UpdateVar();
+		while(AllDpt.length==0);
+	}
 	$.each(AllDpt, function(key, value){
 		$.each(value, function(key, value){
 			if (key==Dpt)
@@ -304,6 +308,11 @@ function DptUnit(Dpt)	{
 	return result;
 }
 function getDptSousType(Dpt,type)	{
+	
+	if(AllDpt.length==0){
+		UpdateVar();
+		while(AllDpt.length==0);
+	}
 	var result;
 	$.each(AllDpt, function(key, value){
 		$.each(value, function(key, value){
@@ -318,6 +327,11 @@ function getDptSousType(Dpt,type)	{
 	return result;
 }
 function DptValue(Dpt){
+	
+	if(AllDpt.length==0){
+		UpdateVar();
+		while(AllDpt.length==0);
+	}
 	var result='<option value="">{{Imposer une valeur}}</option>';
 	$.each(AllDpt, function(key, value){
 		$.each(value, function(key, value){
@@ -331,7 +345,11 @@ function DptValue(Dpt){
 	});
 	return result;
 }
-function OptionSelectDpt(AllDpt){
+function OptionSelectDpt(){
+	if(AllDpt.length==0){
+		UpdateVar();
+		while(AllDpt.length==0);
+	}
 	DptSelectorOption='<option value="">{{Sélèctionner un DPT}}</option>';
 	$.each(AllDpt, function(key, value){
 		DptSelectorOption+= '<optgroup label="{{'+key+'}}">';
@@ -368,7 +386,7 @@ function addCmdToTable(_cmd) {
 				.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
 					.attr('title','Selectionner le type de data KNX'))))
 		.append($('<select class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="KnxObjectType">')
-			.append(OptionSelectDpt(AllDpt)))
+			.append(OptionSelectDpt()))
 		.append($('<label>')
 			.text('{{Groupe d\'adresse}}')
 			.append($('<sup>')
