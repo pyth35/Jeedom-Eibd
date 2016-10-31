@@ -8,7 +8,7 @@ class Dpt{
 		case "1":
 			if ($value != 0 && $value != 1)
 				{
-				$ValeurDpt=$All_DPT["Boolean"][$dpt][Valeurs];
+				$ValeurDpt=$All_DPT["Boolean"][$dpt]['Valeurs'];
 				$value = array_search($value, $ValeurDpt); 
 				}
 			if ($inverse)
