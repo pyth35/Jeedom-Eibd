@@ -57,7 +57,7 @@ try {
 				}
 			$BusValue=Dpt::DptSelectDecode($dpt, $DataBus, $inverse,$option);
 			$Commande->setCollectDate(date('Y-m-d H:i:s'));
-			$Commande->setConfiguration('doNotRepeatEvent', 1);
+			//$Commande->setConfiguration('doNotRepeatEvent', 1);
 			$Commande->event($BusValue);
 			$Commande->save();
 			ajax::success($BusValue);
