@@ -861,13 +861,13 @@ class eibdCmd extends cmd {
 					$inverse=$Listener->getConfiguration('inverse');
                 switch ($this->getSubType()) {
                     case 'slider':    
-						$ActionValue = $_options['slider'];
+						$ActionValue = isset($_options['slider']);
                         break;
                     case 'color':
-						$ActionValue = $_options['color'];
+						$ActionValue = isset($_options['color']);
                         break;
                     case 'message':
-						$ActionValue = $_options['message'];
+						$ActionValue = isset($_options['message']);
                         break;
                     case 'other':				
 						if (isset($Listener) && is_object($Listener)) {
