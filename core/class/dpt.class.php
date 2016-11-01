@@ -183,7 +183,7 @@ class Dpt{
 							$Mode=cmd::byId(str_replace('#','',$option["Mode"]));
 							if (is_object($Mode)){
 								$Mode->setCollectDate(date('Y-m-d H:i:s'));
-								$Mode->setConfiguration('doNotRepeatEvent', 1);
+								//$Mode->setConfiguration('doNotRepeatEvent', 1);
 								$Mode->event(($data[0]>>1) & 0xEF);
 								$Mode->save();
 							}
@@ -316,7 +316,7 @@ class Dpt{
 						$ctrl = ($data[0] >> 7) & 0x01;
 						log::add('eibd', 'debug', 'L\'objet '.$control->getName().' à été trouvé et vas etre mis a jours avec la valeur '. $ctrl);
 						$control->setCollectDate(date('Y-m-d H:i:s'));
-						$control->setConfiguration('doNotRepeatEvent', 1);
+						//$control->setConfiguration('doNotRepeatEvent', 1);
 						$control->event($ctrl);
 						$control->save();
 					}
@@ -398,7 +398,7 @@ class Dpt{
 							$valeur=$data[4];
 							log::add('eibd', 'debug', 'L\'objet '.$ValInfField->getName().' à été trouvé et vas etre mis a jours avec la valeur '. $valeur);
 							$ValInfField->setCollectDate(date('Y-m-d H:i:s'));
-							$ValInfField->setConfiguration('doNotRepeatEvent', 1);
+							//$ValInfField->setConfiguration('doNotRepeatEvent', 1);
 							$ValInfField->event($valeur);
 							$ValInfField->save();
 							}
@@ -413,7 +413,7 @@ class Dpt{
 							$valeur=($data[5]>>1) & 0x01;
 							log::add('eibd', 'debug', 'L\'objet '.$StatusCommande->getName().' à été trouvé et vas etre mis a jours avec la valeur '. $valeur);
 							$StatusCommande->setCollectDate(date('Y-m-d H:i:s'));
-							$StatusCommande->setConfiguration('doNotRepeatEvent', 1);
+							//$StatusCommande->setConfiguration('doNotRepeatEvent', 1);
 							$StatusCommande->event($valeur);
 							$StatusCommande->save();
 							}
@@ -439,7 +439,7 @@ class Dpt{
 							$valeur=$data[4];
 							log::add('eibd', 'debug', 'L\'objet '.$TarifCommande->getName().' à été trouvé et vas etre mis a jours avec la valeur '. $valeur);
 							$TarifCommande->setCollectDate(date('Y-m-d H:i:s'));
-							$TarifCommande->setConfiguration('doNotRepeatEvent', 1);
+							//$TarifCommande->setConfiguration('doNotRepeatEvent', 1);
 							$TarifCommande->event($valeur);
 							$TarifCommande->save();
 							}
@@ -454,7 +454,7 @@ class Dpt{
 							$valeur=($data[5]>>1) & 0x01;
 							log::add('eibd', 'debug', 'L\'objet '.$validityTarifCommande->getName().' à été trouvé et vas etre mis a jours avec la valeur '. $valeur);
 							$validityTarifCommande->setCollectDate(date('Y-m-d H:i:s'));
-							$validityTarifCommande->setConfiguration('doNotRepeatEvent', 1);
+							//$validityTarifCommande->setConfiguration('doNotRepeatEvent', 1);
 							$validityTarifCommande->event($valeur);
 							$validityTarifCommande->save();
 							}
@@ -469,7 +469,7 @@ class Dpt{
 							$valeur=$data[5] & 0x01;
 							log::add('eibd', 'debug', 'L\'objet '.$validityActiveElectricalEnergyCommande->getName().' à été trouvé et vas etre mis a jours avec la valeur '. $valeur);
 							$validityActiveElectricalEnergyCommande->setCollectDate(date('Y-m-d H:i:s'));
-							$validityActiveElectricalEnergyCommande->setConfiguration('doNotRepeatEvent', 1);
+							//$validityActiveElectricalEnergyCommande->setConfiguration('doNotRepeatEvent', 1);
 							$validityActiveElectricalEnergyCommande->event($valeur);
 							$validityActiveElectricalEnergyCommande->save();
 							}
@@ -490,7 +490,7 @@ class Dpt{
 							$Mode=cmd::byId(str_replace('#','',$option["Mode"]));
 							if (is_object($Mode)){
 								$Mode->setCollectDate(date('Y-m-d H:i:s'));
-								$Mode->setConfiguration('doNotRepeatEvent', 1);
+								//$Mode->setConfiguration('doNotRepeatEvent', 1);
 								$Mode->event(($data[0]>>1) & 0xEF);
 								$Mode->save();
 							}
