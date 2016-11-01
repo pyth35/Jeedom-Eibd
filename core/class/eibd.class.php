@@ -402,7 +402,7 @@ class eibd extends eqLogic {
 							$BusValue=Dpt::DptSelectDecode($dpt, $DataBus, $inverse,$option);
 							log::add('eibd', 'debug', '['.$Equipement->getName().']['.$Commande->getName().'] => '.$BusValue);
 							$Commande->setCollectDate(date('Y-m-d H:i:s'));
-							$Commande->setConfiguration('doNotRepeatEvent', 1);
+							//$Commande->setConfiguration('doNotRepeatEvent', 1);
 							$Commande->event($BusValue);
 							$Commande->save();
 						}
@@ -532,7 +532,7 @@ class eibd extends eqLogic {
 					if($Commande->getType() == 'info' && $Commande->getConfiguration('eventOnly')){
 						log::add('eibd', 'debug',$Commande->getLogicalId().' : Mise a jours de la valeur : '.$valeur.$unite);
 						$Commande->setCollectDate(date('Y-m-d H:i:s'));
-						$Commande->setConfiguration('doNotRepeatEvent', 1);
+						//$Commande->setConfiguration('doNotRepeatEvent', 1);
 						$Commande->event($valeur);
 						$Commande->save();
 					}
@@ -885,7 +885,7 @@ class eibdCmd extends cmd {
 				$WriteBusValue=eibd::EibdWrite($ga, $data);
 				if ($WriteBusValue != -1 && isset($Listener) && is_object($Listener) && $ga==$Listener->getLogicalId()){
 					$Listener->setCollectDate(date('Y-m-d H:i:s'));
-					$Listener->setConfiguration('doNotRepeatEvent', 1);
+					//$Listener->setConfiguration('doNotRepeatEvent', 1);
 					$Listener->event($BusValue);
 					$Listener->save();
 				}
@@ -896,7 +896,7 @@ class eibdCmd extends cmd {
 				$DataBus=eibd::EibdRead($ga);	
 				$BusValue=Dpt::DptSelectDecode($dpt, $DataBus, $inverse,$option);
 				$this->setCollectDate(date('Y-m-d H:i:s'));
-				$this->setConfiguration('doNotRepeatEvent', 1);
+				//$this->setConfiguration('doNotRepeatEvent', 1);
 				$this->event($BusValue);
 				$this->save();
 				break;
