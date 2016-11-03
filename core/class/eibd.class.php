@@ -822,64 +822,64 @@ class eibd extends eqLogic {
 	}
   }
 class eibdCmd extends cmd {
-    public function preSave() 	{ 
-        if ($this->getConfiguration('KnxObjectType') == '') 
-            throw new Exception(__('Le type de commande ne peut etre vide', __FILE__));
+	public function preSave() { 
+		if ($this->getConfiguration('KnxObjectType') == '') 
+			throw new Exception(__('Le type de commande ne peut etre vide', __FILE__));
 		/*if ($this->getLogicalId() == '') 
-            throw new Exception(__('Le GAD ne peut etre vide', __FILE__));		*/	
+			throw new Exception(__('Le GAD ne peut etre vide', __FILE__));		*/	
 		$this->setLogicalId(trim($this->getLogicalId()));    
-    }
+	}
 	public function execute($_options = null){
 		$ga=$this->getLogicalId();
 		$dpt=$this->getConfiguration('KnxObjectType');
 		$option=null;
 		switch($dpt){
 			case '229.001':
-			$option=array(
-				"ValInfField"=>$this->getConfiguration('option1'),
-				"StatusCommande"=>$this->getConfiguration('option2'),
-				);
+				$option=array(
+					"ValInfField"=>$this->getConfiguration('option1'),
+					"StatusCommande"=>$this->getConfiguration('option2'),
+					);
 			break;
 			case '235.001':
-			$option=array(
-				"Tarif"=>$this->getConfiguration('option1'),
-				"validityTarif"=>$this->getConfiguration('option2'),
-				"validityActiveElectricalEnergy"=>$this->getConfiguration('option3')
+				$option=array(
+					"Tarif"=>$this->getConfiguration('option1'),
+					"validityTarif"=>$this->getConfiguration('option2'),
+					"validityActiveElectricalEnergy"=>$this->getConfiguration('option3')
 				);
 			break;
 			case "x.001":
-			$option=array(
-				"Mode"=>$this->getConfiguration('option1'),
+				$option=array(
+					"Mode"=>$this->getConfiguration('option1'),
 				);
 			break;
 		}
 		$inverse=$this->getConfiguration('inverse');
 		switch ($this->getType()) {
-            case 'action' :
+			case 'action' :
 				$Listener=cmd::byId(str_replace('#','',$this->getValue()));
 				if (isset($Listener) && is_object($Listener)) 
 					$inverse=$Listener->getConfiguration('inverse');
-                switch ($this->getSubType()) {
-                    case 'slider':    
-						$ActionValue = isset($_options['slider']);
-                        break;
-                    case 'color':
-						$ActionValue = isset($_options['color']);
-                        break;
-                    case 'message':
-						$ActionValue = isset($_options['message']);
-                        break;
-                    case 'other':				
-						if (isset($Listener) && is_object($Listener)) {
-							$BusValue=$Listener->execCmd();
-							if($this->getConfiguration('KnxObjectValue') == "")
-								$ActionValue =Dpt::OtherValue($dpt,$BusValue);
-							else
-								$ActionValue =$this->getConfiguration('KnxObjectValue');
-						} else
-								$ActionValue =$this->getConfiguration('KnxObjectValue');
-                        break;
-					}
+				switch ($this->getSubType()) {
+					case 'slider':    
+						$ActionValue = $_options['slider'];
+					break;
+					case 'color':
+						$ActionValue = $_options['color'];
+					break;
+					case 'message':
+						$ActionValue = $_options['message'];
+					break;
+					case 'other':				
+					if (isset($Listener) && is_object($Listener)) {
+						$BusValue=$Listener->execCmd();
+						if($this->getConfiguration('KnxObjectValue') == "")
+							$ActionValue =Dpt::OtherValue($dpt,$BusValue);
+						else
+							$ActionValue =$this->getConfiguration('KnxObjectValue');
+					} else
+						$ActionValue =$this->getConfiguration('KnxObjectValue');
+					break;
+				}
 				$data= Dpt::DptSelectEncode($dpt, $ActionValue, $inverse,$option);
 				$BusValue=Dpt::DptSelectDecode($dpt, $data, $inverse,$option);
 				$WriteBusValue=eibd::EibdWrite($ga, $data);
@@ -889,7 +889,7 @@ class eibdCmd extends cmd {
 					$Listener->event($BusValue);
 					$Listener->save();
 				}
-                break;
+			break;
 			case 'info':
 				$inverse=$this->getConfiguration('inverse');
 				log::add('eibd', 'debug', 'Lecture sur le bus de l\'adresse de groupe : '. $ga);
@@ -899,7 +899,7 @@ class eibdCmd extends cmd {
 				//$this->setConfiguration('doNotRepeatEvent', 1);
 				$this->event($BusValue);
 				$this->save();
-				break;
+			break;
 		}
 		return $BusValue;
 	}
