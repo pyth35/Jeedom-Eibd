@@ -1,4 +1,4 @@
-var AllDpt=null;
+var AllDpt=<?php echo json_encode(Dpt::All_DPT());?>;
 var DptSelectorOption=null;
 $(function(){
 	if (getUrlVars('wizard') == 1) {
