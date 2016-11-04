@@ -1,12 +1,16 @@
 <?php
 try {
-    require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
-    include_file('core', 'authentification', 'php');
+	require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
+    	include_file('core', 'authentification', 'php');
 	include_file('core', 'dpt', 'class', 'eibd');
 
-    if (!isConnect('admin')) {
-        throw new Exception(__('401 - Accès non autorisé', __FILE__));
-    }
+    	if (!isConnect('admin')) {
+        	throw new Exception(__('401 - Accès non autorisé', __FILE__));
+    	}
+	if (init('action') == 'getAllDpt') {		
+ 		$All_DPT=Dpt::All_DPT();		
+ 		 ajax::success(json_encode($All_DPT));		
+ 	}
 	if (init('action') == 'SearchGatway') {
 		switch(init('type')){
 			case 'ip':
