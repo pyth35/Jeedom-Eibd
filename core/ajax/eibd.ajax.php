@@ -34,10 +34,6 @@ try {
 			break;
 		}
 	}
-	if (init('action') == 'getAllDpt') {
-		$All_DPT=Dpt::All_DPT();
-		 ajax::success(json_encode($All_DPT));
-	}
 	if (init('action') == 'Read') {
 		$Commande=cmd::byLogicalId(init('Gad'))[0];
 		if (is_object($Commande)){
