@@ -1,7 +1,6 @@
 var AllDpt=null;
 var DptSelectorOption=null;
 $(function(){
-	UpdateVar();
 	if (getUrlVars('wizard') == 1) {
 		$('#md_modal').dialog({
 			title: "{{Wizard}}",
@@ -277,28 +276,8 @@ $(function(){
 		}
 	});
 });
-function UpdateVar(){
-	$.ajax({
-		type: 'POST',            
-		async: false,
-		url: 'plugins/eibd/core/ajax/eibd.ajax.php',
-		data:{
-			action: 'getAllDpt'
-		},
-		dataType: 'json',
-		global: false,
-		error: function(request, status, error) {},
-		success: function(data) {
-			AllDpt=jQuery.parseJSON(data.result);
-		}
-	});
-}
 function DptUnit(Dpt)	{
 	var result;
-	if(AllDpt.length==0){
-		UpdateVar();
-		while(AllDpt.length==0);
-	}
 	$.each(AllDpt, function(key, value){
 		$.each(value, function(key, value){
 			if (key==Dpt)
@@ -308,11 +287,6 @@ function DptUnit(Dpt)	{
 	return result;
 }
 function getDptSousType(Dpt,type)	{
-	
-	if(AllDpt.length==0){
-		UpdateVar();
-		while(AllDpt.length==0);
-	}
 	var result;
 	$.each(AllDpt, function(key, value){
 		$.each(value, function(key, value){
@@ -327,11 +301,6 @@ function getDptSousType(Dpt,type)	{
 	return result;
 }
 function DptValue(Dpt){
-	
-	if(AllDpt.length==0){
-		UpdateVar();
-		while(AllDpt.length==0);
-	}
 	var result='<option value="">{{Imposer une valeur}}</option>';
 	$.each(AllDpt, function(key, value){
 		$.each(value, function(key, value){
@@ -346,10 +315,6 @@ function DptValue(Dpt){
 	return result;
 }
 function OptionSelectDpt(){
-	if(AllDpt.length==0){
-		UpdateVar();
-		while(AllDpt.length==0);
-	}
 	DptSelectorOption='<option value="">{{Sélèctionner un DPT}}</option>';
 	$.each(AllDpt, function(key, value){
 		DptSelectorOption+= '<optgroup label="{{'+key+'}}">';
