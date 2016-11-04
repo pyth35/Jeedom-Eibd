@@ -5,9 +5,6 @@ if (!isConnect('admin')) {
 sendVarToJS('eqType', 'eibd');
 $eqLogics = eqLogic::byType('eibd');
 ?>
-<script>
-var AllDpt=<?php echo json_encode(Dpt::All_DPT());?>;
-</script>
 <div class="row row-overflow">
     <div class="col-md-2">
         <div class="bs-sidebar">
