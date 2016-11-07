@@ -58,7 +58,7 @@ sudo apt-get install --yes -y -qq libusb-1.0-0-dev
 sudo apt-get install --yes -y -qq libsystemd-daemon-dev 
 sudo apt-get install --yes -y -qq dh-systemd
 echo "*****************************************************************************************************"
-echo "*                                      Installation de KnxD                                         *"
+echo "*                        Installation de PTHSEM V2.0.8 libraries                                    *"
 echo "*****************************************************************************************************"
 sudo apt-get install cdbs --yes -y -qq
 wget https://www.auto.tuwien.ac.at/~mkoegler/pth/pthsem_2.0.8.tar.gz
@@ -67,7 +67,9 @@ cd pthsem-2.0.8
 sudo dpkg-buildpackage -b -uc
 cd ..
 sudo dpkg -i libpthsem*.deb
-echo "Installation de pthsem terminée "
+echo "*****************************************************************************************************"
+echo "*                                      Installation de KnxD                                         *"
+echo "*****************************************************************************************************"
 git clone https://github.com/knxd/knxd.git
 
 sudo mv knxd-master knxd
