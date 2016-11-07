@@ -45,67 +45,37 @@ rm -rf /usr/local/lib/libeibclient.so.0.0.0
 echo "*****************************************************************************************************"
 echo "*                                Installation des dependances                                       *"
 echo "*****************************************************************************************************"
-sudo apt-get update --yes -y -qq
-sudo apt-get upgrade --yes -y -qq
-
-PAQUAGES=${PAQUAGES}" gcc g++ make"
-echo "-------------------------------------------------------------------"
-echo "Liste des paquets installés 1/2 : "
-echo ${PAQUAGES}
-echo "-------------------------------------------------------------------"
-sudo apt-get install ${PAQUAGES} --yes -y -qq
-PAQUAGES=" ";
-
-PAQUAGES=${PAQUAGES}" libcurl4-openssl-dev openssl libssl-dev build-essential file autoconf dh-make debhelper devscripts fakeroot gnupg"
-echo "-------------------------------------------------------------------"
-echo "Liste des paquets installés 2/2 : "
-echo ${PAQUAGES}
-echo "-------------------------------------------------------------------"
-sudo apt-get install ${PAQUAGES} --yes -y -qq
-PAQUAGES=" ";
-  
-echo "-------------------------------------------------------------------"
-echo " Fin de l'install des paquets nécessaires : "
-echo "-------------------------------------------------------------------"
-sudo apt-get install -f -y -qq --yes
-PAQUAGES=" ";
-
+#sudo apt-get update --yes -y -qq
+#sudo apt-get upgrade --yes -y -qq
+sudo apt-get install --yes -y -qq git-core 
+sudo apt-get install --yes -y -qq build-essential 
+sudo apt-get install --yes -y -qq debhelper 
+sudo apt-get install --yes -y -qq cdbs 
+sudo apt-get install --yes -y -qq autoconf 
+sudo apt-get install --yes -y -qq automake 
+sudo apt-get install --yes -y -qq libtool 
+sudo apt-get install --yes -y -qq libusb-1.0-0-dev 
+sudo apt-get install --yes -y -qq libsystemd-daemon-dev 
+sudo apt-get install --yes -y -qq dh-systemd
 echo "*****************************************************************************************************"
 echo "*                                      Installation de KnxD                                         *"
 echo "*****************************************************************************************************"
+sudo apt-get install cdbs --yes -y -qq
+wget https://www.auto.tuwien.ac.at/~mkoegler/pth/pthsem_2.0.8.tar.gz
+tar xzf pthsem_2.0.8.tar.gz
+cd pthsem-2.0.8
+sudo dpkg-buildpackage -b -uc
+cd ..
+sudo dpkg -i libpthsem*.deb
+echo "Installation de pthsem terminée "
+git clone https://github.com/knxd/knxd.git
 
-KNXD_PATH=`which knxd`
-if test x$KNXD_PATH = x; then :
-  echo "Installation de knxd 0.10                    "
+sudo mv knxd-master knxd
+cd knxd
 
-  sudo apt-get install cdbs --yes -y -qq
+sudo dpkg-buildpackage -b -uc
+cd ..
+sudo dpkg -i knxd_*.deb knxd-tools_*.deb
 
-  wget https://www.auto.tuwien.ac.at/~mkoegler/pth/pthsem_2.0.8.tar.gz
-  tar xzf pthsem_2.0.8.tar.gz
-  cd pthsem-2.0.8
-  sudo dpkg-buildpackage -b -uc
-  cd ..
-  sudo dpkg -i libpthsem*.deb
-
-  echo "Installation de pthsem terminée "
-
-  #echo " executer sudo VISUDO et ajouter: www-data ALL=(ALL) NOPASSWD: ALL "
-  #sudo wget -O knxd.zip https://github.com/knxd/knxd/archive/master.zip
-
-  sudo apt-get install git-core build-essential debhelper cdbs autoconf automake libtool libusb-1.0-0-dev libsystemd-daemon-dev dh-systemd --yes -y -qq
-  git clone https://github.com/knxd/knxd.git
-
-  sudo mv knxd-master knxd
-  cd knxd
-
-  sudo dpkg-buildpackage -b -uc
-  cd ..
-  sudo dpkg -i knxd_*.deb knxd-tools_*.deb
-
-  echo " " > /var/log/knxd.log
-  sudo chmod 777 /var/log/knxd.log
-else
-  KNXD_VERSION=`$KNXD_PATH -V`
-  echo "KNXD deja installe : $KNXD_VERSION "
-fi
-echo "-------------------------------------------------------------------"
+echo " " > /var/log/knxd.log
+sudo chmod 777 /var/log/knxd.log
