@@ -634,8 +634,8 @@ class eibd extends eqLogic {
 			return;
 		}
 		log::remove('eibd_update');
-		//$cmd = 'sudo /bin/bash ' . dirname(__FILE__) . '/../../ressources/install-eibd.sh';
-		$cmd = 'sudo /bin/bash ' . dirname(__FILE__) . '/../../ressources/install-knxd.sh';
+		$cmd = 'sudo /bin/bash ' . dirname(__FILE__) . '/../../ressources/install-eibd.sh';
+		//$cmd = 'sudo /bin/bash ' . dirname(__FILE__) . '/../../ressources/install-knxd.sh';
 		$cmd .= ' >> ' . log::getPathToLog('eibd_update') . ' 2>&1 &';
 		exec($cmd);
 	}
@@ -658,6 +658,7 @@ class eibd extends eqLogic {
 			return;
 		log::remove('eibd');
 		self::deamon_stop();
+		//$cmd = 'sudo knxd -u /tmp/eib -u /var/run/knx -i -b;
 		$cmd = 'sudo eibd --daemon=/var/log/eibd.log --pid-file=/var/run/eibd.pid -D -S -T --listen-tcp='.config::byKey('EibdPort', 'eibd').' --eibaddr='.config::byKey('EibdGad', 'eibd');
 		switch(config::byKey('TypeKNXgateway', 'eibd')){
 			case 'ip':
