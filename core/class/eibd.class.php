@@ -617,14 +617,14 @@ class eibd extends eqLogic {
 		$return = array();
 		$return['log'] = 'eibd_update';
 		$return['progress_file'] = '/tmp/compilation_eibd_in_progress';
-		if(file_exists('/etc/eibd/bcusdk_VERSION')&&file_exists('/etc/eibd/pthsem_VERSION')){
+		/*if(file_exists('/etc/eibd/bcusdk_VERSION')&&file_exists('/etc/eibd/pthsem_VERSION')){
 			if(exec("cat /etc/eibd/bcusdk_VERSION")=="v0.0.5.1" && exec("cat /etc/eibd/pthsem_VERSION")=="v2.0.8.1")
 				$return['state'] = 'ok';
-		}
-	/*	if(file_exists('/etc/eibd/knxd_VERSION')){
+		}*/
+		if(file_exists('/etc/eibd/knxd_VERSION')){
 			if(exec("cat /etc/eibd/knxd_VERSION")=="v0.10")
 				$return['state'] = 'ok';
-		}*/
+		}
 		else
 			$return['state'] = 'nok';
 		return $return;
@@ -635,8 +635,8 @@ class eibd extends eqLogic {
 		}
 		log::remove('eibd_update');
 		$cmd = 'sudo /bin/bash ' . dirname(__FILE__) . '/../../ressources/install-eibd.sh';
-		//$cmd = 'sudo /bin/bash ' . dirname(__FILE__) . '/../../ressources/install-knxd.sh';
-		$cmd .= ' >> ' . log::getPathToLog('eibd_update') . ' 2>&1 &';
+		$cmd = 'sudo /bin/bash ' . dirname(__FILE__) . '/../../ressources/install-knxd.sh';
+		//$cmd .= ' >> ' . log::getPathToLog('eibd_update') . ' 2>&1 &';
 		exec($cmd);
 	}
 	public static function deamon_info() {
@@ -658,8 +658,8 @@ class eibd extends eqLogic {
 			return;
 		log::remove('eibd');
 		self::deamon_stop();
-		//$cmd = 'sudo knxd -u /tmp/eib -u /var/run/knx -i -b;
-		$cmd = 'sudo eibd --daemon=/var/log/eibd.log --pid-file=/var/run/eibd.pid -D -S -T --listen-tcp='.config::byKey('EibdPort', 'eibd').' --eibaddr='.config::byKey('EibdGad', 'eibd');
+		$cmd = 'sudo knxd -u /tmp/eib -u /var/run/knx -i -b';
+		//$cmd = 'sudo eibd --daemon=/var/log/eibd.log --pid-file=/var/run/eibd.pid -D -S -T --listen-tcp='.config::byKey('EibdPort', 'eibd').' --eibaddr='.config::byKey('EibdGad', 'eibd');
 		switch(config::byKey('TypeKNXgateway', 'eibd')){
 			case 'ip':
 				$cmd .=' ip:'.config::byKey('KNXgateway', 'eibd');
