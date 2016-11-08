@@ -62,7 +62,7 @@ echo "**************************************************************************
 echo "*                        Installation de PTHSEM V2.0.8 libraries                                    *"
 echo "*****************************************************************************************************"
 sudo apt-get install cdbs --yes -y -qq
-wget https://www.auto.tuwien.ac.at/~mkoegler/pth/pthsem_2.0.8.tar.gz
+wget https://sourceforge.net/projects/bcusdk/files/pthsem/pthsem_2.0.8.tar.gz/download
 tar xzf pthsem_2.0.8.tar.gz
 cd pthsem-2.0.8
 sudo dpkg-buildpackage -b -uc
