@@ -1,7 +1,6 @@
 #!/bin/bash
 INSTALL_DIR=/usr/local/bin
-TEMP_DIR=`mktemp -d /tmp/knxd.XXXXXX`
-KNXD_bin=$INSTALL_DIR/knxd
+TEMP_DIR=`mktemp -d /tmp/eibd.XXXXXX`
 if [ -f "/etc/eibd/pthsem_VERSION" ]
 then
   echo "*****************************************************************************************************"
@@ -42,6 +41,8 @@ rm -rf /usr/local/lib/libeibclient.so.0
 rm -rf /usr/local/lib/libeibclient.a
 rm -rf /usr/local/lib/libeibclient.la
 rm -rf /usr/local/lib/libeibclient.so.0.0.0
+TEMP_DIR=`mktemp -d /tmp/knxd.XXXXXX`
+KNXD_bin=$INSTALL_DIR/knxd
 echo "*****************************************************************************************************"
 echo "*                                Installation des dependances                                       *"
 echo "*****************************************************************************************************"
@@ -67,6 +68,7 @@ cd pthsem-2.0.8
 sudo dpkg-buildpackage -b -uc
 cd ..
 sudo dpkg -i libpthsem*.deb
+echo "v2.0.8" > /etc/eibd/pthsem_VERSION
 echo "*****************************************************************************************************"
 echo "*                                      Installation de KnxD                                         *"
 echo "*****************************************************************************************************"
@@ -81,3 +83,4 @@ sudo dpkg -i knxd_*.deb knxd-tools_*.deb
 
 echo " " > /var/log/knxd.log
 sudo chmod 777 /var/log/knxd.log
+echo "v0.10"" > /etc/eibd/knxd_VERSION
