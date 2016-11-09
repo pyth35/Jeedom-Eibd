@@ -1,4 +1,8 @@
 #!/bin/bash
+INSTALL_DIR=/usr/local/bin
+EIBD_bin=$INSTALL_DIR/knxd
+TEMP_DIR=`mktemp -d /tmp/eibd.XXXXXX`
+cd $TEMP_DIR
 touch /tmp/compilation_eibd_in_progress
 echo 0 > /tmp/compilation_eibd_in_progress
 if [ -f "/etc/eibd/pthsem_VERSION" ]
@@ -61,6 +65,8 @@ then
   rm -rf /usr/local/lib/libeibclient.so.0.0.0
 fi
 echo 15 > /tmp/compilation_eibd_in_progress
+TEMP_DIR=`mktemp -d /tmp/knxd.XXXXXX`
+cd $TEMP_DI
 echo "*****************************************************************************************************"
 echo "*                                         Remove knxd                                               *"
 echo "*****************************************************************************************************"
