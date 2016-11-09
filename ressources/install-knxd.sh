@@ -118,3 +118,4 @@ echo 90 > /tmp/compilation_eibd_in_progress
 echo " " > /var/log/knxd.log
 sudo chmod 777 /var/log/knxd.log
 echo "v0.10"" > /etc/eibd/knxd_VERSION
+rm /tmp/compilation_eibd_in_progress
