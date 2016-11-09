@@ -642,11 +642,13 @@ class eibd extends eqLogic {
 		$result=exec("ps aux | grep knxd | grep -v grep | awk '{print $2}'",$result);	
 		if($result!="")
 			$return['state'] = 'ok';
-		$cron = cron::byClassAndFunction('eibd', 'BusMonitor');
-		if(is_object($cron) && $cron->running())
-			$return['state'] = 'ok';
-		else
-			$return['state'] = 'nok';
+		if($return['state'] == 'ok'){
+			$cron = cron::byClassAndFunction('eibd', 'BusMonitor');
+			if(is_object($cron) && $cron->running())
+				$return['state'] = 'ok';
+			else
+				$return['state'] = 'nok';
+		}
 		return $return;
 	}
 	public static function deamon_start($_debug = false) {
