@@ -1,6 +1,6 @@
 #!/bin/bash
-INSTALL_DIR=/usr/local/bin
 TEMP_DIR=`mktemp -d /tmp/eibd.XXXXXX`
+cd $TEMP_DIR
 if [ -f "/etc/eibd/pthsem_VERSION" ]
 then
   echo "*****************************************************************************************************"
@@ -42,7 +42,7 @@ rm -rf /usr/local/lib/libeibclient.a
 rm -rf /usr/local/lib/libeibclient.la
 rm -rf /usr/local/lib/libeibclient.so.0.0.0
 TEMP_DIR=`mktemp -d /tmp/knxd.XXXXXX`
-KNXD_bin=$INSTALL_DIR/knxd
+cd $TEMP_DIR
 echo "*****************************************************************************************************"
 echo "*                                Installation des dependances                                       *"
 echo "*****************************************************************************************************"
