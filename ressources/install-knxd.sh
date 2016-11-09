@@ -10,7 +10,6 @@ then
   echo $LD_LIBRARY_PATH
   export LD_LIBRARY_PATH="/usr/local/lib"
   sudo ldconfig 
-  rm $TEMP_DIR/pthsem-2.0.8
 fi
 if [ -f "/etc/eibd/bcusdk_VERSION" ]
 then
