@@ -35,12 +35,30 @@ if [ -f "/etc/log/eibd.log" ]
 then
   rm /etc/log/eibd.log
 fi
-rm -R /etc/eibd
-rm -rf /usr/local/lib/libeibclient.so
-rm -rf /usr/local/lib/libeibclient.so.0
-rm -rf /usr/local/lib/libeibclient.a
-rm -rf /usr/local/lib/libeibclient.la
-rm -rf /usr/local/lib/libeibclient.so.0.0.0
+if [ -d "/etc/eibd" ]
+then
+  rm -R /etc/eibd
+fi
+if [ -f "/usr/local/lib/libeibclient.so" ]
+then
+  rm -rf /usr/local/lib/libeibclient.so
+fi
+if [ -f "/usr/local/lib/libeibclient.so.0" ]
+then
+  rm -rf /usr/local/lib/libeibclient.so.0
+fi
+if [ -f "/usr/local/lib/libeibclient.a" ]
+then
+  rm -rf /usr/local/lib/libeibclient.a
+fi
+if [ -f "/usr/local/lib/libeibclient.la" ]
+then
+  rm -rf /usr/local/lib/libeibclient.la
+fi
+if [ -f "/usr/local/lib/libeibclient.so.0.0.0" ]
+then
+  rm -rf /usr/local/lib/libeibclient.so.0.0.0
+fi
 TEMP_DIR=`mktemp -d /tmp/knxd.XXXXXX`
 if [ -d "$TEMP_DIR" ]; then
   echo "*****************************************************************************************************"
@@ -83,14 +101,11 @@ echo "**************************************************************************
 echo "*                                      Installation de KnxD                                         *"
 echo "*****************************************************************************************************"
 git clone https://github.com/knxd/knxd.git
-
 sudo mv knxd-master knxd
 cd knxd
-
 sudo dpkg-buildpackage -b -uc
 cd ..
 sudo dpkg -i knxd_*.deb knxd-tools_*.deb
-
 echo " " > /var/log/knxd.log
 sudo chmod 777 /var/log/knxd.log
 echo "v0.10"" > /etc/eibd/knxd_VERSION
