@@ -42,6 +42,16 @@ rm -rf /usr/local/lib/libeibclient.a
 rm -rf /usr/local/lib/libeibclient.la
 rm -rf /usr/local/lib/libeibclient.so.0.0.0
 TEMP_DIR=`mktemp -d /tmp/knxd.XXXXXX`
+if [ -d "$TEMP_DIR" ]; then
+  echo "*****************************************************************************************************"
+  echo "*                                         Remove knxd                                               *"
+  echo "*****************************************************************************************************"
+  sudo apt-get autoremove --yes -y -qq knxd
+	rm /etc/eibd/pthsem_VERSION
+  rm /etc/eibd/KNXD_VERSION
+  rm -R pthsem-2.0.8
+  rm -R knxd
+fi
 cd $TEMP_DIR
 echo "*****************************************************************************************************"
 echo "*                                Installation des dependances                                       *"
