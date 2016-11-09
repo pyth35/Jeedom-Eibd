@@ -603,16 +603,6 @@ class eibd extends eqLogic {
 	//                                                            Gestion du logiciel EIBD                                                           // 
 	//                                                                                                                                               //
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	public static function deamonRunning() {			
-		$result=exec("ps aux | grep eibd | grep -v grep | awk '{print $2}'",$result);	
-		$cron = cron::byClassAndFunction('eibd', 'BusMonitor');
-		if(is_object($cron)){
-			if($result != ""&& $cron->getState()=="run"){
-				return true;
-			}
-		}
-        	return false;
-    	}
 	public static function dependancy_info() {
 		$return = array();
 		$return['log'] = 'eibd_update';
@@ -641,14 +631,22 @@ class eibd extends eqLogic {
 	public static function deamon_info() {
 		$return = array();
 		$return['log'] = 'eibd';	
-		if(self::deamonRunning())
-			$return['state'] = 'ok';
-		else
-			$return['state'] = 'nok';
 		if(config::byKey('EibdPort', 'eibd')!=''&&config::byKey('EibdGad', 'eibd')!=''&&config::byKey('KNXgateway', 'eibd')!='')
 			$return['launchable'] = 'ok';
 		else
 			$return['launchable'] = 'nok';
+		$return['state'] = 'nok';
+		$result=exec("ps aux | grep eibd | grep -v grep | awk '{print $2}'",$result);	
+		if($result!="")
+			$return['state'] = 'ok';
+		$result=exec("ps aux | grep knxd | grep -v grep | awk '{print $2}'",$result);	
+		if($result!="")
+			$return['state'] = 'ok';
+		$cron = cron::byClassAndFunction('eibd', 'BusMonitor');
+		if(is_object($cron) && $cron->running())
+			$return['state'] = 'ok';
+		else
+			$return['state'] = 'nok';
 		return $return;
 	}
 	public static function deamon_start($_debug = false) {
