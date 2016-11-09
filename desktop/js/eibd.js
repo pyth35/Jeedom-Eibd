@@ -10,6 +10,13 @@ $(function(){
 		wizard();
 		$('#md_modal').dialog('open');
 		}
+	$('.log').on('click', function() {
+		$('#md_modal').dialog({
+			title: "{{log}}",
+			height: 600,
+			width: 850});
+		$('#md_modal').load('index.php?v=d&modal=eibd.log&plugin=eibd&type=eibd').dialog('open');
+		});
 	$('.Wizard').on('click', function() {
 		jeedom.eqLogic.save({
 			type: eqType ,
