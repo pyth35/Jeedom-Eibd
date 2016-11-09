@@ -121,3 +121,9 @@ echo " " > /var/log/knxd.log
 sudo chmod 777 /var/log/knxd.log
 echo "v0.10" > /etc/eibd/knxd_VERSION
 rm /tmp/compilation_eibd_in_progress
+systemctl stop knxd.service
+systemctl stop knxd.socket                                                                                                
+systemctl disable knxd.service                                                                                              
+systemctl disable knxd.socket 
+systemctl daemon-reload
+systemctl reset-failed
