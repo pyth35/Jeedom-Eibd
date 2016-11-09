@@ -101,6 +101,8 @@ sudo dpkg-buildpackage -b -uc
 echo 40 > /tmp/compilation_eibd_in_progress
 cd ..
 sudo dpkg -i libpthsem*.deb
+mkdir -p /etc/eibd
+chmod 777 /etc/eibd
 touch /etc/eibd/pthsem_VERSION
 echo "v2.0.8" > /etc/eibd/pthsem_VERSION
 echo 50 > /tmp/compilation_eibd_in_progress
