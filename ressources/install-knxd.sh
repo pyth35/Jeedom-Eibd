@@ -101,6 +101,7 @@ sudo dpkg-buildpackage -b -uc
 echo 40 > /tmp/compilation_eibd_in_progress
 cd ..
 sudo dpkg -i libpthsem*.deb
+touch /etc/eibd/pthsem_VERSION
 echo "v2.0.8" > /etc/eibd/pthsem_VERSION
 echo 50 > /tmp/compilation_eibd_in_progress
 echo "*****************************************************************************************************"
@@ -117,5 +118,6 @@ sudo dpkg -i knxd_*.deb knxd-tools_*.deb
 echo 90 > /tmp/compilation_eibd_in_progress
 echo " " > /var/log/knxd.log
 sudo chmod 777 /var/log/knxd.log
+touch /etc/eibd/knxd_VERSION
 echo "v0.10" > /etc/eibd/knxd_VERSION
 rm /tmp/compilation_eibd_in_progress
