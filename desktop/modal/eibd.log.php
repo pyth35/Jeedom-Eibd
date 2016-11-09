@@ -11,7 +11,7 @@ function getLog(){
 	$.ajax({
 		type: "POST",
 		timeout:8000, 
-		url: "plugins/openalpr/core/ajax/eibd.ajax.php",
+		url: "plugins/eibd/core/ajax/eibd.ajax.php",
 		data: {
 			action: "getLog",
 		},
