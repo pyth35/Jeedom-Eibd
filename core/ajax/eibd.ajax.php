@@ -7,6 +7,9 @@ try {
     	if (!isConnect('admin')) {
         	throw new Exception(__('401 - Accès non autorisé', __FILE__));
     	}
+	if (init('action') == 'getLog') {
+		ajax::success("<pre>".file_get_contents('/var/log/knx.log')."</pre>");
+	}
 	if (init('action') == 'getAllDpt') {		
  		$All_DPT=Dpt::All_DPT();		
  		 ajax::success(json_encode($All_DPT));		
