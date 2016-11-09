@@ -93,7 +93,7 @@ echo "**************************************************************************
 echo "*                        Installation de PTHSEM V2.0.8 libraries                                    *"
 echo "*****************************************************************************************************"
 sudo apt-get install cdbs --yes -y -qq
-wget https://sourceforge.net/projects/bcusdk/files/pthsem/pthsem_2.0.8.tar.gz/download
+wget https://sourceforge.net/projects/bcusdk/files/pthsem/pthsem_2.0.8.tar.gz/download -O pthsem_2.0.8.tar.gz
 tar xzf pthsem_2.0.8.tar.gz
 echo 35 > /tmp/compilation_eibd_in_progress
 cd pthsem-2.0.8
