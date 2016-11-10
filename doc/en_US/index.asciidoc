@@ -35,5 +35,5 @@ include::Passerelle.asciidoc[]
 == Utilisation du parser ETS
 include::ParserETS.asciidoc[]
 
-==FAQ
+== FAQ
 include::faq.asciidoc[]

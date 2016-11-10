@@ -1,6 +1,6 @@
 = EIB - KNX
 
-Descripción
+== Description
 Ce plugin permet de communiquer entre Jeedom avec votre installation KNX.
 Jeedom deviendra donc un equipement de votre installation 
 Des fonction d'auto-configuration (auto-include, parser ETS4) ont été implémenté pour permettre une mise en place rapide
