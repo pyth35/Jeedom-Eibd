@@ -118,14 +118,18 @@ echo 70 > /tmp/compilation_eibd_in_progress
 cd ..
 dpkg -i knxd_*.deb knxd-tools_*.deb
 echo 90 > /tmp/compilation_eibd_in_progress
-echo " " > /var/log/knxd.log
-chmod 777 /var/log/knxd.log
+systemctl kill knxd.service
+echo 91 > /tmp/compilation_eibd_in_progress
+systemctl kill knxd.socket     
+echo 92 > /tmp/compilation_eibd_in_progress                                                                                      
+systemctl disable knxd.service   
+echo 94 > /tmp/compilation_eibd_in_progress                                                                                           
+systemctl disable knxd.socket 
+echo 95 > /tmp/compilation_eibd_in_progress
+systemctl daemon-reload
+echo 97 > /tmp/compilation_eibd_in_progress
+systemctl reset-failed
+echo 99 > /tmp/compilation_eibd_in_progress
+rm /lib/systemd/system/knxd.service
 echo "v0.10" > /etc/eibd/knxd_VERSION
 rm /tmp/compilation_eibd_in_progress
-systemctl kill knxd.service
-systemctl kill knxd.socket                                                                                           
-systemctl disable knxd.service                                                                                              
-systemctl disable knxd.socket 
-systemctl daemon-reload
-systemctl reset-failed
-rm /lib/systemd/system/knxd.service
