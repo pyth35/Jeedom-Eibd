@@ -123,9 +123,9 @@ chmod 777 /var/log/knxd.log
 echo "v0.10" > /etc/eibd/knxd_VERSION
 rm /tmp/compilation_eibd_in_progress
 systemctl kill knxd.service
-systemctl kill knxd.socket    
-systemctl kill knxd                                                                                            
+systemctl kill knxd.socket                                                                                           
 systemctl disable knxd.service                                                                                              
 systemctl disable knxd.socket 
 systemctl daemon-reload
 systemctl reset-failed
+rm /lib/systemd/system/knxd.service
