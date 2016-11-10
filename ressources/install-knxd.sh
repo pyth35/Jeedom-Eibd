@@ -1,4 +1,5 @@
 #!/bin/bash
+sudo su
 INSTALL_DIR=/usr/local/bin
 EIBD_bin=$INSTALL_DIR/knxd
 TEMP_DIR=`mktemp -d /tmp/eibd.XXXXXX`
@@ -10,10 +11,10 @@ then
   echo "*****************************************************************************************************"
   echo "*                              Remove PTHSEM V2.0.8 libraries                                       *"
   echo "*****************************************************************************************************"
-  sudo rm /etc/eibd/pthsem_VERSION
+  rm /etc/eibd/pthsem_VERSION
   echo $LD_LIBRARY_PATH
   export LD_LIBRARY_PATH="/usr/local/lib"
-  sudo ldconfig 
+  ldconfig 
 fi
 echo 5 > /tmp/compilation_eibd_in_progress
 if [ -f "/etc/eibd/bcusdk_VERSION" ]
@@ -70,24 +71,24 @@ cd $TEMP_DI
 echo "*****************************************************************************************************"
 echo "*                                         Remove knxd                                               *"
 echo "*****************************************************************************************************"
-sudo apt-get autoremove --yes -y -qq knxd
-sudo rm /var/log/knxd.log
+apt-get autoremove --yes -y -qq knxd
+rm /var/log/knxd.log
 echo 20 > /tmp/compilation_eibd_in_progress
 echo "*****************************************************************************************************"
 echo "*                                Installation des dependances                                       *"
 echo "*****************************************************************************************************"
-#sudo apt-get update --yes -y -qq
-#sudo apt-get upgrade --yes -y -qq
-sudo apt-get install --yes -y -qq git-core 
-sudo apt-get install --yes -y -qq build-essential 
-sudo apt-get install --yes -y -qq debhelper 
-sudo apt-get install --yes -y -qq cdbs 
-sudo apt-get install --yes -y -qq autoconf 
-sudo apt-get install --yes -y -qq automake 
-sudo apt-get install --yes -y -qq libtool 
-sudo apt-get install --yes -y -qq libusb-1.0-0-dev 
-sudo apt-get install --yes -y -qq libsystemd-daemon-dev 
-sudo apt-get install --yes -y -qq dh-systemd
+#apt-get update --yes -y -qq
+#apt-get upgrade --yes -y -qq
+apt-get install --yes -y -qq git-core 
+apt-get install --yes -y -qq build-essential 
+apt-get install --yes -y -qq debhelper 
+apt-get install --yes -y -qq cdbs 
+apt-get install --yes -y -qq autoconf 
+apt-get install --yes -y -qq automake 
+apt-get install --yes -y -qq libtool 
+apt-get install --yes -y -qq libusb-1.0-0-dev 
+apt-get install --yes -y -qq libsystemd-daemon-dev 
+apt-get install --yes -y -qq dh-systemd
 echo 30 > /tmp/compilation_eibd_in_progress
 echo "*****************************************************************************************************"
 echo "*                        Installation de PTHSEM V2.0.8 libraries                                    *"
@@ -97,10 +98,10 @@ wget https://sourceforge.net/projects/bcusdk/files/pthsem/pthsem_2.0.8.tar.gz/do
 tar xzf pthsem_2.0.8.tar.gz
 echo 35 > /tmp/compilation_eibd_in_progress
 cd pthsem-2.0.8
-sudo dpkg-buildpackage -b -uc
+dpkg-buildpackage -b -uc
 echo 40 > /tmp/compilation_eibd_in_progress
 cd ..
-sudo dpkg -i libpthsem*.deb
+dpkg -i libpthsem*.deb
 mkdir -p /etc/eibd
 chmod 777 /etc/eibd
 echo "v2.0.8" > /etc/eibd/pthsem_VERSION
@@ -110,19 +111,20 @@ echo "*                                      Installation de KnxD               
 echo "*****************************************************************************************************"
 git clone https://github.com/knxd/knxd.git
 echo 55 > /tmp/compilation_eibd_in_progress
-sudo mv knxd-master knxd
+mv knxd-master knxd
 cd knxd
-sudo dpkg-buildpackage -b -uc
+dpkg-buildpackage -b -uc
 echo 70 > /tmp/compilation_eibd_in_progress
 cd ..
-sudo dpkg -i knxd_*.deb knxd-tools_*.deb
+dpkg -i knxd_*.deb knxd-tools_*.deb
 echo 90 > /tmp/compilation_eibd_in_progress
 echo " " > /var/log/knxd.log
-sudo chmod 777 /var/log/knxd.log
+chmod 777 /var/log/knxd.log
 echo "v0.10" > /etc/eibd/knxd_VERSION
 rm /tmp/compilation_eibd_in_progress
-systemctl stop knxd.service
-systemctl stop knxd.socket                                                                                                
+systemctl kill knxd.service
+systemctl kill knxd.socket    
+systemctl kill knxd                                                                                            
 systemctl disable knxd.service                                                                                              
 systemctl disable knxd.socket 
 systemctl daemon-reload
