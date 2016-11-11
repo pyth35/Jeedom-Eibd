@@ -66,8 +66,8 @@ then
   rm -rf /usr/local/lib/libeibclient.so.0.0.0
 fi
 echo 15 > /tmp/compilation_eibd_in_progress
-TEMP_DIR=`mktemp -d /tmp/knxd.XXXXXX`
-cd $TEMP_DIR
+mkdir /usr/local/src/Knx/
+cd /usr/local/src/Knx
 echo "*****************************************************************************************************"
 echo "*                                         Remove knxd                                               *"
 echo "*****************************************************************************************************"
