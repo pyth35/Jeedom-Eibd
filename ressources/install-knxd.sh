@@ -117,9 +117,9 @@ echo 70 > /tmp/compilation_eibd_in_progress
 cd ..
 dpkg -i knxd_*.deb knxd-tools_*.deb
 echo 90 > /tmp/compilation_eibd_in_progress
-systemctl kill knxd.service
+systemctl stop knxd.service
 echo 91 > /tmp/compilation_eibd_in_progress
-systemctl kill knxd.socket     
+systemctl stop knxd.socket     
 echo 92 > /tmp/compilation_eibd_in_progress                                                                                      
 systemctl disable knxd.service   
 echo 94 > /tmp/compilation_eibd_in_progress                                                                                           
