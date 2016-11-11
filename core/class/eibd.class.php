@@ -460,7 +460,7 @@ class eibd extends eqLogic {
 			if($dpt!=false)
 				$monitor['valeur']=Dpt::DptSelectDecode($dpt, $data["Data"]);
 			else
-				$monitor['valeur']="Impossible de converire la valeur";
+				$monitor['valeur']="Impossible de convertire la valeur";
 			log::add('eibd', 'debug', 'Aucune commande avec l\'adresse de groupe  '.$monitor['AdresseGroupe'].' n\'a pas été trouvée');
 			if (config::byKey('autoAddDevice', 'eibd') && $monitor['AdressePhysique'] != config::byKey('EibdGad', 'eibd')){
 				log::add('eibd', 'debug', 'Création de la commande '.$monitor['AdresseGroupe']);
