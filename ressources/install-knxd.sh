@@ -67,12 +67,11 @@ then
 fi
 echo 15 > /tmp/compilation_eibd_in_progress
 TEMP_DIR=`mktemp -d /tmp/knxd.XXXXXX`
-cd $TEMP_DI
+cd $TEMP_DIR
 echo "*****************************************************************************************************"
 echo "*                                         Remove knxd                                               *"
 echo "*****************************************************************************************************"
 apt-get autoremove --yes -y -qq knxd
-rm /var/log/knxd.log
 echo 20 > /tmp/compilation_eibd_in_progress
 echo "*****************************************************************************************************"
 echo "*                                Installation des dependances                                       *"
@@ -113,7 +112,7 @@ git clone https://github.com/knxd/knxd.git
 echo 55 > /tmp/compilation_eibd_in_progress
 mv knxd-master knxd
 cd knxd
-dpkg-buildpackage -b -uc
+dpkg-buildpackage -b -uc -d
 echo 70 > /tmp/compilation_eibd_in_progress
 cd ..
 dpkg -i knxd_*.deb knxd-tools_*.deb
