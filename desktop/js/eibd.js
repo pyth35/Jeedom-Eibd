@@ -189,18 +189,15 @@ $(function(){
 				$(this).closest('.cmd').find('.cmdAttr[data-l1key=isHistorized]').closest('.input-group').parent().hide();
 				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=init]').closest('.input-group').parent().hide();
 				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=transmitReponse]').closest('.input-group').parent().hide();
-				if ($(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]').val()!="")
-					{
-					var _this=$(this);
-					var DPT = $(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]').val();
-					var valeur =$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').val();
-					var div =$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').parent();
-					$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').remove();
-					div.append($('<select class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="KnxObjectValue">')
-						.append(DptValue(DPT)));
-					$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue] option[value="'+valeur+'"]')
-						.prop('selected', true);
-					}
+				var DPT = $(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]').val();
+				var valeur =$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').val();
+				var div =$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').parent();
+				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').remove();
+				div.append($('<select class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="KnxObjectValue">')
+					.append(DptValue(DPT)));
+				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue] option[value="'+valeur+'"]')
+					.prop('selected', true);
+					
 			break;
 			}
 		});			
@@ -214,18 +211,17 @@ $(function(){
 				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=inverse]').closest('.input-group').parent().show();
 			break;
 			case "other":
-				if ($(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]').val()!="")
-					{
-					var _this=$(this);
-					var DPT = $(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]').val();
-					var valeur =$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').val();
-					var div =$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').parent();
-					$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').remove();
-					div.append($('<select class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="KnxObjectValue">')
-						.append(DptValue(DPT)));
-					$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue] option[value="'+valeur+'"]')
-						.prop('selected', true);
-					}
+				$(this).closest('.cmd').find('.ValeurMinMax').hide();
+				$(this).closest('.cmd').find('.ValeurUnite').hide();
+				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=inverse]').closest('.input-group').parent().hide();
+				var DPT = $(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]').val();
+				var valeur =$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').val();
+				var div =$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').parent();
+				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').remove();
+				div.append($('<select class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="KnxObjectValue">')
+					.append(DptValue(DPT)));
+				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue] option[value="'+valeur+'"]')
+					.prop('selected', true);
 			case "binary":
 				$(this).closest('.cmd').find('.ValeurMinMax').hide();
 				$(this).closest('.cmd').find('.ValeurUnite').hide();
