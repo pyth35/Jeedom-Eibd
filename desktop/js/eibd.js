@@ -591,6 +591,7 @@ function addCmdToTable(_cmd) {
 	$('#table_cmd tbody tr:last').setValues(_cmd, '.cmdAttr');
 	$('#table_cmd tbody tr:last .cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]').trigger('change');
 	$('#table_cmd tbody tr:last .cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').trigger('change');
+	$('#table_cmd tbody tr:last').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue] option[value="'+init(_cmd.configuration.KnxObjectValue)+'"]')		
 	jeedom.cmd.changeType($('#table_cmd tbody tr:last'), init(_cmd.subType));
 }
 function wizard(){
