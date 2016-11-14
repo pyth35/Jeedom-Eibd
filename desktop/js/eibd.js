@@ -532,9 +532,10 @@ function addCmdToTable(_cmd) {
 						.attr('title','Choisissez, si vous le souhaitez la valeur fixe de votre commande'))))
 				.append($('<div class="input-group">')
 					.append($('<select class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="KnxObjectValue">')
-						.append(DptValue(_cmd.configuration.KnxObjectType)))
+						.append(DptValue(init(_cmd.configuration.KnxObjectType))))
 			//.append($('<input class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="KnxObjectValue">'))
 				       )));
+	alert(init(_cmd.configuration.KnxObjectType));
 	tr.append($('<td class="wizard">')	
 		.append($('<div class="parametre">')
 			.append($('<span class="type" type="' + init(_cmd.type) + '">')
