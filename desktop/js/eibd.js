@@ -158,7 +158,7 @@ $(function(){
 			$(this).closest('.cmd').find('.cmdAttr[data-l1key=unite]').val(DptUnit($(this).val()));
 		if ($(this).closest('.cmd').find('.cmdAttr[data-l1key=type]').value() == "action" && $(this).closest('.cmd').find('.cmdAttr[data-l1key=subType]').value() == "other"){	
 			var valeur =$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').val();
-			alert(valeur);
+			alert('KnxObjectType : ' + valeur);
 			$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').empty();
 			$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').append(DptValue($(this).val()));
 			$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue] option[value="'+valeur+'"]')
@@ -192,7 +192,7 @@ $(function(){
 				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=transmitReponse]').closest('.input-group').parent().hide();
 				var DPT = $(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]').val();
 				var valeur =$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').val();
-			alert(valeur);
+			alert('CmdType : ' + valeur);
 				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').empty();
 				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').append(DptValue(DPT));
 				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue] option[value="'+valeur+'"]')
@@ -535,7 +535,6 @@ function addCmdToTable(_cmd) {
 						.append(DptValue(init(_cmd.configuration.KnxObjectType))))
 			//.append($('<input class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="KnxObjectValue">'))
 				       )));
-	alert(init(_cmd.configuration.KnxObjectType));
 	tr.append($('<td class="wizard">')	
 		.append($('<div class="parametre">')
 			.append($('<span class="type" type="' + init(_cmd.type) + '">')
@@ -591,7 +590,7 @@ function addCmdToTable(_cmd) {
 	$('#table_cmd tbody tr:last').setValues(_cmd, '.cmdAttr');
 	$('#table_cmd tbody tr:last .cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]').trigger('change');
 	$('#table_cmd tbody tr:last .cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').trigger('change');
-	$('#table_cmd tbody tr:last').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue] option[value="'+init(_cmd.configuration.KnxObjectValue)+'"]')		
+	$('#table_cmd tbody tr:last').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue] option[value="'+init(_cmd.configuration.KnxObjectValue)+'"]').prop('selected', true);		
 	jeedom.cmd.changeType($('#table_cmd tbody tr:last'), init(_cmd.subType));
 }
 function wizard(){
