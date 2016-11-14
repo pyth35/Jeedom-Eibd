@@ -166,7 +166,7 @@ $(function(){
 		switch ($(this).value())
 			{
 			case "info":
-				//$(this).closest('.cmd').find('.ValeurDefaut').hide();
+				$(this).closest('.cmd').find('.ValeurDefaut').hide();
 				$(this).closest('.cmd').find('.RetourEtat').hide();
 				$(this).closest('.cmd').find('.bt_read').show();
 				$(this).closest('.cmd').find('.cmdAttr[data-l1key=isHistorized]').closest('.input-group').parent().show();
@@ -178,6 +178,7 @@ $(function(){
 					$(this).closest('.cmd').find('.ObjetTransmit').hide();
 			break;
 			case "action":		
+				$(this).closest('.cmd').find('.ValeurDefaut').show();
 				$(this).closest('.cmd').find('.RetourEtat').show();
 				$(this).closest('.cmd').find('.ObjetTransmit').hide();
 				$(this).closest('.cmd').find('.bt_read').hide();
