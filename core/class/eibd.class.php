@@ -878,15 +878,10 @@ class eibdCmd extends cmd {
 					case 'message':
 						$ActionValue = $_options['message'];
 					break;
-					case 'other':				
-					if (isset($Listener) && is_object($Listener)) {
-						$BusValue=$Listener->execCmd();
-						if($this->getConfiguration('KnxObjectValue') == "")
-							$ActionValue =Dpt::OtherValue($dpt,$BusValue);
-						else
-							$ActionValue =$this->getConfiguration('KnxObjectValue');
-					} else
+					case 'other':
 						$ActionValue =$this->getConfiguration('KnxObjectValue');
+						if (isset($Listener) && is_object($Listener) && $this->getConfiguration('KnxObjectValue') == "") 
+							$ActionValue =Dpt::OtherValue($dpt,$Listener->execCmd());
 					break;
 				}
 				$data= Dpt::DptSelectEncode($dpt, $ActionValue, $inverse,$option);
