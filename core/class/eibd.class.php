@@ -702,8 +702,10 @@ class eibd extends eqLogic {
 		$cron->run();
 	}
 	public static function deamon_stop() {
-		exec('sudo pkill knxd');
-		exec('sudo pkill eibd');
+		if(file_exists('/etc/eibd/knxd_VERSION'))
+			exec('sudo pkill knxd');
+		else
+			exec('sudo pkill eibd');
 		$cron = cron::byClassAndFunction('eibd', 'BusMonitor');
 		if (is_object($cron)) {
 			$cron->stop();
