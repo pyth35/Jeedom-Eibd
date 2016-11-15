@@ -189,6 +189,7 @@ $(function(){
 			}
 		});			
 	$('body').on('change', '.cmd .cmdAttr[data-l1key=subType]',function() {
+		alert($(this).val());
 		switch ($(this).val()){
 			case "cursor":
 			case "numeric":
