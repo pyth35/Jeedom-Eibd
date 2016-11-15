@@ -658,7 +658,7 @@ class eibd extends eqLogic {
 		log::remove('eibd');
 		self::deamon_stop();
 		if(file_exists('/etc/eibd/knxd_VERSION'))
-			$cmd = 'knxd -u /tmp/eib -u /var/run/knx -i --eibaddr='.config::byKey('EibdGad', 'eibd').' -b';
+			$cmd = 'sudo knxd -u /tmp/eib -u /var/run/knx -i --eibaddr='.config::byKey('EibdGad', 'eibd').' -b';
 		//$cmd = 'sudo knxd --daemon=/var/log/knx.log --pid-file=/var/run/knx.pid -D -S --Name=Jeedom_KNX --listen-tcp='.config::byKey('EibdPort', 'eibd').' --eibaddr='.config::byKey('EibdGad', 'eibd').' -b';
 		else
 			$cmd = 'sudo eibd --daemon=/var/log/knx.log --pid-file=/var/run/knx.pid -D -S -T --listen-tcp='.config::byKey('EibdPort', 'eibd').' --eibaddr='.config::byKey('EibdGad', 'eibd');
@@ -685,6 +685,7 @@ class eibd extends eqLogic {
 				$cmd .=' usb:'.config::byKey('KNXgateway', 'eibd');
 			break;
 		}
+		$cmd .= ' >> ' . log::getPathToLog('eibd') . ' 2>&1 &';
 		exec($cmd);
 		
 		$cron = cron::byClassAndFunction('eibd', 'BusMonitor');
@@ -703,9 +704,11 @@ class eibd extends eqLogic {
 	}
 	public static function deamon_stop() {
 		if(file_exists('/etc/eibd/knxd_VERSION'))
-			exec('sudo pkill knxd');
+			$cmd='sudo pkill knxd';
 		else
-			exec('sudo pkill eibd');
+			$cmd='sudo pkill eibd';
+		$cmd .= ' >> ' . log::getPathToLog('eibd_update') . ' 2>&1 &';
+		exec($cmd);
 		$cron = cron::byClassAndFunction('eibd', 'BusMonitor');
 		if (is_object($cron)) {
 			$cron->stop();
