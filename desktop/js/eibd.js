@@ -166,7 +166,7 @@ $(function(){
 		switch ($(this).val())
 			{
 			case "info":
-				//$(this).closest('.cmd').find('.ValeurDefaut').hide();
+				$(this).closest('.cmd').find('.ValeurDefaut').hide();
 				$(this).closest('.cmd').find('.RetourEtat').hide();
 				$(this).closest('.cmd').find('.bt_read').show();
 				$(this).closest('.cmd').find('.cmdAttr[data-l1key=isHistorized]').closest('.input-group').parent().show();
@@ -178,7 +178,7 @@ $(function(){
 					$(this).closest('.cmd').find('.ObjetTransmit').hide();
 			break;
 			case "action":		
-				//$(this).closest('.cmd').find('.ValeurDefaut').show();
+				$(this).closest('.cmd').find('.ValeurDefaut').show();
 				$(this).closest('.cmd').find('.RetourEtat').show();
 				$(this).closest('.cmd').find('.ObjetTransmit').hide();
 				$(this).closest('.cmd').find('.bt_read').hide();
@@ -202,7 +202,7 @@ $(function(){
 				$(this).closest('.cmd').find('.ValeurMinMax').hide();
 				$(this).closest('.cmd').find('.ValeurUnite').hide();
 				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=inverse]').closest('.input-group').parent().hide();
-				
+			break;	
 			case "binary":
 				$(this).closest('.cmd').find('.ValeurMinMax').hide();
 				$(this).closest('.cmd').find('.ValeurUnite').hide();
