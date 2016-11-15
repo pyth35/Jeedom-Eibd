@@ -189,24 +189,24 @@ $(function(){
 			}
 		});			
 	$('body').on('change', '.cmd .cmdAttr[data-l1key=subType]',function() {
-		alert($(this).val());
 		switch ($(this).val()){
 			case "cursor":
 			case "numeric":
+				alert("cursor, numeric");
 				$(this).closest('.cmd').find('.ValeurMinMax').show();
 				$(this).closest('.cmd').find('.ValeurUnite').show();
 				$(this).closest('.cmd').find('.ValeurDefaut').hide();
-				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=inverse]')
-					.closest('.input-group').parent().show();
+				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=inverse]').closest('.input-group').parent().show();
 			break;
 			case "other":
+				alert("other");
 				$(this).closest('.cmd').find('.ValeurDefaut').show();
 				$(this).closest('.cmd').find('.ValeurMinMax').hide();
 				$(this).closest('.cmd').find('.ValeurUnite').hide();
-				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=inverse]')
-					.closest('.input-group').parent().hide();
+				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=inverse]').closest('.input-group').parent().hide();
 				
 			case "binary":
+				alert("binary");
 				$(this).closest('.cmd').find('.ValeurMinMax').hide();
 				$(this).closest('.cmd').find('.ValeurUnite').hide();
 				$(this).closest('.cmd').find('.ValeurDefaut').hide();
@@ -214,6 +214,7 @@ $(function(){
 					.closest('.input-group').parent().show();
 			break;
 			default:
+				alert("default");
 				$(this).closest('.cmd').find('.ValeurDefaut').hide();
 				$(this).closest('.cmd').find('.ValeurMinMax').hide();
 				$(this).closest('.cmd').find('.ValeurUnite').hide();
