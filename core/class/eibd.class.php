@@ -194,6 +194,7 @@ class eibd extends eqLogic {
 			$lastError = "socket_sendto() failed: reason: " . socket_strerror(socket_last_error($BroadcastSocket));
 			return false;
 			}
+		$NbLoop=0;
 		while(!isset($result['KnxIpGateway'])) { 
 			$buf = '';
 			socket_recvfrom($BroadcastSocket, $buf , 2048, 0, $name, $port);
@@ -222,6 +223,14 @@ class eibd extends eqLogic {
 					}
 				break;
 			}
+			if($NbLoop==100){
+				$result['KnxIpGateway'] ="";
+				$result['KnxPortGateway'] ="";
+				$result['IndividualAddressGateWay']="";
+				//$result['DeviceName']="";
+				break;
+			}			
+			$NbLoop++;
 		}
 		socket_close($BroadcastSocket);
 		return $result;
