@@ -61,34 +61,10 @@ $(function(){
 		$('#md_modal').load('index.php?v=d&modal=eibd.parametre&plugin=eibd&type=eibd').dialog('open');
 	});
 	$('body').on( 'click','.bt_selectCmdExpression', function() {
-		var _this=this;
+		var el=$(this).closest('.input-group').find('.cmdAttr');
 		$(this).value()
 		jeedom.cmd.getSelectModal({cmd: {type: 'info'},eqLogic: {eqType_name : ''}}, function (result) {
-			switch($(_this).attr('id'))
-				{
-				case "ObjetTransmit":
-					$(_this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=ObjetTransmit]').val(result.human);
-				break;
-				case "option1":
-					$(_this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=option1]').val(result.human);
-				break;
-				case "option2":
-					$(_this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=option2]').val(result.human);
-				break;
-				case "option3":
-					$(_this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=option3]').val(result.human);
-				break;
-				case "option4":
-					$(_this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=option4]').val(result.human);
-				break;
-				case "option5":
-					$(_this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=option5]').val(result.human);
-				break;
-				default:
-					$(_this).closest('.cmd').find('.cmdAttr[data-l1key=value]').val(result.human);
-				break;
-				};
-			});
+			el.val(result.human);
 		});  
 	$('body').on( 'click','.bt_read', function() {
 		$.ajax({
