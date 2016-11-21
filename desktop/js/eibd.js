@@ -136,17 +136,16 @@ $(function(){
 		var valeur =$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').val();
 		$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').empty();
 		$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').append(DptValue($(this).val()));
-		$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue] option[value="'+valeur+'"]')
-			.prop('selected', true);
-		if($(this).closest('.cmd').find('.cmdAttr[data-l1key=subTypeAuto]').is(':checked')){
-			$(this).closest('.cmd')
-				.find('.cmdAttr[data-l1key=subType] option[value="'+getDptSousType($(this).val(),$(this).closest('.cmd').find('.cmdAttr[data-l1key=type]').val())+'"]')
-				.prop('selected', true);
-		}
+		$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue] option[value="'+valeur+'"]').prop('selected', true);
+		//if($(this).closest('.cmd').find('.cmdAttr[data-l1key=subTypeAuto]').is(':checked')){
+			var Dpt=$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]').val();
+			var type=$(this).closest('.cmd').find('.cmdAttr[data-l1key=type]').val();
+			var valeur=getDptSousType(Dpt,type);
+			$(this).closest('.cmd').find('.cmdAttr[data-l1key=subType] option[value="'+valeur+'"]').prop('selected', true);
+		//}
 	}); 
 	$('body').on('change', '.cmd .cmdAttr[data-l1key=type]',function() 	{
-		switch ($(this).val())
-			{
+		switch ($(this).val()){
 			case "info":
 				$(this).closest('.cmd').find('.ValeurDefaut').hide();
 				$(this).closest('.cmd').find('.RetourEtat').hide();
@@ -169,11 +168,12 @@ $(function(){
 				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=transmitReponse]').closest('.input-group').parent().hide();
 			break;
 			}
-			if($(this).closest('.cmd').find('.cmdAttr[data-l1key=subTypeAuto]').is(':checked')){
-				$(this).closest('.cmd')
-					.find('.cmdAttr[data-l1key=subType] option[value="'+getDptSousType($(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').val(),$(this).val())+'"]')
-					.prop('selected', true);
-			}
+			//if($(this).closest('.cmd').find('.cmdAttr[data-l1key=subTypeAuto]').is(':checked')){.
+				var Dpt=$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]').val();
+				var type=$(this).closest('.cmd').find('.cmdAttr[data-l1key=type]').val();
+				var valeur=getDptSousType(Dpt,type);
+				$(this).closest('.cmd').find('.cmdAttr[data-l1key=subType] option[value="'+valeur+'"]').prop('selected', true);
+			//}
 		});			
 	$('body').on('change', '.cmd .cmdAttr[data-l1key=subType]',function() {
 		switch ($(this).val()){
@@ -216,16 +216,16 @@ $(function(){
 	$('body').on('change','.cmd .cmdAttr[data-l1key=configuration][data-l2key=subTypeAuto]', function() {
 			if($(this).is(':checked'))
 			{
-				$(this).closest('.cmd').find('.cmdAttr[data-l1key=subType]').attr("disabled", true)
+				//$(this).closest('.cmd').find('.cmdAttr[data-l1key=subType]').attr("disabled", true)
 				var Dpt=$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]').val();
 				var type=$(this).closest('.cmd').find('.cmdAttr[data-l1key=type]').val();
 				getDptSousType(Dpt,type);
 			}
-			else
-			{
-				$(this).closest('.cmd').find('.cmdAttr[data-l1key=subType]').attr("disabled", false)
+			//else
+			//{
+			//	$(this).closest('.cmd').find('.cmdAttr[data-l1key=subType]').attr("disabled", false)
 
-			}
+			//}
 		});
 	$("#table_cmd").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
 	$(".eqLogicAttr[data-l1key=configuration][data-l2key=device]").html($(".eqLogicAttr[data-l1key=configuration][data-l2key=device] option").sort(function (a, b) {
@@ -281,8 +281,6 @@ function DptUnit(Dpt)	{
 	return result;
 }
 function getDptSousType(Dpt,type){
-	alert(Dpt);
-	alert(type);
 	var result;
 	$.each(AllDpt, function(DptKey, DptValue){
 		$.each(DptValue, function(key, value){
@@ -294,7 +292,6 @@ function getDptSousType(Dpt,type){
 			}
 		});
 	});
-	alert(result);
 	return result;
 }
 function DptValue(Dpt){
