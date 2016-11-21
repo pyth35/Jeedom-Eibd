@@ -138,10 +138,10 @@ $(function(){
 		$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').append(DptValue($(this).val()));
 		$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue] option[value="'+valeur+'"]').prop('selected', true);
 		if($(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=subTypeAuto]').is(':checked')){
-			alert('ok');
 			var Dpt=$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]').val();
 			var type=$(this).closest('.cmd').find('.cmdAttr[data-l1key=type]').val();
 			var valeur=getDptSousType(Dpt,type);
+			while($(this).closest('.cmd').find('.cmdAttr[data-l1key=subType] option[value="'+valeur+'"]').length==0);
 			$(this).closest('.cmd').find('.cmdAttr[data-l1key=subType] option[value="'+valeur+'"]').prop('selected', true);
 		}
 	}); 
