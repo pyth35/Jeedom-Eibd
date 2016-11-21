@@ -281,6 +281,8 @@ function DptUnit(Dpt)	{
 	return result;
 }
 function getDptSousType(Dpt,type){
+	alert(Dpt);
+	alert(type);
 	var result;
 	$.each(AllDpt, function(DptKey, DptValue){
 		$.each(DptValue, function(key, value){
@@ -292,6 +294,7 @@ function getDptSousType(Dpt,type){
 			}
 		});
 	});
+	alert(result);
 	return result;
 }
 function DptValue(Dpt){
