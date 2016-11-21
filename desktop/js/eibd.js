@@ -272,12 +272,8 @@ function UpdateVar(){
 }
 function DptUnit(Dpt)	{
 	var result;
-	if(AllDpt.length==0){
-		UpdateVar();
-		while(AllDpt.length==0);
-	}
-	$.each(AllDpt, function(key, value){
-		$.each(value, function(key, value){
+	$.each(AllDpt, function(DptKey, DptValue){
+		$.each(DptValue, function(key, value){
 			if (key==Dpt)
 				result=value.Unite;
 		});
@@ -285,14 +281,9 @@ function DptUnit(Dpt)	{
 	return result;
 }
 function getDptSousType(Dpt,type)	{
-	
-	if(AllDpt.length==0){
-		UpdateVar();
-		while(AllDpt.length==0);
-	}
 	var result;
-	$.each(AllDpt, function(key, value){
-		$.each(value, function(key, value){
+	$.each(AllDpt, function(DptKey, DptValue){
+		$.each(DptValue, function(key, value){
 			if (key==Dpt){
 				if(type='info')
 					result=value.InfoType;
@@ -304,14 +295,9 @@ function getDptSousType(Dpt,type)	{
 	return result;
 }
 function DptValue(Dpt){
-	
-	if(AllDpt.length==0){
-		UpdateVar();
-		while(AllDpt.length==0);
-	}
 	var result='<option value="">{{Imposer une valeur}}</option>';
-	$.each(AllDpt, function(key, value){
-		$.each(value, function(key, value){
+	$.each(AllDpt, function(DptKey, DptValue){
+		$.each(DptValue, function(key, value){
 			if (key==Dpt)
 			{
 				$.each(value.Valeurs, function(key, value){
@@ -323,20 +309,16 @@ function DptValue(Dpt){
 	return result;
 }
 function OptionSelectDpt(){
-	if(AllDpt.length==0){
-		UpdateVar();
-		while(AllDpt.length==0);
-	}
 	DptSelectorOption='<option value="">{{Sélèctionner un DPT}}</option>';
-	$.each(AllDpt, function(key, value){
-		DptSelectorOption+= '<optgroup label="{{'+key+'}}">';
-		$.each(value, function(key, value){
+	$.each(AllDpt, function(DptKey, DptValue){
+		DptSelectorOption+= '<optgroup label="{{'+DptKey+'}}">';
+		$.each(DptValue, function(key, value){
 			DptSelectorOption+='<option value="'+key+'">{{'+key+' - '+value["Name"]+'}}</option>';
 		});
 	DptSelectorOption+='</optgroup>';
 	});
 	return DptSelectorOption;
-	}
+}
 function addCmdToTable(_cmd) {
   if (!isset(_cmd)) {
         var _cmd = {};
