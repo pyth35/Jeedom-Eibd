@@ -138,6 +138,11 @@ $(function(){
 		$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').append(DptValue($(this).val()));
 		$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue] option[value="'+valeur+'"]')
 			.prop('selected', true);
+		if($(this).closest('.cmd').find('.cmdAttr[data-l1key=subTypeAuto]').is(':checked')){
+			$(this).closest('.cmd')
+				.find('.cmdAttr[data-l1key=subType] option[value="'+getDptSousType($(this).val(),$(this).closest('.cmd').find('.cmdAttr[data-l1key=type]').val())+'"]')
+				.prop('selected', true);
+		}
 	}); 
 	$('body').on('change', '.cmd .cmdAttr[data-l1key=type]',function() 	{
 		switch ($(this).val())
@@ -163,6 +168,11 @@ $(function(){
 				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=init]').closest('.input-group').parent().hide();
 				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=transmitReponse]').closest('.input-group').parent().hide();
 			break;
+			}
+			if($(this).closest('.cmd').find('.cmdAttr[data-l1key=subTypeAuto]').is(':checked')){
+				$(this).closest('.cmd')
+					.find('.cmdAttr[data-l1key=subType] option[value="'+getDptSousType($(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').val(),$(this).val())+'"]')
+					.prop('selected', true);
 			}
 		});			
 	$('body').on('change', '.cmd .cmdAttr[data-l1key=subType]',function() {
