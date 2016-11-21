@@ -66,6 +66,7 @@ $(function(){
 		jeedom.cmd.getSelectModal({cmd: {type: 'info'},eqLogic: {eqType_name : ''}}, function (result) {
 			el.val(result.human);
 		});  
+	});  
 	$('body').on( 'click','.bt_read', function() {
 		$.ajax({
 			type: 'POST',            
