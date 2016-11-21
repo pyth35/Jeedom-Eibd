@@ -280,18 +280,15 @@ function DptUnit(Dpt)	{
 	});
 	return result;
 }
-function getDptSousType(Dpt,type)	{
-	alert(Dpt);
-	alert(type);
+function getDptSousType(Dpt,type){
 	var result;
 	$.each(AllDpt, function(DptKey, DptValue){
 		$.each(DptValue, function(key, value){
 			if (key==Dpt){
-				if(type='info')
+				if(type=='info')
 					result=value.InfoType;
 				else
 					result=value.ActionType;
-				alert(result);
 			}
 		});
 	});
