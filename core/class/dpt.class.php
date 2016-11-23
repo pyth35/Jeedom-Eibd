@@ -123,8 +123,9 @@ class Dpt{
 			break;
 		case "16":
 			$data=array();
-			foreach(str_split($value) as $chr)
-				$data[]=ord($chr);
+			$chr=str_split($value);
+			for ($i = 0; $i <= 14; $i++)
+				$data[$i]=ord($chr[$i]);
 			break;
 		case "17":
 			$data= array($value& 0x3f);
@@ -300,7 +301,7 @@ class Dpt{
 		case "16":
 			$value='';
 			foreach($data as $chr)
-					$value.=chr(($chr));
+				$value.=chr(($chr));
 			break;
 		
 		case "17":
