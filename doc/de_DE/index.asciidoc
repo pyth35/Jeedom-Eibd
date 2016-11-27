@@ -1,38 +1,38 @@
 = EIB - KNX
 
-== Description
-Ce plugin permet de communiquer entre Jeedom avec votre installation KNX.
-Jeedom deviendra donc un equipement de votre installation 
-Des fonction d'auto-configuration (auto-include, parser ETS4) ont été implémenté pour permettre une mise en place rapide
+== Beschreibung
+Dieses Plugin erlaubt es, unter Jeedom mit Ihrer KNX Installation zu kommunizieren.
+Jeedom wird also ein Gerät Ihrer Installation sein 
+Eine Funktion der Auto-Konfiguration (Auto-inklude, ETS4 Parser), ist implementiert worden, um eine schnelle Einführung zu erlauben
 
-== Installation et configuration
+== Installation und Konfiguration
 include::Installation.asciidoc[]
 
-=== Utilisation du mode auto-implementation
+=== Benutzung des Auto-Implementation Modus
 include::AutoImplementation.asciidoc[]
 
-=== Utilisation de mode initialisation au démarrage
+=== Benutzung des Initialisierungsmodus beim Start
 include::Initialisation.asciidoc[]
 
-== Paramétrage des equipements et des commandes
+== Einrichten von Geräten und Befehlen
 include::Parametrage.asciidoc[]
 
-=== Utilisation de dpt spécifique multi objet (235.000)
+=== Spezifische Verwendung von DPT Multi-Objekten (235.000)
 include::DptSpecifique.asciidoc[]
 
-=== Exemple config actionneur ON/OFF :
+=== Beispielkonfiguration eines AN/AUS-Aktors :
 include::ActionneurONOFF.asciidoc[]
 
-=== Exemple config actionneur Dimmer :
+=== Beispielkonfiguration eines Dimmer-Aktors :
 include::ActionneurDimmer.asciidoc[]
 
-== Utilisation du Bus Monitor
+== Verwendung des Bus Monitors
 include::BusMonitor.asciidoc[]
 
-== Utilisation de la passerelle Jeedom/KNX
+== Verwendung des Jeedom/KNX Gateways   
 include::Passerelle.asciidoc[]
 
-== Utilisation du parser ETS
+== Verwendung des ETS Parsers
 include::ParserETS.asciidoc[]
 
 == FAQ
