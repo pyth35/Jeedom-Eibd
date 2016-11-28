@@ -124,7 +124,7 @@ class Dpt{
 		case "16":
 			$data=array();
 			$chr=str_split($value);
-			for ($i = 0; $i <= 14; $i++)
+			for ($i = 0; $i < 14; $i++)
 				$data[$i]=ord($chr[$i]);
 			break;
 		case "17":
