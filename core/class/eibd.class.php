@@ -667,7 +667,7 @@ class eibd extends eqLogic {
 		log::remove('eibd');
 		self::deamon_stop();
 		if(file_exists('/etc/eibd/knxd_VERSION'))
-			$cmd = 'sudo knxd -u /tmp/eib -u /var/run/knx --listen-tcp='.config::byKey('EibdPort', 'eibd').' --eibaddr='.config::byKey('EibdGad', 'eibd').' -b';
+			$cmd = 'sudo knxd -u /tmp/eib  --eibaddr='.config::byKey('EibdGad', 'eibd').' -u /var/run/knx --listen-tcp='.config::byKey('EibdPort', 'eibd').' -b';
 		else
 			$cmd = 'sudo eibd --daemon=/var/log/knx.log --pid-file=/var/run/knx.pid -D -S -T --listen-tcp='.config::byKey('EibdPort', 'eibd').' --eibaddr='.config::byKey('EibdGad', 'eibd');
 		switch(config::byKey('TypeKNXgateway', 'eibd')){
