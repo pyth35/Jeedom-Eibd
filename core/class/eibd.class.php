@@ -693,7 +693,7 @@ class eibd extends eqLogic {
 				$cmd .=' usb:';
 			break;
 		}
-		$cmd .=.config::byKey('KNXgateway', 'eibd');
+		$cmd .=config::byKey('KNXgateway', 'eibd');
 		$cmd .= ' >> ' . log::getPathToLog('eibd') . ' 2>&1 &';
 		exec($cmd);
 		
