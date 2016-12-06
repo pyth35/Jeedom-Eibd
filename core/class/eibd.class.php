@@ -667,9 +667,9 @@ class eibd extends eqLogic {
 		log::remove('eibd');
 		self::deamon_stop();
 		if(file_exists('/etc/eibd/knxd_VERSION'))
-			$cmd = 'sudo knxd --daemon=/var/log/knx.log --eibaddr='.config::byKey('EibdGad', 'eibd').' -u /tmp/eib  -u /var/run/knx --listen-tcp='.config::byKey('EibdPort', 'eibd').' -b';
+			$cmd = 'sudo knxd --daemon=/var/log/knx.log --pid-file=/var/run/knx.pid --eibaddr='.config::byKey('EibdGad', 'eibd').' -c --Name=JeedomKnx -D -T -R -S -u /tmp/eib  -u /var/run/knx --listen-tcp='.config::byKey('EibdPort', 'eibd').' -b';
 		else
-			$cmd = 'sudo eibd --daemon=/var/log/knx.log --pid-file=/var/run/knx.pid -D -S -T --listen-tcp='.config::byKey('EibdPort', 'eibd').' --eibaddr='.config::byKey('EibdGad', 'eibd');
+			$cmd = 'sudo eibd --daemon=/var/log/knx.log --pid-file=/var/run/knx.pid --eibaddr='.config::byKey('EibdGad', 'eibd').' -c -D -T -R -S --listen-tcp='.config::byKey('EibdPort', 'eibd');
 		switch(config::byKey('TypeKNXgateway', 'eibd')){
 			case 'ip':
 				$cmd .=' ip:';
