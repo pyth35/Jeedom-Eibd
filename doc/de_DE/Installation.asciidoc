@@ -1,4 +1,4 @@
-=== Installation des dépendance
+=== Abhängigkeiten Installation 
 Pour faciliter la mise en place des dépendances, jeedom vas gérer seul l'installation de la suite logiciele EIBD.
 
 Dans la cadre réservé aux dépendances, vous allez avoir le statut de l'installation.
@@ -8,7 +8,7 @@ Attention, la compilation est gourmande en ressource et peux entrainer des ralen
 
 image::../images/Installation_dependance.jpg[]
 
-=== Configuration du plugin et de ses dépendances
+=== Konfiguration des Plugins und seine Abhängigkeiten
 image::../images/eibd_screenshot_Configuration.jpg[]
 
 Pendant ou après l'installation des dépendances, nous pouvons configurer le plugin et la connexion EIBD à notre passerelle.
