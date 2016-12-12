@@ -419,21 +419,21 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_beschreibung">1. Beschreibung</a></li>
 <li><a href="#_installation_und_konfiguration">2. Installation und Konfiguration</a>
 <ul class="sectlevel2">
-<li><a href="#_installation_des_dépendance">2.1. Installation des dépendance</a></li>
-<li><a href="#_configuration_du_plugin_et_de_ses_dépendances">2.2. Configuration du plugin et de ses dépendances</a></li>
+<li><a href="#_abhängigkeiten_installation">2.1. Abhängigkeiten Installation</a></li>
+<li><a href="#_konfiguration_des_plugins_und_seine_abhängigkeiten">2.2. Konfiguration des Plugins und seine Abhängigkeiten</a></li>
 <li><a href="#_benutzung_des_auto_implementation_modus">2.3. Benutzung des Auto-Implementation Modus</a></li>
 <li><a href="#_benutzung_des_initialisierungsmodus_beim_start">2.4. Benutzung des Initialisierungsmodus beim Start</a></li>
 </ul>
 </li>
 <li><a href="#_einrichten_von_geräten_und_befehlen">3. Einrichten von Geräten und Befehlen</a>
 <ul class="sectlevel3">
-<li><a href="#_Équipement">3.1. Équipement</a></li>
-<li><a href="#_commande">3.2. Commande</a></li>
+<li><a href="#_geräte">3.1. Geräte</a></li>
+<li><a href="#_befehle">3.2. Befehle</a></li>
 <li><a href="#_spezifische_verwendung_von_dpt_multi_objekten_235_000">3.3. Spezifische Verwendung von DPT Multi-Objekten (235.000)</a>
 <ul class="sectlevel3">
-<li><a href="#_présentation">3.3.1. Présentation</a></li>
+<li><a href="#_präsentation">3.3.1. Präsentation</a></li>
 <li><a href="#_composition_du_dpt_235_001">3.3.2. Composition du DPT 235.001</a></li>
-<li><a href="#_confiugration_des_commandes">3.3.3. Confiugration des commandes</a></li>
+<li><a href="#_befehls_konfiguration">3.3.3. Befehls Konfiguration</a></li>
 </ul>
 </li>
 <li><a href="#_beispielkonfiguration_eines_an_aus_aktors">3.4. Beispielkonfiguration eines AN/AUS-Aktors :</a>
@@ -472,7 +472,7 @@ Eine Funktion der Auto-Konfiguration (Auto-inklude, ETS4 Parser), ist implementi
 <h2 id="_installation_und_konfiguration">2. Installation und Konfiguration</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_installation_des_dépendance">2.1. Installation des dépendance</h3>
+<h3 id="_abhängigkeiten_installation">2.1. Abhängigkeiten Installation</h3>
 <div class="paragraph">
 <p>Pour faciliter la mise en place des dépendances, jeedom vas gérer seul l&#8217;installation de la suite logiciele EIBD.</p>
 </div>
@@ -489,7 +489,7 @@ Attention, la compilation est gourmande en ressource et peux entrainer des ralen
 </div>
 </div>
 <div class="sect2">
-<h3 id="_configuration_du_plugin_et_de_ses_dépendances">2.2. Configuration du plugin et de ses dépendances</h3>
+<h3 id="_konfiguration_des_plugins_und_seine_abhängigkeiten">2.2. Konfiguration des Plugins und seine Abhängigkeiten</h3>
 <div class="imageblock">
 <div class="content">
 <img src="../images/eibd_screenshot_Configuration.jpg" alt="eibd screenshot Configuration">
@@ -560,7 +560,7 @@ Un moteur de détéction de dpt et de type de commande est mis en place afin d&#
 <p>En validant cette option, Jeedom interrogera tous les équipements configurés avec une demande d&#8217;initialisation</p>
 </div>
 <div class="paragraph">
-<p>Attention:
+<p>Achtung :
 Il est important que toutes les Adresses de groupe initialisées aient un objet avec le Flag READ</p>
 </div>
 </div>
@@ -574,7 +574,7 @@ Il est important que toutes les Adresses de groupe initialisées aient un objet 
 La suite de ce paragraphe va vous etre utiles.</p>
 </div>
 <div class="sect3">
-<h4 id="_Équipement">3.1. Équipement</h4>
+<h4 id="_geräte">3.1. Geräte</h4>
 <div class="paragraph">
 <p>Dans un premier temps, il faut créer un nouvelle équipement et le nommé.
 Comme dans tous les plugins Jeedom vous avez un bouton ajouté un equipement sur la gauche de votre fenetre.</p>
@@ -614,12 +614,12 @@ Comme dans tous les plugins Jeedom vous avez un bouton ajouté un equipement sur
 </div>
 </div>
 <div class="sect3">
-<h4 id="_commande">3.2. Commande</h4>
+<h4 id="_befehle">3.2. Befehle</h4>
 <div class="paragraph">
 <p>Maintenant que votre équipement est crée et configurée, on vas pouvoir y ajouter des commandes.</p>
 </div>
 <div class="paragraph">
-<p>Exemple de configuration</p>
+<p>Beispielkonfiguration</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -639,7 +639,7 @@ Comme dans tous les plugins Jeedom vous avez un bouton ajouté un equipement sur
 </li>
 <li>
 <p>Retour d&#8217;état : Ce paramètre est visible pour une commande de type action, elle permet a jeedom de liée une info a une action
-Paramètre :</p>
+Parameter :</p>
 </li>
 <li>
 <p>Type : Une action pour faire un Write et une info pour un retour d&#8217;état</p>
@@ -677,7 +677,7 @@ Paramètre :</p>
 <div class="sect2">
 <h3 id="_spezifische_verwendung_von_dpt_multi_objekten_235_000">3.3. Spezifische Verwendung von DPT Multi-Objekten (235.000)</h3>
 <div class="sect3">
-<h4 id="_présentation">3.3.1. Présentation</h4>
+<h4 id="_präsentation">3.3.1. Präsentation</h4>
 <div class="paragraph">
 <p>Ce DPT permet l&#8217;emission ou réception des informations "Choix de tarif" et "Energie réactive". Il est utiliser pour récupérer l&#8217;index du compteur ainsi que les états HP/HC &#8230;&#8203;</p>
 </div>
@@ -715,7 +715,7 @@ Paramètre :</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_confiugration_des_commandes">3.3.3. Confiugration des commandes</h4>
+<h4 id="_befehls_konfiguration">3.3.3. Befehls Konfiguration</h4>
 <div class="paragraph">
 <p>Créer un équipement (Lien vers doc)</p>
 </div>
@@ -859,9 +859,9 @@ Il est donc possible de luis demandé d&#8217;envoyé sur le bus KNX des informa
 <h2 id="_verwendung_des_ets_parsers">6. Verwendung des ETS Parsers</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Téléchargez votre projet ETS et jeedom se chargera de configurer au maximum vos commandes.
-L&#8217;utilisation du parser ne donne pas une configuration complète car elle est limitée aux informations saisies dans votre installation.
-Il est toujours nécessaire de verifier et compléter sa configuration.</p>
+<p>Laden Sie Ihr ETS-Projekt und Jeedom wird Ihre Befehle bis zum Maximum einstellen.
+Die Benutzung des Parser ergibt keine vollständige Konfiguration, denn sie ist auf die Informationen begrenzt, die in Ihrer Einrichtung erfasst wurde.
+Es ist immer notwendig, seine Konfiguration zu prüfen und zu vervollständigen.</p>
 </div>
 </div>
 </div>
@@ -869,18 +869,18 @@ Il est toujours nécessaire de verifier et compléter sa configuration.</p>
 <h2 id="_faq">7. FAQ</h2>
 <div class="sectionbody">
 <div class="openblock panel">
-<div class="title">Comment créer une commande pour allumer la lumière alors que physiquement, je n&#8217;ai pas d’interrupteur ?</div><div class="content">
+<div class="title">Wie wird ein Befehl erstellt, um das Licht anzuschalten, obwohl ich physisch keinen Schalter habe?</div><div class="content">
 <div class="paragraph">
-<p>Sous jeedom, nous pouvons créer des interrupteurs virtuels en configurant une commande de type action.
-Les éléments importants pour envoyer des informations sur le bus avec jeedom sont :</p>
+<p>Unter Jeedom können wir virtuelle Schalter erstellen, indem Sie einen Befehl der Art Aktion konfigurieren.
+Die wichtigen Elemente, um Informationen über den Bus mit jeedom zu senden, sind :</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Adresse de groupe</p>
+<p>Gruppen Adresse</p>
 </li>
 <li>
-<p>Le DPT pour son encodage
+<p>Die TPD, für seine Codierung
 On verra apparaitre sur le bus monitor la commande envoyée avec l&#8217;adresse physique d&#8217;eibd</p>
 </li>
 </ul>
