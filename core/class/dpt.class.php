@@ -606,7 +606,7 @@ class Dpt{
 				}
 			next($All_DPT);
 			}
-		return ;
+		return '';
 		}
 	public function getDptOption($dpt)	{
 		$All_DPT=self::All_DPT();
