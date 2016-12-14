@@ -1,4 +1,4 @@
-==== Présentation
+==== Introduction
 
 Ce DPT permet l'emission ou réception des informations "Choix de tarif" et "Energie réactive". Il est utiliser pour récupérer l'index du compteur ainsi que les états HP/HC ...
 
