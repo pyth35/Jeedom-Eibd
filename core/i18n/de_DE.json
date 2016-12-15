@@ -1,57 +1,57 @@
 {
     "plugins\/eibd\/core\/class\/eibd.class.php": {
-        "Read failed": "Read failed",
-        "L'adresse physique doit obligatoirement être renseigné": "L'adresse physique doit obligatoirement être renseigné"
+        "Read failed": "Fehler beim Lesen",
+        "L'adresse physique doit obligatoirement être renseigné": "Die physische Adresse muss zwingend angegeben werden"
     },
     "plugins\/eibd\/desktop\/php\/eibd.php": {
-        "Ajouter un équipement": "Ajouter un équipement",
-        "Rechercher": "Rechercher",
-        "Générale": "Générale",
-        "Dupliquer": "Dupliquer",
-        "Nom de l'équipement KNX": "Nom de l'équipement KNX",
-        "Adresse Physique de l'équipement": "Adresse Physique de l'équipement",
-        "Objet parent": "Objet parent",
-        "Catégorie": "Catégorie",
-        "Visible": "Visible",
-        "Activer": "Activer",
-        "Commandes": "Commandes",
-        "Ajouter une commande KNX": "Ajouter une commande KNX",
-        "Nom": "Nom",
-        "Data Point": "Data Point",
+        "Ajouter un équipement": "Gerät hinzufügen",
+        "Rechercher": "Suchen",
+        "Générale": "Allgemein",
+        "Dupliquer": "Kopieren",
+        "Nom de l'équipement KNX": "KNX Gerätename",
+        "Adresse Physique de l'équipement": "Physische Geräteadresse",
+        "Objet parent": "Elternobjekt",
+        "Catégorie": "Kategorie",
+        "Visible": "Sichtbar",
+        "Activer": "Aktivieren",
+        "Commandes": "Befehle",
+        "Ajouter une commande KNX": "KNX Befehl hinzufügen",
+        "Nom": "Name",
+        "Data Point": "Datenpunkt",
         "GAD": "GAD",
-        "Retours d'état": "Retours d'état",
-        "Paramètre": "Paramètre",
-        "Supprimer": "Supprimer",
-        "Sauvegarder": "Sauvegarder"
+        "Retours d'état": "Zustandsrückgabe",
+        "Paramètre": "Parameter",
+        "Supprimer": "Löschen",
+        "Sauvegarder": "Speichern"
     },
     "plugins\/eibd\/desktop\/js\/eibd.js": {
-        "Bus Moniteur": "Bus Moniteur",
-        "Configurer Jeedom grâce a un export ETS4": "Configurer Jeedom grâce a un export ETS4",
-        "Configurer EIBD": "Configurer EIBD",
-        "Inverser": "Inverser",
-        "Imposer une valeur": "Imposer une valeur",
+        "Bus Moniteur": "Bus Monitor",
+        "Configurer Jeedom grâce a un export ETS4": "Jeedom mit einem ETS4 Export konfigurieren",
+        "Configurer EIBD": "EIBD konfigurieren",
+        "Inverser": "Invertieren",
+        "Imposer une valeur": "Einen Wert festlegen",
         "'+value+'": "'+value+'",
-        "Sélèctionner un DPT": "Sélèctionner un DPT",
+        "Sélèctionner un DPT": "DPT auswählen",
         "'+key+'": "'+key+'",
         "'+key+' - '+value[\"Name\"]+'": "'+key+' - '+value[\"Name\"]+'",
         "Name": "Name",
         "GAD": "GAD",
-        "Rechercher une commande": "Rechercher une commande",
-        "Evenement": "Evenement",
-        "Visible": "Visible",
-        "Historiser": "Historiser",
+        "Rechercher une commande": "Befehl suchen",
+        "Evenement": "Ereignis",
+        "Visible": "Sichtbar",
+        "Historiser": "Archivieren",
         "Min": "Min",
         "Max": "Max",
-        "Unitée": "Unitée",
+        "Unitée": "Einheit",
         "Lifetime cache": "Lifetime cache",
-        "Tester": "Tester",
-        "Dupliquer": "Dupliquer"
+        "Tester": "Testen",
+        "Dupliquer": "Kopieren"
     },
     "plugins\/eibd\/desktop\/modal\/eibd.busmoniteur.php": {
         "Pensez bien à activer l'écriture de tous les messages dans la configuration du plugin et à redémarrer le démon une fois cela fait (N'oubliez pas de tout désactiver une fois fini)": "Pensez bien à activer l'écriture de tous les messages dans la configuration du plugin et à redémarrer le démon une fois cela fait (N'oubliez pas de tout désactiver une fois fini)"
     },
     "plugins\/eibd\/plugin_info\/info.xml": {
-        "Connecte Jeedom avec votre installation domotique KNX.": "Connecte Jeedom avec votre installation domotique KNX.",
-        "Voir la documentation jointe au plugin": "Voir la documentation jointe au plugin"
+        "Connecte Jeedom avec votre installation domotique KNX.": "Verbinden Sie Jeedom mit Ihrer KNX Hausautomatisierung",
+        "Voir la documentation jointe au plugin": "Siehe in dem beigefügten Plugin Dokumentation"
     }
 }
