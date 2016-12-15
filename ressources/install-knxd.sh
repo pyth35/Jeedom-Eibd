@@ -66,6 +66,9 @@ then
   rm -rf /usr/local/lib/libeibclient.so.0.0.0
 fi
 echo 15 > /tmp/compilation_eibd_in_progress
+if [ -d "/usr/local/src/Knx/" ]; then 
+  rm -R /usr/local/src/Knx/
+fi
 mkdir /usr/local/src/Knx/
 cd /usr/local/src/Knx
 echo "*****************************************************************************************************"
@@ -110,7 +113,6 @@ echo "*                                      Installation de KnxD               
 echo "*****************************************************************************************************"
 git clone https://github.com/knxd/knxd.git
 echo 55 > /tmp/compilation_eibd_in_progress
-mv knxd-master knxd
 cd knxd
 dpkg-buildpackage -b -uc -d
 echo 70 > /tmp/compilation_eibd_in_progress
