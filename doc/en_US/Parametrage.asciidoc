@@ -1,7 +1,7 @@
 Si vous avez activé l'ajout automatique ou l'import ETS4, les equipements et les commandes ont été créer, mais il reste certain parametre a configurer.
 La suite de ce paragraphe va vous etre utiles.
 
-==== Équipement
+==== Equipment
 Dans un premier temps, il faut créer un nouvelle équipement et le nommé.
 Comme dans tous les plugins Jeedom vous avez un bouton ajouté un equipement sur la gauche de votre fenetre.
 
