@@ -19,7 +19,7 @@ Pendant ou après l'installation des dépendances, nous pouvons configurer le pl
 * Indiquez l'adresse de la passerelle
 * Personnalisez l'adresse physique du démon sur votre réseau KNX
 * Choisissez si vos GAD sont à 2 ou 3 niveaux
-* Vous avez le choix de laisser Jeedom détecter et ajouter vos équipements et commandes
+* You have the choice to leave Jeedom detect and add your equipment and controls
 * Vous avez le choix de laisser Jeedom interroger le bus pour initialiser les valeurs des informations
 * Enfin pensez à sauvegarder.
 
