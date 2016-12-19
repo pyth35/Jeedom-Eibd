@@ -21,7 +21,7 @@ Ce nouvelle équipement a besoin d'être paramétré.
 
 Maintenant que votre équipement est crée et configurée, on vas pouvoir y ajouter des commandes.
 
-Exemple de configuration
+Settings examples
 
 image::../images/Configuration_commande.jpg[]
 

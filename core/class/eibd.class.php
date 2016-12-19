@@ -632,8 +632,8 @@ class eibd extends eqLogic {
 			return;
 		}
 		log::remove('eibd_update');
-		$cmd = 'sudo /bin/bash ' . dirname(__FILE__) . '/../../ressources/install-eibd.sh';
-		//$cmd = 'sudo /bin/bash ' . dirname(__FILE__) . '/../../ressources/install-knxd.sh';
+		//$cmd = 'sudo /bin/bash ' . dirname(__FILE__) . '/../../ressources/install-eibd.sh';
+		$cmd = 'sudo /bin/bash ' . dirname(__FILE__) . '/../../ressources/install-knxd.sh';
 		$cmd .= ' >> ' . log::getPathToLog('eibd_update') . ' 2>&1 &';
 		exec($cmd);
 	}
