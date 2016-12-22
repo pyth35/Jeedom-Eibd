@@ -144,24 +144,24 @@ $(function(){
 			case "info":
 				$(this).closest('.cmd').find('.RetourEtat').hide();
 				$(this).closest('.cmd').find('.bt_read').show();
+				$(this).closest('.cmd').find('.ValeurDefaut').hide();
 				$(this).closest('.cmd').find('.cmdAttr[data-l1key=isHistorized]').closest('.input-group').parent().show();
-				/*$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=init]').closest('.input-group').parent().show();
-				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=transmitReponse]').closest('.input-group').parent().show();
+				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=init]').parent().show();
+				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=transmitReponse]').parent().show();
 				if($(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=transmitReponse]').is(':checked'))
 					$(this).closest('.cmd').find('.ObjetTransmit').show();
 				else
-					$(this).closest('.cmd').find('.ObjetTransmit').hide();*/
+					$(this).closest('.cmd').find('.ObjetTransmit').hide();
 			break;
 			case "action":		
 				$(this).closest('.cmd').find('.RetourEtat').show();
 				$(this).closest('.cmd').find('.ObjetTransmit').hide();
 				$(this).closest('.cmd').find('.bt_read').hide();
-				/*$(this).closest('.cmd').find('.cmdAttr[data-l1key=isHistorized]').closest('.input-group').parent().hide();
-				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=init]').closest('.input-group').parent().hide();
-				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=transmitReponse]').closest('.input-group').parent().hide();
-			*/break;
+				$(this).closest('.cmd').find('.cmdAttr[data-l1key=isHistorized]').closest('.input-group').parent().hide();
+				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=init]').parent().hide();
+				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=transmitReponse]').parent().hide();
+			break;
 			}
-			$(this).closest('.cmd').find('.cmdAttr[data-l1key=subType]').trigger('change');
 		});			
 	$('body').on('change', '.cmdAttr[data-l1key=subType]',function() {
 		switch ($(this).val()){
@@ -493,11 +493,11 @@ function addCmdToTable(_cmd) {
 			.append($('<i class="fa fa-rss">')
 				.text('{{Tester}}')));
 	}
-	parmetre.append($('<a class="btn btn-default btn-xs cmdAction expertModeVisible" data-action="configure">')
+	parmetre.append($('<a class="btn btn-default btn-xs cmdAction tooltips" data-action="configure">')
 		.append($('<i class="fa fa-cogs">')));
-	parmetre.append($('<a class="btn btn-default btn-xs cmdAction expertModeVisible tooltips" data-action="copy" title="{{Dupliquer}}">')
+	parmetre.append($('<a class="btn btn-default btn-xs cmdAction tooltips" data-action="copy" title="{{Dupliquer}}">')
 		.append($('<i class="fa fa-files-o">')));
-	parmetre.append($('<a class="btn btn-default btn-xs cmdAction expertModeVisible bt_read">')
+	parmetre.append($('<a class="btn btn-default btn-xs cmdAction tooltips bt_read">')
 		.append($('<i class="fa fa-rss">')
 			.text('{{Read}}')));
 		parmetre.append($('<div>')
