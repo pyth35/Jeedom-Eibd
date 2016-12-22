@@ -140,9 +140,9 @@ $(function(){
 		$(this).closest('.cmd').find('.cmdAttr[data-l1key=subType]').trigger('change');
 	}); 
 	$('body').on('change', '.cmdAttr[data-l1key=type]',function() {
-		alert($(this).val());
 		switch ($(this).val()){
 			case "info":
+		alert($(this).closest('.cmd').find('.RetourEtat').html());
 				$(this).closest('.cmd').find('.RetourEtat').hide();
 				$(this).closest('.cmd').find('.bt_read').show();
 				$(this).closest('.cmd').find('.cmdAttr[data-l1key=isHistorized]').closest('.input-group').parent().show();
