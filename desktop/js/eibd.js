@@ -142,25 +142,24 @@ $(function(){
 	$('body').on('change', '.cmdAttr[data-l1key=type]',function() {
 		switch ($(this).val()){
 			case "info":
-		alert($(this).closest('.cmd').find('.RetourEtat').html());
 				$(this).closest('.cmd').find('.RetourEtat').hide();
 				$(this).closest('.cmd').find('.bt_read').show();
 				$(this).closest('.cmd').find('.cmdAttr[data-l1key=isHistorized]').closest('.input-group').parent().show();
-				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=init]').closest('.input-group').parent().show();
+				/*$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=init]').closest('.input-group').parent().show();
 				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=transmitReponse]').closest('.input-group').parent().show();
 				if($(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=transmitReponse]').is(':checked'))
 					$(this).closest('.cmd').find('.ObjetTransmit').show();
 				else
-					$(this).closest('.cmd').find('.ObjetTransmit').hide();
+					$(this).closest('.cmd').find('.ObjetTransmit').hide();*/
 			break;
 			case "action":		
 				$(this).closest('.cmd').find('.RetourEtat').show();
 				$(this).closest('.cmd').find('.ObjetTransmit').hide();
 				$(this).closest('.cmd').find('.bt_read').hide();
-				$(this).closest('.cmd').find('.cmdAttr[data-l1key=isHistorized]').closest('.input-group').parent().hide();
+				/*$(this).closest('.cmd').find('.cmdAttr[data-l1key=isHistorized]').closest('.input-group').parent().hide();
 				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=init]').closest('.input-group').parent().hide();
 				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=transmitReponse]').closest('.input-group').parent().hide();
-			break;
+			*/break;
 			}
 			$(this).closest('.cmd').find('.cmdAttr[data-l1key=subType]').trigger('change');
 		});			
@@ -500,7 +499,7 @@ function addCmdToTable(_cmd) {
 		.append($('<i class="fa fa-files-o">')));
 	parmetre.append($('<a class="btn btn-default btn-xs cmdAction expertModeVisible bt_read">')
 		.append($('<i class="fa fa-rss">')
-			.text('{{Read}}')).hide());
+			.text('{{Read}}')));
 		parmetre.append($('<div>')
 			.append($('<span>')
 				.append($('<label class="checkbox-inline">')
