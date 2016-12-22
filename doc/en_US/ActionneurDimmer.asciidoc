@@ -1,4 +1,4 @@
-==== Créer un équipement correspondant à votre dimmer KNX :
+==== Create a matching equipment for your KNX dimmer:
 
 L'Adresse KNX ( elle doit être identique à votre actionneur dimmer )
 

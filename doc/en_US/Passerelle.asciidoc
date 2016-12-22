@@ -1,2 +1,2 @@
-Jeedom ce comporte donc comme un equipement a part entiere de votre installation KNX.
+Jeedom behave as full equipment of your KNX installation .
 It is therefore possible to luis asked Envoy on the bus KNX information from jeedom and so on the other protocol

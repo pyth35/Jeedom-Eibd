@@ -1,4 +1,4 @@
-Si vous avez activé l'ajout automatique ou l'import ETS4, les equipements et les commandes ont été créer, mais il reste certain parametre a configurer.
+If you have enabled automatic addition or ETS4 import, the equipments and commands have been created, but certain parameters remain to be configured.
 La suite de ce paragraphe va vous etre utiles.
 
 ==== Equipment

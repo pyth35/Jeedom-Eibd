@@ -438,13 +438,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#_exemple_config_actionneur_on_off">3.4. Exemple config actionneur ON/OFF :</a>
 <ul class="sectlevel3">
-<li><a href="#_créer_un_équipement_correspondant_à_votre_actionneur_knx">3.4.1. Créer un équipement correspondant à votre actionneur KNX :</a></li>
+<li><a href="#_create_equipment_corresponding_to_your_knx_actuator">3.4.1. Create equipment corresponding to your KNX actuator:</a></li>
 <li><a href="#_créer_un_équipement_qui_se_comportera_comme_un_intérrupteur_knx">3.4.2. Créer un équipement qui se comportera comme un intérrupteur KNX :</a></li>
 </ul>
 </li>
 <li><a href="#_exemple_config_actionneur_dimmer">3.5. Exemple config actionneur Dimmer :</a>
 <ul class="sectlevel3">
-<li><a href="#_créer_un_équipement_correspondant_à_votre_dimmer_knx">3.5.1. Créer un équipement correspondant à votre dimmer KNX :</a></li>
+<li><a href="#_create_a_matching_equipment_for_your_knx_dimmer">3.5.1. Create a matching equipment for your KNX dimmer:</a></li>
 <li><a href="#_créer_la_commande_pour_dimmer_votre_lumière">3.5.2. Créer la commande pour dimmer votre lumière :</a></li>
 </ul>
 </li>
@@ -544,7 +544,7 @@ Attention, la compilation est gourmande en ressource et peux entrainer des ralen
 <div class="sect2">
 <h3 id="_utilisation_du_mode_auto_implementation">2.3. Utilisation du mode auto-implementation</h3>
 <div class="paragraph">
-<p>En validant cette option, jeedom créera automatiquement les commandes qu&#8217;il voit passé sur le bus et qui n&#8217;existe pas.
+<p>By validating this option, jeedom will automatically create orders he sees past on the bus and that does not exist.
 Un moteur de détéction de dpt et de type de commande est mis en place afin d&#8217;obtenir une configuration fonctionnelle sans intervention.</p>
 </div>
 <div class="paragraph">
@@ -557,7 +557,7 @@ Un moteur de détéction de dpt et de type de commande est mis en place afin d&#
 <div class="sect2">
 <h3 id="_utilisation_de_mode_initialisation_au_démarrage">2.4. Utilisation de mode initialisation au démarrage</h3>
 <div class="paragraph">
-<p>En validant cette option, Jeedom interrogera tous les équipements configurés avec une demande d&#8217;initialisation</p>
+<p>By validating this option, Jeedom will interview all the configured equipments with a request for initialization</p>
 </div>
 <div class="paragraph">
 <p>Attention:
@@ -570,7 +570,7 @@ Il est important que toutes les Adresses de groupe initialisées aient un objet 
 <h2 id="_paramétrage_des_equipements_et_des_commandes">3. Paramétrage des equipements et des commandes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Si vous avez activé l&#8217;ajout automatique ou l&#8217;import ETS4, les equipements et les commandes ont été créer, mais il reste certain parametre a configurer.
+<p>If you have enabled automatic addition or ETS4 import, the equipments and commands have been created, but certain parameters remain to be configured.
 La suite de ce paragraphe va vous etre utiles.</p>
 </div>
 <div class="sect3">
@@ -732,7 +732,7 @@ Paramètre :</p>
 <div class="sect2">
 <h3 id="_exemple_config_actionneur_on_off">3.4. Exemple config actionneur ON/OFF :</h3>
 <div class="sect3">
-<h4 id="_créer_un_équipement_correspondant_à_votre_actionneur_knx">3.4.1. Créer un équipement correspondant à votre actionneur KNX :</h4>
+<h4 id="_create_equipment_corresponding_to_your_knx_actuator">3.4.1. Create equipment corresponding to your KNX actuator:</h4>
 <div class="paragraph">
 <p>L&#8217;Adresse KNX ( elle doit être identique à votre actionneur )
 Notre retour d&#8217;état : La Groupe Adresse choisie dans l&#8217;exemple : 0/1/0 ( A adapter à votre configuration).</p>
@@ -782,7 +782,7 @@ Objet status ( Retour d&#8217;Etat ) doit avoir au minimum les flags C R et T, c
 <div class="sect2">
 <h3 id="_exemple_config_actionneur_dimmer">3.5. Exemple config actionneur Dimmer :</h3>
 <div class="sect3">
-<h4 id="_créer_un_équipement_correspondant_à_votre_dimmer_knx">3.5.1. Créer un équipement correspondant à votre dimmer KNX :</h4>
+<h4 id="_create_a_matching_equipment_for_your_knx_dimmer">3.5.1. Create a matching equipment for your KNX dimmer:</h4>
 <div class="paragraph">
 <p>L&#8217;Adresse KNX ( elle doit être identique à votre actionneur dimmer )</p>
 </div>
@@ -830,7 +830,7 @@ Objet status ( Retour d&#8217;Etat ) doit avoir au minimum les flags C R et T, c
 <h2 id="_utilisation_du_bus_monitor">4. Utilisation du Bus Monitor</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>En cliquant sur cette icône ci dessous, vous allez pouvoir visualiser l&#8217;activité qui se passe sur votre bus.
+<p>By clicking on this icon here below, you can view the activity on your bus.
 Pour le débugage d&#8217;une configuration défaillante, il est aussi possible de filtrer les messages enregistrés en mémoire cache.</p>
 </div>
 <div class="imageblock">
@@ -850,7 +850,7 @@ Pour le débugage d&#8217;une configuration défaillante, il est aussi possible 
 <h2 id="_utilisation_de_la_passerelle_jeedom_knx">5. Utilisation de la passerelle Jeedom/KNX</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Jeedom ce comporte donc comme un equipement a part entiere de votre installation KNX.
+<p>Jeedom behave as full equipment of your KNX installation .
 It is therefore possible to luis asked Envoy on the bus KNX information from jeedom and so on the other protocol</p>
 </div>
 </div>
@@ -859,7 +859,7 @@ It is therefore possible to luis asked Envoy on the bus KNX information from jee
 <h2 id="_utilisation_du_parser_ets">6. Utilisation du parser ETS</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Téléchargez votre projet ETS et jeedom se chargera de configurer au maximum vos commandes.
+<p>Download your ETS project and jeedom will to configure a maximum of your commands.
 L&#8217;utilisation du parser ne donne pas une configuration complète car elle est limitée aux informations saisies dans votre installation.
 Il est toujours nécessaire de verifier et compléter sa configuration.</p>
 </div>
