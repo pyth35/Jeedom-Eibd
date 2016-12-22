@@ -499,9 +499,9 @@ function addCmdToTable(_cmd) {
 		.append($('<i class="fa fa-cogs">')));
 	parmetre.append($('<a class="btn btn-default btn-xs cmdAction expertModeVisible tooltips" data-action="copy" title="{{Dupliquer}}">')
 		.append($('<i class="fa fa-files-o">')));
-	parmetre.append($('<a class="btn btn-default btn-xs cmdAction expertModeVisible bt_read">').hide()
+	parmetre.append($('<a class="btn btn-default btn-xs cmdAction expertModeVisible bt_read">')
 		.append($('<i class="fa fa-rss">')
-			.text('{{Read}}')));
+			.text('{{Read}}')).hide());
 		parmetre.append($('<div>')
 			.append($('<span>')
 				.append($('<label class="checkbox-inline">')
