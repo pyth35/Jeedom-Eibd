@@ -88,14 +88,14 @@ $(function(){
 				}
 		});
 	});
-	$('body').on('keyup','.cmd .cmdAttr[data-l1key=logicalId]', function() {
+	$('body').on('keyup','.cmdAttr[data-l1key=logicalId]', function() {
 		var lastCar=$(this).val().substr(-1);
 		var doublelastCar=$(this).val().substr(-2);
 		var oldvalue=$(this).val().substring(0,$(this).val().length-1);
 		if(!$.isNumeric(lastCar) && lastCar!='/' || doublelastCar=='//')
 			$(this).val(oldvalue);
 	}); 
-	$('body').on('change','.cmd .cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]', function() {
+	$('body').on('change','.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]', function() {
 		switch($(this).val())
 			{
 			case '229.001':
@@ -139,10 +139,10 @@ $(function(){
 		$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue] option[value="'+valeur+'"]').prop('selected', true);
 		$(this).closest('.cmd').find('.cmdAttr[data-l1key=subType]').trigger('change');
 	}); 
-	$('body').on('change', '.cmd .cmdAttr[data-l1key=type]',function() 	{
+	$('body').on('change', '.cmdAttr[data-l1key=type]',function() {
+		alert($(this).val());
 		switch ($(this).val()){
 			case "info":
-				$(this).closest('.cmd').find('.ValeurDefaut').hide();
 				$(this).closest('.cmd').find('.RetourEtat').hide();
 				$(this).closest('.cmd').find('.bt_read').show();
 				$(this).closest('.cmd').find('.cmdAttr[data-l1key=isHistorized]').closest('.input-group').parent().show();
@@ -154,7 +154,6 @@ $(function(){
 					$(this).closest('.cmd').find('.ObjetTransmit').hide();
 			break;
 			case "action":		
-				$(this).closest('.cmd').find('.ValeurDefaut').show();
 				$(this).closest('.cmd').find('.RetourEtat').show();
 				$(this).closest('.cmd').find('.ObjetTransmit').hide();
 				$(this).closest('.cmd').find('.bt_read').hide();
@@ -165,7 +164,7 @@ $(function(){
 			}
 			$(this).closest('.cmd').find('.cmdAttr[data-l1key=subType]').trigger('change');
 		});			
-	$('body').on('change', '.cmd .cmdAttr[data-l1key=subType]',function() {
+	$('body').on('change', '.cmdAttr[data-l1key=subType]',function() {
 		switch ($(this).val()){
 			case "cursor":
 			case "numeric":
