@@ -1,5 +1,5 @@
 By validating this option, jeedom will automatically create orders he sees past on the bus and that does not exist.
-Un moteur de détéction de dpt et de type de commande est mis en place afin d'obtenir une configuration fonctionnelle sans intervention.
+A TPD and command type detection engine is implemented in order to get a functional configuration without intervention.
 
 La creation d'une commande avec ce mode sera toujours une commande de type "info" avec un DPT générique.
 

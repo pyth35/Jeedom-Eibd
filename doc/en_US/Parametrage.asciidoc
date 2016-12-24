@@ -1,5 +1,5 @@
 If you have enabled automatic addition or ETS4 import, the equipments and commands have been created, but certain parameters remain to be configured.
-La suite de ce paragraphe va vous etre utiles.
+The rest of this paragraph will be useful.
 
 ==== Equipment
 Dans un premier temps, il faut créer un nouvelle équipement et le nommé.

@@ -1,6 +1,6 @@
 ==== Create a matching equipment for your KNX dimmer:
 
-L'Adresse KNX ( elle doit être identique à votre actionneur dimmer )
+The KNX address (it must be the same as your dimmer actuator)
 
 Etablir un retour Etat 0/0/11 ( A adapter à votre configuration)
 
