@@ -1,3 +1,3 @@
-Téléchargez votre projet ETS et jeedom se chargera de configurer au maximum vos commandes.
-L'utilisation du parser ne donne pas une configuration complète car elle est limitée aux informations saisies dans votre installation.
+Download your ETS project and jeedom will to configure a maximum of your commands.
+The use of the parser does not give a complete configuration, because it is limited to the information entered in your installation.
 Il est toujours nécessaire de verifier et compléter sa configuration.
