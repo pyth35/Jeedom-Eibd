@@ -90,7 +90,8 @@ apt-get install --yes -y -qq automake
 apt-get install --yes -y -qq libtool 
 apt-get install --yes -y -qq libusb-1.0-0-dev 
 apt-get install --yes -y -qq libsystemd-daemon-dev 
-apt-get install --yes -y -qq dh-systemd
+apt-get install --yes -y -qq dh-systemd 
+apt-get install --yes -y -qq pkg-config 
 echo 30 > /tmp/compilation_eibd_in_progress
 echo "*****************************************************************************************************"
 echo "*                        Installation de PTHSEM V2.0.8 libraries                                    *"
