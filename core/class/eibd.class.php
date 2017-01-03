@@ -20,7 +20,7 @@ class eibd extends eqLogic {
 	public function preSave() {
 		$this->setLogicalId(trim($this->getLogicalId()));    
 	}
-	public function postSave() {
+	public function postSave() {		
 	}	
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//                                                                                                                                               //
@@ -667,7 +667,8 @@ class eibd extends eqLogic {
 		log::remove('eibd');
 		self::deamon_stop();
 		if(file_exists('/etc/eibd/knxd_VERSION'))
-			$cmd = 'sudo knxd --daemon=/var/log/knx.log --pid-file=/var/run/knx.pid --eibaddr='.config::byKey('EibdGad', 'eibd').' --Name=JeedomKnx -D -T -R -S -u /tmp/eib  -u /var/run/knx --listen-tcp='.config::byKey('EibdPort', 'eibd').' -b';
+			//$cmd = 'sudo knxd --daemon=/var/log/knx.log --pid-file=/var/run/knx.pid --eibaddr='.config::byKey('EibdGad', 'eibd').' --Name=JeedomKnx -D -T -R -S -u /tmp/eib  -u /var/run/knx --listen-tcp='.config::byKey('EibdPort', 'eibd').' -b';
+			$cmd = 'sudo knxd --daemon=/var/log/knx.log --pid-file=/var/run/knx.pid --eibaddr='.config::byKey('EibdGad', 'eibd').' --Name=JeedomKnx -D -T -R -S --listen-tcp='.config::byKey('EibdPort', 'eibd').' -b';
 		else
 			$cmd = 'sudo eibd --daemon=/var/log/knx.log --pid-file=/var/run/knx.pid --eibaddr='.config::byKey('EibdGad', 'eibd').' -D -T -R -S --listen-tcp='.config::byKey('EibdPort', 'eibd');
 		switch(config::byKey('TypeKNXgateway', 'eibd')){
