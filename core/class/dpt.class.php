@@ -508,19 +508,14 @@ class Dpt{
 		$type= substr($dpt,0,strpos( $dpt, '.' ));
 		switch ($type){
 			default:
-			$value=$oldValue;
+				$value=$oldValue;
 			break;
-		case "1":
-			if ($oldValue == 1)
-				$value=0;
-			else
-				$value=1;
+			case "1":
+				if ($oldValue == 1)
+					$value=0;
+				else
+					$value=1;
 			break;
-		case "10": 
-		case "11":
-			$value = new DateTime();
-			break;
-		};
 		return $value;
 	}
 	private function html2rgb($color){
