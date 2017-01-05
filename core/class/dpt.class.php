@@ -516,6 +516,7 @@ class Dpt{
 				else
 					$value=1;
 			break;
+		}
 		return $value;
 	}
 	private function html2rgb($color){
