@@ -284,10 +284,10 @@ function DptOption(Dpt,div){
 			if (key==Dpt){
 				$.each(value.Option, function(Optionkey, Optionvalue){
 					div.append($('<label>')
-							   .text('{{Optionvalue}}')
+							   .text('{{'+Optionvalue+'}}')
 							   .append($('<sup>')
 								   .append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
-									   .attr('title','Optionvalue'))));
+									   .attr('title',Optionvalue))));
 					div.append($('<div class="input-group">')
 							.append($('<input class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="option" data-l3key="'+Optionvalue+'">'))
 							.append($('<span class="input-group-btn">')
@@ -548,6 +548,7 @@ function addCmdToTable(_cmd) {
 							.attr('title','Activer cette option uniquement si votre équipement est sur batterie. Ce groupe d\'adresse correspond au niveau de batterie'))))));
 	tr.append(parmetre);
 	$('#table_cmd tbody').append(tr);
+	DptOption(_cmd.configuration.KnxObjectType,$('#table_cmd tbody tr:last').find('.option'));
 	$('#table_cmd tbody tr:last').setValues(_cmd, '.cmdAttr');
 	$('#table_cmd tbody tr:last .cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]').trigger('change');
 	$('#table_cmd tbody tr:last .cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').trigger('change');
