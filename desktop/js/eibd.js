@@ -318,7 +318,7 @@ function OptionSelectDpt(){
 	$.each(AllDpt, function(DptKey, DptValue){
 		DptSelectorOption+= '<optgroup label="{{'+DptKey+'}}">';
 		$.each(DptValue, function(key, value){
-			DptSelectorOption+='<option value="'+key+'">{{'+key+' - '+value["Name"]+'}}</option>';
+			DptSelectorOption+='<option value="'+key+'">{{'+key+' - '+value.Name+'}}</option>';
 		});
 	DptSelectorOption+='</optgroup>';
 	});
