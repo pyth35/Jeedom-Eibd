@@ -278,7 +278,7 @@ function getDptSousType(Dpt,type){
 	return result;
 }
 function DptOption(Dpt,div){
-	$('option').html('');
+	div.html('');
 	$.each(AllDpt, function(DptKey, DptValue){
 		$.each(DptValue, function(key, value){
 			if (key==Dpt){
