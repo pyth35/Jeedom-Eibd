@@ -2004,6 +2004,14 @@ class Dpt{
 				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
+			/*"237.600"=> array(
+				"Name"=>"DALI_Control_Gear_Diagnostic",
+				"Valeurs"=>array(),
+				"InfoType"=>'numeric',
+				"ActionType"=>'slider',
+				"GenericType"=>"DONT",
+				"Option" =>array(),
+				"Unite" =>"")*/
 			"229.001"=> array(
 				"Name"=>"Metering value",
 				"Valeurs"=>array(),
