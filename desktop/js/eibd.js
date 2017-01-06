@@ -1,5 +1,4 @@
 var AllDpt=null;
-var DptSelectorOption=null;
 UpdateVar();
 $(function(){
 	if (getUrlVars('wizard') == 1) {
@@ -314,13 +313,13 @@ function DptValue(Dpt){
 	return result;
 }
 function OptionSelectDpt(){
-	DptSelectorOption='<option value="">{{Sélèctionner un DPT}}</option>';
+	var DptSelectorOption=$('<option value="">').text('{{Sélèctionner un DPT}}');
 	$.each(AllDpt, function(DptKey, DptValue){
-		DptSelectorOption+= '<optgroup label="{{'+DptKey+'}}">';
+		var DptSelectorOptionGroup=$('<optgroup label="{{'+DptKey+'}}">'));
 		$.each(DptValue, function(key, value){
-			DptSelectorOption+='<option value="'+key+'">{{'+key+' - '+value.Name+'}}</option>';
+			DptSelectorOptionGroup.append($('<option value="'+key+'">').text('{{'+key+' - '+value.Name+'}}'));
 		});
-	DptSelectorOption+='</optgroup>';
+		DptSelectorOption.append(DptSelectorOptionGroup);
 	});
 	return DptSelectorOption;
 }
