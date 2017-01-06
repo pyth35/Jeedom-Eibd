@@ -130,7 +130,7 @@ $(function(){
 				$(this).closest('.cmd').find('.groupoption5').find('label').text('Option 5');
 			break;
 			}*/
-		//DptOption($(this).val(),$(this).closest('.cmd').find('.option'));
+		DptOption($(this).val(),$(this).closest('.cmd').find('.option'));
 		if ($(this).closest('.cmd').find('.cmdAttr[data-l1key=unite]').val() == '')
 			$(this).closest('.cmd').find('.cmdAttr[data-l1key=unite]').val(DptUnit($(this).val()));
 		var valeur =$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').val();
