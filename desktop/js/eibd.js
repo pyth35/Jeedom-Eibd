@@ -293,7 +293,7 @@ function DptOption(Dpt,div){
 							.append($('<input class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="option" data-l3key="'+Optionvalue+'">'))
 							.append($('<span class="input-group-btn">')
 								.append($('<a class="btn btn-success btn-sm bt_selectCmdExpression">')
-									.append($('<i class="fa fa-list-alt">'))));
+									.append($('<i class="fa fa-list-alt">')))));
 				});
 			}
 		});
