@@ -131,7 +131,7 @@ $(function(){
 				$(this).closest('.cmd').find('.groupoption5').find('label').text('Option 5');
 			break;
 			}*/
-		DptOption($(this).val());
+		DptOption($(this).val(),$(this).closest('.cmd').find('.option'));
 		if ($(this).closest('.cmd').find('.cmdAttr[data-l1key=unite]').val() == '')
 			$(this).closest('.cmd').find('.cmdAttr[data-l1key=unite]').val(DptUnit($(this).val()));
 		var valeur =$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').val();
@@ -278,18 +278,18 @@ function getDptSousType(Dpt,type){
 	});
 	return result;
 }
-function DptOption(Dpt){
+function DptOption(Dpt,div){
 	$('option').html('');
 	$.each(AllDpt, function(DptKey, DptValue){
 		$.each(DptValue, function(key, value){
 			if (key==Dpt){
 				$.each(value.Option, function(Optionkey, Optionvalue){
-					$('option').append($('<label>')
+					div.append($('<label>')
 							   .text('{{Optionvalue}}')
 							   .append($('<sup>')
 								   .append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
-									   .attr('title','Optionvalue'))))
-						.append($('<div class="input-group">')
+									   .attr('title','Optionvalue'))));
+					div.append($('<div class="input-group">')
 							.append($('<input class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="option" data-l3key="'+Optionvalue+'">'))
 							.append($('<span class="input-group-btn">')
 								.append($('<a class="btn btn-success btn-sm bt_selectCmdExpression">')
