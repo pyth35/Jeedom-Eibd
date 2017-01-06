@@ -96,7 +96,7 @@ $(function(){
 			$(this).val(oldvalue);
 	}); 
 	$('body').on('change','.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]', function() {
-		switch($(this).val())
+		/*switch($(this).val())
 			{
 			case '229.001':
 				$(this).closest('.cmd').find('.groupoption1').show();
@@ -130,7 +130,8 @@ $(function(){
 				$(this).closest('.cmd').find('.groupoption5').hide();
 				$(this).closest('.cmd').find('.groupoption5').find('label').text('Option 5');
 			break;
-			}
+			}*/
+		DptOption($(this).val());
 		if ($(this).closest('.cmd').find('.cmdAttr[data-l1key=unite]').val() == '')
 			$(this).closest('.cmd').find('.cmdAttr[data-l1key=unite]').val(DptUnit($(this).val()));
 		var valeur =$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').val();
@@ -277,6 +278,27 @@ function getDptSousType(Dpt,type){
 	});
 	return result;
 }
+function DptOption(Dpt){
+	$('option').html('');
+	$.each(AllDpt, function(DptKey, DptValue){
+		$.each(DptValue, function(key, value){
+			if (key==Dpt){
+				$.each(value.Option, function(Optionkey, Optionvalue){
+					$('option').append($('<label>')
+							   .text('{{Optionvalue}}')
+							   .append($('<sup>')
+								   .append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
+									   .attr('title','Optionvalue'))))
+						.append($('<div class="input-group">')
+							.append($('<input class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="option" data-l3key="'+Optionvalue+'">'))
+							.append($('<span class="input-group-btn">')
+								.append($('<a class="btn btn-success btn-sm bt_selectCmdExpression">')
+									.append($('<i class="fa fa-list-alt">'))))
+				});
+			}
+		});
+	});
+}
 function DptValue(Dpt){
 	var result='<option value="">{{Imposer une valeur}}</option>';
 	$.each(AllDpt, function(DptKey, DptValue){
@@ -391,7 +413,8 @@ function addCmdToTable(_cmd) {
 				.append($('<span class="input-group-btn">')
 					.append($('<a class="btn btn-success btn-sm bt_selectCmdExpression" id="value">')
 						.append($('<i class="fa fa-list-alt">'))))))
-		.append($('<div class="groupoption1">')
+		  .append($('<div class="option">'))
+		/*.append($('<div class="groupoption1">')
 			.append($('<label>')
 				.text('{{Option1}}')
 				.append($('<sup>')
@@ -445,7 +468,7 @@ function addCmdToTable(_cmd) {
 				.append($('<input class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="option5">'))
 				.append($('<span class="input-group-btn">')
 					.append($('<a class="btn btn-success btn-sm bt_selectCmdExpression" id="option5">')
-						.append($('<i class="fa fa-list-alt">'))))))
+						.append($('<i class="fa fa-list-alt">'))))))*/
 		.append($('<div class="ValeurMinMax">')
 				.append($('<label>')
 					.text('{{Valeur Min et Max}}')
