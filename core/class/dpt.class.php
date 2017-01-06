@@ -2002,7 +2002,7 @@ class Dpt{
 				"InfoType"=>'string',
 				"ActionType"=>'message',
 				"GenericType"=>"DONT",
-				"Option" =>array(),
+				"Option" =>array("Tarif","validityTarif","validityActiveElectricalEnergy"),
 				"Unite" =>""),
 			/*"237.600"=> array(
 				"Name"=>"DALI_Control_Gear_Diagnostic",
@@ -2018,7 +2018,7 @@ class Dpt{
 				"InfoType"=>'numeric',
 				"ActionType"=>'slider',
 				"GenericType"=>"DONT",
-				"Option" =>array(),
+				"Option" =>array("ValInfField","StatusCommande"),
 				"Unite" =>"")),
 		"Spécifique"=> array(
 			"x.001"=> array(
@@ -2027,7 +2027,7 @@ class Dpt{
 				"InfoType"=>'string',
 				"ActionType"=>'message',
 				"GenericType"=>"DONT",
-				"Option" =>array(),
+				"Option" =>array("Mode"),
 				"Unite" =>""))
 		);
 	}
