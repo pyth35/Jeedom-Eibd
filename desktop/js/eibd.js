@@ -130,7 +130,7 @@ $(function(){
 				$(this).closest('.cmd').find('.groupoption5').find('label').text('Option 5');
 			break;
 			}*/
-		DptOption($(this).val(),$(this).closest('.cmd').find('.option'));
+		//DptOption($(this).val(),$(this).closest('.cmd').find('.option'));
 		if ($(this).closest('.cmd').find('.cmdAttr[data-l1key=unite]').val() == '')
 			$(this).closest('.cmd').find('.cmdAttr[data-l1key=unite]').val(DptUnit($(this).val()));
 		var valeur =$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').val();
@@ -304,8 +304,8 @@ function DptValue(Dpt){
 		$.each(DptValue, function(key, value){
 			if (key==Dpt)
 			{
-				$.each(value.Valeurs, function(key, value){
-					result+='<option value="'+key+'">{{'+value+'}}</option>';
+				$.each(value.Valeurs, function(keyValeurs, Valeurs){
+					result+='<option value="'+keyValeurs+'">{{'+Valeurs+'}}</option>';
 				});
 			}
 		});
@@ -313,13 +313,13 @@ function DptValue(Dpt){
 	return result;
 }
 function OptionSelectDpt(){
-	var DptSelectorOption=$('<option value="">').text('{{Sélèctionner un DPT}}');
+	var DptSelectorOption='<option value="">{{Sélèctionner un DPT}}</option>';
 	$.each(AllDpt, function(DptKey, DptValue){
-		var DptSelectorOptionGroup=$('<optgroup label="{{'+DptKey+'}}">'));
+		DptSelectorOption+= '<optgroup label="{{'+DptKey+'}}">';
 		$.each(DptValue, function(key, value){
-			DptSelectorOptionGroup.append($('<option value="'+key+'">').text('{{'+key+' - '+value.Name+'}}'));
+			DptSelectorOption+='<option value="'+key+'">{{'+key+' - '+value["Name"]+'}}</option>';
 		});
-		DptSelectorOption.append(DptSelectorOptionGroup);
+	DptSelectorOption+='</optgroup>';
 	});
 	return DptSelectorOption;
 }
