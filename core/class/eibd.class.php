@@ -106,40 +106,12 @@ class eibd extends eqLogic {
 					else
 						$cmd->setValue(null);
 				}
-				if (isset($command['configuration']['option1']) && $command['configuration']['option1']!="") {
-					$CmdValue=cmd::byEqLogicIdCmdName($this->getId(),$command['configuration']['option1']);
+				if (isset($command['configuration']['option']) && $command['configuration']['option']!="") {
+					$CmdValue=cmd::byEqLogicIdCmdName($this->getId(),$command['configuration']['option']);
 					if(is_object($CmdValue))
-						$cmd->setConfiguration('option1','#'.$CmdValue->getId().'#');
+						$cmd->setConfiguration('option','#'.$CmdValue->getId().'#');
 					else
-						$cmd->setConfiguration('option1',null);
-				}
-				if (isset($command['configuration']['option2']) && $command['configuration']['option2']!="") {
-					$CmdValue=cmd::byEqLogicIdCmdName($this->getId(),$command['configuration']['option2']);
-					if(is_object($CmdValue))
-						$cmd->setConfiguration('option2','#'.$CmdValue->getId().'#');
-					else
-						$cmd->setConfiguration('option2',null);
-				}
-				if (isset($command['configuration']['option3']) && $command['configuration']['option3']!="") {
-					$CmdValue=cmd::byEqLogicIdCmdName($this->getId(),$command['configuration']['option3']);
-					if(is_object($CmdValue))
-						$cmd->setConfiguration('option3','#'.$CmdValue->getId().'#');
-					else
-						$cmd->setConfiguration('option3',null);
-				}
-				if (isset($command['configuration']['option4']) && $command['configuration']['option4']!="") {
-					$CmdValue=cmd::byEqLogicIdCmdName($this->getId(),$command['configuration']['option4']);
-					if(is_object($CmdValue))
-						$cmd->setConfiguration('option4','#'.$CmdValue->getId().'#');
-					else
-						$cmd->setConfiguration('option4',null);
-				}
-				if (isset($command['configuration']['option5']) && $command['configuration']['option5']!="") {
-					$CmdValue=cmd::byEqLogicIdCmdName($this->getId(),$command['configuration']['option5']);
-					if(is_object($CmdValue))
-						$cmd->setConfiguration('option5','#'.$CmdValue->getId().'#');
-					else
-						$cmd->setConfiguration('option5',null);
+						$cmd->setConfiguration('option',null);
 				}
 				$cmd->save();
 				$cmd_order++;
@@ -387,7 +359,7 @@ class eibd extends eqLogic {
 							$inverse=$Commande->getConfiguration('inverse');
 							log::add('eibd', 'debug', 'Lecture de ['.$Equipement->getName().']['.$Commande->getName().'] sur le GAD '.$ga);
 							$DataBus=self::EibdRead($ga);
-							$option=null;
+							/*$option=null;
 							switch($dpt){
 								case '229.001':
 								$option=array(
@@ -407,8 +379,8 @@ class eibd extends eqLogic {
 									"Mode"=>$Commande->getConfiguration('option1'),
 									);
 								break;
-							}
-							$BusValue=Dpt::DptSelectDecode($dpt, $DataBus, $inverse,$option);
+							}*/
+							$BusValue=Dpt::DptSelectDecode($dpt, $DataBus, $inverse,$Commande->getConfiguration('option'));
 							log::add('eibd', 'debug', '['.$Equipement->getName().']['.$Commande->getName().'] => '.$BusValue);
 							$Commande->setCollectDate(date('Y-m-d H:i:s'));
 							//$Commande->setConfiguration('doNotRepeatEvent', 1);
@@ -495,7 +467,7 @@ class eibd extends eqLogic {
 			$dpt=$Commande->getConfiguration('KnxObjectType');
 			$inverse=$Commande->getConfiguration('inverse');
 			if ($dpt!= 'aucun' && $dpt!= ''){	
-				$option=null;
+				/*$option=null;
 				switch($dpt){
 					case '229.001':
 					$option=array(
@@ -515,7 +487,7 @@ class eibd extends eqLogic {
 						"Mode"=>$Commande->getConfiguration('option1'),
 						);
 					break;
-				}
+				}*/
 				if($Mode=="Read"){
 					if($Commande->getConfiguration('transmitReponse')){
 						log::add('eibd', 'debug','Mode Read sur le GAD '.$Commande->getLogicalId().': Transmettre une data en réponse');
@@ -532,7 +504,7 @@ class eibd extends eqLogic {
 					}
 				} else {
 					log::add('eibd', 'debug',$Commande->getLogicalId().' : Décodage de la valeur avec le DPT :'.$dpt);
-					$valeur=Dpt::DptSelectDecode($dpt, $data, $inverse, $option);
+					$valeur=Dpt::DptSelectDecode($dpt, $data, $inverse, $Commande->getConfiguration('option'));
 					$unite=Dpt::getDptUnite($dpt);
 					if($Commande->getConfiguration('noBatterieCheck')){
 						switch(explode($dpt,'.')[0]){
@@ -855,7 +827,7 @@ class eibdCmd extends cmd {
 	public function execute($_options = null){
 		$ga=$this->getLogicalId();
 		$dpt=$this->getConfiguration('KnxObjectType');
-		$option=null;
+		/*$option=null;
 		switch($dpt){
 			case '229.001':
 				$option=array(
@@ -875,8 +847,9 @@ class eibdCmd extends cmd {
 					"Mode"=>$this->getConfiguration('option1'),
 				);
 			break;
-		}
+		}*/
 		$inverse=$this->getConfiguration('inverse');
+		$option=$this->getConfiguration('option');
 		switch ($this->getType()) {
 			case 'action' :
 				$Listener=cmd::byId(str_replace('#','',$this->getValue()));

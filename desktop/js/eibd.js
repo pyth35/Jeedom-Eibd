@@ -1,5 +1,4 @@
 var AllDpt=null;
-var DptSelectorOption=null;
 UpdateVar();
 $(function(){
 	if (getUrlVars('wizard') == 1) {
@@ -96,7 +95,7 @@ $(function(){
 			$(this).val(oldvalue);
 	}); 
 	$('body').on('change','.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]', function() {
-		switch($(this).val())
+		/*switch($(this).val())
 			{
 			case '229.001':
 				$(this).closest('.cmd').find('.groupoption1').show();
@@ -130,7 +129,8 @@ $(function(){
 				$(this).closest('.cmd').find('.groupoption5').hide();
 				$(this).closest('.cmd').find('.groupoption5').find('label').text('Option 5');
 			break;
-			}
+			}*/
+		DptOption($(this).val(),$(this).closest('.cmd').find('.option'));
 		if ($(this).closest('.cmd').find('.cmdAttr[data-l1key=unite]').val() == '')
 			$(this).closest('.cmd').find('.cmdAttr[data-l1key=unite]').val(DptUnit($(this).val()));
 		var valeur =$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').val();
@@ -277,14 +277,35 @@ function getDptSousType(Dpt,type){
 	});
 	return result;
 }
+function DptOption(Dpt,div){
+	div.html('');
+	$.each(AllDpt, function(DptKey, DptValue){
+		$.each(DptValue, function(key, value){
+			if (key==Dpt){
+				$.each(value.Option, function(Optionkey, Optionvalue){
+					div.append($('<label>')
+							   .text('{{'+Optionvalue+'}}')
+							   .append($('<sup>')
+								   .append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
+									   .attr('title',Optionvalue))));
+					div.append($('<div class="input-group">')
+							.append($('<input class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="option" data-l3key="'+Optionvalue+'">'))
+							.append($('<span class="input-group-btn">')
+								.append($('<a class="btn btn-success btn-sm bt_selectCmdExpression">')
+									.append($('<i class="fa fa-list-alt">')))));
+				});
+			}
+		});
+	});
+}
 function DptValue(Dpt){
 	var result='<option value="">{{Imposer une valeur}}</option>';
 	$.each(AllDpt, function(DptKey, DptValue){
 		$.each(DptValue, function(key, value){
 			if (key==Dpt)
 			{
-				$.each(value.Valeurs, function(key, value){
-					result+='<option value="'+key+'">{{'+value+'}}</option>';
+				$.each(value.Valeurs, function(keyValeurs, Valeurs){
+					result+='<option value="'+keyValeurs+'">{{'+Valeurs+'}}</option>';
 				});
 			}
 		});
@@ -292,7 +313,7 @@ function DptValue(Dpt){
 	return result;
 }
 function OptionSelectDpt(){
-	DptSelectorOption='<option value="">{{Sélèctionner un DPT}}</option>';
+	var DptSelectorOption='<option value="">{{Sélèctionner un DPT}}</option>';
 	$.each(AllDpt, function(DptKey, DptValue){
 		DptSelectorOption+= '<optgroup label="{{'+DptKey+'}}">';
 		$.each(DptValue, function(key, value){
@@ -391,7 +412,8 @@ function addCmdToTable(_cmd) {
 				.append($('<span class="input-group-btn">')
 					.append($('<a class="btn btn-success btn-sm bt_selectCmdExpression" id="value">')
 						.append($('<i class="fa fa-list-alt">'))))))
-		.append($('<div class="groupoption1">')
+		  .append($('<div class="option">'))
+		/*.append($('<div class="groupoption1">')
 			.append($('<label>')
 				.text('{{Option1}}')
 				.append($('<sup>')
@@ -445,7 +467,7 @@ function addCmdToTable(_cmd) {
 				.append($('<input class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="option5">'))
 				.append($('<span class="input-group-btn">')
 					.append($('<a class="btn btn-success btn-sm bt_selectCmdExpression" id="option5">')
-						.append($('<i class="fa fa-list-alt">'))))))
+						.append($('<i class="fa fa-list-alt">'))))))*/
 		.append($('<div class="ValeurMinMax">')
 				.append($('<label>')
 					.text('{{Valeur Min et Max}}')
@@ -526,6 +548,7 @@ function addCmdToTable(_cmd) {
 							.attr('title','Activer cette option uniquement si votre équipement est sur batterie. Ce groupe d\'adresse correspond au niveau de batterie'))))));
 	tr.append(parmetre);
 	$('#table_cmd tbody').append(tr);
+	DptOption(_cmd.configuration.KnxObjectType,$('#table_cmd tbody tr:last').find('.option'));
 	$('#table_cmd tbody tr:last').setValues(_cmd, '.cmdAttr');
 	$('#table_cmd tbody tr:last .cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]').trigger('change');
 	$('#table_cmd tbody tr:last .cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').trigger('change');
