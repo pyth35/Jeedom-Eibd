@@ -108,7 +108,7 @@ class eibd extends eqLogic {
 				}
 				if (isset($command['configuration']['option']) && $command['configuration']['option']!="") {
 					$options=array();
-					foreach(($command['configuration']['option'] as $option => $cmd){
+					foreach($command['configuration']['option'] as $option => $cmd){
 						$CmdValue=cmd::byEqLogicIdCmdName($this->getId(),$cmd);
 						if(is_object($CmdValue))
 							$options[$option]='#'.$CmdValue->getId().'#';
