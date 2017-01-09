@@ -491,12 +491,16 @@ class eibd extends eqLogic {
 				if($Mode=="Read"){
 					if($Commande->getConfiguration('transmitReponse')){
 						log::add('eibd', 'debug','Mode Read sur le GAD '.$Commande->getLogicalId().': Transmettre une data en réponse');
+						$ActionData="";
 						$ActionValue=cmd::byId(str_replace('#','',$Commande->getConfiguration('ObjetTransmit')));
 						if(is_object($ActionValue)){
 							log::add('eibd', 'debug','Transmission sur le GAD '.$Commande->getLogicalId().' la valeur '.$ActionValue->execCmd());
-							$ActionData= Dpt::DptSelectEncode($dpt, $ActionValue->execCmd(), $inverse,$Commande->getConfiguration('option'));
-							self::EibdReponse($Commande->getLogicalId(), $ActionData);
+							$ActionData=$ActionValue->execCmd();
 						}
+						$ActionData= Dpt::DptSelectEncode($dpt, $ActionData, $inverse,$option);
+						self::EibdReponse($Commande->getLogicalId(), $ActionData);
+						log::add('eibd', 'debug','Transmission sur le GAD '.$Commande->getLogicalId().' => Ok');
+							
 					}
 				} else {
 					log::add('eibd', 'debug',$Commande->getLogicalId().' : Décodage de la valeur avec le DPT :'.$dpt);
