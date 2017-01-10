@@ -107,11 +107,13 @@ class eibd extends eqLogic {
 						$cmd->setValue(null);
 				}
 				if (isset($command['configuration']['option']) && $command['configuration']['option']!="") {
-					$CmdValue=cmd::byEqLogicIdCmdName($this->getId(),$command['configuration']['option']);
-					if(is_object($CmdValue))
-						$cmd->setConfiguration('option','#'.$CmdValue->getId().'#');
-					else
-						$cmd->setConfiguration('option',null);
+					$options=array();
+					foreach($command['configuration']['option'] as $option => $cmd){
+						$CmdValue=cmd::byEqLogicIdCmdName($this->getId(),$cmd);
+						if(is_object($CmdValue))
+							$options[$option]='#'.$CmdValue->getId().'#';
+					}
+						$cmd->setConfiguration('option',$options);
 				}
 				$cmd->save();
 				$cmd_order++;
