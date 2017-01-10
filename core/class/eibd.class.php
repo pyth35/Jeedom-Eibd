@@ -476,7 +476,6 @@ class eibd extends eqLogic {
 					if($Commande->getType() == 'info' && $Commande->getConfiguration('eventOnly')){
 						log::add('eibd', 'debug',$Commande->getLogicalId().' : Mise a jours de la valeur : '.$valeur.$unite);
 						$Commande->setCollectDate(date('Y-m-d H:i:s'));
-						//$Commande->setConfiguration('doNotRepeatEvent', 1);
 						$Commande->event($valeur);
 						$Commande->save();
 					}
@@ -602,10 +601,9 @@ class eibd extends eqLogic {
 		log::remove('eibd');
 		self::deamon_stop();
 		if(file_exists('/etc/eibd/knxd_VERSION'))
-			//$cmd = 'sudo knxd --daemon=/var/log/knx.log --pid-file=/var/run/knx.pid --eibaddr='.config::byKey('EibdGad', 'eibd').' --Name=JeedomKnx -D -T -R -S -u /tmp/eib  -u /var/run/knx --listen-tcp='.config::byKey('EibdPort', 'eibd').' -b';
-			$cmd = 'sudo knxd --daemon=/var/log/knx.log --pid-file=/var/run/knx.pid --eibaddr='.config::byKey('EibdGad', 'eibd').' --Name=JeedomKnx -D -T -R -S --listen-tcp='.config::byKey('EibdPort', 'eibd').' -b';
+			$cmd = 'sudo knxd --daemon=/var/log/knx.log --pid-file=/var/run/knx.pid --eibaddr='.config::byKey('EibdGad', 'eibd').' --Name=JeedomKnx -D -T -S --listen-tcp='.config::byKey('EibdPort', 'eibd').' -b';
 		else
-			$cmd = 'sudo eibd --daemon=/var/log/knx.log --pid-file=/var/run/knx.pid --eibaddr='.config::byKey('EibdGad', 'eibd').' -D -T -R -S --listen-tcp='.config::byKey('EibdPort', 'eibd');
+			$cmd = 'sudo eibd --daemon=/var/log/knx.log --pid-file=/var/run/knx.pid --eibaddr='.config::byKey('EibdGad', 'eibd').' -D -T -S --listen-tcp='.config::byKey('EibdPort', 'eibd');
 		switch(config::byKey('TypeKNXgateway', 'eibd')){
 			case 'ip':
 				$cmd .=' ip:';
