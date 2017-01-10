@@ -361,31 +361,10 @@ class eibd extends eqLogic {
 							$inverse=$Commande->getConfiguration('inverse');
 							log::add('eibd', 'debug', 'Lecture de ['.$Equipement->getName().']['.$Commande->getName().'] sur le GAD '.$ga);
 							$DataBus=self::EibdRead($ga);
-							/*$option=null;
-							switch($dpt){
-								case '229.001':
-								$option=array(
-									"ValInfField"=>$Commande->getConfiguration('option1'),
-									"StatusCommande"=>$Commande->getConfiguration('option2'),
-									);
-								break;
-								case '235.001':
-								$option=array(
-									"Tarif"=>$Commande->getConfiguration('option1'),
-									"validityTarif"=>$Commande->getConfiguration('option2'),
-									"validityActiveElectricalEnergy"=>$Commande->getConfiguration('option3')
-									);
-								break;
-								case "x.001":
-								$option=array(
-									"Mode"=>$Commande->getConfiguration('option1'),
-									);
-								break;
-							}*/
-							$BusValue=Dpt::DptSelectDecode($dpt, $DataBus, $inverse,$Commande->getConfiguration('option'));
+							$option=$Commande->getConfiguration('option');
+							$BusValue=Dpt::DptSelectDecode($dpt, $DataBus, $inverse,$option);
 							log::add('eibd', 'debug', '['.$Equipement->getName().']['.$Commande->getName().'] => '.$BusValue);
 							$Commande->setCollectDate(date('Y-m-d H:i:s'));
-							//$Commande->setConfiguration('doNotRepeatEvent', 1);
 							$Commande->event($BusValue);
 							$Commande->save();
 						}
@@ -468,28 +447,8 @@ class eibd extends eqLogic {
 		if (is_object($Commande)) {		
 			$dpt=$Commande->getConfiguration('KnxObjectType');
 			$inverse=$Commande->getConfiguration('inverse');
-			if ($dpt!= 'aucun' && $dpt!= ''){	
-				/*$option=null;
-				switch($dpt){
-					case '229.001':
-					$option=array(
-						"ValInfField"=>$Commande->getConfiguration('option1'),
-						"StatusCommande"=>$Commande->getConfiguration('option2'),
-						);
-					break;
-					case '235.001':
-					$option=array(
-						"Tarif"=>$Commande->getConfiguration('option1'),
-						"validityTarif"=>$Commande->getConfiguration('option2'),
-						"validityActiveElectricalEnergy"=>$Commande->getConfiguration('option3')
-						);
-					break;
-					case "x.001":
-					$option=array(
-						"Mode"=>$Commande->getConfiguration('option1'),
-						);
-					break;
-				}*/
+			$option=$Commande->getConfiguration('option');
+			if ($dpt!= 'aucun' && $dpt!= ''){
 				if($Mode=="Read"){
 					if($Commande->getConfiguration('transmitReponse')){
 						log::add('eibd', 'debug','Mode Read sur le GAD '.$Commande->getLogicalId().': Transmettre une data en réponse');
@@ -498,15 +457,13 @@ class eibd extends eqLogic {
 						if(is_object($ActionValue)){
 							log::add('eibd', 'debug','Transmission sur le GAD '.$Commande->getLogicalId().' la valeur '.$ActionValue->execCmd());
 							$ActionData=$ActionValue->execCmd();
+							$ActionData= Dpt::DptSelectEncode($dpt, $ActionData, $inverse,$option);
+							self::EibdReponse($Commande->getLogicalId(), $ActionData);
 						}
-						$ActionData= Dpt::DptSelectEncode($dpt, $ActionData, $inverse,$option);
-						self::EibdReponse($Commande->getLogicalId(), $ActionData);
-						log::add('eibd', 'debug','Transmission sur le GAD '.$Commande->getLogicalId().' => Ok');
-							
 					}
 				} else {
 					log::add('eibd', 'debug',$Commande->getLogicalId().' : Décodage de la valeur avec le DPT :'.$dpt);
-					$valeur=Dpt::DptSelectDecode($dpt, $data, $inverse, $Commande->getConfiguration('option'));
+					$valeur=Dpt::DptSelectDecode($dpt, $data, $inverse, $option);
 					$unite=Dpt::getDptUnite($dpt);
 					if($Commande->getConfiguration('noBatterieCheck')){
 						switch(explode($dpt,'.')[0]){
@@ -691,6 +648,8 @@ class eibd extends eqLogic {
 		$cron->run();
 	}
 	public static function deamon_stop() {
+		$cache = cache::byKey('eibd::Monitor');
+		$cache->remove();
 		if(file_exists('/etc/eibd/knxd_VERSION'))
 			$cmd='sudo pkill knxd';
 		else
