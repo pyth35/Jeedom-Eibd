@@ -87,7 +87,7 @@ apt-get install --yes -y -qq debhelper
 apt-get install --yes -y -qq cdbs 
 apt-get install --yes -y -qq autoconf 
 apt-get install --yes -y -qq automake 
-apt-get install --yes -y -qq libtool libev 
+apt-get install --yes -y -qq libtool libev-dev 
 apt-get install --yes -y -qq libusb-1.0-0-dev 
 apt-get install --yes -y -qq libsystemd-daemon-dev 
 apt-get install --yes -y -qq dh-systemd 
