@@ -1,4 +1,4 @@
-﻿#!/bin/bash
+#!/bin/bash
 PWDRESSOURCE=$(cd ${0%/*}; pwd)
 INSTALL_DIR=/usr/local/bin
 TEMP_DIR=`mktemp -d /tmp/eibd.XXXXXX`
@@ -28,10 +28,6 @@ echo "*                                Installing additional libraries          
 echo "*****************************************************************************************************"
 apt-get -qy install build-essential 
 echo 5 > /tmp/compilation_eibd_in_progress
-
-if [ "$(cat /etc/eibd/pthsem_VERSION)" != "v2.0.8.1" ]
-then
-
 echo "*****************************************************************************************************"
 echo "*                              Installing PTHSEM V2.0.8 libraries                                   *"
 echo "*****************************************************************************************************"
@@ -55,10 +51,7 @@ export LD_LIBRARY_PATH="/usr/local/lib"
 sudo ldconfig 
 mkdir -p /etc/eibd
 echo "v2.0.8.1" > /etc/eibd/pthsem_VERSION
-fi
 echo 50 > /tmp/compilation_eibd_in_progress
-if [ "$(cat /etc/eibd/bcusdk_VERSION)" != "v0.0.5.1" ] 
-then
 echo "*****************************************************************************************************"
 echo "*                              Installing BCUSDK V0.0.5 libraries                                   *"
 echo "*****************************************************************************************************"
@@ -78,8 +71,6 @@ check_run sudo make install
 echo 90 > /tmp/compilation_eibd_in_progress
 
 echo "v0.0.5.1" > /etc/eibd/bcusdk_VERSION
-fi
-
 # Add eibd.log to logrotate
 echo '/var/log/eibd.log {
         daily
