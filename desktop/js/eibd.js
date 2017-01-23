@@ -95,41 +95,6 @@ $(function(){
 			$(this).val(oldvalue);
 	}); 
 	$('body').on('change','.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]', function() {
-		/*switch($(this).val())
-			{
-			case '229.001':
-				$(this).closest('.cmd').find('.groupoption1').show();
-				$(this).closest('.cmd').find('.groupoption1').find('label').text('ValInfField');
-				$(this).closest('.cmd').find('.groupoption2').show();
-				$(this).closest('.cmd').find('.groupoption2').find('label').text('StatusCommande');
-			break;
-			case '235.001':
-				$(this).closest('.cmd').find('.groupoption1').show();
-				$(this).closest('.cmd').find('.groupoption1').find('label').text('Tarif');
-				$(this).closest('.cmd').find('.groupoption2').show();
-				$(this).closest('.cmd').find('.groupoption2').find('label').text('Validité du Tarif');
-				$(this).closest('.cmd').find('.groupoption3').show();
-				$(this).closest('.cmd').find('.groupoption3').find('label').text('Validité Energie');
-				$(this).closest('.cmd').find('.groupoption4').hide();
-				$(this).closest('.cmd').find('.groupoption5').hide();
-			break;
-			case 'x.001':
-				$(this).closest('.cmd').find('.groupoption1').show();
-				$(this).closest('.cmd').find('.groupoption1').find('label').text('Mode');
-			break;
-			default:
-				$(this).closest('.cmd').find('.groupoption1').hide();
-				$(this).closest('.cmd').find('.groupoption1').find('label').text('Option 1');
-				$(this).closest('.cmd').find('.groupoption2').hide();
-				$(this).closest('.cmd').find('.groupoption2').find('label').text('Option 2');
-				$(this).closest('.cmd').find('.groupoption3').hide();
-				$(this).closest('.cmd').find('.groupoption3').find('label').text('Option 3');
-				$(this).closest('.cmd').find('.groupoption4').hide();
-				$(this).closest('.cmd').find('.groupoption4').find('label').text('Option 4');
-				$(this).closest('.cmd').find('.groupoption5').hide();
-				$(this).closest('.cmd').find('.groupoption5').find('label').text('Option 5');
-			break;
-			}*/
 		DptOption($(this).val(),$(this).closest('.cmd').find('.option'));
 		if ($(this).closest('.cmd').find('.cmdAttr[data-l1key=unite]').val() == '')
 			$(this).closest('.cmd').find('.cmdAttr[data-l1key=unite]').val(DptUnit($(this).val()));
@@ -413,61 +378,6 @@ function addCmdToTable(_cmd) {
 					.append($('<a class="btn btn-success btn-sm bt_selectCmdExpression" id="value">')
 						.append($('<i class="fa fa-list-alt">'))))))
 		  .append($('<div class="option">'))
-		/*.append($('<div class="groupoption1">')
-			.append($('<label>')
-				.text('{{Option1}}')
-				.append($('<sup>')
-					.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
-					.attr('title','option1'))))
-			.append($('<div class="input-group">')
-				.append($('<input class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="option1">'))
-				.append($('<span class="input-group-btn">')
-					.append($('<a class="btn btn-success btn-sm bt_selectCmdExpression" id="option1">')
-						.append($('<i class="fa fa-list-alt">'))))))
-		.append($('<div class="groupoption2">')
-			.append($('<label>')
-				.text('{{Option2}}')
-				.append($('<sup>')
-					.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
-					.attr('title','option2'))))
-			.append($('<div class="input-group">')
-				.append($('<input class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="option2">'))
-				.append($('<span class="input-group-btn">')
-					.append($('<a class="btn btn-success btn-sm bt_selectCmdExpression" id="option2">')
-						.append($('<i class="fa fa-list-alt">'))))))
-		.append($('<div class="groupoption3">')
-			.append($('<label>')
-				.text('{{Option3}}')
-				.append($('<sup>')
-					.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
-					.attr('title','option3'))))
-			.append($('<div class="input-group">')
-				.append($('<input class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="option3">'))
-				.append($('<span class="input-group-btn">')
-					.append($('<a class="btn btn-success btn-sm bt_selectCmdExpression" id="option3">')
-						.append($('<i class="fa fa-list-alt">'))))))
-		.append($('<div class="groupoption4">')
-			.append($('<label>')
-				.text('{{Option4}}')
-				.append($('<sup>')
-					.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
-					.attr('title','option4'))))
-			.append($('<div class="input-group">')
-				.append($('<input class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="option4">'))
-				.append($('<span class="input-group-btn">')
-					.append($('<a class="btn btn-success btn-sm bt_selectCmdExpression" id="option4">')
-						.append($('<i class="fa fa-list-alt">'))))))
-		.append($('<div class="groupoption5">')
-			.append($('<label>')
-				.text('{{Option5}}')
-				.append($('<sup>')
-					.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
-					.attr('title','option5'))))
-			.append($('<div class="input-group">')
-				.append($('<input class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="option5">'))
-				.append($('<span class="input-group-btn">')
-					.append($('<a class="btn btn-success btn-sm bt_selectCmdExpression" id="option5">')
-						.append($('<i class="fa fa-list-alt">'))))))*/
 		.append($('<div class="ValeurMinMax">')
 				.append($('<label>')
 					.text('{{Valeur Min et Max}}')
@@ -493,9 +403,7 @@ function addCmdToTable(_cmd) {
 						.attr('title','Choisissez, si vous le souhaitez la valeur fixe de votre commande'))))
 				.append($('<div class="input-group">')
 					.append($('<select class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="KnxObjectValue">')
-						.append(DptValue(init(_cmd.configuration.KnxObjectType))))
-			//.append($('<input class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="KnxObjectValue">'))
-				       )));
+						.append(DptValue(init(_cmd.configuration.KnxObjectType)))))));
 	tr.append($('<td class="wizard">')	
 		.append($('<div class="parametre">')
 			.append($('<span class="type" type="' + init(_cmd.type) + '">')
