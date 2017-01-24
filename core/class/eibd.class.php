@@ -552,13 +552,13 @@ class eibd extends eqLogic {
 		$return['progress_file'] = '/tmp/compilation_eibd_in_progress';
 		$return['state'] = 'nok';
 		switch(config::byKey('KnxSoft', 'eibd')){
-			case 'knxd':
+			case 'eibd':
 				if(file_exists('/etc/eibd/bcusdk_VERSION')&&file_exists('/etc/eibd/pthsem_VERSION')){
 					if(exec("cat /etc/eibd/bcusdk_VERSION")=="v0.0.5.1" && exec("cat /etc/eibd/pthsem_VERSION")=="v2.0.8.1")
 						$return['state'] = 'ok';
 				}
 			break;
-			case 'eibd':
+			case 'knxd':
 				if(file_exists('/etc/eibd/knxd_VERSION')){
 					if(exec("cat /etc/eibd/knxd_VERSION")=="v0.10")
 						$return['state'] = 'ok';
