@@ -96,7 +96,7 @@ if (!isConnect()) {
 </div>
 <script>
 	
-$('.KnxSoft').on('change',function(){
+$('.configKey[data-l1key=KnxSoft]').on('change',function(){
 	switch($(this).val()){
 		case 'knxd':
 		case 'eibd':
