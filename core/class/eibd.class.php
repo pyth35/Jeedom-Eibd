@@ -551,13 +551,22 @@ class eibd extends eqLogic {
 		$return['log'] = 'eibd_update';
 		$return['progress_file'] = '/tmp/compilation_eibd_in_progress';
 		$return['state'] = 'nok';
-		if(file_exists('/etc/eibd/bcusdk_VERSION')&&file_exists('/etc/eibd/pthsem_VERSION')){
-			if(exec("cat /etc/eibd/bcusdk_VERSION")=="v0.0.5.1" && exec("cat /etc/eibd/pthsem_VERSION")=="v2.0.8.1")
+		switch(config::byKey('KnxSoft', 'eibd')){
+			case 'eibd':
+				if(file_exists('/etc/eibd/bcusdk_VERSION')&&file_exists('/etc/eibd/pthsem_VERSION')){
+					if(exec("cat /etc/eibd/bcusdk_VERSION")=="v0.0.5.1" && exec("cat /etc/eibd/pthsem_VERSION")=="v2.0.8.1")
+						$return['state'] = 'ok';
+				}
+			break;
+			case 'knxd':
+				if(file_exists('/etc/eibd/knxd_VERSION')){
+					if(exec("cat /etc/eibd/knxd_VERSION")=="v0.10")
+						$return['state'] = 'ok';
+				}
+			break;
+			default:
 				$return['state'] = 'ok';
-		}
-		if(file_exists('/etc/eibd/knxd_VERSION')){
-			if(exec("cat /etc/eibd/knxd_VERSION")=="v0.10")
-				$return['state'] = 'ok';
+			break;
 		}
 		return $return;
 	}
@@ -566,10 +575,18 @@ class eibd extends eqLogic {
 			return;
 		}
 		log::remove('eibd_update');
-		//$cmd = 'sudo /bin/bash ' . dirname(__FILE__) . '/../../ressources/install-eibd.sh';
-		$cmd = 'sudo /bin/bash ' . dirname(__FILE__) . '/../../ressources/install-knxd.sh';
-		$cmd .= ' >> ' . log::getPathToLog('eibd_update') . ' 2>&1 &';
-		exec($cmd);
+		switch(config::byKey('KnxSoft', 'eibd')){
+			case 'knxd':
+				$cmd = 'sudo /bin/bash ' . dirname(__FILE__) . '/../../ressources/install-knxd.sh';
+			break;
+			case 'eibd':
+				$cmd = 'sudo /bin/bash ' . dirname(__FILE__) . '/../../ressources/install-eibd.sh';
+			break;
+		}
+		if(isset($cmd)){
+			$cmd .= ' >> ' . log::getPathToLog('eibd_update') . ' 2>&1 &';
+			exec($cmd);
+		}
 	}
 	public static function deamon_info() {
 		$return = array();
@@ -600,37 +617,42 @@ class eibd extends eqLogic {
 			return;
 		log::remove('eibd');
 		self::deamon_stop();
-		if(file_exists('/etc/eibd/knxd_VERSION'))
-			$cmd = 'sudo knxd --daemon=/var/log/knx.log --pid-file=/var/run/knx.pid --eibaddr='.config::byKey('EibdGad', 'eibd').' --Name=JeedomKnx -D -T -S --listen-tcp='.config::byKey('EibdPort', 'eibd').' -b';
-		else
-			$cmd = 'sudo eibd --daemon=/var/log/knx.log --pid-file=/var/run/knx.pid --eibaddr='.config::byKey('EibdGad', 'eibd').' -D -T -S --listen-tcp='.config::byKey('EibdPort', 'eibd');
-		switch(config::byKey('TypeKNXgateway', 'eibd')){
-			case 'ip':
-				$cmd .=' ip:';
+		switch(config::byKey('KnxSoft', 'eibd')){
+			case 'knxd':
+				$cmd = 'sudo knxd --daemon=/var/log/knx.log --pid-file=/var/run/knx.pid --eibaddr='.config::byKey('EibdGad', 'eibd').' --Name=JeedomKnx -D -T -S --listen-tcp='.config::byKey('EibdPort', 'eibd').' -b';
 			break;
-			case 'ipt':
-				$cmd .=' ipt:';
-			break;
-			case 'iptn':
-				$cmd .=' iptn:';
-			break;
-			case 'ft12':
-				$cmd .=' ft12:';
-			break;
-			case 'bcu1':
-				$cmd .=' bcu1:';
-			break;
-			case 'tpuarts':
-				$cmd .=' tpuarts:';
-			break;
-			case 'usb':
-				$cmd .=' usb:';
+			case 'eibd':
+				$cmd = 'sudo eibd --daemon=/var/log/knx.log --pid-file=/var/run/knx.pid --eibaddr='.config::byKey('EibdGad', 'eibd').' -D -T -S --listen-tcp='.config::byKey('EibdPort', 'eibd');			
 			break;
 		}
-		$cmd .=config::byKey('KNXgateway', 'eibd');
-		$cmd .= ' >> ' . log::getPathToLog('eibd') . ' 2>&1 &';
-		exec($cmd);
-		
+		if(isset($cmd)){
+			switch(config::byKey('TypeKNXgateway', 'eibd')){
+				case 'ip':
+					$cmd .=' ip:';
+				break;
+				case 'ipt':
+					$cmd .=' ipt:';
+				break;
+				case 'iptn':
+					$cmd .=' iptn:';
+				break;
+				case 'ft12':
+					$cmd .=' ft12:';
+				break;
+				case 'bcu1':
+					$cmd .=' bcu1:';
+				break;
+				case 'tpuarts':
+					$cmd .=' tpuarts:';
+				break;
+				case 'usb':
+					$cmd .=' usb:';
+				break;
+			}
+			$cmd .=config::byKey('KNXgateway', 'eibd');
+			$cmd .= ' >> ' . log::getPathToLog('eibd') . ' 2>&1 &';
+			exec($cmd);
+		}
 		$cron = cron::byClassAndFunction('eibd', 'BusMonitor');
 		if (!is_object($cron)) {
 			$cron = new cron();
@@ -648,12 +670,18 @@ class eibd extends eqLogic {
 	public static function deamon_stop() {
 		$cache = cache::byKey('eibd::Monitor');
 		$cache->remove();
-		if(file_exists('/etc/eibd/knxd_VERSION'))
-			$cmd='sudo pkill knxd';
-		else
-			$cmd='sudo pkill eibd';
-		$cmd .= ' >> ' . log::getPathToLog('eibd') . ' 2>&1 &';
-		exec($cmd);
+		switch(config::byKey('KnxSoft', 'eibd')){
+			case 'knxd':
+				$cmd='sudo pkill knxd';
+			break;
+			case 'eibd':
+				$cmd='sudo pkill eibd';
+			break;
+		}
+		if(isset($cmd)){
+			$cmd .= ' >> ' . log::getPathToLog('eibd') . ' 2>&1 &';
+			exec($cmd);
+		}
 		$cron = cron::byClassAndFunction('eibd', 'BusMonitor');
 		if (is_object($cron)) {
 			$cron->stop();
