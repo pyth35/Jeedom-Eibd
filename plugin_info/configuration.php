@@ -35,7 +35,7 @@ if (!isConnect()) {
 		</fieldset>
 	</form>
 </div>
- <div class="col-sm-6">
+ <div class="col-sm-6 Soft">
 	<form class="form-horizontal">
 		<legend>Configuration du démon</legend>
 		<fieldset>
@@ -100,9 +100,11 @@ $('.configKey[data-l1key=KnxSoft]').on('change',function(){
 	switch($(this).val()){
 		case 'knxd':
 		case 'eibd':
+			$('.Soft').show();
 			$('.NoSoft').hide();
 		break;
 		default:
+			$('.Soft').hide();
 			$('.NoSoft').show();
 		break;
 	}
