@@ -35,7 +35,7 @@ if (!isConnect()) {
 		</fieldset>
 	</form>
 </div>
- <div class="col-sm-6">
+ <div class="col-sm-6 NoSoft">
 	<form class="form-horizontal">
 		<legend>Configuration du démon</legend>
 		<fieldset>
