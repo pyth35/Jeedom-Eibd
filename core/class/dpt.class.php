@@ -1996,7 +1996,7 @@ class Dpt{
 				"InfoType"=>'string',
 				"ActionType"=>'message',
 				"GenericType"=>"DONT",
-				"Option" =>array("Tarif","validityTarif","validityActiveElectricalEnergy"),
+				"Option" =>array("Tarif"/*,"validityTarif","validityActiveElectricalEnergy"*/),
 				"Unite" =>""),
 			/*"237.600"=> array(
 				"Name"=>"DALI_Control_Gear_Diagnostic",
