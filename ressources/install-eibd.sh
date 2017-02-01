@@ -22,31 +22,96 @@ then
    echo "Please do 'sudo -s' first"
    exit 1
 fi
-
+if [ -f "/etc/eibd/pthsem_VERSION" ]
+then
+  echo "*****************************************************************************************************"
+  echo "*                              Remove PTHSEM V2.0.8 libraries                                       *"
+  echo "*****************************************************************************************************"
+  rm /etc/eibd/pthsem_VERSION
+  echo $LD_LIBRARY_PATH
+  export LD_LIBRARY_PATH="/usr/local/lib"
+  ldconfig 
+fi
+echo 5 > /tmp/compilation_eibd_in_progress
+echo "*****************************************************************************************************"
+echo "*                              Remove BCUSDK V0.0.5 libraries                                       *"
+echo "*****************************************************************************************************"
+rm bcusdk-0.0.5 
+rm /etc/eibd/bcusdk_VERSION
+echo 10 > /tmp/compilation_eibd_in_progress
+echo "*****************************************************************************************************"
+echo "*                                         Remove eibd                                               *"
+echo "*****************************************************************************************************"
+if [ -f "/etc/logrotate.d/eibd" ]
+then
+  rm /etc/logrotate.d/eibd
+fi
+if [ -f "/etc/default/eibd" ]
+then
+  rm /etc/default/eibd
+fi
+if [ -f "/etc/log/eibd.log" ]
+then
+  rm /etc/log/eibd.log
+fi
+if [ -d "/etc/eibd" ]
+then
+  rm -R /etc/eibd
+fi
+if [ -f "/usr/local/lib/libeibclient.so" ]
+then
+  rm -rf /usr/local/lib/libeibclient.so
+fi
+if [ -f "/usr/local/lib/libeibclient.so.0" ]
+then
+  rm -rf /usr/local/lib/libeibclient.so.0
+fi
+if [ -f "/usr/local/lib/libeibclient.a" ]
+then
+  rm -rf /usr/local/lib/libeibclient.a
+fi
+if [ -f "/usr/local/lib/libeibclient.la" ]
+then
+  rm -rf /usr/local/lib/libeibclient.la
+fi
+if [ -f "/usr/local/lib/libeibclient.so.0.0.0" ]
+then
+  rm -rf /usr/local/lib/libeibclient.so.0.0.0
+fi
+echo 15 > /tmp/compilation_eibd_in_progress
+if [ -d "/usr/local/src/Knx/" ]; then 
+  rm -R /usr/local/src/Knx/
+fi
+mkdir /usr/local/src/Knx/
+cd /usr/local/src/Knx
+echo "*****************************************************************************************************"
+echo "*                                         Remove knxd                                               *"
+echo "*****************************************************************************************************"
+apt-get autoremove --yes -y -qq knxd
+echo 20 > /tmp/compilation_eibd_in_progress
 echo "*****************************************************************************************************"
 echo "*                                Installing additional libraries                                    *"
 echo "*****************************************************************************************************"
 apt-get -qy install build-essential 
-echo 5 > /tmp/compilation_eibd_in_progress
+echo 25 > /tmp/compilation_eibd_in_progress
 echo "*****************************************************************************************************"
 echo "*                              Installing PTHSEM V2.0.8 libraries                                   *"
 echo "*****************************************************************************************************"
 echo "Getting pthsem..."
 cd $TEMP_DIR
 tar zxvf "$PWDRESSOURCE/pthsem_2.0.8.1.tar.gz"
-echo 10 > /tmp/compilation_eibd_in_progress
+echo 30 > /tmp/compilation_eibd_in_progress
 
 cd pthsem-2.0.8
 
 echo "Compiliing pthsem..." 
 check_run ./configure --with-mctx-mth=sjlj --with-mctx-dsp=ssjlj --with-mctx-stk=sas --disable-shared
 
-echo 20 > /tmp/compilation_eibd_in_progress
+echo 40 > /tmp/compilation_eibd_in_progress
 
 check_run make
-echo 40 > /tmp/compilation_eibd_in_progress
-check_run sudo make install
 echo 45 > /tmp/compilation_eibd_in_progress
+check_run sudo make install
 export LD_LIBRARY_PATH="/usr/local/lib"
 sudo ldconfig 
 mkdir -p /etc/eibd
