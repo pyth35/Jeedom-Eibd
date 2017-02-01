@@ -165,12 +165,12 @@ class Dpt{
 			break;
 		case "235":
 			if ($dpt != "235.001"){
-				if ($value < 0)
-				   $value = (abs($value) ^ 0xffffffff) + 1 ; 
-				$TarifCommande=cmd::byId(str_replace('#','',$option["Tarif"]));
-				$validityTarifCommande=cmd::byId(str_replace('#','',$option["validityTarif"]));
-				$validityActiveElectricalEnergyCommande=cmd::byId(str_replace('#','',$option["validityActiveElectricalEnergy"]));
-				$data= array(($value>>24) & 0xFF, ($value>>16) & 0xFF,($value>>8) & 0xFF,$value & 0xFF,$TarifCommande->execCmd(),($validityTarifCommande->execCmd()<< 1) & 0x02 | $validityActiveElectricalEnergyCommande->execCmd());
+				/*if ($value < 0)
+				   $value = (abs($value) ^ 0xffffffff) + 1 ; */
+				foreach(split($option["ActiveElectricalEnergy"]) as $tarif => $ActiveElectricalEnergy){
+					$value=cmd::byId(str_replace('#','',$ActiveElectricalEnergy));
+					$data= array(($value>>24) & 0xFF, ($value>>16) & 0xFF,($value>>8) & 0xFF,$value & 0xFF,$tarif,(0<< 1) & 0x02 | 0);
+				}
 			}
 			break;
 			case "232":	
@@ -1998,8 +1998,8 @@ class Dpt{
 			"235.001"=> array(
 				"Name"=>"Tarif ActiveEnergy",
 				"Valeurs"=>array(),
-				"InfoType"=>'string',
-				"ActionType"=>'message',
+				"InfoType"=>'binary',
+				"ActionType"=>'other',
 				"GenericType"=>"DONT",
 				"Option" =>array("ActiveElectricalEnergy"),
 				"Unite" =>""),
