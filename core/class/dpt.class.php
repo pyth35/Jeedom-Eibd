@@ -164,15 +164,14 @@ class Dpt{
 				}
 			break;
 		case "235":
-			if ($dpt != "235.001")
-				{
+			if ($dpt != "235.001"){
 				if ($value < 0)
 				   $value = (abs($value) ^ 0xffffffff) + 1 ; 
-				/*$TarifCommande=cmd::byId(str_replace('#','',$option["Tarif"]));
+				$TarifCommande=cmd::byId(str_replace('#','',$option["Tarif"]));
 				$validityTarifCommande=cmd::byId(str_replace('#','',$option["validityTarif"]));
 				$validityActiveElectricalEnergyCommande=cmd::byId(str_replace('#','',$option["validityActiveElectricalEnergy"]));
 				$data= array(($value>>24) & 0xFF, ($value>>16) & 0xFF,($value>>8) & 0xFF,$value & 0xFF,$TarifCommande->execCmd(),($validityTarifCommande->execCmd()<< 1) & 0x02 | $validityActiveElectricalEnergyCommande->execCmd());
-				*/}
+			}
 			break;
 			case "232":	
 				$data= self::html2rgb($value);
@@ -423,22 +422,28 @@ class Dpt{
 				break;
 			case "235":
 				if ($dpt == "235.001"){
-					$value = $data[0] << 24 | $data[1] << 16 | $data[2] << 8 | $data[3] ;
-					if ($value >= 0x80000000)
-						$value = -(($value - 1) ^ 0xffffffff);  # invert twos complement       
+					$value = $data[5] & 0x01;  
+					if($value == 1)
+					   break; 
+					$value=($data[5]>>1) & 0x01;
+					if($value == 1)
+					   break;
 					if ($option != null){
 						//Mise a jours de l'objet Jeedom Tarif
-						if ($option["Tarif"] !=''){	
-							$Tarif=split('|',$option["Tarif"]);
-							$ValidityTarif=($data[5]>>1) & 0x01;
-							$TarifCommande=cmd::byId(str_replace('#','',$Tarif[$ValidityTarif]));
-							if (is_object($TarifCommande)){
-								$valeur=$data[4];
-								log::add('eibd', 'debug', 'L\'objet '.$TarifCommande->getName().' à été trouvé et vas etre mis a jours avec la valeur '. $valeur);
-								$TarifCommande->setCollectDate(date('Y-m-d H:i:s'));
-								//$TarifCommande->setConfiguration('doNotRepeatEvent', 1);
-								$TarifCommande->event($valeur);
-								$TarifCommande->save();
+						if ($option["ActiveElectricalEnergy"] !=''){	
+						//if ($option["Tarif"] !=''){	
+							$ActiveElectricalEnergy=split('|',$option["ActiveElectricalEnergy"]);
+							$Tarif=$data[4];
+							$ActiveElectricalEnergyCommande=cmd::byId(str_replace('#','',$ActiveElectricalEnergy[$Tarif]));
+							if (is_object($ActiveElectricalEnergyCommande)){
+								$valeur =$data[0] << 24 | $data[1] << 16 | $data[2] << 8 | $data[3] ;
+								if ($valeur >= 0x80000000)
+									$valeur = -(($valeur - 1) ^ 0xffffffff);  # invert twos complement    
+								log::add('eibd', 'debug', 'L\'objet '.$ActiveElectricalEnergyCommande->getName().' à été trouvé et vas etre mis a jours avec la valeur '. $valeur);	
+								$ActiveElectricalEnergyCommande->setCollectDate(date('Y-m-d H:i:s'));
+								//$ActiveElectricalEnergyCommande->setConfiguration('doNotRepeatEvent', 1);
+								$ActiveElectricalEnergyCommande->event($valeur);
+								$ActiveElectricalEnergyCommande->save();
 							}
 						}
 						//Mise a jours de l'objet Jeedom validityTarif
@@ -1996,7 +2001,7 @@ class Dpt{
 				"InfoType"=>'string',
 				"ActionType"=>'message',
 				"GenericType"=>"DONT",
-				"Option" =>array("Tarif"/*,"validityTarif","validityActiveElectricalEnergy"*/),
+				"Option" =>array("ActiveElectricalEnergy"),
 				"Unite" =>""),
 			/*"237.600"=> array(
 				"Name"=>"DALI_Control_Gear_Diagnostic",
