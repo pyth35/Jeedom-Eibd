@@ -64,7 +64,7 @@ $(function(){
 		$(this).value()
 		jeedom.cmd.getSelectModal({cmd: {type: 'info'},eqLogic: {eqType_name : ''}}, function (result) {
 			var value=el.val();
-			if(value.length != NULL)
+			if(value != '')
 				value= value+'|';
 			value=value+result.human;
 			el.val(el.val()+result.human);
