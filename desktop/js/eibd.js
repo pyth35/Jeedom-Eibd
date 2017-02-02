@@ -95,6 +95,7 @@ $(function(){
 			$(this).val(oldvalue);
 	}); 
 	$('body').on('change','.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]', function() {
+		$(this).closest('.cmd').find('.option').html('');
 		DptOption($(this).val(),$(this).closest('.cmd').find('.option'));
 		if ($(this).closest('.cmd').find('.cmdAttr[data-l1key=unite]').val() == '')
 			$(this).closest('.cmd').find('.cmdAttr[data-l1key=unite]').val(DptUnit($(this).val()));
@@ -243,21 +244,22 @@ function getDptSousType(Dpt,type){
 	return result;
 }
 function DptOption(Dpt,div){
-	div.html('');
 	$.each(AllDpt, function(DptKey, DptValue){
 		$.each(DptValue, function(key, value){
-			if (key==Dpt){
+			if (key==Dpt && div.find('.cmdAttr[data-l2key=option]').length <= 0){
 				$.each(value.Option, function(Optionkey, Optionvalue){
-					div.append($('<label>')
-							   .text('{{'+Optionvalue+'}}')
-							   .append($('<sup>')
-								   .append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
-									   .attr('title',Optionvalue))));
-					div.append($('<div class="input-group">')
-							.append($('<input class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="option" data-l3key="'+Optionvalue+'">'))
-							.append($('<span class="input-group-btn">')
-								.append($('<a class="btn btn-success btn-sm bt_selectCmdExpression">')
-									.append($('<i class="fa fa-list-alt">')))));
+					if (key==Dpt && div.find('.cmdAttr[data-l2key=option][data-l3key='+Optionvalue+']').length <= 0){
+						div.append($('<label>')
+								   .text('{{'+Optionvalue+'}}')
+								   .append($('<sup>')
+									   .append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
+										   .attr('title',Optionvalue))));
+						div.append($('<div class="input-group">')
+								.append($('<input class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="option" data-l3key="'+Optionvalue+'">'))
+								.append($('<span class="input-group-btn">')
+									.append($('<a class="btn btn-success btn-sm bt_selectCmdExpression">')
+										.append($('<i class="fa fa-list-alt">')))));
+					}
 				});
 			}
 		});
