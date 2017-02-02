@@ -67,7 +67,7 @@ $(function(){
 			if(value != '')
 				value= value+'|';
 			value=value+result.human;
-			el.val(el.val()+result.human);
+			el.val(value);
 		});  
 	});  
 	$('body').on( 'click','.bt_read', function() {
@@ -99,7 +99,6 @@ $(function(){
 			$(this).val(oldvalue);
 	}); 
 	$('body').on('change','.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]', function() {
-		//$(this).closest('.cmd').find('.option').html('');
 		DptOption($(this).val(),$(this).closest('.cmd').find('.option'));
 		if ($(this).closest('.cmd').find('.cmdAttr[data-l1key=unite]').val() == '')
 			$(this).closest('.cmd').find('.cmdAttr[data-l1key=unite]').val(DptUnit($(this).val()));
@@ -250,7 +249,7 @@ function getDptSousType(Dpt,type){
 function DptOption(Dpt,div){
 	$.each(AllDpt, function(DptKey, DptValue){
 		$.each(DptValue, function(key, value){
-			if (key==Dpt && div.find('.cmdAttr[data-l2key=option]').length <= 0){
+			if (key==Dpt){
 				$.each(value.Option, function(Optionkey, Optionvalue){
 					if (key==Dpt && div.find('.cmdAttr[data-l2key=option][data-l3key='+Optionvalue+']').length <= 0){
 						div.append($('<label>')
