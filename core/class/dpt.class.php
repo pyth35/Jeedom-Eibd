@@ -425,17 +425,20 @@ class Dpt{
 					$value = $data[5] & 0x01;  
 					if($value == 1)
 					   break; 
+					log::add('eibd', 'debug', 'La valeur de la énergie electrique est valide');		
 					$value=($data[5]>>1) & 0x01;
 					if($value == 1)
 					   break;
+					log::add('eibd', 'debug', 'La valeur du tarif est valide');	
 					if ($option != null){
-						//Mise a jours de l'objet Jeedom Tarif
 						if ($option["ActiveElectricalEnergy"] !=''){	
 						//if ($option["Tarif"] !=''){	
 							$ActiveElectricalEnergy=split('|',$option["ActiveElectricalEnergy"]);
 							$Tarif=$data[4];
+							log::add('eibd', 'debug', 'Nous allons mettre a jours le tarif '. $Tarif);	
 							$ActiveElectricalEnergyCommande=cmd::byId(str_replace('#','',$ActiveElectricalEnergy[$Tarif]));
 							if (is_object($ActiveElectricalEnergyCommande)){
+								log::add('eibd', 'debug', 'Nous allons mettre a jours l\'objet: '. $ActiveElectricalEnergy[$Tarif]);
 								$valeur =$data[0] << 24 | $data[1] << 16 | $data[2] << 8 | $data[3] ;
 								if ($valeur >= 0x80000000)
 									$valeur = -(($valeur - 1) ^ 0xffffffff);  # invert twos complement    
