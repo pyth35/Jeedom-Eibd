@@ -63,7 +63,11 @@ $(function(){
 		var el=$(this).closest('.input-group').find('.cmdAttr');
 		$(this).value()
 		jeedom.cmd.getSelectModal({cmd: {type: 'info'},eqLogic: {eqType_name : ''}}, function (result) {
-			el.val(result.human);
+			var value=el.val();
+			if(value.length > 0)
+				value= value+'|';
+			value=value+result.human;
+			el.val(el.val()+result.human);
 		});  
 	});  
 	$('body').on( 'click','.bt_read', function() {
