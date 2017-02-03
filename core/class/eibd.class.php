@@ -466,7 +466,7 @@ class eibd extends eqLogic {
 					$valeur=Dpt::DptSelectDecode($dpt, $data, $inverse, $option);
 					$unite=Dpt::getDptUnite($dpt);
 					if($Commande->getConfiguration('noBatterieCheck')){
-						switch(explode($dpt,'.')[0]){
+						switch(explode('.',$dpt)[0]){
 							case 1 :
 								$valeur=$valeur*100;
 							break;

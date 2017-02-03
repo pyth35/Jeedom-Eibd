@@ -63,7 +63,11 @@ $(function(){
 		var el=$(this).closest('.input-group').find('.cmdAttr');
 		$(this).value()
 		jeedom.cmd.getSelectModal({cmd: {type: 'info'},eqLogic: {eqType_name : ''}}, function (result) {
-			el.val(result.human);
+			var value=el.val();
+			if(value != '')
+				value= value+'|';
+			value=value+result.human;
+			el.val(value);
 		});  
 	});  
 	$('body').on( 'click','.bt_read', function() {
@@ -243,21 +247,22 @@ function getDptSousType(Dpt,type){
 	return result;
 }
 function DptOption(Dpt,div){
-	div.html('');
 	$.each(AllDpt, function(DptKey, DptValue){
 		$.each(DptValue, function(key, value){
 			if (key==Dpt){
 				$.each(value.Option, function(Optionkey, Optionvalue){
-					div.append($('<label>')
-							   .text('{{'+Optionvalue+'}}')
-							   .append($('<sup>')
-								   .append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
-									   .attr('title',Optionvalue))));
-					div.append($('<div class="input-group">')
-							.append($('<input class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="option" data-l3key="'+Optionvalue+'">'))
-							.append($('<span class="input-group-btn">')
-								.append($('<a class="btn btn-success btn-sm bt_selectCmdExpression">')
-									.append($('<i class="fa fa-list-alt">')))));
+					if (key==Dpt && div.find('.cmdAttr[data-l2key=option][data-l3key='+Optionvalue+']').length <= 0){
+						div.append($('<label>')
+								   .text('{{'+Optionvalue+'}}')
+								   .append($('<sup>')
+									   .append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
+										   .attr('title',Optionvalue))));
+						div.append($('<div class="input-group">')
+								.append($('<input class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="option" data-l3key="'+Optionvalue+'">'))
+								.append($('<span class="input-group-btn">')
+									.append($('<a class="btn btn-success btn-sm bt_selectCmdExpression">')
+										.append($('<i class="fa fa-list-alt">')))));
+					}
 				});
 			}
 		});

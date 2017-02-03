@@ -6,119 +6,53 @@
 		"cmd":
 		[
 			{
-				"name":"Tarif",
+				"name":"Tarif_1",
 				"logicalId":"255/255/255",
 				"type":"info",
 				"subType":"numeric",
 				"isHistorized":"0",
-				"unite":"kW/H",
+				"unite":"W/H",
 				"configuration":{
-					"KnxObjectType":"9.xxx",
-					"KnxObjectValue":"",
-					"inverse":"0",
-					"minValue":"",
-					"maxValue":"",
-					"transmitReponse":"0",
-					"ObjetTransmit":"",
-					"init":"1",
+					"KnxObjectType":"13.010",
 					"eventOnly":"1",
-					"subTypeAuto":"0",
-					"noBatterieCheck":"0"
-				},
-				"template":{
-					"dashboard":"",
-					"mobile":""
-				},
-				"display":{
-					"icon":"",
-					"generic_type":""
+					"subTypeAuto":"1",
 				},
 				"isVisible":"1"
 			},{
-				"name":"Validité du Tarif",
+				"name":"Tarif_2",
 				"logicalId":"255/255/255",
-				"type":"info",
-				"subType":"binary",
-				"isHistorized":"0",
-				"unite":"",
-				"configuration":{
-					"KnxObjectType":"1.xxx",
-					"KnxObjectValue":"",
-					"inverse":"0",
-					"minValue":"",
-					"maxValue":"",
-					"transmitReponse":"0",
-					"ObjetTransmit":"",
-					"init":"1",
-					"eventOnly":"1",
-					"subTypeAuto":"0",
-					"noBatterieCheck":"0"
-				},
-				"template":{
-					"dashboard":"",
-					"mobile":""
-				},
-				"display":{
-					"icon":"",
-					"generic_type":""
-				},
-				"isVisible":"1"
-			},{
-				"name":"Validité Energie",
-				"logicalId":"255/255/255",
-				"type":"info",
-				"subType":"binary",
-				"isHistorized":"0",
-				"unite":"°C",
-				"configuration":{
-					"KnxObjectType":"1.xxx",
-					"KnxObjectValue":"",
-					"inverse":"0",
-					"minValue":"",
-					"maxValue":"",
-					"transmitReponse":"0",
-					"ObjetTransmit":"",
-					"init":"1",
-					"eventOnly":"1",
-					"subTypeAuto":"0",
-					"noBatterieCheck":"0"
-				},
-				"template":{
-					"dashboard":"",
-					"mobile":""
-				},
-				"display":{
-					"icon":"",
-					"generic_type":""
-				},
-				"isVisible":"1"
-			},{
-				"name":"Index",
 				"type":"info",
 				"subType":"numeric",
 				"isHistorized":"0",
+				"unite":"W/H",
+				"configuration":{
+					"KnxObjectType":"13.010",
+					"eventOnly":"1",
+					"subTypeAuto":"1",
+				},
+				"isVisible":"1"
+			},{
+				"name":"Tarif_3",
+				"logicalId":"255/255/255",
+				"type":"info",
+				"subType":"numeric",
+				"unite":"W/H",
+				"configuration":{
+					"KnxObjectType":"13.010",
+					"eventOnly":"1",
+					"subTypeAuto":"1",
+				},
+				"isVisible":"1"
+			},{
+				"name":"Vilidité",
+				"type":"info",
+				"subType":"numeric",
 				"unite":"kW/H",
 				"configuration":{
 					"KnxObjectType":"235.001",
-					"option":{"Tarif":"Tarif","validityTarif":"Validité du Tarif","validityActiveElectricalEnergy":"Validité Energie"},
-					"KnxObjectValue":"",
-					"inverse":"0",
-					"minValue":"",
-					"maxValue":"",
-					"transmitReponse":"0",
-					"ObjetTransmit":"",
-					"init":"1",
+					"option":{"ActiveElectricalEnergy":"Tarif_1|Tarif_2|Tarif_3"},
 					"eventOnly":"1",
-					"subTypeAuto":"0",
-					"noBatterieCheck":"0"
-				},
-				"template":{
-					"dashboard":"",
-					"mobile":""
-				},
-				"display":{
-					"icon":"",
-					"generic_type":""
+					"subTypeAuto":"1"
 				},
 				"isVisible":"1"
 			}

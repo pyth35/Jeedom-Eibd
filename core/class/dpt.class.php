@@ -164,15 +164,14 @@ class Dpt{
 				}
 			break;
 		case "235":
-			if ($dpt != "235.001")
-				{
-				if ($value < 0)
-				   $value = (abs($value) ^ 0xffffffff) + 1 ; 
-				$TarifCommande=cmd::byId(str_replace('#','',$option["Tarif"]));
-				$validityTarifCommande=cmd::byId(str_replace('#','',$option["validityTarif"]));
-				$validityActiveElectricalEnergyCommande=cmd::byId(str_replace('#','',$option["validityActiveElectricalEnergy"]));
-				$data= array(($value>>24) & 0xFF, ($value>>16) & 0xFF,($value>>8) & 0xFF,$value & 0xFF,$TarifCommande->execCmd(),($validityTarifCommande->execCmd()<< 1) & 0x02 | $validityActiveElectricalEnergyCommande->execCmd());
+			if ($dpt != "235.001"){
+				/*if ($value < 0)
+				   $value = (abs($value) ^ 0xffffffff) + 1 ; */
+				foreach(explode('|',$option["ActiveElectricalEnergy"]) as $tarif => $ActiveElectricalEnergy){
+					$value=cmd::byId(str_replace('#','',$ActiveElectricalEnergy));
+					$data= array(($value>>24) & 0xFF, ($value>>16) & 0xFF,($value>>8) & 0xFF,$value & 0xFF,$tarif,(0<< 1) & 0x02 | 0);
 				}
+			}
 			break;
 			case "232":	
 				$data= self::html2rgb($value);
@@ -201,280 +200,283 @@ class Dpt{
 			log::add('eibd', 'debug','La commande sera inversée');
 		$All_DPT=self::All_DPT();
 		$type= substr($dpt,0,strpos( $dpt, '.' ));
-		switch ($type)
-		{
-		case "1":
-			$value = $data;		
-			if ($inverse)
+		switch ($type){
+			case "1":
+				$value = $data;		
+				if ($inverse)
+					{
+					if ($value == 0 )
+						$value = 1;
+					else
+						$value = 0;
+					}
+				break;
+			case "2":
+				$value = $data;	
+				break;
+			case "3": 
+				$ctrl = ($data & 0x08) >> 3;
+				$stepCode = $data & 0x07;
+				if ($ctrl)
+					$value = $stepCode;
+				else 
+					$value = -$stepCode;
+				break;
+			case "5":  
+				switch ($dpt)
 				{
-				if ($value == 0 )
-					$value = 1;
+					case "5.001":
+						$value = round((intval($data[0]) * 100) / 255);
+						if ($inverse)
+							$value=100-$value;
+						break;
+					case "5.003":
+						$value = round((intval($data[0]) * 360) / 255);
+						if ($inverse)
+							$value=360-$value;
+						break;
+					case "5.004":
+						$value = round(intval($data[0]) / 255);
+						break;
+					default:
+						$value = intval($data[0]);
+						break;
+				}     
+				break;
+			case "6":
+				if ($data[0] >= 0x80)
+					$value = -(($data[0] - 1) ^ 0xff);  # invert twos complement
 				else
-					$value = 0;
-				}
-			break;
-		case "2":
-			$value = $data;	
-			break;
-		case "3": 
-			$ctrl = ($data & 0x08) >> 3;
-			$stepCode = $data & 0x07;
-			if ($ctrl)
-				$value = $stepCode;
-			else 
-				$value = -$stepCode;
-			break;
-		case "5":  
-			switch ($dpt)
-			{
-				case "5.001":
-					$value = round((intval($data[0]) * 100) / 255);
-					if ($inverse)
-						$value=100-$value;
-					break;
-				case "5.003":
-					$value = round((intval($data[0]) * 360) / 255);
-					if ($inverse)
-						$value=360-$value;
-					break;
-				case "5.004":
-					$value = round(intval($data[0]) / 255);
-					break;
-				default:
-					$value = intval($data[0]);
-					break;
-			}     
-			break;
-		case "6":
-			if ($data[0] >= 0x80)
-				$value = -(($data[0] - 1) ^ 0xff);  # invert twos complement
-			else
+					$value = $data[0];
+				break;
+			case "7":
+				$value = $data[0] << 8 | $data[1];
+				break;
+			case "8":
+				if ($data[0] >= 0x8000)
+					$data[0] = -(($data - 1) ^ 0xffff);  # invert twos complement
 				$value = $data[0];
-			break;
-		case "7":
-			$value = $data[0] << 8 | $data[1];
-			break;
-		case "8":
-			if ($data[0] >= 0x8000)
-				$data[0] = -(($data - 1) ^ 0xffff);  # invert twos complement
-			$value = $data[0];
-			break;
-		case "9": 
-			$exp = ($data[0] & 0x78) >> 3;
-			$sign = ($data[0] & 0x80) >> 7;
-			$mant = ($data[0] & 0x07) << 8 | $data[1];
-			if ($sign)
-				$sign = -1 << 11;
-			else
-				$sign = 0;
-			$value = ($mant | $sign) * pow (2, $exp) * 0.01;   
-			break;
-		case "10": 
-			$wDay =($data[0] >> 5) & 0x07;
-			$hour =$data[0]  & 0x1f;
-			$min = $data[1] & 0x3f;
-			$sec = $data[2] & 0x3f;
-			$value = /*new DateTime(*/$hour.':'.$min.':'.$sec;//);
-			break;
-		case "11":
-			$day = $data[0] & 0x1f;
-			$month = $data[1] & 0x0f;
-			$year = $data[2] & 0x7f;
-			if ($year<90)
-				$year+=2000;
-			else
-				$year+=1900;
-			$value =/* new DateTime(*/$day.'/'.$month.'/'.$year;//);
-			break;
-		case "12":
-			$value = $data[0];
-			break;
-		case "13":
-			$value = $data[0] << 24 | $data[1] << 16 | $data[2] << 8 | $data[3] ;
-			if ($value >= 0x80000000)
-				$value = -(($value - 1) ^ 0xffffffff);  # invert twos complement           
-			break;
-		case "14":
-			$value= $data[0]<<24 |  $data[1]<<16 |  $data[2]<<8 |  $data[3]; 
-			$value = unpack("f", pack("L", $value))[1];
-			break;
-		case "16":
-			$value='';
-			foreach($data as $chr)
-				$value.=chr(($chr));
-			break;
-		
-		case "17":
-			$value = $data[0] & 0x3f;
-			break;
-		case "18":
-			if ($option != null)	{
-				//Mise a jours de l'objet Jeedom ValInfField
-				if ($option["control"] !=''){	
-					//log::add('eibd', 'debug', 'Mise a jours de l\'objet Jeedom ValInfField: '.$option["ValInfField"]);
-					$control=cmd::byId(str_replace('#','',$option["control"]));
-					if (is_object($control)){
-						$ctrl = ($data[0] >> 7) & 0x01;
-						log::add('eibd', 'debug', 'L\'objet '.$control->getName().' à été trouvé et vas etre mis a jours avec la valeur '. $ctrl);
-						$control->setCollectDate(date('Y-m-d H:i:s'));
-						//$control->setConfiguration('doNotRepeatEvent', 1);
-						$control->event($ctrl);
-						$control->save();
-					}
-				}
-			}
-			$value = $data[0] & 0x3f;
-			break;
-		case "19":
-			$year=$data[0]+1900;
-			$month=$data[1];
-			$day=$data[2];
-			$wDay =($data[3] >> 5) & 0x07;
-				$hour =$data[3]  & 0x1f;
-				$min = $data[4] & 0x3f;
-				$sec = $data[5] & 0x3f;
-			$Fault=($data[6] >> 7) & 0x01;
-			$WorkingDay=($data[6] >> 6) & 0x01;
-			$noWorkingDay=($data[6] >> 5) & 0x01;
-			$noYear=($data[6] >> 4) & 0x01;
-			$noDate=($data[6] >> 3) & 0x01;
-			$noDayOfWeek=($data[6] >> 2) & 0x01;
-			$NoTime=($data[6] >> 1) & 0x01;
-			$SummerTime=$data[6] & 0x01;
-			$QualityOfClock=($data[7] >> 7) & 0x01;
-			$value = new DateTime();
-			$value->setDate($year ,$month ,$day );
-			$value->setTime($hour ,$min ,$sec );	
-			break;
-		case "20":
-			$value = $data[0];
-			if ($dpt != "20.xxx")
-				{
-				if ($dpt == "20.102_2")
-					{
-					if (dechex($value)>0x80)
-						$value = dechex($value)-0x80;
-					if (dechex($value)>0x20)
-						$value = dechex($value)-0x20;
-					switch ($value)
-						{
-						case "1":
-							$value ="Comfort";
-							break;
-						case "2":
-							$value ="Standby";
-							break;
-						case "4":
-							$value ="Night";
-							break;
-						case "8":
-							$value ="Frost";
-							break;
-						}
-					}
+				break;
+			case "9": 
+				$exp = ($data[0] & 0x78) >> 3;
+				$sign = ($data[0] & 0x80) >> 7;
+				$mant = ($data[0] & 0x07) << 8 | $data[1];
+				if ($sign)
+					$sign = -1 << 11;
 				else
-					$value = $All_DPT["8BitEncAbsValue"][$dpt]["Valeurs"][$data[0]];
-				}
-			break;
-		case "229":
-			if ($dpt != "229.001")
-				{
-				/*if ($value < 0)
-				   $value = (abs($value) ^ 0xffffffff) + 1 ; 
-				$ValInfField=cmd::byId(str_replace('#','',$option["ValInfField"]));
-				$StatusCommande=cmd::byId(str_replace('#','',$option["StatusCommande"]));
-				$data= array(($value>>24) & 0xFF, ($value>>16) & 0xFF,($value>>8) & 0xFF,$value & 0xFF,$ValInfField->execCmd(),$StatusCommande->execCmd());*/
+					$sign = 0;
+				$value = ($mant | $sign) * pow (2, $exp) * 0.01;   
+				break;
+			case "10": 
+				$wDay =($data[0] >> 5) & 0x07;
+				$hour =$data[0]  & 0x1f;
+				$min = $data[1] & 0x3f;
+				$sec = $data[2] & 0x3f;
+				$value = /*new DateTime(*/$hour.':'.$min.':'.$sec;//);
+				break;
+			case "11":
+				$day = $data[0] & 0x1f;
+				$month = $data[1] & 0x0f;
+				$year = $data[2] & 0x7f;
+				if ($year<90)
+					$year+=2000;
+				else
+					$year+=1900;
+				$value =/* new DateTime(*/$day.'/'.$month.'/'.$year;//);
+				break;
+			case "12":
+				$value = $data[0];
+				break;
+			case "13":
 				$value = $data[0] << 24 | $data[1] << 16 | $data[2] << 8 | $data[3] ;
 				if ($value >= 0x80000000)
-					$value = -(($value - 1) ^ 0xffffffff);  # invert twos complement       
-				if ($option != null)
-					{
+					$value = -(($value - 1) ^ 0xffffffff);  # invert twos complement           
+				break;
+			case "14":
+				$value= $data[0]<<24 |  $data[1]<<16 |  $data[2]<<8 |  $data[3]; 
+				$value = unpack("f", pack("L", $value))[1];
+				break;
+			case "16":
+				$value='';
+				foreach($data as $chr)
+					$value.=chr(($chr));
+				break;
+
+			case "17":
+				$value = $data[0] & 0x3f;
+				break;
+			case "18":
+				if ($option != null)	{
 					//Mise a jours de l'objet Jeedom ValInfField
-					if ($option["ValInfField"] !='' /*&& is_numeric($data[4])&& $data[4]!=''*/)
-						{	
+					if ($option["control"] !=''){	
 						//log::add('eibd', 'debug', 'Mise a jours de l\'objet Jeedom ValInfField: '.$option["ValInfField"]);
-						$ValInfField=cmd::byId(str_replace('#','',$option["ValInfField"]));
-						if (is_object($ValInfField))
-							{
-							$valeur=$data[4];
-							log::add('eibd', 'debug', 'L\'objet '.$ValInfField->getName().' à été trouvé et vas etre mis a jours avec la valeur '. $valeur);
-							$ValInfField->setCollectDate(date('Y-m-d H:i:s'));
-							//$ValInfField->setConfiguration('doNotRepeatEvent', 1);
-							$ValInfField->event($valeur);
-							$ValInfField->save();
-							}
-						}
-					//Mise a jours de l'objet Jeedom StatusCommande
-					if ($option["StatusCommande"] !='' /*&& is_numeric(($data[5]>>1) & 0x01)&& $data[5]!=''*/)
-						{
-						//log::add('eibd', 'debug', 'Mise a jours de l\'objet Jeedom StatusCommande: '.$option["StatusCommande"]);
-						$StatusCommande=cmd::byId(str_replace('#','',$option["StatusCommande"]));
-						if (is_object($StatusCommande))
-							{
-							$valeur=($data[5]>>1) & 0x01;
-							log::add('eibd', 'debug', 'L\'objet '.$StatusCommande->getName().' à été trouvé et vas etre mis a jours avec la valeur '. $valeur);
-							$StatusCommande->setCollectDate(date('Y-m-d H:i:s'));
-							//$StatusCommande->setConfiguration('doNotRepeatEvent', 1);
-							$StatusCommande->event($valeur);
-							$StatusCommande->save();
-							}
+						$control=cmd::byId(str_replace('#','',$option["control"]));
+						if (is_object($control)){
+							$ctrl = ($data[0] >> 7) & 0x01;
+							log::add('eibd', 'debug', 'L\'objet '.$control->getName().' à été trouvé et vas etre mis a jours avec la valeur '. $ctrl);
+							$control->setCollectDate(date('Y-m-d H:i:s'));
+							//$control->setConfiguration('doNotRepeatEvent', 1);
+							$control->event($ctrl);
+							$control->save();
 						}
 					}
 				}
-			break;
-		case "235":
-			if ($dpt == "235.001")
-				{
-				$value = $data[0] << 24 | $data[1] << 16 | $data[2] << 8 | $data[3] ;
-				if ($value >= 0x80000000)
-					$value = -(($value - 1) ^ 0xffffffff);  # invert twos complement       
-				if ($option != null)
+				$value = $data[0] & 0x3f;
+				break;
+			case "19":
+				$year=$data[0]+1900;
+				$month=$data[1];
+				$day=$data[2];
+				$wDay =($data[3] >> 5) & 0x07;
+					$hour =$data[3]  & 0x1f;
+					$min = $data[4] & 0x3f;
+					$sec = $data[5] & 0x3f;
+				$Fault=($data[6] >> 7) & 0x01;
+				$WorkingDay=($data[6] >> 6) & 0x01;
+				$noWorkingDay=($data[6] >> 5) & 0x01;
+				$noYear=($data[6] >> 4) & 0x01;
+				$noDate=($data[6] >> 3) & 0x01;
+				$noDayOfWeek=($data[6] >> 2) & 0x01;
+				$NoTime=($data[6] >> 1) & 0x01;
+				$SummerTime=$data[6] & 0x01;
+				$QualityOfClock=($data[7] >> 7) & 0x01;
+				$value = new DateTime();
+				$value->setDate($year ,$month ,$day );
+				$value->setTime($hour ,$min ,$sec );	
+				break;
+			case "20":
+				$value = $data[0];
+				if ($dpt != "20.xxx")
 					{
-					//Mise a jours de l'objet Jeedom Tarif
-					if ($option["Tarif"] !='' /*&& is_numeric($data[4])&& $data[4]!=''*/)
-						{	
-						//log::add('eibd', 'debug', 'Mise a jours de l\'objet Jeedom Tarif: '.$option["Tarif"]);
-						$TarifCommande=cmd::byId(str_replace('#','',$option["Tarif"]));
-						if (is_object($TarifCommande))
-							{
-							$valeur=$data[4];
-							log::add('eibd', 'debug', 'L\'objet '.$TarifCommande->getName().' à été trouvé et vas etre mis a jours avec la valeur '. $valeur);
-							$TarifCommande->setCollectDate(date('Y-m-d H:i:s'));
-							//$TarifCommande->setConfiguration('doNotRepeatEvent', 1);
-							$TarifCommande->event($valeur);
-							$TarifCommande->save();
-							}
-						}
-					//Mise a jours de l'objet Jeedom validityTarif
-					if ($option["validityTarif"] !='' /*&& is_numeric(($data[5]>>1) & 0x01)&& $data[5]!=''*/)
+					if ($dpt == "20.102_2")
 						{
-						//log::add('eibd', 'debug', 'Mise a jours de l\'objet Jeedom validityTarif: '.$option["validityTarif"]);
-						$validityTarifCommande=cmd::byId(str_replace('#','',$option["validityTarif"]));
-						if (is_object($validityTarifCommande))
+						if (dechex($value)>0x80)
+							$value = dechex($value)-0x80;
+						if (dechex($value)>0x20)
+							$value = dechex($value)-0x20;
+						switch ($value)
 							{
-							$valeur=($data[5]>>1) & 0x01;
-							log::add('eibd', 'debug', 'L\'objet '.$validityTarifCommande->getName().' à été trouvé et vas etre mis a jours avec la valeur '. $valeur);
-							$validityTarifCommande->setCollectDate(date('Y-m-d H:i:s'));
-							//$validityTarifCommande->setConfiguration('doNotRepeatEvent', 1);
-							$validityTarifCommande->event($valeur);
-							$validityTarifCommande->save();
+							case "1":
+								$value ="Comfort";
+								break;
+							case "2":
+								$value ="Standby";
+								break;
+							case "4":
+								$value ="Night";
+								break;
+							case "8":
+								$value ="Frost";
+								break;
 							}
 						}
-					//Mise a jours de l'objet Jeedom validityActiveElectricalEnergy
-					if ($option["validityActiveElectricalEnergy"] !='' /*&& is_numeric($data[5]& 0x01) && $data[5]!=''*/)
+					else
+						$value = $All_DPT["8BitEncAbsValue"][$dpt]["Valeurs"][$data[0]];
+					}
+				break;
+			case "229":
+				if ($dpt != "229.001")
+					{
+					/*if ($value < 0)
+					   $value = (abs($value) ^ 0xffffffff) + 1 ; 
+					$ValInfField=cmd::byId(str_replace('#','',$option["ValInfField"]));
+					$StatusCommande=cmd::byId(str_replace('#','',$option["StatusCommande"]));
+					$data= array(($value>>24) & 0xFF, ($value>>16) & 0xFF,($value>>8) & 0xFF,$value & 0xFF,$ValInfField->execCmd(),$StatusCommande->execCmd());*/
+					$value = $data[0] << 24 | $data[1] << 16 | $data[2] << 8 | $data[3] ;
+					if ($value >= 0x80000000)
+						$value = -(($value - 1) ^ 0xffffffff);  # invert twos complement       
+					if ($option != null)
 						{
-						//log::add('eibd', 'debug', 'Mise a jours de l\'objet Jeedom validityActiveElectricalEnergy: '.$option["validityActiveElectricalEnergy"]);
-						$validityActiveElectricalEnergyCommande=cmd::byId(str_replace('#','',$option["validityActiveElectricalEnergy"]));		
-						if (is_object($validityActiveElectricalEnergyCommande))
+						//Mise a jours de l'objet Jeedom ValInfField
+						if ($option["ValInfField"] !='' /*&& is_numeric($data[4])&& $data[4]!=''*/)
+							{	
+							//log::add('eibd', 'debug', 'Mise a jours de l\'objet Jeedom ValInfField: '.$option["ValInfField"]);
+							$ValInfField=cmd::byId(str_replace('#','',$option["ValInfField"]));
+							if (is_object($ValInfField))
+								{
+								$valeur=$data[4];
+								log::add('eibd', 'debug', 'L\'objet '.$ValInfField->getName().' à été trouvé et vas etre mis a jours avec la valeur '. $valeur);
+								$ValInfField->setCollectDate(date('Y-m-d H:i:s'));
+								//$ValInfField->setConfiguration('doNotRepeatEvent', 1);
+								$ValInfField->event($valeur);
+								$ValInfField->save();
+								}
+							}
+						//Mise a jours de l'objet Jeedom StatusCommande
+						if ($option["StatusCommande"] !='' /*&& is_numeric(($data[5]>>1) & 0x01)&& $data[5]!=''*/)
 							{
-							$valeur=$data[5] & 0x01;
-							log::add('eibd', 'debug', 'L\'objet '.$validityActiveElectricalEnergyCommande->getName().' à été trouvé et vas etre mis a jours avec la valeur '. $valeur);
-							$validityActiveElectricalEnergyCommande->setCollectDate(date('Y-m-d H:i:s'));
-							//$validityActiveElectricalEnergyCommande->setConfiguration('doNotRepeatEvent', 1);
-							$validityActiveElectricalEnergyCommande->event($valeur);
-							$validityActiveElectricalEnergyCommande->save();
+							//log::add('eibd', 'debug', 'Mise a jours de l\'objet Jeedom StatusCommande: '.$option["StatusCommande"]);
+							$StatusCommande=cmd::byId(str_replace('#','',$option["StatusCommande"]));
+							if (is_object($StatusCommande))
+								{
+								$valeur=($data[5]>>1) & 0x01;
+								log::add('eibd', 'debug', 'L\'objet '.$StatusCommande->getName().' à été trouvé et vas etre mis a jours avec la valeur '. $valeur);
+								$StatusCommande->setCollectDate(date('Y-m-d H:i:s'));
+								//$StatusCommande->setConfiguration('doNotRepeatEvent', 1);
+								$StatusCommande->event($valeur);
+								$StatusCommande->save();
+								}
 							}
 						}
+					}
+				break;
+			case "235":
+				if ($dpt == "235.001"){
+					$value = $data[5] & 0x01;  
+					if($value == 1)
+					   break; 
+					log::add('eibd', 'debug', 'La valeur de la énergie electrique est valide');		
+					$value=($data[5]>>1) & 0x01;
+					if($value == 1)
+					   break;
+					log::add('eibd', 'debug', 'La valeur du tarif est valide');	
+					if ($option != null){
+						if ($option["ActiveElectricalEnergy"] !=''){	
+						//if ($option["Tarif"] !=''){	
+							$ActiveElectricalEnergy=explode('|',$option["ActiveElectricalEnergy"]);
+							$Tarif=$data[4];
+							log::add('eibd', 'debug', 'Nous allons mettre a jours le tarif '. $Tarif);	
+							$ActiveElectricalEnergyCommande=cmd::byId(str_replace('#','',$ActiveElectricalEnergy[$Tarif]));
+							if (is_object($ActiveElectricalEnergyCommande)){
+								log::add('eibd', 'debug', 'Nous allons mettre a jours l\'objet: '. $ActiveElectricalEnergy[$Tarif]);
+								$valeur =$data[0] << 24 | $data[1] << 16 | $data[2] << 8 | $data[3] ;
+								if ($valeur >= 0x80000000)
+									$valeur = -(($valeur - 1) ^ 0xffffffff);  # invert twos complement    
+								log::add('eibd', 'debug', 'L\'objet '.$ActiveElectricalEnergyCommande->getName().' à été trouvé et vas etre mis a jours avec la valeur '. $valeur);	
+								$ActiveElectricalEnergyCommande->setCollectDate(date('Y-m-d H:i:s'));
+								//$ActiveElectricalEnergyCommande->setConfiguration('doNotRepeatEvent', 1);
+								$ActiveElectricalEnergyCommande->event($valeur);
+								$ActiveElectricalEnergyCommande->save();
+							}
+						}
+						//Mise a jours de l'objet Jeedom validityTarif
+						/*if ($option["validityTarif"] !='' )
+							{
+							$validityTarifCommande=cmd::byId(str_replace('#','',$option["validityTarif"]));
+							if (is_object($validityTarifCommande))
+								{
+								$valeur=($data[5]>>1) & 0x01;
+								log::add('eibd', 'debug', 'L\'objet '.$validityTarifCommande->getName().' à été trouvé et vas etre mis a jours avec la valeur '. $valeur);
+								$validityTarifCommande->setCollectDate(date('Y-m-d H:i:s'));
+								//$validityTarifCommande->setConfiguration('doNotRepeatEvent', 1);
+								$validityTarifCommande->event($valeur);
+								$validityTarifCommande->save();
+								}
+							}
+						//Mise a jours de l'objet Jeedom validityActiveElectricalEnergy
+						if ($option["validityActiveElectricalEnergy"] !='' )
+							{
+							$validityActiveElectricalEnergyCommande=cmd::byId(str_replace('#','',$option["validityActiveElectricalEnergy"]));		
+							if (is_object($validityActiveElectricalEnergyCommande))
+								{
+								$valeur=$data[5] & 0x01;
+								log::add('eibd', 'debug', 'L\'objet '.$validityActiveElectricalEnergyCommande->getName().' à été trouvé et vas etre mis a jours avec la valeur '. $valeur);
+								$validityActiveElectricalEnergyCommande->setCollectDate(date('Y-m-d H:i:s'));
+								//$validityActiveElectricalEnergyCommande->setConfiguration('doNotRepeatEvent', 1);
+								$validityActiveElectricalEnergyCommande->event($valeur);
+								$validityActiveElectricalEnergyCommande->save();
+								}
+							}*/
 					}
 				}
 			break;
@@ -1999,10 +2001,10 @@ class Dpt{
 			"235.001"=> array(
 				"Name"=>"Tarif ActiveEnergy",
 				"Valeurs"=>array(),
-				"InfoType"=>'string',
-				"ActionType"=>'message',
+				"InfoType"=>'binary',
+				"ActionType"=>'other',
 				"GenericType"=>"DONT",
-				"Option" =>array("Tarif","validityTarif","validityActiveElectricalEnergy"),
+				"Option" =>array("ActiveElectricalEnergy"),
 				"Unite" =>""),
 			/*"237.600"=> array(
 				"Name"=>"DALI_Control_Gear_Diagnostic",
