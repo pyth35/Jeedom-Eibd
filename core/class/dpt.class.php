@@ -167,7 +167,7 @@ class Dpt{
 			if ($dpt != "235.001"){
 				/*if ($value < 0)
 				   $value = (abs($value) ^ 0xffffffff) + 1 ; */
-				foreach(split($option["ActiveElectricalEnergy"]) as $tarif => $ActiveElectricalEnergy){
+				foreach(explode('|',$option["ActiveElectricalEnergy"]) as $tarif => $ActiveElectricalEnergy){
 					$value=cmd::byId(str_replace('#','',$ActiveElectricalEnergy));
 					$data= array(($value>>24) & 0xFF, ($value>>16) & 0xFF,($value>>8) & 0xFF,$value & 0xFF,$tarif,(0<< 1) & 0x02 | 0);
 				}
@@ -433,7 +433,7 @@ class Dpt{
 					if ($option != null){
 						if ($option["ActiveElectricalEnergy"] !=''){	
 						//if ($option["Tarif"] !=''){	
-							$ActiveElectricalEnergy=split('|',$option["ActiveElectricalEnergy"]);
+							$ActiveElectricalEnergy=explode('|',$option["ActiveElectricalEnergy"]);
 							$Tarif=$data[4];
 							log::add('eibd', 'debug', 'Nous allons mettre a jours le tarif '. $Tarif);	
 							$ActiveElectricalEnergyCommande=cmd::byId(str_replace('#','',$ActiveElectricalEnergy[$Tarif]));
