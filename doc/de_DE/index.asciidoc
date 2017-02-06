@@ -13,6 +13,7 @@ include::AutoImplementation.asciidoc[]
 
 === Benutzung des Initialisierungsmodus beim Start
 include::Initialisation.asciidoc[]
+include::Flag.asciidoc[]
 
 == Einrichten von Geräten und Befehlen
 include::Parametrage.asciidoc[]
