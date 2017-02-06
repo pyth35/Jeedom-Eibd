@@ -163,8 +163,6 @@ Exemples d'objets pour lesquels le flag "Mise-à-jour/Update" est
 généralement inactif :
 * Tous les objets qui ont le flag "Lecture/Read" actif.
 
--------------------------------------
-
 Il existe encore un flag supplémentaire, il n'est pas présent dans
 beaucoup de participants aujourd'hui mais devrait tout doucement se
 généraliser je pense, au moins sur les modules de supervision.
@@ -187,9 +185,6 @@ généralement actif :
 Exemples d'objets pour lesquels le flag "Read-on-Init" est
 généralement inactif :
 * Tous les objets qui ont le flag "Lecture/Read" actif.
-
--------------------------------------
-
 
 Etude d'un cas particulier : L'objet "Décalage de la consigne de base"
 sur un thermostat de type Gira SmartSensor.
