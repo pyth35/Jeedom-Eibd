@@ -6,6 +6,8 @@ TEMP_DIR=`mktemp -d /tmp/eibd.XXXXXX`
 cd $TEMP_DIR
 touch /tmp/compilation_eibd_in_progress
 echo 0 > /tmp/compilation_eibd_in_progress
+pkill eibd  
+pkill knxd  
 if [ -f "/etc/eibd/pthsem_VERSION" ]
 then
   echo "*****************************************************************************************************"
