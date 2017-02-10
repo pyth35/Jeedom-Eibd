@@ -14,7 +14,8 @@ check_run()  {
     fi
     return $status
 }
-
+pkill eibd  
+pkill knxd  
 # Check for root priviledges
 if [ $(id -u) != 0 ]
 then
