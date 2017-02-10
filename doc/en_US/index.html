@@ -422,7 +422,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_dependencies_install">2.1. Dependencies install</a></li>
 <li><a href="#_configuration_du_plugin_et_de_ses_dépendances">2.2. Configuration du plugin et de ses dépendances</a></li>
 <li><a href="#_utilisation_du_mode_auto_implementation">2.3. Utilisation du mode auto-implementation</a></li>
-<li><a href="#_utilisation_de_mode_initialisation_au_démarrage">2.4. Utilisation de mode initialisation au démarrage</a></li>
+<li><a href="#_utilisation_de_mode_initialisation_au_démarrage">2.4. Utilisation de mode initialisation au démarrage</a>
+<ul class="sectlevel3">
+<li><a href="#_flag_lecture_read">2.4.1. Flag  Lecture / Read</a></li>
+<li><a href="#_flag_ecriture_write">2.4.2. Flag  Ecriture / Write</a></li>
+<li><a href="#_flag_transmission_transmit">2.4.3. Flag  Transmission/Transmit</a></li>
+<li><a href="#_flag_mise_à_jour_update">2.4.4. Flag  Mise-à-jour/Update</a></li>
+<li><a href="#_flag_read_on_init">2.4.5. Flag Read-on-Init</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#_paramétrage_des_equipements_et_des_commandes">3. Paramétrage des equipements et des commandes</a>
@@ -561,7 +569,301 @@ A TPD and command type detection engine is implemented in order to get a functio
 </div>
 <div class="paragraph">
 <p>Attention:
-Il est important que toutes les Adresses de groupe initialisées aient un objet avec le Flag READ</p>
+Il est important que toutes les Adresses de groupe initialisées aient un objet avec le Flag READ
+==== Flag Communication
+* Actif : Cet objet de communication peut interagir avec le bus (lire,
+écrire, etc &#8230;&#8203;), si un télégramme du bus correspond à cet objet (=
+l&#8217;objet est lié à l&#8217;adresse de groupe de destination du télégramme),
+le participant répondra sur le bus avec ACK, NACK ou BUSY selon ce
+qu&#8217;il convient.
+* Inactif : Si un télégramme du bus correspond à cet objet (= l&#8217;objet
+est lié à l&#8217;adresse de groupe de destination du télégramme), le
+participant répondra sur le bus avec ACK, NACK ou BUSY selon ce qu&#8217;il
+convient, MAIS la valeur de l&#8217;objet n&#8217;est pas modifiée ni transmise,
+quoi qu&#8217;il arrive.</p>
+</div>
+<div class="paragraph">
+<p>Ce flag est quasiment toujours "Actif", sinon l&#8217;objet ne sert à
+rien &#8230;&#8203;
+Ce flag est néanmoins utile durant la phase d&#8217;installation /
+configuration d&#8217;une installation, quand on veut préparer la config de
+certain participants mais qu&#8217;ils ne doivent pas encore interagir avec
+le bus ; ce flag peut aussi être utile pour désactiver certain objets
+sans modifier toute leur config, dans le cadre d&#8217;une recherche
+d&#8217;erreur par exemple.</p>
+</div>
+<div class="sect3">
+<h4 id="_flag_lecture_read">2.4.1. Flag  Lecture / Read</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Actif : Si le participant voit sur le bus un télégramme de type
+"Lecture de la valeur" qui correspond à cet objet (= l&#8217;objet est lié à
+l&#8217;adresse de groupe de destination du télégramme) alors le participant
+va répondre en envoyant sur le bus la valeur actuelle de l&#8217;objet.</p>
+</li>
+<li>
+<p>Inactif : Le participant ne réagira à aucun télégramme de type
+"Lecture de la valeur" qui correspond à cet objet.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Pour chaque adresse de groupe, au maximum UN seul objet doit avoir son
+flag "Lecture/Read" actif, tous les autre objet de cette même adresse
+de groupe doivent être inactifs, sinon une interrogation de la valeur
+donnerait plus d&#8217;une réponse et on pourrait même obtenir des réponses
+discordantes.</p>
+</div>
+<div class="paragraph">
+<p>Exemples d&#8217;objets pour lesquels le flag "Lecture/Read" est
+généralement actif :
+* L&#8217;objet de commande d&#8217;une sortie Tout-ou-Rien (sur un bloc 4
+sorties, par exemple).
+* L&#8217;éventuel objet de "feed-back" de la ligne précédente.
+* Tous les objets de "feed-back" en général.
+* Les objets représentant la valeur mesurée par un capteur (luminosité
+actuelle, température réelle mesurée, état (ouvert/fermé) d&#8217;un capteur
+du style reed-relais dans une porte ou une fenêtre, &#8230;&#8203;)</p>
+</div>
+<div class="paragraph">
+<p>Exemples d&#8217;objets pour lesquels le flag "Lecture/Read" est
+généralement INACTIF :
+* L&#8217;objet (ON/OFF) d&#8217;un bouton poussoir.</p>
+</div>
+<div class="paragraph">
+<p>En général, la valeur stockée ou utilisée par les objets faisant
+partie d&#8217;une même adresse de groupe représente une information
+correspondant à quelque chose de réel / physique / mesurable dans
+votre maison.
+Pour déterminer lequel de tous les objets faisant partie de la même
+adresse de groupe doit être celui qui aura son flag "Lecture/Read"
+actif, il faut vous demander lequel de tous ces objets a le plus de
+chance d&#8217;être en phase avec la réalité.
+Cas simple : 3 boutons poussoirs et un acteur qui allume ou éteint un
+lampe, la valeur de l&#8217;objet de l&#8217;acteur a de bien plus grandes chances
+de réellement représenter l&#8217;état (allumé ou éteint) de la lampe,
+surtout après une panne de courent ou un problème sur le bus &#8230;&#8203;</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_flag_ecriture_write">2.4.2. Flag  Ecriture / Write</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Actif : La valeur de cet objet sera modifiée si un participant
+envoie sur le bus un télégramme de type "Ecriture de la valeur" qui
+correspond à cet objet (= l&#8217;objet est lié à l&#8217;adresse de groupe de
+destination du télégramme).</p>
+</li>
+<li>
+<p>Inactif : La valeur de cet objet NE sera PAS modifiée, même si un
+participant envoie sur le bus un télégramme de type "Ecriture de la
+valeur" qui correspond à cet objet.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Pour une valeur d&#8217;adresse de groupe, plusieurs objets peuvent avoir
+leur flag "Ecriture/Write" actif.
+N&#8217;importe quel objet dont la valeur doit pouvoir être modifiée par un
+autre doit avoir sun flag "Ecriture/Write" actif.</p>
+</div>
+<div class="paragraph">
+<p>Exemples d&#8217;objets pour lesquels le flag "Ecriture/Write" est
+généralement actif :
+* L&#8217;objet de commande d&#8217;une sortie Tout-ou-Rien (sur un bloc 4
+sorties, par exemple).
+* L&#8217;objet (ON/OFF) d&#8217;un bouton poussoir.
+* En général, tous les objets d&#8217;une supervision.</p>
+</div>
+<div class="paragraph">
+<p>Exemples d&#8217;objets pour lesquels le flag "Ecriture/Write" est
+généralement INACTIF :
+* Tous les objets de "feed-back" (d&#8217;acteurs) en général.
+* Les objets représentant la valeur mesurée par un capteur (luminosité
+actuelle, température réelle mesurée, état (ouvert/fermé) d&#8217;un capteur
+du style reed-relais dans une porte ou une fenêtre, &#8230;&#8203;).</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_flag_transmission_transmit">2.4.3. Flag  Transmission/Transmit</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Actif : Si pour une raison quelconque (sauf la réception d&#8217;un
+télégramme « Ecriture/Write » vers cet objet) la valeur de cet objet
+venait à être modifiée, le participant va envoyer sur le bus un
+télégramme de type "Ecriture de la valeur" contenant la nouvelle
+valeur de l&#8217;objet, vers la première adresse de groupe liée à cet
+objet.</p>
+</li>
+<li>
+<p>Inactif : Le participant n&#8217;envoie aucun télégramme sur le bus quand
+la valeur de l&#8217;objet est modifiée.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Exemples d&#8217;objets pour lesquels le flag "Transmission/Transmit" est
+généralement actif.
+Ce flag est généralement actif pour tous les objets ayant une
+information à envoyer sur le bus, c-à-d :
+* Tous les capteurs de grandeurs physiques (température, luminosité,
+voltage, wattage, courent, humidité, &#8230;&#8203;) doivent envoyer sur le bus un
+télégramme chaque fois que la valeur qu&#8217;ils mesurent s&#8217;écarte de la
+mesure précédente.
+* L&#8217;objet ON/OFF des boutons poussoirs (quand on pousse dessus, ils
+doivent bien envoyer l&#8217;info sur le bus &#8230;&#8203;).</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Tous les objets de "feed-back" (d&#8217;acteurs) en général.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Exemples d&#8217;objets pour lesquels le flag "Transmission/Transmit" est
+généralement inactif.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>L&#8217;objet de commande d&#8217;une sortie Tout-ou-Rien (sur un bloc 4
+sorties, par exemple).</p>
+</li>
+<li>
+<p>En général, tous les objets d&#8217;une supervision.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Pour rappel : Un objet peut être lié à plusieurs adresses de groupe,
+il « recevra » les télégrammes destinés à ces diverses adresses de
+groupes MAIS il ne pourra envoyer sa valeur (suite à un flag «
+transmit » actif) que vers UNE SEULE adresse de groupe (la première de
+la liste.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_flag_mise_à_jour_update">2.4.4. Flag  Mise-à-jour/Update</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Actif : Si un autre participant répond à un télégramme de type</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>"Lecture de la valeur" qui correspond à cet objet (= l&#8217;objet est lié à
+l&#8217;adresse de groupe de destination du télégramme) en envoyant une
+valeur différente de celle actuellement stockée dans l&#8217;objet, la
+valeur de l&#8217;objet est remplacée par celle lue sur le bus dans le
+télégramme de réponse. (= Les télégrammes de réponse de valeur sont
+interprétés comme instruction d&#8217;écriture).
+* Inactif : Le participant ne modifie pas la valeur de son objet tant
+qu&#8217;il ne reçoit pas un télégramme "Ecriture/Write".</p>
+</div>
+<div class="paragraph">
+<p>En théorie, ce flag ne semble pas très utile, mais en pratique, si il
+est actif il permet de "re-synchroniser" plus rapidement tous les
+participants d&#8217;un bus quand certains ont été redémarrés ou qu&#8217;une
+coupure est survenue sur le bus (arrêt temporaire d&#8217;une liaison entre
+2 étages ou 2 bâtiments par exemple), dans ce cas, il suffit de lancer
+un script qui lit touts les groupes et hop tout est resynchronisé.</p>
+</div>
+<div class="paragraph">
+<p>Exemples d&#8217;objets pour lesquels le flag "Mise-à-jour/Update" est
+généralement actif :
+* Tous les objets qui ont le flag "Lecture/Read" inactif.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>En général, tous les objets d&#8217;une supervision.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Exemples d&#8217;objets pour lesquels le flag "Mise-à-jour/Update" est
+généralement inactif :
+* Tous les objets qui ont le flag "Lecture/Read" actif.</p>
+</div>
+<div class="paragraph">
+<p>Il existe encore un flag supplémentaire, il n&#8217;est pas présent dans
+beaucoup de participants aujourd&#8217;hui mais devrait tout doucement se
+généraliser je pense, au moins sur les modules de supervision.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_flag_read_on_init">2.4.5. Flag Read-on-Init</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Actif : Au démarrage du participant, un télégramme de type "Lecture
+de la valeur" qui correspond à cet objet sera envoyé sur le bus de
+donner à cet objet une valeur initial correcte.</p>
+</li>
+<li>
+<p>Inactif : Au démarrage du participant, cet objet recevra une valeur
+par défaut.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Exemples d&#8217;objets pour lesquels le flag "Read-on-Init" est
+généralement actif :
+* Tous les objets qui ont le flag "Lecture/Read" inactif.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>En général, tous les objets d&#8217;une supervision.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Exemples d&#8217;objets pour lesquels le flag "Read-on-Init" est
+généralement inactif :
+* Tous les objets qui ont le flag "Lecture/Read" actif.</p>
+</div>
+<div class="paragraph">
+<p>Etude d&#8217;un cas particulier : L&#8217;objet "Décalage de la consigne de base"
+sur un thermostat de type Gira SmartSensor.</p>
+</div>
+<div class="paragraph">
+<p>Sur cet objet, faut-il activer les flags suivants ?</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>COMMUNICATION : oui, c&#8217;est évident si on veut que cela marche.</p>
+</li>
+<li>
+<p>READ : oui, car le lieu principal de stockage de l&#8217;information est
+le thermostat lui-même, donc le SmartSensor.</p>
+</li>
+<li>
+<p>WRITE : oui, car le but est de pouvoir modifier le décalage à partir
+du bus (un Gira HomeServer 3 par ex.)</p>
+</li>
+<li>
+<p>TRANSMIT : non, cet objet ne se modifie pas "de lui-même".
+Attention, pour "transmit", ce serait le contraire si on utilisait un
+Theben RAM713 qui possède lui une molette de décalage manuel.</p>
+</li>
+<li>
+<p>UPDATE : non, "read" est actif, donc cet objet est la source
+d&#8217;information la plus fiable.
+(Car c&#8217;est le SmartSensor qui contient la valeur par défaut à utiliser
+lors d&#8217;un reset général du bus).</p>
+</li>
+<li>
+<p>READ-ON-INIT : non, pour les mêmes raisons que "Update".</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
