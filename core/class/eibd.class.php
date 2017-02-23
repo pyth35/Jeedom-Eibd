@@ -598,9 +598,9 @@ class eibd extends eqLogic {
 		$return['state'] = 'nok';
 		switch(config::byKey('KnxSoft', 'eibd')){
 			case 'knxd':
-			$result=exec("ps aux | grep knxd | grep -v grep | awk '{print $2}'",$result);	
-			if($result!="")
-				$return['state'] = 'ok';
+				$result=exec("ps aux | grep knxd | grep -v grep | awk '{print $2}'",$result);	
+				if($result!="")
+					$return['state'] = 'ok';
 			break;
 			case 'eibd':
 				$result=exec("ps aux | grep eibd | grep -v grep | awk '{print $2}'",$result);	
