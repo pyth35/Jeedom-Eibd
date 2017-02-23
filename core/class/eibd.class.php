@@ -596,12 +596,21 @@ class eibd extends eqLogic {
 		else
 			$return['launchable'] = 'nok';
 		$return['state'] = 'nok';
-		$result=exec("ps aux | grep eibd | grep -v grep | awk '{print $2}'",$result);	
-		if($result!="")
-			$return['state'] = 'ok';
-		$result=exec("ps aux | grep knxd | grep -v grep | awk '{print $2}'",$result);	
-		if($result!="")
-			$return['state'] = 'ok';
+		switch(config::byKey('KnxSoft', 'eibd')){
+			case 'knxd':
+			$result=exec("ps aux | grep knxd | grep -v grep | awk '{print $2}'",$result);	
+			if($result!="")
+				$return['state'] = 'ok';
+			break;
+			case 'eibd':
+				$result=exec("ps aux | grep eibd | grep -v grep | awk '{print $2}'",$result);	
+				if($result!="")
+					$return['state'] = 'ok';
+			break;
+			default:
+				$return['state'] = 'ok';
+			break;
+		}
 		if($return['state'] == 'ok'){
 			$cron = cron::byClassAndFunction('eibd', 'BusMonitor');
 			if(is_object($cron) && $cron->running())
