@@ -128,6 +128,18 @@ class eibd extends eqLogic {
 	//                                                      Recherche automatique passerelle                                                       // 
 	//                                                                                                                                               //
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	public static function SearchUsbGateway(){
+		$bus='0';
+		$device='0';
+		$config='1';
+		$interface='0';
+		$result=exec("lsusb -v",$result);	
+		foreach($result as $UsbGateway){
+			//Recheche si la passerel contien knx
+			return $bus.':'.$device.':'.$config.':'.$interface;
+		}
+		return false;
+	}
 	public static function SearchBroadcastGateway(){	
 		$result=array();
 		$ServerPort=1024;
