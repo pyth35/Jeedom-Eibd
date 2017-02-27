@@ -114,11 +114,11 @@ echo 50 > /tmp/compilation_eibd_in_progress
 echo "*****************************************************************************************************"
 echo "*                                      Installation de KnxD                                         *"
 echo "*****************************************************************************************************"
-test -d libfmt || git clone https://github.com/fmtlib/fmt libfmt
-cd libfmt
-git pull
-cmake .
-make fmt
+#test -d libfmt || git clone https://github.com/fmtlib/fmt libfmt
+#cd libfmt
+#git pull
+#cmake .
+#make fmt
 git clone https://github.com/knxd/knxd.git
 echo 55 > /tmp/compilation_eibd_in_progress
 cd knxd
