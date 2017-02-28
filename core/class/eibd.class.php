@@ -134,9 +134,14 @@ class eibd extends eqLogic {
 		$config='1';
 		$interface='0';
 		$result=exec("lsusb -v",$result);	
-		foreach($result as $UsbGateway){
-			//Recheche si la passerel contien knx
-			return $bus.':'.$device.':'.$config.':'.$interface;
+		$UsbGateways = explode("\n", $result);
+		foreach($UsbGateways as $UsbGateway){
+			if(stripos($UsbGateway,"KNX")>0){
+				$UsbParametre = explode(" ", $UsbGateway);
+				$bus=$UsbParametre[1];
+				$device=$UsbParametre[3];
+				return $bus.':'.$device.':'.$config.':'.$interface;
+			}
 		}
 		return false;
 	}
