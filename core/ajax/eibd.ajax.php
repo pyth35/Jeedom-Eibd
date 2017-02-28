@@ -33,9 +33,11 @@ try {
 			case 'bcu1':
 			break;
 			case 'tpuarts':
-			break;
-			case 'usb':
 			break;*/
+			case 'usb':
+				$result=eibd::SearchUsbGateway();
+				ajax::success($result);
+			break;
 			default:
 				ajax::success(false);
 			break;
