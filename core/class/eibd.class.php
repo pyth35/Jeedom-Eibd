@@ -134,12 +134,14 @@ class eibd extends eqLogic {
 		$config='1';
 		$interface='0';
 		$result=exec("lsusb -v",$result);	
-		$UsbGateways = explode("\n", $result);
+		//$UsbGateways = explode("\n", $result);
+		$UsbGateways = explode("Bus", $result);
 		foreach($UsbGateways as $UsbGateway){
 			if(stripos($UsbGateway,"KNX")>0){
-				$UsbParametre = explode(" ", $UsbGateway);
-				$bus=$UsbParametre[1];
-				$device=$UsbParametre[3];
+				$UsbParametre = explode("\n", trim($UsbGateway));
+				$UsbParametre = explode(" ", $UsbParametre[0]);
+				$bus=$UsbParametre[0];
+				$device=$UsbParametre[2];
 				return $bus.':'.$device.':'.$config.':'.$interface;
 			}
 		}
