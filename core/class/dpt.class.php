@@ -1268,8 +1268,8 @@ class Dpt{
 			"10.xxx"=> array(
 				"Name"=>"Generic", 
 				"Valeurs"=>array(0, 16777215),
-				"InfoType"=>'numeric',
-				"ActionType"=>'slider',
+				"InfoType"=>'string',
+				"ActionType"=>'other',
 				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
@@ -1278,8 +1278,8 @@ class Dpt{
 				"Valeurs"=>array(
 					array(0, 0, 0, 0), 
 					array(7, 23, 59, 59)),
-				"InfoType"=>'numeric',
-				"ActionType"=>'slider',
+				"InfoType"=>'string',
+				"ActionType"=>'other',
 				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>"")),
@@ -1287,8 +1287,8 @@ class Dpt{
 			"11.xxx"=> array(
 				"Name"=>"Generic",
 				"Valeurs"=>array(0, 16777215),
-				"InfoType"=>'numeric',
-				"ActionType"=>'slider',
+				"InfoType"=>'string',
+				"ActionType"=>'other',
 				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>""),
@@ -1297,8 +1297,8 @@ class Dpt{
 				"Valeurs"=>array(
 					array(1, 1, 1969), 
 					array(31, 12, 2068)),
-				"InfoType"=>'numeric',
-				"ActionType"=>'slider',
+				"InfoType"=>'string',
+				"ActionType"=>'other',
 				"GenericType"=>"DONT",
 				"Option" =>array(),
 				"Unite" =>"")),
