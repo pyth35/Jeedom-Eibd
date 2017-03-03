@@ -340,10 +340,11 @@ class Dpt{
 				$NoTime=($data[6] >> 1) & 0x01;
 				$SummerTime=$data[6] & 0x01;
 				$QualityOfClock=($data[7] >> 7) & 0x01;
-				$date = new DateTime();
+				//$date = new DateTime();
 				//$date->setDate($year ,$month ,$day );
-				//$date->setTime($hour ,$min ,$sec );	
-				$value = $date->format('Y-m-d h:i:s')
+				//$date->setTime($hour ,$min ,$sec );
+				//$value = $date->format('Y-m-d h:i:s')	
+				$value = $day.'/'.$month.'/'.$year.' '.$hour.':'.$min.':'.$sec;
 				break;
 			case "20":
 				$value = $data[0];
