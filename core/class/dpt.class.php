@@ -137,14 +137,14 @@ class Dpt{
 		case "19": 
 			$value   = new DateTime($value);
 			$wDay = $value->format('N');
-				$hour = $value->format('H');
-				$min = $value->format('i');
-				$sec = $value->format('s');
-				$day = $value->format('d');
-				$month = $value->format('m');
-				$year = $value->format('Y')-1900;
-				$data = array($year,$month ,$day,($wDay << 5 )| $hour  , $min , $sec,0,0 );
-			break;
+			$hour = $value->format('H');
+			$min = $value->format('i');
+			$sec = $value->format('s');
+			$day = $value->format('d');
+			$month = $value->format('m');
+			$year = $value->format('Y')-1900;
+			$data = array($year,$month & 0x0f ,$day & 0x1f,($wDay << 5 ) & 0xe0| $hour  & 0x1f , $min  & 0x3f , $sec & 0x3f,0x00,0x00);
+		break;
 		case "20":
 			if ($dpt != "20.xxx")
 				{
@@ -325,12 +325,12 @@ class Dpt{
 				break;
 			case "19":
 				$year=$data[0]+1900;
-				$month=$data[1];
-				$day=$data[2];
+				$month=$data[1]& 0x0f;
+				$day=$data[2]& 0x1f;
 				$wDay =($data[3] >> 5) & 0x07;
-					$hour =$data[3]  & 0x1f;
-					$min = $data[4] & 0x3f;
-					$sec = $data[5] & 0x3f;
+				$hour =$data[3]  & 0x1f;
+				$min = $data[4] & 0x3f;
+				$sec = $data[5] & 0x3f;
 				$Fault=($data[6] >> 7) & 0x01;
 				$WorkingDay=($data[6] >> 6) & 0x01;
 				$noWorkingDay=($data[6] >> 5) & 0x01;
@@ -340,9 +340,10 @@ class Dpt{
 				$NoTime=($data[6] >> 1) & 0x01;
 				$SummerTime=$data[6] & 0x01;
 				$QualityOfClock=($data[7] >> 7) & 0x01;
-				$value = new DateTime();
-				$value->setDate($year ,$month ,$day );
-				$value->setTime($hour ,$min ,$sec );	
+				$date = new DateTime();
+				//$date->setDate($year ,$month ,$day );
+				//$date->setTime($hour ,$min ,$sec );	
+				$value = $date->format('Y-m-d h:i:s')
 				break;
 			case "20":
 				$value = $data[0];
