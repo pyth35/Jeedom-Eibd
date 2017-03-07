@@ -133,15 +133,19 @@ class eibd extends eqLogic {
 		$device='0';
 		$config='1';
 		$interface='0';
-		$result=exec("lsusb -v",$result);	
+		$cmd="lsusb -v";
+		$cmd .= ' >> ' . log::getPathToLog('eibd') . ' 2>&1 &';
+		$result=exec($cmd,$result);
 		//$UsbGateways = explode("\n", $result);
 		$UsbGateways = explode("Bus", $result);
 		foreach($UsbGateways as $UsbGateway){
 			if(stripos($UsbGateway,"KNX")>0){
+				log::add('eibd','debug', 'Passerelle USB trouvé');
 				$UsbParametre = explode("\n", trim($UsbGateway));
-				$UsbParametre = explode(" ", $UsbParametre[0]);
+				$UsbParametre = explode(" ", trim($UsbParametre[0]));
 				$bus=$UsbParametre[0];
 				$device=$UsbParametre[2];
+				log::add('eibd','debug', $bus.':'.$device.':'.$config.':'.$interface);
 				return $bus.':'.$device.':'.$config.':'.$interface;
 			}
 		}
