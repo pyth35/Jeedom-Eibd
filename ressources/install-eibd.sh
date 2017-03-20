@@ -106,6 +106,8 @@ echo 30 > /tmp/compilation_eibd_in_progress
 cd pthsem-2.0.8
 
 echo "Compiliing pthsem..." 
+wget -O config.guess 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.guess;hb=HEAD'
+wget -O config.sub 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.sub;hb=HEAD'
 check_run ./configure --with-mctx-mth=sjlj --with-mctx-dsp=ssjlj --with-mctx-stk=sas --disable-shared
 
 echo 40 > /tmp/compilation_eibd_in_progress
