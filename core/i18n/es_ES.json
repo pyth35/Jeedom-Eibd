@@ -1,57 +1,57 @@
 {
     "plugins\/eibd\/core\/class\/eibd.class.php": {
-        "Read failed": "Read failed",
-        "L'adresse physique doit obligatoirement être renseigné": "L'adresse physique doit obligatoirement être renseigné"
+        "Read failed": "Lectura fallida",
+        "L'adresse physique doit obligatoirement être renseigné": "La dirección física es necesaria"
     },
     "plugins\/eibd\/desktop\/php\/eibd.php": {
-        "Ajouter un équipement": "Ajouter un équipement",
-        "Rechercher": "Rechercher",
-        "Générale": "Générale",
-        "Dupliquer": "Dupliquer",
-        "Nom de l'équipement KNX": "Nom de l'équipement KNX",
-        "Adresse Physique de l'équipement": "Adresse Physique de l'équipement",
-        "Objet parent": "Objet parent",
-        "Catégorie": "Catégorie",
+        "Ajouter un équipement": "Agregar un dispositivo",
+        "Rechercher": "Buscar",
+        "Générale": "General",
+        "Dupliquer": "Duplicar",
+        "Nom de l'équipement KNX": "Nombre del dispositivo KNX",
+        "Adresse Physique de l'équipement": "Dirección física del dispositivo",
+        "Objet parent": "Objeto padre",
+        "Catégorie": "Categoría",
         "Visible": "Visible",
-        "Activer": "Activer",
-        "Commandes": "Commandes",
-        "Ajouter une commande KNX": "Ajouter une commande KNX",
-        "Nom": "Nom",
+        "Activer": "Activar",
+        "Commandes": "Ordenes",
+        "Ajouter une commande KNX": "Agregar un comando KNX",
+        "Nom": "Nombre",
         "Data Point": "Data Point",
         "GAD": "GAD",
-        "Retours d'état": "Retours d'état",
-        "Paramètre": "Paramètre",
-        "Supprimer": "Supprimer",
-        "Sauvegarder": "Sauvegarder"
+        "Retours d'état": "Retorno de estado",
+        "Paramètre": "Parámetros",
+        "Supprimer": "Borrar",
+        "Sauvegarder": "Salvar"
     },
     "plugins\/eibd\/desktop\/js\/eibd.js": {
-        "Bus Moniteur": "Bus Moniteur",
-        "Configurer Jeedom grâce a un export ETS4": "Configurer Jeedom grâce a un export ETS4",
-        "Configurer EIBD": "Configurer EIBD",
-        "Inverser": "Inverser",
-        "Imposer une valeur": "Imposer une valeur",
+        "Bus Moniteur": "Monitor Bus",
+        "Configurer Jeedom grâce a un export ETS4": "Configurar Jeedom exportando desde ETS4",
+        "Configurer EIBD": "Configurar EIBD",
+        "Inverser": "Invertir",
+        "Imposer une valeur": "Imponer un valor",
         "'+value+'": "'+value+'",
-        "Sélèctionner un DPT": "Sélèctionner un DPT",
+        "Sélèctionner un DPT": "Seleccionar un DPT",
         "'+key+'": "'+key+'",
         "'+key+' - '+value[\"Name\"]+'": "'+key+' - '+value[\"Name\"]+'",
         "Name": "Name",
         "GAD": "GAD",
-        "Rechercher une commande": "Rechercher une commande",
-        "Evenement": "Evenement",
+        "Rechercher une commande": "Buscar una orden",
+        "Evenement": "Evento",
         "Visible": "Visible",
-        "Historiser": "Historiser",
+        "Historiser": "Historizar",
         "Min": "Min",
         "Max": "Max",
-        "Unitée": "Unitée",
+        "Unitée": "Unidad",
         "Lifetime cache": "Lifetime cache",
-        "Tester": "Tester",
-        "Dupliquer": "Dupliquer"
+        "Tester": "Prueba",
+        "Dupliquer": "Duplicar"
     },
     "plugins\/eibd\/desktop\/modal\/eibd.busmoniteur.php": {
-        "Pensez bien à activer l'écriture de tous les messages dans la configuration du plugin et à redémarrer le démon une fois cela fait (N'oubliez pas de tout désactiver une fois fini)": "Pensez bien à activer l'écriture de tous les messages dans la configuration du plugin et à redémarrer le démon une fois cela fait (N'oubliez pas de tout désactiver une fois fini)"
+        "Pensez bien à activer l'écriture de tous les messages dans la configuration du plugin et à redémarrer le démon une fois cela fait (N'oubliez pas de tout désactiver une fois fini)": "Asegúrese de activar la escritura de todos los mensajes en la configuración del plugin y reiniciar el demonio después de hacerlo (no olvide de desactivar todocuando termine)"
     },
     "plugins\/eibd\/plugin_info\/info.xml": {
-        "Connecte Jeedom avec votre installation domotique KNX.": "Connecte Jeedom avec votre installation domotique KNX.",
-        "Voir la documentation jointe au plugin": "Voir la documentation jointe au plugin"
+        "Connecte Jeedom avec votre installation domotique KNX.": "Conectar Jeedom con vuestra instalación domotica KNX",
+        "Voir la documentation jointe au plugin": "Consulte la documentación adjunta al plugin"
     }
 }
