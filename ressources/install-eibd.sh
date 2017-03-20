@@ -128,6 +128,8 @@ echo 60 > /tmp/compilation_eibd_in_progress
 cd bcusdk-0.0.5 
 
 echo "Compiliing bcusdk..."
+wget -O config.guess 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.guess;hb=HEAD'
+wget -O config.sub 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.sub;hb=HEAD'
 check_run ./configure --without-pth-test --enable-onlyeibd --enable-eibnetip --enable-eibnetiptunnel --enable-eibnetipserver --enable-groupcache --enable-usb --enable-ft12 --enable-tpuarts
 
 echo 70 > /tmp/compilation_eibd_in_progress
