@@ -48,10 +48,10 @@ function getKnxGadInconue () {
 					.append($("<td>").text(value.dpt))
 					.append($("<td>")));
 			});				
-			$('#table_GadInconue').trigger('update');
+			/*$('#table_GadInconue').trigger('update');
 				setTimeout(function() {
 					getKnxGadInconue()
-				}, 100);
+				}, 100);*/
 			
 		}
 	});
