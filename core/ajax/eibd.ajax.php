@@ -80,11 +80,11 @@ try {
 		$cache = cache::byKey('eibd::CreateNewGad');
 		$value = json_decode($cache->getValue('[]'), true);
 		foreach ($value as $key => $val) {
-		       if ($val['AdresseGroupe'] === init('gad')){
+		       if ($val['AdresseGroupe'] == init('gad')){
 			       if(init('eqLogic')!=false){
-				       	$Equipement=eqLogic::byId(str_replace('#','',init('eqLogic')))
+				       	$Equipement=eqLogic::byId(str_replace('#','',init('eqLogic')));
 					if(is_object($Equipement))
-				      		eibd::AddCommande($Equipement,'Nouvelle_Commande_'.$val['AdresseGroupe'],$val['AdresseGroupe'],'info',$val['dpt'])
+				      		eibd::AddCommande($Equipement,'Nouvelle_Commande_'.$val['AdresseGroupe'],$val['AdresseGroupe'],'info',$val['dpt']);
 			       }
 			       unset($key);
 		       }
