@@ -76,6 +76,17 @@ try {
 	if (init('action') == 'getCacheGadInconue') {
 		ajax::success(cache::byKey('eibd::CreateNewGad')->getValue('[]'));
 	}
+	if (init('action') == 'setCacheGadInconue') {
+		$cache = cache::byKey('eibd::CreateNewGad');
+		$value = json_decode($cache->getValue('[]'), true);
+		foreach ($value as $key => $val) {
+		       if ($val['AdresseGroupe'] === init('gad')){
+			       unset($key);
+		       }
+		}
+		cache::set('eibd::CreateNewGad', json_encode($value), 0);
+		ajax::success("{{Mise a jours de la liste des gad inconnue réalisé avec succes}}");
+	}
 	if (init('action') == 'EtsParser') {
 		if (isset($_FILES['Knxproj'])){
 			ajax::success(eibd::ParserEtsFile($_FILES['Knxproj']['tmp_name']));
