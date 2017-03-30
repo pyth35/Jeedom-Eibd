@@ -46,7 +46,13 @@ function getKnxGadInconue () {
 					.append($("<td>").text(value.AdressePhysique))
 					.append($("<td>").text(value.AdresseGroupe))
 					.append($("<td>").text(value.dpt))
-					.append($("<td>")));
+					.append($("<td>")
+						.append($('<a class="btn btn-success btn-xs Gad pull-right" data-action="save">')
+							.append($('<i class="fa fa-check-circle">'))
+							.text('Sauvegarder'))
+						.append($('<a class="btn btn-danger btn-xs Gad pull-right" data-action="remove">')
+							.append($('<i class="fa fa-minus-circle">'))
+							.text('Supprimer'))));
 			});				
 			/*$('#table_GadInconue').trigger('update');
 				setTimeout(function() {
@@ -55,5 +61,36 @@ function getKnxGadInconue () {
 			
 		}
 	});
-}		   
+}
+$('body').on('click', '.Gad[data-action=save]', function(){
+	var gad=$(this).closest('tr').find('td:eq(2)').text();
+	removeInCache(gad);
+	$(this).closest('tr').remove();
+});
+$('body').on('click', '.Gad[data-action=remove]', function(){
+	var gad=$(this).closest('tr').find('td:eq(2)').text();
+	removeInCache(gad);
+	$(this).closest('tr').remove();
+});	
+function removeInCache(gad){
+	$.ajax({
+		type: 'POST',
+		async: false,
+		url: 'plugins/eibd/core/ajax/eibd.ajax.php',
+		data: {
+			action: 'setCacheGadInconue',
+			gad:gad
+		},
+		dataType: 'json',
+		global: false,
+		error: function(request, status, error) {},
+		success: function(data) {
+			if (data.state != 'ok') {
+				$('#div_alert').showAlert({message: data.result, level: 'danger'});
+				return;
+			}
+			$('#div_alert').showAlert({message: data.result, level: 'success'});	
+		}
+	});
+}
 </script>
