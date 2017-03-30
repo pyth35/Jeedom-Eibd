@@ -64,22 +64,25 @@ function getKnxGadInconue () {
 }
 $('body').on('click', '.Gad[data-action=save]', function(){
 	var gad=$(this).closest('tr').find('td:eq(2)').text();
-	removeInCache(gad);
+	jeedom.cmd.getSelectModal({eqLogic: {eqType_name : ''}}, function (result) {
+		removeInCache(gad,result.human);
+	}); 
 	$(this).closest('tr').remove();
 });
 $('body').on('click', '.Gad[data-action=remove]', function(){
 	var gad=$(this).closest('tr').find('td:eq(2)').text();
-	removeInCache(gad);
+	removeInCache(gad, false);
 	$(this).closest('tr').remove();
 });	
-function removeInCache(gad){
+function removeInCache(gad, destination){
 	$.ajax({
 		type: 'POST',
 		async: false,
 		url: 'plugins/eibd/core/ajax/eibd.ajax.php',
 		data: {
 			action: 'setCacheGadInconue',
-			gad:gad
+			gad:gad,
+			eqLogic:destination
 		},
 		dataType: 'json',
 		global: false,
