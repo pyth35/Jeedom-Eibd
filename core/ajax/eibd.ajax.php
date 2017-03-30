@@ -69,7 +69,7 @@ try {
 			//ajax::success(true);
 		}
 		ajax::success(false);
-	}getCacheGadInconue
+	}
 	if (init('action') == 'getCacheMonitor') {
 		ajax::success(cache::byKey('eibd::Monitor')->getValue('[]'));
 	}
