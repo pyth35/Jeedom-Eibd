@@ -37,6 +37,13 @@ $(function(){
 			}
 		});
 	});
+	$('.GadInconue').on('click', function() {
+		$('#md_modal').dialog({
+			title: "{{Importer les Gad inconnue}}",
+			height: 700,
+			width: 850});
+		$('#md_modal').load('index.php?v=d&modal=eibd.gadInconnue&plugin=eibd&type=eibd').dialog('open');
+	});
 	$('.BusMoniteur').on('click', function() {
 		$('#md_modal').dialog({
 			title: "{{Bus Moniteur}}",
