@@ -79,12 +79,12 @@ if (!isConnect()) {
 					<label class="checkbox-inline"><input type="checkbox" class="configKey" data-l1key="level" checked/>{{3 niveau}}</label>
 				</div>
 			</div>
-			<div class="form-group">
+			<!--div class="form-group">
 				<label class="col-lg-4 control-label">{{Ajouter automatiquement les equipements}}</label>
 				<div class="col-lg-4">
 					<label class="checkbox-inline"><input type="checkbox" class="configKey" data-l1key="autoAddDevice" checked/>{{Automatique}}</label>
 				</div>
-			</div>
+			</div-->
 			<div class="form-group">
 				<label class="col-lg-4 control-label">{{Initialiser les retours d'etat au lancement}}</label>
 				<div class="col-lg-4">
