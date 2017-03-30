@@ -9,12 +9,10 @@ include_file('3rdparty', 'jquery.tablesorter/jquery.tablesorter.widgets.min', 'j
 <table id="table_GadInconue" class="table table-bordered table-condensed tablesorter">
     <thead>
         <tr>
-            <th>{{Date}}</th>
-            <th>{{Mode}}</th>
             <th>{{Source}}</th>
             <th>{{Destination}}</th>
-            <th>{{Data}}</th>
-            <th>{{Valeur}}</th>
+            <th>{{Data Point Type}}</th>
+            <th>{{Parametre}}</th>
         </tr>
     </thead>
     <tbody></tbody>
@@ -42,17 +40,17 @@ function getKnxGadInconue () {
 				$('#div_alert').showAlert({message: data.result, level: 'danger'});
 				return;
 			}
-			$('#table_BusMonitor tbody').html('');
+			$('#table_GadInconue tbody').html('');
 			//alert(data.result);
 			var monitors=jQuery.parseJSON(data.result);
 			jQuery.each(monitors.reverse(),function(key, value) {
+				//"{"Mode":"Write","AdresseGroupe":"7\/2\/0","AdressePhysique":"1.0.7","data":"0x 0","valeur":0,"dpt":"1.xxx"}"
+
 			  $('#table_GadInconue tbody').append($("<tr>")
-					.append($("<td>").text(value.datetime))
-					.append($("<td>").text(value.monitor.Mode))
 					.append($("<td>").text(value.monitor.AdressePhysique))
 					.append($("<td>").text(value.monitor.AdresseGroupe))
-					.append($("<td>").text(value.monitor.data))
-					.append($("<td>").text(value.monitor.valeur)));
+					.append($("<td>").text(value.monitor.dpt))
+					.append($("<td>")));
 			});				
 			$('#table_GadInconue').trigger('update');
 				setTimeout(function() {
