@@ -442,21 +442,30 @@ class eibd extends eqLogic {
 			}
 		}else {
 			$dpt=Dpt::getDptFromData($data["Data"]);
-			if($dpt!=false)
+			if($dpt!=false){
 				$monitor['valeur']=Dpt::DptSelectDecode($dpt, $data["Data"]);
-			else
+				$monitor['dpt']=$dpt;
+				$_parameter=$monitor;
+				self::addCacheNoGad($_parameter);
+			}else
 				$monitor['valeur']="Impossible de convertire la valeur";
 			log::add('eibd', 'debug', 'Aucune commande avec l\'adresse de groupe  '.$monitor['AdresseGroupe'].' n\'a pas été trouvée');
-			if (config::byKey('autoAddDevice', 'eibd') && $monitor['AdressePhysique'] != config::byKey('EibdGad', 'eibd')){
+			/*if (config::byKey('autoAddDevice', 'eibd') && $monitor['AdressePhysique'] != config::byKey('EibdGad', 'eibd')){
 				log::add('eibd', 'debug', 'Création de la commande '.$monitor['AdresseGroupe']);
 				$Equipement=self::AddEquipement('Equipement '.$monitor['AdressePhysique'],$monitor['AdressePhysique']);
 				if($dpt!=false){
 					$Commande=self::AddCommande($Equipement,'Nouvelle_Commande_'.$monitor['AdresseGroupe'],$monitor['AdresseGroupe'],'info',$dpt);
 					$monitor['valeur']=trim(self::UpdateCommande($Commande,$data["Mode"],$data["Data"]));
 				}
-			}
+			}*/
 		}
 		self::addCacheMonitor($monitor);
+	}
+	public static function addCacheNoGad($_parameter) {
+		$cache = cache::byKey('eibd::CreateNewGad');
+		$value = json_decode($cache->getValue('[]'), true);
+		$value[] = array('datetime' => date('d-m-Y H:i:s'), 'monitor' => $_monitor);
+		cache::set('eibd::CreateNewGad', json_encode($_parameter), 0);
 	}
 	public static function addCacheMonitor($_monitor) {
 		$cache = cache::byKey('eibd::Monitor');
