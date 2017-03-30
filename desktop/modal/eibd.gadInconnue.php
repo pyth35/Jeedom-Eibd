@@ -43,9 +43,9 @@ function getKnxGadInconue () {
 			$('#table_GadInconue tbody').html('');
 			jQuery.each(jQuery.parseJSON(data.result),function(key, value) {
 				$('#table_GadInconue tbody').append($("<tr>")
-					.append($("<td>").text(value.monitor.AdressePhysique))
-					.append($("<td>").text(value.monitor.AdresseGroupe))
-					.append($("<td>").text(value.monitor.dpt))
+					.append($("<td>").text(value.AdressePhysique))
+					.append($("<td>").text(value.AdresseGroupe))
+					.append($("<td>").text(value.dpt))
 					.append($("<td>")));
 			});				
 			$('#table_GadInconue').trigger('update');
