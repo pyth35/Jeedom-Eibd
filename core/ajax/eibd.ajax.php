@@ -69,9 +69,12 @@ try {
 			//ajax::success(true);
 		}
 		ajax::success(false);
-	}
+	}getCacheGadInconue
 	if (init('action') == 'getCacheMonitor') {
 		ajax::success(cache::byKey('eibd::Monitor')->getValue('[]'));
+	}
+	if (init('action') == 'getCacheGadInconue') {
+		ajax::success(cache::byKey('eibd::CreateNewGad')->getValue('[]'));
 	}
 	if (init('action') == 'EtsParser') {
 		if (isset($_FILES['Knxproj'])){
