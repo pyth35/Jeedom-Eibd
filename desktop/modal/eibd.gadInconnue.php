@@ -64,7 +64,7 @@ function getKnxGadInconue () {
 }
 $('body').on('click', '.Gad[data-action=save]', function(){
 	var gad=$(this).closest('tr').find('td:eq(2)').text();
-	jeedom.cmd.getSelectModal({eqLogic: {eqType_name : ''}}, function (result) {
+	jeedom.eqLogic.getSelectModal(function (result) {
 		removeInCache(gad,result.human);
 	}); 
 	$(this).closest('tr').remove();
