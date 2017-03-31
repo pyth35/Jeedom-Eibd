@@ -49,13 +49,13 @@ function getKnxGadInconue () {
 					.append($("<td>")
 						.append($('<a class="btn btn-danger btn-xs Gad pull-right" data-action="remove">')
 							.append($('<i class="fa fa-minus-circle">'))
-							.text('Supprimer'))
-						.append($('<a class="btn btn-success btn-xs Gad pull-right" data-action="addEqLogic">')
+							.text('{{Supprimer}}'))
+						.append($('<a class="btn btn-primary btn-xs Gad pull-right" data-action="addEqLogic">')
 							.append($('<i class="fa fa-check-circle">'))
-							.text('Sauvegarder'))
+							.text('{{Ajouter a un equipement}}'))
 						.append($('<a class="btn btn-success btn-xs Gad pull-right" data-action="newEqlogic">')
 							.append($('<i class="fa fa-check-circle">'))
-							.text('Sauvegarder'))));
+							.text('{{Créer un équipement}}'))));
 			});				
 			$('#table_GadInconue').trigger('update');
 			setTimeout(function() {
