@@ -77,6 +77,7 @@ try {
 		ajax::success(cache::byKey('eibd::CreateNewGad')->getValue('[]'));
 	}
 	if (init('action') == 'setCacheGadInconue') {
+		$return=false;
 		$cache = cache::byKey('eibd::CreateNewGad');
 		$value = json_decode($cache->getValue('[]'), true);
 		foreach ($value as $key => $val) {
@@ -86,15 +87,17 @@ try {
 						$Equipement=eibd::AddEquipement('Equipement '.$val['AdressePhysique'],$val['AdressePhysique']);
 					else
 					       	$Equipement=eqLogic::byId(str_replace('#','',init('eqLogic')));
-					if(is_object($Equipement))
+					if(is_object($Equipement)){
 				      		eibd::AddCommande($Equipement,'Nouvelle_Commande_'.$val['AdresseGroupe'],$val['AdresseGroupe'],'info',$val['dpt']);
+						$return=$Equipement->getId();
+					}
 			       }
 			       unset($value[$key]);
 			       array_shift($value);
 		       }
 		}
 		cache::set('eibd::CreateNewGad', json_encode($value), 0);
-		ajax::success("{{Mise a jours de la liste des gad inconnue réalisé avec succes}}");
+		ajax::success($return);
 	}
 	if (init('action') == 'EtsParser') {
 		if (isset($_FILES['Knxproj'])){
