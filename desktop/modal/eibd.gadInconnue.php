@@ -45,7 +45,7 @@ function getKnxGadInconue () {
 				$('#table_GadInconue tbody').append($("<tr>")
 					.append($("<td>").text(value.AdressePhysique))
 					.append($("<td>").text(value.AdresseGroupe))
-					.append($("<td>").text(value.dpt))
+					.append($("<td>").text(value.DataPointType))
 					.append($("<td>")
 						.append($('<a class="btn btn-danger btn-xs Gad pull-right" data-action="remove">')
 							.append($('<i class="fa fa-minus-circle">'))
