@@ -86,7 +86,8 @@ try {
 					if(is_object($Equipement))
 				      		eibd::AddCommande($Equipement,'Nouvelle_Commande_'.$val['AdresseGroupe'],$val['AdresseGroupe'],'info',$val['dpt']);
 			       }
-			       unset($key);
+			       unset($value[$key]);
+			       array_shift($value);
 		       }
 		}
 		cache::set('eibd::CreateNewGad', json_encode($value), 0);
