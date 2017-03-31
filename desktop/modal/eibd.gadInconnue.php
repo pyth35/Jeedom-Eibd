@@ -54,10 +54,10 @@ function getKnxGadInconue () {
 							.append($('<i class="fa fa-minus-circle">'))
 							.text('Supprimer'))));
 			});				
-			/*$('#table_GadInconue').trigger('update');
-				setTimeout(function() {
-					getKnxGadInconue()
-				}, 100);*/
+			$('#table_GadInconue').trigger('update');
+			setTimeout(function() {
+				getKnxGadInconue()
+			}, 1000);
 			
 		}
 	});
