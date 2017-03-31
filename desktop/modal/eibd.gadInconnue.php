@@ -100,7 +100,12 @@ function removeInCache(gad, destination){
 				$('#div_alert').showAlert({message: data.result, level: 'danger'});
 				return;
 			}
-			$('#div_alert').showAlert({message: data.result, level: 'success'});	
+			if(data.result != false){
+				bootbox.confirm('{{Souhaitez vous aller a la page de configuration de l\'équipement}}', function (result) {
+					if (result)
+						$(location).attr('href',$(location).attr('href')+'&id='+data.result)
+				});
+			}
 		}
 	});
 }
