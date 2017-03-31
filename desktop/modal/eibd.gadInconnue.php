@@ -63,14 +63,14 @@ function getKnxGadInconue () {
 	});
 }
 $('body').on('click', '.Gad[data-action=save]', function(){
-	var gad=$(this).closest('tr').find('td:eq(2)').text();
+	var gad=$(this).closest('tr').find('td:eq(1)').text();
 	jeedom.eqLogic.getSelectModal({},function (result) {
-		removeInCache(gad,result.human);
+		removeInCache(gad,result.id);
 	}); 
 	$(this).closest('tr').remove();
 });
 $('body').on('click', '.Gad[data-action=remove]', function(){
-	var gad=$(this).closest('tr').find('td:eq(2)').text();
+	var gad=$(this).closest('tr').find('td:eq(1)').text();
 	removeInCache(gad, false);
 	$(this).closest('tr').remove();
 });	
