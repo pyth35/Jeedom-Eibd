@@ -47,12 +47,15 @@ function getKnxGadInconue () {
 					.append($("<td>").text(value.AdresseGroupe))
 					.append($("<td>").text(value.dpt))
 					.append($("<td>")
-						.append($('<a class="btn btn-success btn-xs Gad pull-right" data-action="save">')
-							.append($('<i class="fa fa-check-circle">'))
-							.text('Sauvegarder'))
 						.append($('<a class="btn btn-danger btn-xs Gad pull-right" data-action="remove">')
 							.append($('<i class="fa fa-minus-circle">'))
-							.text('Supprimer'))));
+							.text('Supprimer'))
+						.append($('<a class="btn btn-success btn-xs Gad pull-right" data-action="addEqLogic">')
+							.append($('<i class="fa fa-check-circle">'))
+							.text('Sauvegarder'))
+						.append($('<a class="btn btn-success btn-xs Gad pull-right" data-action="newEqlogic">')
+							.append($('<i class="fa fa-check-circle">'))
+							.text('Sauvegarder'))));
 			});				
 			$('#table_GadInconue').trigger('update');
 			setTimeout(function() {
@@ -62,11 +65,16 @@ function getKnxGadInconue () {
 		}
 	});
 }
-$('body').on('click', '.Gad[data-action=save]', function(){
+$('body').on('click', '.Gad[data-action=addEqLogic]', function(){
 	var gad=$(this).closest('tr').find('td:eq(1)').text();
 	jeedom.eqLogic.getSelectModal({},function (result) {
 		removeInCache(gad,result.id);
 	}); 
+	$(this).closest('tr').remove();
+});
+$('body').on('click', '.Gad[data-action=newEqlogic]', function(){
+	var gad=$(this).closest('tr').find('td:eq(1)').text();
+	removeInCache(gad,"new");
 	$(this).closest('tr').remove();
 });
 $('body').on('click', '.Gad[data-action=remove]', function(){
