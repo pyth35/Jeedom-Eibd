@@ -57,10 +57,11 @@ function getKnxBusMonitor () {
 					.append($("<td>").text(value.monitor.valeur)));
 			});				
 			$('#table_BusMonitor').trigger('update');
+			if ($('#md_modal').dialog('isOpen') === true) {
 				setTimeout(function() {
 					getKnxBusMonitor()
 				}, 100);
-			
+			}
 		}
 	});
 }		   
