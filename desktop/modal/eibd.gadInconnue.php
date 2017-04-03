@@ -58,10 +58,11 @@ function getKnxGadInconue () {
 							.text('{{Créer un équipement}}'))));
 			});				
 			$('#table_GadInconue').trigger('update');
-			setTimeout(function() {
-				getKnxGadInconue()
-			}, 1000);
-			
+			if ($('#md_modal').dialog('isOpen') === true) {
+				setTimeout(function() {
+					getKnxGadInconue()
+				}, 1000);
+			}
 		}
 	});
 }
