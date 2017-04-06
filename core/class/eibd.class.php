@@ -464,10 +464,14 @@ class eibd extends eqLogic {
 	public static function addCacheNoGad($_parameter) {
 		$cache = cache::byKey('eibd::CreateNewGad');
 		$value = json_decode($cache->getValue('[]'), true);
-		foreach ($value as $key => $val) {
+		$key = array_search($_parameter['AdresseGroupe'], array_column($value, 'AdresseGroupe'));
+		if ($key != false)
+			$value[$key]['value']=$_parameter['value'];
+		else
+		/*foreach ($value as $key => $val) {
 		       if ($val['AdresseGroupe'] === $_parameter['AdresseGroupe'])
 			       return;
-		}
+		}*/
 		       $value[] = $_parameter;
 		cache::set('eibd::CreateNewGad', json_encode($value), 0);
 	}
