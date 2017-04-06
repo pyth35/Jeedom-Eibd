@@ -439,7 +439,7 @@ class eibd extends eqLogic {
 		if(count($commandes)>0){
 			foreach($commandes as $Commande){
 				$monitor['valeur']=trim(self::UpdateCommande($Commande,$data["Mode"],$data["Data"]));
-				$monitor['DataPointType']=$Commande->getLogicalId();;
+				$monitor['DataPointType']=$Commande->getConfiguration('KnxObjectType');
 			}
 		}else {
 			$dpt=Dpt::getDptFromData($data["Data"]);
