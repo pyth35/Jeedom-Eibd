@@ -52,8 +52,8 @@ function getKnxBusMonitor () {
 					.append($("<td>").text(value.monitor.Mode))
 					.append($("<td>").text(value.monitor.AdressePhysique))
 					.append($("<td>").text(value.monitor.AdresseGroupe))
-					.append($("<td>").text(value.monitor.DataPointType))
 					.append($("<td>").text(value.monitor.data))
+					.append($("<td>").text(value.monitor.DataPointType))
 					.append($("<td>").text(value.monitor.valeur)));
 			});				
 			$('#table_BusMonitor').trigger('update');
