@@ -12,7 +12,8 @@ include_file('3rdparty', 'jquery.tablesorter/jquery.tablesorter.widgets.min', 'j
             <th>{{Source}}</th>
             <th>{{Destination}}</th>
             <th>{{Data Point Type}}</th>
-            <th>{{Parametre}}</th>
+            <th>{{Derniere valeur}}</th>
+            <th>{{Action sur cette adresse de groupe}}</th>
         </tr>
     </thead>
     <tbody></tbody>
@@ -46,6 +47,7 @@ function getKnxGadInconue () {
 					.append($("<td>").text(value.AdressePhysique))
 					.append($("<td>").text(value.AdresseGroupe))
 					.append($("<td>").text(value.DataPointType))
+					.append($("<td>").text(value.valeur))
 					.append($("<td>")
 						.append($('<a class="btn btn-danger btn-xs Gad pull-right" data-action="remove">')
 							.append($('<i class="fa fa-minus-circle">'))
