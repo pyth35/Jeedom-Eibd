@@ -74,17 +74,21 @@ if (!isConnect()) {
 		<legend>Option</legend>
 		<fieldset>
 			<div class="form-group">
-				<label class="col-lg-4 control-label">{{Adresse de groupe 2 ou 3 niveau}}</label>
+				<label class="col-lg-4 control-label" >{{Niveau de Gad}}</label>
 				<div class="col-lg-4">
-					<label class="checkbox-inline"><input type="checkbox" class="configKey" data-l1key="level" checked/>{{3 niveau}}</label>
+					<select class="configKey form-control" data-l1key="level">
+						<option value="1">{{Gad a 1 niveau}}</option>
+						<option value="2">{{Gad a 2 niveaux}}</option>
+						<option value="3">{{Gad a 2 niveaux}}</option>
+					</select>
 				</div>
 			</div>
-			<div class="form-group">
+			<!--div class="form-group">
 				<label class="col-lg-4 control-label">{{Ajouter automatiquement les equipements}}</label>
 				<div class="col-lg-4">
 					<label class="checkbox-inline"><input type="checkbox" class="configKey" data-l1key="autoAddDevice" checked/>{{Automatique}}</label>
 				</div>
-			</div>
+			</div-->
 			<div class="form-group">
 				<label class="col-lg-4 control-label">{{Initialiser les retours d'etat au lancement}}</label>
 				<div class="col-lg-4">

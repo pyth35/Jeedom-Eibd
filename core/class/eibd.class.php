@@ -274,10 +274,17 @@ class eibd extends eqLogic {
 		return sprintf ("%d.%d.%d", ($addr >> 12) & 0x0f, ($addr >> 8) & 0x0f, $addr & 0xff);
 	}
 	private static function formatgaddr ($addr)	{
-		if (config::byKey('level', 'eibd'))
-			return sprintf ("%d/%d/%d", ($addr >> 11) & 0x1f, ($addr >> 8) & 0x07,$addr & 0xff);
-		else
-			return sprintf ("%d/%d", ($addr >> 11) & 0x1f,$addr & 0x7ff);
+		switch(config::byKey('level', 'eibd')){
+			case '3':
+				return sprintf ("%d/%d/%d", ($addr >> 11) & 0x1f, ($addr >> 8) & 0x07,$addr & 0xff);
+			break;
+			case '2':
+				return sprintf ("%d/%d", ($addr >> 11) & 0x1f,$addr & 0x7ff);
+			break;
+			case '1':
+				return sprintf ("%d", $addr);
+			break;
+		}
 	}
 	public static function EibdRead($addr){
 		$host=config::byKey('EibdHost', 'eibd');
@@ -439,24 +446,40 @@ class eibd extends eqLogic {
 		if(count($commandes)>0){
 			foreach($commandes as $Commande){
 				$monitor['valeur']=trim(self::UpdateCommande($Commande,$data["Mode"],$data["Data"]));
+				$monitor['DataPointType']=$Commande->getConfiguration('KnxObjectType');
 			}
 		}else {
 			$dpt=Dpt::getDptFromData($data["Data"]);
-			if($dpt!=false)
+			if($dpt!=false){
 				$monitor['valeur']=Dpt::DptSelectDecode($dpt, $data["Data"]);
-			else
+				$monitor['DataPointType']=$dpt;
+				self::addCacheNoGad($monitor);
+			}else
 				$monitor['valeur']="Impossible de convertire la valeur";
 			log::add('eibd', 'debug', 'Aucune commande avec l\'adresse de groupe  '.$monitor['AdresseGroupe'].' n\'a pas été trouvée');
-			if (config::byKey('autoAddDevice', 'eibd') && $monitor['AdressePhysique'] != config::byKey('EibdGad', 'eibd')){
+			/*if (config::byKey('autoAddDevice', 'eibd') && $monitor['AdressePhysique'] != config::byKey('EibdGad', 'eibd')){
 				log::add('eibd', 'debug', 'Création de la commande '.$monitor['AdresseGroupe']);
 				$Equipement=self::AddEquipement('Equipement '.$monitor['AdressePhysique'],$monitor['AdressePhysique']);
 				if($dpt!=false){
 					$Commande=self::AddCommande($Equipement,'Nouvelle_Commande_'.$monitor['AdresseGroupe'],$monitor['AdresseGroupe'],'info',$dpt);
 					$monitor['valeur']=trim(self::UpdateCommande($Commande,$data["Mode"],$data["Data"]));
 				}
-			}
+			}*/
 		}
 		self::addCacheMonitor($monitor);
+	}
+	public static function addCacheNoGad($_parameter) {
+		$cache = cache::byKey('eibd::CreateNewGad');
+		$value = json_decode($cache->getValue('[]'), true);
+		foreach ($value as $key => $val) {
+		       if ($val['AdresseGroupe'] === $_parameter['AdresseGroupe']){
+			       $value[$key]['value']=$_parameter['value'];
+			       cache::set('eibd::CreateNewGad', json_encode($value), 0);
+			       return;
+		       }
+		}
+		$value[] = $_parameter;
+		cache::set('eibd::CreateNewGad', json_encode($value), 0);
 	}
 	public static function addCacheMonitor($_monitor) {
 		$cache = cache::byKey('eibd::Monitor');
@@ -750,22 +773,23 @@ class eibd extends eqLogic {
 			closedir($dh);
 		}	
 	}
-	private function AddCommandeETSParse($Projet,$ComObjectInstanceRef,$Equipement,$type){
+	private function AddCommandeETSParse($Projet,$ComObjectInstanceRef,$NewGad,$type){
 		foreach($ComObjectInstanceRef->getElementsByTagName($type) as $Commande){
 			$GroupAddressRefId=$Commande->getAttribute('GroupAddressRefId');
 			foreach($Projet->getElementsByTagName('GroupRange') as $GroupRange){
 				foreach($GroupRange->getElementsByTagName('GroupAddress') as $GroupAddress){
-					$GroupAddressName=$GroupAddress->getAttribute('Name');
+					$NewGad['cmdName']=$GroupAddress->getAttribute('Name');
 					$GroupAddressId=$GroupAddress->getAttribute('Id');
 					if ($GroupAddressId!=""){
 						if ($GroupAddressId == $GroupAddressRefId){
 							$addr=$GroupAddress->getAttribute('Address');
-							$AdressGroup=sprintf( "%d/%d/%d", ($addr >> 11) & 0xf, ($addr >> 8) & 0x7, $addr & 0xff);
+							$NewGad['AdresseGroupe']=sprintf( "%d/%d/%d", ($addr >> 11) & 0xf, ($addr >> 8) & 0x7, $addr & 0xff);
 							if($type == 'send')
-								$type='action';
+								$NewGad['cmdType']='action';
 							else
-								$type='info';
-							$newCommande=self::AddCommande($Equipement,$GroupAddressName,$AdressGroup,$type,$DatapointType);
+								$NewGad['cmdType']='info';
+							self::addCacheNoGad($NewGad);
+							/*$newCommande=self::AddCommande($Equipement,$GroupAddressName,$AdressGroup,$type,$DatapointType);
 							foreach(eqLogic::byLogicalId($AdressGroup) as $Cmd){
 								if($Cmd!=$newCommande){
 									if($Cmd->getType() == 'info'){
@@ -776,7 +800,7 @@ class eibd extends eqLogic {
 										$Cmd->save();
 									}
 								}
-							}
+							}*/
 						}
 					}
 				}
@@ -790,7 +814,7 @@ class eibd extends eqLogic {
 		$Projet = new DomDocument();
 		if ($Projet->load($ProjetFile)){ // XML décrivant le projet
 			foreach($Projet->getElementsByTagName('Area') as $Area){
-				$AreaName=$Area->getAttribute('Name');
+				$Equipement['AreaName']=$Area->getAttribute('Name');
 				$AreaAddress=$Area->getAttribute('Address');
 				foreach($Area->getElementsByTagName('Line') as $Line){
 					$LineAddress=$Line->getAttribute('Address');
@@ -799,27 +823,25 @@ class eibd extends eqLogic {
 						$DeviceProductRefId=$Device->getAttribute('ProductRefId');
 						if ($DeviceProductRefId != ''){
 							$DeviceAddress=$Device->getAttribute('Address');
-							$PhysicalAdress=$AreaAddress.'.'.$LineAddress.'.'.$DeviceAddress;
+							$Equipement['AdressePhysique']=$AreaAddress.'.'.$LineAddress.'.'.$DeviceAddress;
 							$DossierCataloge=$dir . substr($DeviceProductRefId,0,6).'/Catalog.xml';
 							$Cataloge = new DomDocument();
 							if ($Cataloge->load($DossierCataloge)) {//XMl décrivant les équipements
 								foreach($Cataloge->getElementsByTagName('CatalogItem') as $CatalogItem){
 									if ($DeviceProductRefId==$CatalogItem->getAttribute('ProductRefId'))
-										$DeviceName=$CatalogItem->getAttribute('Name'). " - ".$PhysicalAdress;
+										$Equipement['DeviceName']=$CatalogItem->getAttribute('Name'). " - ".$PhysicalAdress;
 								}
 							}
 							else{
-								$DeviceName= "No name - ".$PhysicalAdress;
+								$Equipement['DeviceName']= "No name - ".$PhysicalAdress;
 							}
 							//Creation d'un equipement dans Jeedom
-							$Equipement=self::AddEquipement($DeviceName,$PhysicalAdress);
+							//$Equipement=self::AddEquipement($DeviceName,$PhysicalAdress);
 							foreach($Device->getElementsByTagName('ComObjectInstanceRefs') as $ComObjectInstanceRefs){
 								foreach($ComObjectInstanceRefs->getElementsByTagName('ComObjectInstanceRef') as $ComObjectInstanceRef){
 									$DataPointType=explode('-',$ComObjectInstanceRef->getAttribute('DatapointType'));
 									if ($DataPointType[1] >0)
-										$DatapointType=$DataPointType[1].'.'.sprintf('%1$03d',$DataPointType[2]);
-									else
-										$DatapointType='aucun';
+										$Equipement['DataPointType']=$DataPointType[1].'.'.sprintf('%1$03d',$DataPointType[2]);
 									self::AddCommandeETSParse($Projet,$ComObjectInstanceRef,$Equipement,'Receive');
 									self::AddCommandeETSParse($Projet,$ComObjectInstanceRef,$Equipement,'Send');
 								}

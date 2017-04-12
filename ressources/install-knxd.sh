@@ -81,47 +81,28 @@ echo 20 > /tmp/compilation_eibd_in_progress
 echo "*****************************************************************************************************"
 echo "*                                Installation des dependances                                       *"
 echo "*****************************************************************************************************"
-#apt-get update --yes -y -qq
-#apt-get upgrade --yes -y -qq
-apt-get install --yes -y -qq git-core 
-apt-get install --yes -y -qq build-essential 
-apt-get install --yes -y -qq debhelper 
-apt-get install --yes -y -qq cdbs 
-apt-get install --yes -y -qq autoconf 
-apt-get install --yes -y -qq automake 
-apt-get install --yes -y -qq libtool libev-dev 
-apt-get install --yes -y -qq libusb-1.0-0-dev 
-apt-get install --yes -y -qq libsystemd-daemon-dev 
-apt-get install --yes -y -qq dh-systemd 
-apt-get install --yes -y -qq pkg-config 
+apt-get update --yes -y -qq
+apt-get install debhelper --yes -y -qq
+apt-get install cdbs --yes -y -qq
+apt-get install automake --yes -y -qq
+apt-get install libtool --yes -y -qq
+apt-get install libusb-1.0-0-dev --yes -y -qq
+apt-get install git-core --yes -y -qq
+apt-get install build-essential --yes -y -qq
+apt-get install libsystemd-daemon-dev --yes -y -qq
+apt-get install dh-systemd --yes -y -qq
+apt-get install libev-dev --yes -y -qq
+apt-get install llibsystemd-dev --yes -y -qq
+apt-get install lcmake --yes -y -qq
+
 echo 30 > /tmp/compilation_eibd_in_progress
-echo "*****************************************************************************************************"
-echo "*                        Installation de PTHSEM V2.0.8 libraries                                    *"
-echo "*****************************************************************************************************"
-sudo apt-get install cdbs --yes -y -qq
-wget https://sourceforge.net/projects/bcusdk/files/pthsem/pthsem_2.0.8.tar.gz/download -O pthsem_2.0.8.tar.gz
-tar xzf pthsem_2.0.8.tar.gz
-echo 35 > /tmp/compilation_eibd_in_progress
-cd pthsem-2.0.8
-dpkg-buildpackage -b -uc
-echo 40 > /tmp/compilation_eibd_in_progress
-cd ..
-dpkg -i libpthsem*.deb
-mkdir -p /etc/eibd
-chmod 777 /etc/eibd
-echo "v2.0.8" > /etc/eibd/pthsem_VERSION
-echo 50 > /tmp/compilation_eibd_in_progress
 echo "*****************************************************************************************************"
 echo "*                                      Installation de KnxD                                         *"
 echo "*****************************************************************************************************"
-#test -d libfmt || git clone https://github.com/fmtlib/fmt libfmt
-#cd libfmt
-#git pull
-#cmake .
-#make fmt
 git clone https://github.com/knxd/knxd.git
 echo 55 > /tmp/compilation_eibd_in_progress
 cd knxd
+git checkout stable
 dpkg-buildpackage -b -uc -d
 echo 70 > /tmp/compilation_eibd_in_progress
 cd ..

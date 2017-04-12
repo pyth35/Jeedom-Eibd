@@ -6,21 +6,6 @@ include_file('3rdparty', 'jquery.tablesorter/theme.bootstrap', 'css');
 include_file('3rdparty', 'jquery.tablesorter/jquery.tablesorter.min', 'js');
 include_file('3rdparty', 'jquery.tablesorter/jquery.tablesorter.widgets.min', 'js');
 ?>
-<!--div>
-	Sélectionner le nombre de ligne affichée
-	<select id="NbLigne">
-		<option value=20>20</option>
-		<option value=30>30</option>
-		<option value=40>40</option>
-		<option value=50>50</option>
-		<option value=60>60</option>
-		<option value=70>70</option>
-		<option value=80>80</option>
-		<option value=90>90</option>
-		<option value=100>100</option>
-	</select>
-</div>
-<div class="tempLog"></div-->
 <table id="table_BusMonitor" class="table table-bordered table-condensed tablesorter">
     <thead>
         <tr>
@@ -29,6 +14,7 @@ include_file('3rdparty', 'jquery.tablesorter/jquery.tablesorter.widgets.min', 'j
             <th>{{Source}}</th>
             <th>{{Destination}}</th>
             <th>{{Data}}</th>
+            <th>{{DPT}}</th>
             <th>{{Valeur}}</th>
         </tr>
     </thead>
@@ -67,13 +53,15 @@ function getKnxBusMonitor () {
 					.append($("<td>").text(value.monitor.AdressePhysique))
 					.append($("<td>").text(value.monitor.AdresseGroupe))
 					.append($("<td>").text(value.monitor.data))
+					.append($("<td>").text(value.monitor.DataPointType))
 					.append($("<td>").text(value.monitor.valeur)));
 			});				
 			$('#table_BusMonitor').trigger('update');
+			if ($('#md_modal').dialog('isOpen') === true) {
 				setTimeout(function() {
 					getKnxBusMonitor()
 				}, 100);
-			
+			}
 		}
 	});
 }		   
