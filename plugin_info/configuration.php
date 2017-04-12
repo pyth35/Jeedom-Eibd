@@ -79,7 +79,7 @@ if (!isConnect()) {
 					<select class="configKey form-control" data-l1key="level">
 						<option value="1">{{Gad a 1 niveau}}</option>
 						<option value="2">{{Gad a 2 niveaux}}</option>
-						<option value="3">{{Gad a 2 niveaux}}</option>
+						<option value="3">{{Gad a 3 niveaux}}</option>
 					</select>
 				</div>
 			</div>
