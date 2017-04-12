@@ -274,10 +274,17 @@ class eibd extends eqLogic {
 		return sprintf ("%d.%d.%d", ($addr >> 12) & 0x0f, ($addr >> 8) & 0x0f, $addr & 0xff);
 	}
 	private static function formatgaddr ($addr)	{
-		if (config::byKey('level', 'eibd'))
-			return sprintf ("%d/%d/%d", ($addr >> 11) & 0x1f, ($addr >> 8) & 0x07,$addr & 0xff);
-		else
-			return sprintf ("%d/%d", ($addr >> 11) & 0x1f,$addr & 0x7ff);
+		switch(config::byKey('level', 'eibd')){
+			case '3':
+				return sprintf ("%d/%d/%d", ($addr >> 11) & 0x1f, ($addr >> 8) & 0x07,$addr & 0xff);
+			break;
+			case '2':
+				return sprintf ("%d/%d", ($addr >> 11) & 0x1f,$addr & 0x7ff);
+			break;
+			case '1':
+				return sprintf ("%d", $addr);
+			break;
+		}
 	}
 	public static function EibdRead($addr){
 		$host=config::byKey('EibdHost', 'eibd');
