@@ -121,5 +121,7 @@ echo 97 > /tmp/compilation_eibd_in_progress
 systemctl reset-failed
 echo 99 > /tmp/compilation_eibd_in_progress
 rm /lib/systemd/system/knxd.service
+mkdir /etc/eibd/
+chmod 777 /etc/eibd/
 echo "v0.10" > /etc/eibd/knxd_VERSION
 rm /tmp/compilation_eibd_in_progress
