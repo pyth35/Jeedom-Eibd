@@ -50,7 +50,6 @@
 					"mobile":"light"
 				},
 				"display":{
-				"generic_type":"LIGHT_ON"
 				},
 				"value":"Etat",
 				"isVisible":"1"
