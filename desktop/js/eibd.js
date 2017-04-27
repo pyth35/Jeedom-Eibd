@@ -7,7 +7,7 @@ $(function(){
 		var form=$(this).closest('form');
 		var cmds=$('<div class="col-xs-">');
 		$.each(template[$(this).value()].cmd,function(index, value){
-			cmds.append($('<div class="form-group">')
+			cmds.append($('<div class="form-horizontal">')
 				.append($('<label class="col-xs-6 control-label" >')
 					.text(value.name))
 				.append($('<div class="col-xs-5">')
