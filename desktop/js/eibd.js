@@ -34,11 +34,9 @@ $(function(){
 					.append($('<label class="col-xs-5 control-label" >')
 						.text('{{Template de votre équipement}}'))
 					.append($('<div class="col-xs-3">')
-						.append($('<select class="EqLogicTemplateAttr form-control" data-l1key="template">')
-							.append($('<option>')
-								.text('{{Il n\'existe aucun template}}')))))));				
+						.append($('<select class="EqLogicTemplateAttr form-control" data-l1key="template">'))))));				
 			$.each(template,function(index, value){
-				message.find('.EqLogicTemplateAttr[data-l1key=template]').html('')
+				message.find('.EqLogicTemplateAttr[data-l1key=template]')
 					.append($('<option value="'+index+'">')
 						.text(value.name))
 			});
