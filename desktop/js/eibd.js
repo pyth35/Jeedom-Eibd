@@ -33,11 +33,11 @@ $(function(){
 					$('#div_alert').showAlert({message: 'Aucun message recu', level: 'error'});
 					return;
 				}
-				/*$.each(data.result,function(index, value){
+				$.each(data.result,function(index, value){
 					$('.EqLogicTemplateAttr[data-l1key=template]').html('')
-						.append($('<option value="'+value+'">')
-							.text(value))
-				});*/
+						.append($('<option value="'+index+'">')
+							.text(value.name))
+				});
 			}
 		});
 		bootbox.dialog({
