@@ -34,7 +34,7 @@
 				},
 				"isVisible":"1"
 			},{
-				"name":"Température réel",
+				"name":"Température ambiante",
 				"type":"info",
 				"subType":"numeric",
 				"isHistorized":"1",
@@ -62,7 +62,7 @@
 				},
 				"isVisible":"1"
 			},{
-				"name":"Température consigne - Information",
+				"name":"Température consigne",
 				"type":"info",
 				"subType":"numeric",
 				"isHistorized":"1",
@@ -90,7 +90,7 @@
 				},
 				"isVisible":"0"
 			},{
-				"name":"Température consigne",
+				"name":"Consigne",
 				"type":"action",
 				"subType":"slider",
 				"isHistorized":"0",
@@ -116,10 +116,10 @@
 					"icon":"",
 					"generic_type":"THERMOSTAT_SET_SETPOINT"
 				},
-				"value":"Température consigne - Information",
+				"value":"Température consigne",
 				"isVisible":"1"
 			},{
-				"name":"Mode de fonctionnement - Information",
+				"name":"Mode de fonctionnement",
 				"type":"info",
 				"subType":"string",
 				"isHistorized":"0",
@@ -147,7 +147,7 @@
 				},
 				"isVisible":"0"
 			},{
-				"name":"Mode de fonctionnement",
+				"name":"Mode",
 				"type":"action",
 				"subType":"message",
 				"isHistorized":"1",
@@ -173,7 +173,7 @@
 					"icon":"",
 					"generic_type":"THERMOSTAT_SET_MODE"
 				},
-				"value":"Mode de fonctionnement - Information",
+				"value":"Mode de fonctionnement",
 				"isVisible":"1"
 			}
 		]
