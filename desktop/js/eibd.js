@@ -107,14 +107,6 @@ $(function(){
 			}
 		});
 	});
-	if (getUrlVars('wizard') == 1) {
-		$('#md_modal').dialog({
-			title: "{{Wizard}}",
-			height: 700,
-			width: 850});
-		wizard();
-		$('#md_modal').dialog('open');
-		}
 	$('.log').on('click', function() {
 		$('#md_modal').dialog({
 			title: "{{log}}",
@@ -122,27 +114,6 @@ $(function(){
 			width: 850});
 		$('#md_modal').load('index.php?v=d&modal=eibd.log&plugin=eibd&type=eibd').dialog('open');
 		});
-	$('.Wizard').on('click', function() {
-		jeedom.eqLogic.save({
-			type: eqType ,
-			eqLogics: [{name: 'Nouvel Equipement'}],
-			error: function (error) {
-				  $('#div_alert').showAlert({message: error.message, level: 'danger'});
-				},
-			success: function (eqLogicData) {
-				var vars = getUrlVars();
-				var url = 'index.php?';
-				for (var i in vars) {
-					if (i != 'id' && i != 'saveSuccessFull' && i != 'removeSuccessFull') {
-						url += i + '=' + vars[i].replace('#', '') + '&';
-					}
-				}
-				url += 'id=' + eqLogicData.id + '&saveSuccessFull=1&wizard=1';
-				modifyWithoutSave = false;
-				loadPage(url);
-			}
-		});
-	});
 	$('.GadInconue').on('click', function() {
 		$('#md_modal').dialog({
 			title: "{{Importer les Gad inconnue}}",
@@ -417,15 +388,10 @@ function addCmdToTable(_cmd) {
   	tr.append($('<td>')
 		.append($('<i class="fa fa-minus-circle pull-right cmdAction cursor" data-action="remove">'))
 		.append($('<i class="fa fa-arrows-v pull-left cursor bt_sortable" style="margin-top: 9px;">')));
-	tr.append($('<td class="wizard">')
-		.append($('<div>')
+	tr.append($('<td>')
 			.append($('<input type="hidden" class="cmdAttr form-control input-sm" data-l1key="id">'))
-			.append($('<input class="cmdAttr form-control input-sm" data-l1key="name" value="' + init(_cmd.name) + '" placeholder="{{Name}}" title="Name">')))
-		.append($('<div>')
-			.append($('<a class="cmdAction btn btn-default btn-sm" data-l1key="chooseIcon">')
-				.append($('<i class="fa fa-flag">')).text('Icone'))
-			.append($('<span class="cmdAttr" data-l1key="display" data-l2key="icon" style="margin-left : 10px;">'))));
-	tr.append($('<td class="wizard">')
+			.append($('<input class="cmdAttr form-control input-sm" data-l1key="name" value="' + init(_cmd.name) + '" placeholder="{{Name}}" title="Name">'))));
+	tr.append($('<td>')
 		.append($('<label>')
 			.text('{{Data Point Type}}')
 			.append($('<sup>')
@@ -439,7 +405,7 @@ function addCmdToTable(_cmd) {
 				.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
 					.attr('title','Saisisez l\'adresse de groupe de votre commande KNX'))))
 		.append($('<input class="cmdAttr form-control input-sm" data-l1key="logicalId" placeholder="{{GAD}}" title="GAD">')));
-	tr.append($('<td class="expertModeVisible wizard">')
+	tr.append($('<td class="expertModeVisible">')
 		.append($('<div>')
 			.append($('<span>')
 				.append($('<label class="checkbox-inline">')
@@ -464,7 +430,7 @@ function addCmdToTable(_cmd) {
 					.append($('<sup>')
 						.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
 							.attr('title','Souhaitez vous transmetre une information sur ce groupe d\'adresse')))))));	
-	tr.append($('<td class="wizard">')
+	tr.append($('<td>')
 		.append($('<div>')
 			.append($('<span>')
 				.append($('<label class="checkbox-inline">')
@@ -522,7 +488,7 @@ function addCmdToTable(_cmd) {
 				.append($('<div class="input-group">')
 					.append($('<select class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="KnxObjectValue">')
 						.append(DptValue(init(_cmd.configuration.KnxObjectType)))))));
-	tr.append($('<td class="wizard">')	
+	tr.append($('<td>')	
 		.append($('<div class="parametre">')
 			.append($('<span class="type" type="' + init(_cmd.type) + '">')
 				.append(jeedom.cmd.availableType()))
@@ -580,102 +546,4 @@ function addCmdToTable(_cmd) {
 	$('#table_cmd tbody tr:last .cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').trigger('change');
 	$('#table_cmd tbody tr:last').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue] option[value="'+init(_cmd.configuration.KnxObjectValue)+'"]').prop('selected', true);		
 	jeedom.cmd.changeType($('#table_cmd tbody tr:last'), init(_cmd.subType));
-}
-function wizard(){
-	$('#md_modal').append($('<div>').addClass('eqLogic'));
-	$('.wizard').each(function() {
-		//Ajouter un test si mode expert ?
-		$('#md_modal').find('.eqLogic').append(
-			$('<div>').addClass('stepWizard')
-				.append($('<table>')
-					.append($('<tr>')
-						.append($('<td colspan="2">')
-							.append($('<center>')
-								.text($(this).find('.control-label').text()))))
-					.append($('<tr>')
-						.append($('<td>')
-							.append($('<center>')
-								.append($(this).find('.form-control').clone())))
-						.append($('<td>')
-							.append($('<center>')
-								.text($(this).find('sup i').attr('title')))))
-					.append($('<tr>')
-						.append($('<td>')
-							.append($('<center>')
-								.append($('<a class="btn btn-success btn-sm wizardAction" data-action="prev">')
-									.append($('<i class="fa fa-plus-circle">'))
-									.text('{{Précédent}}'))
-								.append($('<a class="btn btn-success btn-sm wizardAction" data-action="next">')
-									.append($('<i class="fa fa-plus-circle">'))
-									.text('{{Suivant}}'))))
-						.append($('<td>')
-							.append($('<center>')
-								.append($('<a class="btn btn-success btn-sm wizardAction" data-action="cmd">')
-									.append($('<i class="fa fa-plus-circle">'))
-									.text('{{Ajouter une commande}}').hide())
-								.append($('<a class="btn btn-success btn-sm wizardAction" data-action="save">')
-									.append($('<i class="fa fa-plus-circle">'))
-									.text('{{Sauvgarder}}').hide()))))));
-
-	});
-	$('#md_modal .data-info').show();
-	$('.stepWizard').hide();
-	$('.stepWizard').first().show();
-	$('.stepWizard').first().find('.wizardAction[data-action=prev]').hide();
-	$('.stepWizard').last().find('.wizardAction[data-action=next]').hide();
-	$('.stepWizard').last().find('.wizardAction[data-action=save]').show();
-	$('.stepWizard').last().find('.wizardAction[data-action=cmd]').show();
-	$('#md_modal').on('click','.wizardAction[data-action=prev]', function(){
-		$(this).closest('.stepWizard').hide();
-		$(this).closest('.stepWizard').prev().show();
-	});
-	$('#md_modal').on('click','.wizardAction[data-action=next]', function(){
-		$(this).closest('.stepWizard').hide();
-		$(this).closest('.stepWizard').next().show();
-	});
-	$('#md_modal').on('click','.wizardAction[data-action=save]', function(){
-		var _eqLogic=$('#md_modal').getValues('.eqLogicAttr')[0];
-		$('.eqLogic').setValues(_eqLogic, '.eqLogicAttr');
-		$('#md_modal .cmd').each(function(){	
-			var _cmd=$(this).getValues('.cmdAttr')[0];
-			addCmdToTable(_cmd);
-		});
-		$('#md_modal').dialog('close');
-		$('#md_modal').html('');
-		//$('.eqLogicAction[data-action=save]').trigger('click');
-	});
-	$('#md_modal').on('click','.wizardAction[data-action=cmd]', function(){
-		$('.stepWizard').last().find('.wizardAction[data-action=next]').show();
-		$(this).closest('.stepWizard').hide();
-		$(this).closest('.stepWizard').next().show();
-		addCmdToTable();
-		$('#md_modal').append($('<div>').addClass('cmd'));
-		$('#table_cmd tbody tr:last .wizard').each(function() {
-			//Ajouter un test si mode expert ?
-			$('#md_modal').find('.cmd').append(
-				$('<div>').addClass('stepWizard')
-					.append($(this).children().clone())
-					.append($('<div>')
-						.append($('<center>')
-							.append($('<a class="btn btn-success btn-sm wizardAction" data-action="prev">')
-								.append($('<i class="fa fa-plus-circle">'))
-								.text('{{Précédent}}'))
-							.append($('<a class="btn btn-success btn-sm wizardAction" data-action="next">')
-								.append($('<i class="fa fa-plus-circle">'))
-								.text('{{Suivant}}'))
-							.append($('<a class="btn btn-success btn-sm wizardAction" data-action="cmd">')
-								.append($('<i class="fa fa-plus-circle">'))
-								.text('{{Ajouter une commande}}').hide())
-							.append($('<a class="btn btn-success btn-sm wizardAction" data-action="save">')
-								.append($('<i class="fa fa-plus-circle">'))
-								.text('{{Sauvgarder}}').hide()))));
-		});
-		$('#table_cmd tbody').html('');
-		$('#md_modal .data-info').show();
-		$('.stepWizard').hide();
-		$('.cmd').find('.stepWizard').first().show();
-		$('.stepWizard').last().find('.wizardAction[data-action=next]').hide();
-		$('.stepWizard').last().find('.wizardAction[data-action=save]').show();
-		$('.stepWizard').last().find('.wizardAction[data-action=cmd]').show();
-	});
 }
