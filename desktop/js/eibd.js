@@ -5,9 +5,9 @@ $(function(){
 	$('body').off('change').on('change','.EqLogicTemplateAttr[data-l1key=template]', function () {
 		//Creation du formulaire du template
 		var form=$(this).closest('form');
-		var cmds=$('<div class="col-xs-">');
+		var cmds=$('<div class="form-horizontal">');
 		$.each(template[$(this).value()].cmd,function(index, value){
-			cmds.append($('<div class="form-horizontal">')
+			cmds.append($('<div class="form-group">')
 				.append($('<label class="col-xs-6 control-label" >')
 					.text(value.name))
 				.append($('<div class="col-xs-5">')
