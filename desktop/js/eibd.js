@@ -5,7 +5,7 @@ $(function(){
 	$('body').off('change').on('change','.EqLogicTemplateAttr[data-l1key=template]', function () {
 		//Creation du formulaire du template
 		var form=$(this).closest('form');
-		var cmds=$('<div class="form-horizontal">');
+		var cmds=$('<div class="form-horizontal CmdsTempates">');
 		$.each(template[$(this).value()].cmd,function(index, value){
 			cmds.append($('<div class="form-group">')
 				.append($('<label class="col-xs-6 control-label" >')
@@ -18,10 +18,9 @@ $(function(){
 								.append($('<i class="fa fa-list-alt">')))))));
 		});
 		form.find('.CmdsTempates').remove();
-		form.append($('<div class="form-group CmdsTempates">')
-			.append($('<label class="col-xs-5 control-label" >')
-				.text('{{Configurer les adresse de groupe}}'))
-			.append(cmds))
+		form.append($('<label>')
+			.text('{{Configurer les adresse de groupe}}'))
+		.append(cmds);
 	});
 	$('body').off('click').on('click','.bt_selectGadInconnue', function () {
 		
