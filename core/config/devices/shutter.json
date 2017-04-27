@@ -20,7 +20,7 @@
 					"ObjetTransmit":"",
 					"eventOnly":"1",
 					"init":"0",
-					"subTypeAuto":"0",
+					"subTypeAuto":"1",
 					"noBatterieCheck":"0"
 				},
 				"isVisible":"0"
@@ -40,7 +40,7 @@
 					"ObjetTransmit":"",
 					"eventOnly":"1",
 					"init":"0",
-					"subTypeAuto":"0",
+					"subTypeAuto":"1",
 					"noBatterieCheck":"0"
 				},
 				"isVisible":"0"
@@ -60,8 +60,11 @@
 					"ObjetTransmit":"",
 					"eventOnly":"1",
 					"init":"0",
-					"subTypeAuto":"0",
+					"subTypeAuto":"1",
 					"noBatterieCheck":"0"
+				},
+				"display":{
+					"generic_type":"FLAP_STATE"
 				},
 				"isVisible":"0"
 			},{
@@ -80,12 +83,13 @@
 					"ObjetTransmit":"",
 					"eventOnly":"1",
 					"init":"1",
-					"subTypeAuto":"0",
+					"subTypeAuto":"1",
 					"noBatterieCheck":"0"
 				},
 				"template":"",
 				"display":{
-					"icon":"<i class=\"fa fa-arrow-up\"><\/i>"
+					"icon":"<i class=\"fa fa-arrow-up\"><\/i>",
+					"generic_type":"FLAP_UP"
 				},
 				"value":"Déplacement",
 				"isVisible":"1"
@@ -105,12 +109,13 @@
 					"ObjetTransmit":"",
 					"eventOnly":"1",
 					"init":"1",
-					"subTypeAuto":"0",
+					"subTypeAuto":"1",
 					"noBatterieCheck":"0"
 				},
 				"template":"",
 				"display":{
-					"icon":"<i class=\"fa fa-stop\"><\/i>"
+					"icon":"<i class=\"fa fa-stop\"><\/i>",
+					"generic_type":"FLAP_STOP"
 				},
 				"value":"Stop - status",
 				"isVisible":"1"
@@ -130,12 +135,13 @@
 					"ObjetTransmit":"",
 					"eventOnly":"1",
 					"init":"1",
-					"subTypeAuto":"0",
+					"subTypeAuto":"1",
 					"noBatterieCheck":"0"
 				},
 				"template":"",
 				"display":{
-					"icon":"<i class=\"fa fa-arrow-down\"><\/i>"
+					"icon":"<i class=\"fa fa-arrow-down\"><\/i>",
+					"generic_type":"FLAP_DOWN"
 				},
 				"value":"Déplacement",
 				"isVisible":"1"
@@ -155,11 +161,14 @@
 					"ObjetTransmit":"",
 					"eventOnly":"1",
 					"init":"1",
-					"subTypeAuto":"0",
+					"subTypeAuto":"1",
 					"noBatterieCheck":"0"
 				},
 				"template":{
 					"dashboard":"SlidVertical"
+				},
+				"display":{
+					"generic_type":"FLAP_SLIDER"
 				},
 				"value":"Hauteur",
 				"isVisible":"1"
