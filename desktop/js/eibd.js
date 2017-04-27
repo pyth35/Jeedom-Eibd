@@ -1,7 +1,7 @@
 var AllDpt=null;
 UpdateVar();
 $(function(){
-		var template;	
+	var template;	
 	$('body').off('change').on('change','.EqLogicTemplateAttr[data-l1key=template]', function () {
 		//Creation du formulaire du template
 		var form=$(this).closest('form');
@@ -14,7 +14,7 @@ $(function(){
 					.append($('<div class="input-group">')
 						.append($('<input class="CmdEqLogicTemplateAttr form-control input-sm" data-l1key="'+index+'">'))
 						.append($('<span class="input-group-btn">')
-							.append($('<a class="btn btn-success btn-sm bt_selectGadInconnue" id="value">')
+							.append($('<a class="btn btn-success btn-sm bt_selectGadInconnue">')
 								.append($('<i class="fa fa-list-alt">')))))));
 		});
 		form.find('.CmdsTempates').remove();
@@ -27,82 +27,86 @@ $(function(){
 		
 	});
 	$('.eqLogicAction[data-action=addByTemplate]').off('click').on('click', function () {
-	$.ajax({
-		type: 'POST',            
-		async: false,
-		url: 'plugins/eibd/core/ajax/eibd.ajax.php',
-		data:
-			{
-			action: 'getTemplate',
-			},
-		dataType: 'json',
-		global: false,
-		error: function(request, status, error) {},
-		success: function(data) {
-			if (!data.result){
-				$('#div_alert').showAlert({message: 'Aucun message recu', level: 'error'});
-				return;
+		$.ajax({
+			type: 'POST',            
+			async: false,
+			url: 'plugins/eibd/core/ajax/eibd.ajax.php',
+			data:
+				{
+				action: 'getTemplate',
+				},
+			dataType: 'json',
+			global: false,
+			error: function(request, status, error) {},
+			success: function(data) {
+				if (!data.result){
+					$('#div_alert').showAlert({message: 'Aucun message recu', level: 'error'});
+					return;
+				}
+				template=data.result;
 			}
-			template=data.result;
-		}
-	});
-	var message = $('<div class="row">')
-		.append($('<div class="col-md-12">')
-			.append($('<form class="form-horizontal" onsubmit="return false;">')
-				.append($('<div class="form-group">')
-					.append($('<label class="col-xs-5 control-label" >')
-						.text('{{Nom de votre équipement}}'))
-					.append($('<div class="col-xs-7">')
-						.append($('<input class="EqLogicTemplateAttr" data-l1key="name"/>'))))
-				.append($('<div class="form-group">')
-					.append($('<label class="col-xs-5 control-label" >')
-						.text('{{Template de votre équipement}}'))
-					.append($('<div class="col-xs-3">')
-						.append($('<select class="EqLogicTemplateAttr form-control" data-l1key="template">'))))));				
-			$.each(template,function(index, value){
-				message.find('.EqLogicTemplateAttr[data-l1key=template]')
-					.append($('<option value="'+index+'">')
-						.text(value.name))
-			});
-
-	bootbox.dialog({
-		title: "{{Ajout d'un équipement avec template}}",
-		message: message,
-		buttons: {
-			"Annuler": {
-				className: "btn-default",
-				callback: function () {
-					//el.atCaret('insert', result.human);
-				}
-			},
-			success: {
-				label: "Valider",
-				className: "btn-primary",
-				callback: function () {
-					jeedom.eqLogic.save({
-						type: eqType,
-						eqLogics: [{name: $('.EqLogicTemplateAttr[data-l1key=name]').value()}],
-						error: function (error) {
-							$('#div_alert').showAlert({message: error.message, level: 'danger'});
-						},
-						success: function (_data) {
-							var vars = getUrlVars();
-							var url = 'index.php?';
-							for (var i in vars) {
-								if (i != 'id' && i != 'saveSuccessFull' && i != 'removeSuccessFull') {
-									url += i + '=' + vars[i].replace('#', '') + '&';
+		});
+		var message = $('<div class="row">')
+			.append($('<div class="col-md-12">')
+				.append($('<form class="form-horizontal" onsubmit="return false;">')
+					.append($('<div class="form-group">')
+						.append($('<label class="col-xs-5 control-label" >')
+							.text('{{Nom de votre équipement}}'))
+						.append($('<div class="col-xs-7">')
+							.append($('<input class="EqLogicTemplateAttr form-control" data-l1key="name"/>'))))
+					.append($('<div class="form-group">')
+						.append($('<label class="col-xs-5 control-label" >')
+							.text('{{Template de votre équipement}}'))
+						.append($('<div class="col-xs-3">')
+							.append($('<select class="EqLogicTemplateAttr form-control" data-l1key="template">'))))));				
+		$.each(template,function(index, value){
+			message.find('.EqLogicTemplateAttr[data-l1key=template]')
+				.append($('<option value="'+index+'">')
+					.text(value.name))
+		});
+		bootbox.dialog({
+			title: "{{Ajout d'un équipement avec template}}",
+			message: message,
+			buttons: {
+				"Annuler": {
+					className: "btn-default",
+					callback: function () {
+						//el.atCaret('insert', result.human);
+					}
+				},
+				success: {
+					label: "Valider",
+					className: "btn-primary",
+					callback: function () {
+						var eqLogic=template[$('.EqLogicTemplateAttr[data-l1key=template]').value()];
+						eqLogic.name=$('.EqLogicTemplateAttr[data-l1key=name]').value();
+						$.each(eqLogic.cmd,function(index, value){
+							eqLogic.cmd.logicalId=$('.CmdEqLogicTemplateAttr[data-l1key='+index+']').value();
+						});
+						jeedom.eqLogic.save({
+							type: eqType,
+							eqLogics: eqLogic,
+							error: function (error) {
+								$('#div_alert').showAlert({message: error.message, level: 'danger'});
+							},
+							success: function (_data) {
+								var vars = getUrlVars();
+								var url = 'index.php?';
+								for (var i in vars) {
+									if (i != 'id' && i != 'saveSuccessFull' && i != 'removeSuccessFull') {
+										url += i + '=' + vars[i].replace('#', '') + '&';
+									}
 								}
+								modifyWithoutSave = false;
+								url += 'id=' + _data.id + '&saveSuccessFull=1';
+								loadPage(url);
 							}
-							modifyWithoutSave = false;
-							url += 'id=' + _data.id + '&saveSuccessFull=1';
-							loadPage(url);
-						}
-					});
-				}
-			},
-		}
+						});
+					}
+				},
+			}
+		});
 	});
-});
 	if (getUrlVars('wizard') == 1) {
 		$('#md_modal').dialog({
 			title: "{{Wizard}}",
