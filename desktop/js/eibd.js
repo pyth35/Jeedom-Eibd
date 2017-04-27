@@ -17,7 +17,29 @@ $(function(){
 							.append($('<select class="EqLogicTemplateAttr form-control" data-l1key="template">')
 								.append($('<option>')
 									.text('{{Il n\'existe aucun template}}')))))));
-
+		$.ajax({
+			type: 'POST',            
+			async: false,
+			url: 'plugins/eibd/core/ajax/eibd.ajax.php',
+			data:
+				{
+				action: 'getTemplate',
+				},
+			dataType: 'json',
+			global: false,
+			error: function(request, status, error) {},
+			success: function(data) {
+				if (!data.result){
+					$('#div_alert').showAlert({message: 'Aucun message recu', level: 'error'});
+					return;
+				}
+				/*$.each(data.result,function(index, value){
+					$('.EqLogicTemplateAttr[data-l1key=template]').html('')
+						.append($('<option value="'+value+'">')
+							.text(value))
+				});*/
+			}
+		});
 		bootbox.dialog({
 			title: "{{Ajout d'un équipement avec template}}",
 			message: message,
