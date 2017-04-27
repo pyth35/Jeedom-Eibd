@@ -1,23 +1,27 @@
-var AllDpt=null;
-UpdateVar();
-$(function(){
-		var template;	
+	var template;	
 	$('body').off('change').on('change','.EqLogicTemplateAttr[data-l1key=template]', function () {
 		//Creation du formulaire du template
 		var form=$(this).closest('form');
 		var cmds=$('<div class="col-xs-">');
 		$.each(template[$(this).value()].cmd,function(index, value){
 			cmds.append($('<div class="form-group">')
-				.append($('<label class="col-xs-7 control-label" >')
+				.append($('<label class="col-xs-6 control-label" >')
 					.text(value.name))
 				.append($('<div class="col-xs-5">')
-					.append($('<input class="CmdEqLogicTemplateAttr form-control" data-l1key="'+index+'">'))));
+					.append($('<div class="input-group">')
+						.append($('<input class="CmdEqLogicTemplateAttr form-control input-sm" data-l1key="'+index+'">'))
+						.append($('<span class="input-group-btn">')
+							.append($('<a class="btn btn-success btn-sm bt_selectGadInconnue" id="value">')
+								.append($('<i class="fa fa-list-alt">')))))));
 		});
 		form.find('.CmdsTempates').remove();
 		form.append($('<div class="form-group CmdsTempates">')
 			.append($('<label class="col-xs-5 control-label" >')
 				.text('{{Configurer les adresse de groupe}}'))
 			.append(cmds))
+	});
+	$('body').off('change').on('change','.bt_selectGadInconnue', function () {
+		
 	});
 	$('.eqLogicAction[data-action=addByTemplate]').off('click').on('click', function () {
 	$.ajax({
