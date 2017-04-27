@@ -13,7 +13,7 @@ $(function(){
 				.append($('<div class="col-xs-5">')
 					.append($('<input class="CmdEqLogicTemplateAttr form-control" data-l1key="'+index+'">'))));
 		});
-		from.find('.CmdsTempates').remove();
+		form.find('.CmdsTempates').remove();
 		form.append($('<div class="form-group CmdsTempates">')
 			.append($('<label class="col-xs-5 control-label" >')
 				.text('{{Configurer les adresse de groupe}}'))
