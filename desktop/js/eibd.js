@@ -1,8 +1,19 @@
 var AllDpt=null;
 UpdateVar();
 $(function(){
-	$('.eqLogicAction[data-action=addByTemplate]').off('click').on('click', function () {
 	var template;	
+	$('body').off('change').on('change','.EqLogicTemplateAttr[data-l1key=template]', function () {
+		//Creation du formulaire du template
+		var form=$(this).closest('form');
+		$.each(template[$(this).value().cmd],function(index, value){
+			form.append($('<div class="form-group">')
+				.append($('<label class="col-xs-5 control-label" >')
+					.text(value.name))
+				.append($('<div class="col-xs-3">')
+					.append($('<input class="CmdEqLogicTemplateAttr form-control" data-l1key="'+index+'">'))));
+		});
+	});
+	$('.eqLogicAction[data-action=addByTemplate]').off('click').on('click', function () {
 	$.ajax({
 		type: 'POST',            
 		async: false,
@@ -77,17 +88,6 @@ $(function(){
 				}
 			},
 		}
-	});
-	$('.EqLogicTemplateAttr[data-l1key=template]').off('change').on('change', function () {
-		//Creation du formulaire du template
-		var form=$(this).closest('form');
-		$.each(template[$(this).value().cmd],function(index, value){
-			form.append($('<div class="form-group">')
-				.append($('<label class="col-xs-5 control-label" >')
-					.text(value.name))
-				.append($('<div class="col-xs-3">')
-					.append($('<input class="CmdEqLogicTemplateAttr form-control" data-l1key="'+index+'">'))));
-		});
 	});
 });
 	if (getUrlVars('wizard') == 1) {
