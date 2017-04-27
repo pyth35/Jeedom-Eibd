@@ -34,9 +34,11 @@ $(function(){
 					.append($('<label class="col-xs-5 control-label" >')
 						.text('{{Template de votre équipement}}'))
 					.append($('<div class="col-xs-3">')
-						.append($('<select class="EqLogicTemplateAttr form-control" data-l1key="template">'))))));				
+						.append($('<select class="EqLogicTemplateAttr form-control" data-l1key="template">')
+							.append($('<option>')
+								.text('{{Il n\'existe aucun template}}')))))));				
 			$.each(template,function(index, value){
-				message.find('.EqLogicTemplateAttr[data-l1key=template]')
+				message.find('.EqLogicTemplateAttr[data-l1key=template]').html('')
 					.append($('<option value="'+index+'">')
 						.text(value.name))
 			});
@@ -81,15 +83,13 @@ $(function(){
 	$('.EqLogicTemplateAttr[data-l1key=template]').off('change').on('change', function () {
 		//Creation du formulaire du template
 		var form=$(this).closest('form');
-		/*$.each(template,function(index, value){
+		$.each(template[$(this).value().cmd],function(index, value){
 			form.append($('<div class="form-group">')
 				.append($('<label class="col-xs-5 control-label" >')
-					.text('{{Template de votre équipemnt}}'))
+					.text(value.name))
 				.append($('<div class="col-xs-3">')
-					.append($('<select class="EqLogicTemplateAttr form-control" data-l1key="template">')
-						.append($('<option">')
-							.text('{{Il n\'existe aucun template}}')))));
-		});*/
+					.append($('<input class="CmdEqLogicTemplateAttr form-control" data-l1key="'+index+'">'))));
+		});
 	});
 });
 	if (getUrlVars('wizard') == 1) {
