@@ -3,11 +3,9 @@ UpdateVar();
 $(function(){
 	var template;	
 	$('body').on('change','.EqLogicTemplateAttr[data-l1key=template]', function () {
-		
 		//Creation du formulaire du template
 		var form=$(this).closest('form');
-		alert(form.html());
-		$.each(template[$(this).value().cmd],function(index, value){
+		$.each(template[$(this).value()].cmd,function(index, value){
 			form.append($('<div class="form-group">')
 				.append($('<label class="col-xs-5 control-label" >')
 					.text(value.name))
