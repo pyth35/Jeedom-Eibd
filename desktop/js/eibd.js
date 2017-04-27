@@ -1,17 +1,23 @@
 var AllDpt=null;
 UpdateVar();
 $(function(){
-	var template;	
-	$('body').on('change','.EqLogicTemplateAttr[data-l1key=template]', function () {
+		var template;	
+	$('body').off('change').on('change','.EqLogicTemplateAttr[data-l1key=template]', function () {
 		//Creation du formulaire du template
 		var form=$(this).closest('form');
+		var cmds=$('<div class="col-xs-3">');
 		$.each(template[$(this).value()].cmd,function(index, value){
-			form.append($('<div class="form-group">')
+			cmds.append($('<div class="form-group">')
 				.append($('<label class="col-xs-5 control-label" >')
 					.text(value.name))
 				.append($('<div class="col-xs-3">')
 					.append($('<input class="CmdEqLogicTemplateAttr form-control" data-l1key="'+index+'">'))));
 		});
+		
+		form.append($('<div class="form-group">')
+			.append($('<label class="col-xs-5 control-label" >')
+				.text('{{Configurer les adresse de groupe}}'))
+			.append(cmds))
 	});
 	$('.eqLogicAction[data-action=addByTemplate]').off('click').on('click', function () {
 	$.ajax({
