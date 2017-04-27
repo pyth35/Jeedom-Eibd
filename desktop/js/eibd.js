@@ -1,4 +1,7 @@
-	var template;	
+var AllDpt=null;
+UpdateVar();
+$(function(){
+		var template;	
 	$('body').off('change').on('change','.EqLogicTemplateAttr[data-l1key=template]', function () {
 		//Creation du formulaire du template
 		var form=$(this).closest('form');
@@ -20,7 +23,7 @@
 				.text('{{Configurer les adresse de groupe}}'))
 			.append(cmds))
 	});
-	$('body').off('change').on('change','.bt_selectGadInconnue', function () {
+	$('body').off('click').on('click','.bt_selectGadInconnue', function () {
 		
 	});
 	$('.eqLogicAction[data-action=addByTemplate]').off('click').on('click', function () {
