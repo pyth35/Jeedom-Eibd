@@ -21,7 +21,7 @@
 					"noBatterieCheck":"0",
 					"minValue":"0",
 					"maxValue":"255",
-					"subTypeAuto":"0"
+					"subTypeAuto":"1"
 				},
 				"template":{
 					"dashboard":"default",
@@ -50,7 +50,7 @@
 					"minValue":"",
 					"maxValue":"",
 					"KnxObjectValue":"1",
-					"subTypeAuto":"0"
+					"subTypeAuto":"1"
 				},
 				"template":{
 					"dashboard":"default",
@@ -79,7 +79,7 @@
 					"minValue":"",
 					"maxValue":"",
 					"KnxObjectValue":"1",
-					"subTypeAuto":"0"
+					"subTypeAuto":"1"
 				},
 				"template":{
 					"dashboard":"default",
@@ -108,7 +108,7 @@
 					"minValue":"",
 					"maxValue":"",
 					"KnxObjectValue":"0",
-					"subTypeAuto":"0"
+					"subTypeAuto":"1"
 				},
 				"template":{
 					"dashboard":"default",
@@ -137,7 +137,7 @@
 					"noBatterieCheck":"0",
 					"minValue":"0",
 					"maxValue":"255",
-					"subTypeAuto":"0"
+					"subTypeAuto":"1"
 				},
 				"template":{
 					"dashboard":"default",
@@ -145,7 +145,7 @@
 				},
 				"display":{
 					"icon":"",
-					"generic_type":""
+					"generic_type":"FLAP_BSO_STATE"
 				},
 				"value":"",
 				"isVisible":"1"
@@ -166,7 +166,7 @@
 					"minValue":"0",
 					"maxValue":"255",
 					"KnxObjectValue":"",
-					"subTypeAuto":"0"
+					"subTypeAuto":"1"
 				},
 				"value":"Position Etat",
 				"isVisible":"1"
@@ -187,10 +187,58 @@
 					"minValue":"0",
 					"maxValue":"255",
 					"KnxObjectValue":"",
-					"subTypeAuto":"0"
+					"subTypeAuto":"1"
 				},
 				"value":"Lames Etat",
 				"isVisible":"1"
+			},{
+				"name":"Lames Montée",
+				"type":"action",
+				"subType":"slider",
+				"isHistorized":"0",
+				"unite":"",
+				"configuration":{
+					"KnxObjectType":"5.xxx",
+					"init":"0",
+					"eventOnly":"1",
+					"transmitReponse":"0",
+					"ObjetTransmit":"",
+					"inverse":"0",
+					"noBatterieCheck":"0",
+					"minValue":"0",
+					"maxValue":"255",
+					"KnxObjectValue":"",
+					"subTypeAuto":"1"
+				},
+				"display":{
+					"generic_type":"FLAP_BSO_UP"
+				},
+				"value":"Lames Etat",
+				"isVisible":"0"
+			},{
+				"name":"Lames Decente",
+				"type":"action",
+				"subType":"slider",
+				"isHistorized":"1",
+				"unite":"",
+				"configuration":{
+					"KnxObjectType":"5.xxx",
+					"init":"0",
+					"eventOnly":"1",
+					"transmitReponse":"0",
+					"ObjetTransmit":"",
+					"inverse":"0",
+					"noBatterieCheck":"0",
+					"minValue":"0",
+					"maxValue":"255",
+					"KnxObjectValue":"",
+					"subTypeAuto":"1"
+				},
+				"display":{
+					"generic_type":"FLAP_BSO_DOWN"
+				},
+				"value":"Lames Etat",
+				"isVisible":"0"
 			}
 		]	
 	}
