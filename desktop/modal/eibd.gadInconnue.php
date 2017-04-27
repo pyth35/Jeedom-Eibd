@@ -6,10 +6,6 @@ include_file('3rdparty', 'jquery.tablesorter/theme.bootstrap', 'css');
 include_file('3rdparty', 'jquery.tablesorter/jquery.tablesorter.min', 'js');
 include_file('3rdparty', 'jquery.tablesorter/jquery.tablesorter.widgets.min', 'js');
 ?>
-<a class="btn btn-success btn-xs Gad pull-right" data-action="newEqlogic">
-	<i class="fa fa-check-circle"></i>
-	{{Créer un équipement}}
-</a>
 <table id="table_GadInconue" class="table table-bordered table-condensed tablesorter">
     <thead>
         <tr>
@@ -75,16 +71,6 @@ $('body').on('click', '.Gad[data-action=addEqLogic]', function(){
 		removeInCache(gad,result.id);
 	}); 
 	$(this).closest('tr').remove();
-});
-$('body').on('click', '.Gad[data-action=newEqlogic]', function(){
-	$('#md_modal').dialog({
-		title: "{{Création d'un équipement avec template}}",
-		height: 780,
-		width: 1024});
-	$('#md_modal').load('index.php?v=d&modal=eibd.newTemplateEqLogic&plugin=eibd&type=eibd').dialog('open');
-	/*var gad=$(this).closest('tr').find('td:eq(1)').text();
-	removeInCache(gad,"new");
-	$(this).closest('tr').remove();*/
 });
 $('body').on('click', '.Gad[data-action=remove]', function(){
 	var gad=$(this).closest('tr').find('td:eq(1)').text();
