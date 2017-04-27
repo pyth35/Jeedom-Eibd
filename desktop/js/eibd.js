@@ -2,95 +2,98 @@ var AllDpt=null;
 UpdateVar();
 $(function(){
 	$('.eqLogicAction[data-action=addByTemplate]').off('click').on('click', function () {
-		var message = $('<div class="row">')
-			.append($('<div class="col-md-12">')
-				.append($('<form class="form-horizontal" onsubmit="return false;">')
-					.append($('<div class="form-group">')
-						.append($('<label class="col-xs-5 control-label" >')
-							.text('{{Nom de votre équipement}}'))
-						.append($('<div class="col-xs-7">')
-							.append($('<input class="EqLogicTemplateAttr" data-l1key="name"/>'))))
-					.append($('<div class="form-group">')
-						.append($('<label class="col-xs-5 control-label" >')
-							.text('{{Template de votre équipement}}'))
-						.append($('<div class="col-xs-3">')
-							.append($('<select class="EqLogicTemplateAttr form-control" data-l1key="template">')
-								.append($('<option>')
-									.text('{{Il n\'existe aucun template}}')))))));
-		$.ajax({
-			type: 'POST',            
-			async: false,
-			url: 'plugins/eibd/core/ajax/eibd.ajax.php',
-			data:
-				{
-				action: 'getTemplate',
-				},
-			dataType: 'json',
-			global: false,
-			error: function(request, status, error) {},
-			success: function(data) {
-				if (!data.result){
-					$('#div_alert').showAlert({message: 'Aucun message recu', level: 'error'});
-					return;
-				}
-				$.each(data.result,function(index, value){
-					$('.EqLogicTemplateAttr[data-l1key=template]').html('')
-						.append($('<option value="'+index+'">')
-							.text(value.name))
-				});
+	var template;	
+	$.ajax({
+		type: 'POST',            
+		async: false,
+		url: 'plugins/eibd/core/ajax/eibd.ajax.php',
+		data:
+			{
+			action: 'getTemplate',
+			},
+		dataType: 'json',
+		global: false,
+		error: function(request, status, error) {},
+		success: function(data) {
+			if (!data.result){
+				$('#div_alert').showAlert({message: 'Aucun message recu', level: 'error'});
+				return;
 			}
-		});
-		bootbox.dialog({
-			title: "{{Ajout d'un équipement avec template}}",
-			message: message,
-			buttons: {
-				"Annuler": {
-					className: "btn-default",
-					callback: function () {
-						//el.atCaret('insert', result.human);
-					}
-				},
-				success: {
-					label: "Valider",
-					className: "btn-primary",
-					callback: function () {
-						jeedom.eqLogic.save({
-							type: eqType,
-							eqLogics: [{name: $('.EqLogicTemplateAttr[data-l1key=name]').value()}],
-							error: function (error) {
-								$('#div_alert').showAlert({message: error.message, level: 'danger'});
-							},
-							success: function (_data) {
-								var vars = getUrlVars();
-								var url = 'index.php?';
-								for (var i in vars) {
-									if (i != 'id' && i != 'saveSuccessFull' && i != 'removeSuccessFull') {
-										url += i + '=' + vars[i].replace('#', '') + '&';
-									}
-								}
-								modifyWithoutSave = false;
-								url += 'id=' + _data.id + '&saveSuccessFull=1';
-								loadPage(url);
-							}
-						});
-					}
-				},
-			}
-		});
-		$('.EqLogicTemplateAttr[data-l1key=template]').off('change').on('change', function () {
-			//Creation du formulaire du template
-			var form=$(this).closest('form');
-			/*$.each(tempate,function(index, value){
-				form.append($('<div class="form-group">')
+			template=data.result;
+		}
+	});
+	var message = $('<div class="row">')
+		.append($('<div class="col-md-12">')
+			.append($('<form class="form-horizontal" onsubmit="return false;">')
+				.append($('<div class="form-group">')
 					.append($('<label class="col-xs-5 control-label" >')
-						.text('{{Template de votre équipemnt}}'))
+						.text('{{Nom de votre équipement}}'))
+					.append($('<div class="col-xs-7">')
+						.append($('<input class="EqLogicTemplateAttr" data-l1key="name"/>'))))
+				.append($('<div class="form-group">')
+					.append($('<label class="col-xs-5 control-label" >')
+						.text('{{Template de votre équipement}}'))
 					.append($('<div class="col-xs-3">')
 						.append($('<select class="EqLogicTemplateAttr form-control" data-l1key="template">')
-							.append($('<option">')
-								.text('{{Il n\'existe aucun template}}')))));
-			});*/
-		});
+							.append($('<option>')
+								.text('{{Il n\'existe aucun template}}')))))));				
+			$.each(template,function(index, value){
+				message.find('.EqLogicTemplateAttr[data-l1key=template]').html('')
+					.append($('<option value="'+index+'">')
+						.text(value.name))
+			});
+
+	bootbox.dialog({
+		title: "{{Ajout d'un équipement avec template}}",
+		message: message,
+		buttons: {
+			"Annuler": {
+				className: "btn-default",
+				callback: function () {
+					//el.atCaret('insert', result.human);
+				}
+			},
+			success: {
+				label: "Valider",
+				className: "btn-primary",
+				callback: function () {
+					jeedom.eqLogic.save({
+						type: eqType,
+						eqLogics: [{name: $('.EqLogicTemplateAttr[data-l1key=name]').value()}],
+						error: function (error) {
+							$('#div_alert').showAlert({message: error.message, level: 'danger'});
+						},
+						success: function (_data) {
+							var vars = getUrlVars();
+							var url = 'index.php?';
+							for (var i in vars) {
+								if (i != 'id' && i != 'saveSuccessFull' && i != 'removeSuccessFull') {
+									url += i + '=' + vars[i].replace('#', '') + '&';
+								}
+							}
+							modifyWithoutSave = false;
+							url += 'id=' + _data.id + '&saveSuccessFull=1';
+							loadPage(url);
+						}
+					});
+				}
+			},
+		}
 	});
+	$('.EqLogicTemplateAttr[data-l1key=template]').off('change').on('change', function () {
+		//Creation du formulaire du template
+		var form=$(this).closest('form');
+		/*$.each(template,function(index, value){
+			form.append($('<div class="form-group">')
+				.append($('<label class="col-xs-5 control-label" >')
+					.text('{{Template de votre équipemnt}}'))
+				.append($('<div class="col-xs-3">')
+					.append($('<select class="EqLogicTemplateAttr form-control" data-l1key="template">')
+						.append($('<option">')
+							.text('{{Il n\'existe aucun template}}')))));
+		});*/
+	});
+});
 	if (getUrlVars('wizard') == 1) {
 		$('#md_modal').dialog({
 			title: "{{Wizard}}",
