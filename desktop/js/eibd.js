@@ -3,6 +3,7 @@ UpdateVar();
 $(function(){
 	var template;	
 	$('body').on('change','.EqLogicTemplateAttr[data-l1key=template]', function () {
+		alert('test');
 		//Creation du formulaire du template
 		var form=$(this).closest('form');
 		$.each(template[$(this).value().cmd],function(index, value){
