@@ -20,7 +20,7 @@
 					"transmitReponse":"0",
 					"eventOnly":"1",
 					"init":"1",
-					"subTypeAuto":"0",
+					"subTypeAuto":"1",
 					"noBatterieCheck":"0"
 				},
 				"display":{
@@ -42,7 +42,7 @@
 					"transmitReponse":"0",
 					"eventOnly":"1",
 					"init":"1",
-					"subTypeAuto":"0",
+					"subTypeAuto":"1",
 					"noBatterieCheck":"0"
 				},
 				"template":{
@@ -68,7 +68,7 @@
 					"transmitReponse":"0",
 					"eventOnly":"1",
 					"init":"1",
-					"subTypeAuto":"0",
+					"subTypeAuto":"1",
 					"noBatterieCheck":"0"
 				},
 				"display":{
@@ -91,7 +91,7 @@
 					"transmitReponse":"0",
 					"eventOnly":"1",
 					"init":"1",
-					"subTypeAuto":"0",
+					"subTypeAuto":"1",
 					"noBatterieCheck":"0"
 				},
 				"display":{
