@@ -18,9 +18,7 @@ $(function(){
 								.append($('<i class="fa fa-list-alt">')))))));
 		});
 		form.find('.CmdsTempates').remove();
-		form.append($('<label>')
-			.text('{{Configurer les adresse de groupe}}'))
-		.append(cmds);
+		form.append(cmds);
 	});
 	$('body').off('click').on('click','.bt_selectGadInconnue', function () {
 		
@@ -59,7 +57,8 @@ $(function(){
 						.append($('<div class="col-xs-3">')
 							.append($('<select class="EqLogicTemplateAttr form-control" data-l1key="template">')
 							       .append($('<option>')
-									.text('{{Séléctionner un template}}')))))));				
+									.text('{{Séléctionner un template}}')))))
+				       .append($('<label>').text('{{Configurer les adresse de groupe}}'))));				
 		$.each(template,function(index, value){
 			message.find('.EqLogicTemplateAttr[data-l1key=template]')
 				.append($('<option value="'+index+'">')
