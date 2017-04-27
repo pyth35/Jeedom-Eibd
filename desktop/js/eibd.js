@@ -21,7 +21,24 @@ $(function(){
 		form.append(cmds);
 	});
 	$('body').off('click').on('click','.bt_selectGadInconnue', function () {
-		
+		bootbox.dialog({
+			title: "{{Choisir un Gad}}",
+			message: $('<div>').load('index.php?v=d&modal=eibd.gadInconnue&plugin=eibd&type=eibd'),
+			buttons: {
+				"Annuler": {
+					className: "btn-default",
+					callback: function () {
+						//el.atCaret('insert', result.human);
+					}
+				},
+				success: {
+					label: "Valider",
+					className: "btn-primary",
+					callback: function () {
+					}
+				},
+			}
+		});
 	});
 	$('.eqLogicAction[data-action=addByTemplate]').off('click').on('click', function () {
 		$.ajax({
