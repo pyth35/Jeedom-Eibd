@@ -52,7 +52,6 @@ class eibd extends eqLogic {
 					$return = array_merge($return, json_decode($content, true));
 				}
 			} catch (Exception $e) {
-
 			}
 		}
 		if (isset($_device) && $_device != '') {
@@ -260,7 +259,7 @@ class eibd extends eqLogic {
 			log::add('eibd','debug','Valeur du Header '.$buf[2] & 0xC0);
 		}
 	}
-    	private static function gaddrparse ($addr)	{
+   	private static function gaddrparse ($addr)	{
 		$addr = explode("/", $addr);
 		if (count ($addr) >= 3)
 			$r =(($addr[0] & 0x1f) << 11) | (($addr[1] & 0x7) << 8) | (($addr[2] & 0xff));
@@ -291,7 +290,6 @@ class eibd extends eqLogic {
 		$port=config::byKey('EibdPort', 'eibd');
 		$EibdConnexion = new EIBConnection($host,$port);
 		$addr = self::gaddrparse($addr);
-
 		if ($EibdConnexion->EIBOpenT_Group ($addr, 0) == -1)
 			throw new Exception(__('Erreur de connexion au Bus KNX', __FILE__));
 		$val =  0 & 0x3f;
@@ -325,7 +323,7 @@ class eibd extends eqLogic {
 		$EibdConnexion->EIBClose();
 		return $return;
 	}		
-    	public static function EibdReponse($addr, $val){
+   	public static function EibdReponse($addr, $val){
 		$host=config::byKey('EibdHost', 'eibd');
 		$port=config::byKey('EibdPort', 'eibd');
 		$EibdConnexion = new EIBConnection($host,$port);
@@ -349,7 +347,7 @@ class eibd extends eqLogic {
 		$EibdConnexion->EIBClose();
 		return true;
 	}
-    	public static function EibdWrite($addr, $val){
+   	public static function EibdWrite($addr, $val){
 		$host=config::byKey('EibdHost', 'eibd');
 		$port=config::byKey('EibdPort', 'eibd');
 		$EibdConnexion = new EIBConnection($host,$port);
@@ -385,7 +383,7 @@ class eibd extends eqLogic {
 			foreach(eqLogic::byType('eibd') as $Equipement)		{
 				if ($Equipement->getIsEnable()){
 					foreach($Equipement->getCmd('info') as $Commande)	{
-						if ($Commande->getConfiguration('init')){
+						if ($Commande->getConfiguration('FlagInit')){
 							$ga=$Commande->getLogicalId();
 							$dpt=$Commande->getConfiguration('KnxObjectType');
 							$inverse=$Commande->getConfiguration('inverse');
@@ -457,14 +455,6 @@ class eibd extends eqLogic {
 			}else
 				$monitor['valeur']="Impossible de convertire la valeur";
 			log::add('eibd', 'debug', 'Aucune commande avec l\'adresse de groupe  '.$monitor['AdresseGroupe'].' n\'a pas été trouvée');
-			/*if (config::byKey('autoAddDevice', 'eibd') && $monitor['AdressePhysique'] != config::byKey('EibdGad', 'eibd')){
-				log::add('eibd', 'debug', 'Création de la commande '.$monitor['AdresseGroupe']);
-				$Equipement=self::AddEquipement('Equipement '.$monitor['AdressePhysique'],$monitor['AdressePhysique']);
-				if($dpt!=false){
-					$Commande=self::AddCommande($Equipement,'Nouvelle_Commande_'.$monitor['AdresseGroupe'],$monitor['AdresseGroupe'],'info',$dpt);
-					$monitor['valeur']=trim(self::UpdateCommande($Commande,$data["Mode"],$data["Data"]));
-				}
-			}*/
 		}
 		self::addCacheMonitor($monitor);
 	}
@@ -495,19 +485,18 @@ class eibd extends eqLogic {
 			$inverse=$Commande->getConfiguration('inverse');
 			$option=$Commande->getConfiguration('option');
 			if ($dpt!= 'aucun' && $dpt!= ''){
-				if($Mode=="Read"){
-					if($Commande->getConfiguration('FlagTransmit')){
-						log::add('eibd', 'debug','Mode Read sur le GAD '.$Commande->getLogicalId().': Transmettre une data en réponse');
-						$ActionData="";
-						$ActionValue=cmd::byId(str_replace('#','',$Commande->getConfiguration('ObjetTransmit')));
-						if(is_object($ActionValue)){
-							log::add('eibd', 'debug','Transmission sur le GAD '.$Commande->getLogicalId().' la valeur '.$ActionValue->execCmd());
-							$ActionData=$ActionValue->execCmd();
-							$ActionData= Dpt::DptSelectEncode($dpt, $ActionData, $inverse,$option);
-							self::EibdReponse($Commande->getLogicalId(), $ActionData);
-						}
+				if($Mode=="Read" && $Commande->getConfiguration('FlagRead')){
+					log::add('eibd', 'debug','Demande de valeur de l\'adresse de groupe '.$Commande->getLogicalId());
+					$ActionData="";
+					$ActionValue=cmd::byId(str_replace('#','',$Commande->getValue()));
+					if(is_object($ActionValue)){
+						log::add('eibd', 'info','Reponse sur l\'adresse de groupe '.$Commande->getLogicalId().' la valeur '.$ActionValue->execCmd());
+						$ActionData=$ActionValue->execCmd();
+						$ActionData= Dpt::DptSelectEncode($dpt, $ActionData, $inverse,$option);
+						self::EibdReponse($Commande->getLogicalId(), $ActionData);
 					}
-				} else {
+				}
+				if(($Mode=="Write" && $Commande->getConfiguration('FlagWrite')) || ($Mode=="Reponse" && $Commande->getConfiguration('FlagUpdate'))){
 					log::add('eibd', 'debug',$Commande->getLogicalId().' : Décodage de la valeur avec le DPT :'.$dpt);
 					$valeur=Dpt::DptSelectDecode($dpt, $data, $inverse, $option);
 					$unite=Dpt::getDptUnite($dpt);
@@ -519,8 +508,8 @@ class eibd extends eqLogic {
 						}
 						$Commande->getEqlogic()->batteryStatus($valeur,date('Y-m-d H:i:s'));
 					}
-					if($Commande->getType() == 'info' && $Commande->getConfiguration('FlagWrite')){
-						log::add('eibd', 'debug',$Commande->getLogicalId().' : Mise a jours de la valeur : '.$valeur.$unite);
+					if($Commande->getType() == 'info'){
+						log::add('eibd', 'info',$Commande->getLogicalId().' : Mise a jours de la valeur : '.$valeur.$unite);
 						$Commande->setCollectDate(date('Y-m-d H:i:s'));
 						$Commande->event($valeur);
 						$Commande->save();
@@ -531,6 +520,21 @@ class eibd extends eqLogic {
 			}
 		} 
 		return $valeur.$unite ;
+	}
+	public static function TransmitValue($_options) 	{
+		log::add('eibd', 'debug', 'Mode transmision => ' . json_encode($_option));
+		$Commande = cmd::byId($_option['eibdCmd_id']);
+		if (is_object($Commande) && $Commande->getIsEnable()) {
+			$Event = cmd::byId($_option['event_id']);
+			if(is_object($Event)){
+				$ga=$Commande->getLogicalId();
+				$dpt=$Commande->getConfiguration('KnxObjectType');
+				$inverse=$Commande->getConfiguration('inverse');
+				$option=$Commande->getConfiguration('option');
+				$data= Dpt::DptSelectEncode($dpt, $Event->execCmd(), $inverse,$option);
+				$WriteBusValue=eibd::EibdWrite($ga, $data);
+			}
+		}
 	}
 	public static function AddEquipement($Name,$_logicalId) 	{
 			$Equipement = self::byLogicalId($_logicalId, 'eibd');
@@ -865,6 +869,22 @@ class eibdCmd extends cmd {
 			throw new Exception(__('Le GAD ne peut etre vide', __FILE__));		*/	
 		$this->setLogicalId(trim($this->getLogicalId()));    
 	}
+	public function postSave() {	
+		if($this->getConfiguration('FlagTransmit')){
+			$listener = listener::byClassAndFunction('eibd', 'TransmitValue', array('eibdCmd_id' => $this->getId()));
+			if (!is_object($listener))
+				$listener = new listener();
+			$listener->setClass('eibd');
+			$listener->setFunction('TransmitValue');
+			$listener->setOption(array('eibdCmd_id' => $this->getId()));
+			$listener->emptyEvent();
+			$ActionValue=cmd::byId(str_replace('#','',$this->getValue()));
+			if(is_object($ActionValue)){
+				$listener->addEvent($ActionValue->getId());
+			}
+			$listener->save();	
+		}		
+	}
 	public function execute($_options = null){
 		$ga=$this->getLogicalId();
 		$dpt=$this->getConfiguration('KnxObjectType');
@@ -936,5 +956,4 @@ class eibdCmd extends cmd {
 		return $BusValue;
 	}
 }
-
 ?>
