@@ -54,7 +54,7 @@ function getKnxGadInconue () {
 							.text('{{Supprimer}}'))
 						.append($('<a class="btn btn-primary btn-xs Gad pull-right" data-action="addEqLogic">')
 							.append($('<i class="fa fa-check-circle">'))
-							.text('{{Ajouter a un equipement}}')));
+							.text('{{Ajouter a un equipement}}'))));
 			});				
 			$('#table_GadInconue').trigger('update');
 			if ($('#md_modal').dialog('isOpen') === true) {
