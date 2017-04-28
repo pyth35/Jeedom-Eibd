@@ -21,9 +21,10 @@ $(function(){
 		form.append(cmds);
 	});
 	$('body').off('click').on('click','.bt_selectGadInconnue', function () {
+      var input=$(this).closest('.input-group').find('.CmdEqLogicTemplateAttr');
 		bootbox.dialog({
 			title: "{{Choisir un Gad}}",
-			message: $('<div>').load('index.php?v=d&modal=eibd.gadInconnue&plugin=eibd&type=eibd'),
+			message: $('<div>').load('index.php?v=d&modal=eibd.gadInconnue&plugin=eibd&type=eibd&param'),
 			buttons: {
 				"Annuler": {
 					className: "btn-default",
@@ -35,6 +36,7 @@ $(function(){
 					label: "Valider",
 					className: "btn-primary",
 					callback: function () {
+                      input.val(SelectGad);
 					}
 				},
 			}
