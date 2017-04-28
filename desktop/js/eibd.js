@@ -214,22 +214,12 @@ $(function(){
 			case "info":
 				$(this).closest('.cmd').find('.RetourEtat').hide();
 				$(this).closest('.cmd').find('.bt_read').show();
-				$(this).closest('.cmd').find('.ValeurDefaut').hide();
 				$(this).closest('.cmd').find('.cmdAttr[data-l1key=isHistorized]').closest('.input-group').parent().show();
-				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=init]').parent().show();
-				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=transmitReponse]').parent().show();
-				if($(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=transmitReponse]').is(':checked'))
-					$(this).closest('.cmd').find('.ObjetTransmit').show();
-				else
-					$(this).closest('.cmd').find('.ObjetTransmit').hide();
 			break;
 			case "action":		
 				$(this).closest('.cmd').find('.RetourEtat').show();
-				$(this).closest('.cmd').find('.ObjetTransmit').hide();
 				$(this).closest('.cmd').find('.bt_read').hide();
 				$(this).closest('.cmd').find('.cmdAttr[data-l1key=isHistorized]').closest('.input-group').parent().hide();
-				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=init]').parent().hide();
-				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=transmitReponse]').parent().hide();
 			break;
 			}
 		});			
@@ -270,13 +260,6 @@ $(function(){
 			$(this).find('option[value="'+valeur+'"]').prop('selected', true);
 		}
 	});			
-	$('body').on('change','.cmd .cmdAttr[data-l1key=configuration][data-l2key=FlagTransmit]',function(){
-		if($(this).is(':checked')){
-			$(this).closest('.cmd').find('.ObjetTransmit').show();
-		}else{
-			$(this).closest('.cmd').find('.ObjetTransmit').hide();
-		}
-	});
 	$('body').on('change','.cmd .cmdAttr[data-l1key=configuration][data-l2key=subTypeAuto]', function() {
 		$(this).closest('.cmd').find('.cmdAttr[data-l1key=subType]').trigger('change');
 	});
@@ -473,17 +456,6 @@ function addCmdToTable(_cmd) {
 					.append($('<sup>')
 						.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
 							.attr('title','Souhaitez vous inverser l\'état de la valeur'))))))
-		.append($('<div class="ObjetTransmit">')
-			.append($('<label>')
-				.text('{{Objet a transmetre}}')
-				.append($('<sup>')
-					.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
-					.attr('title','Selectionner un objet Jeedom dont la valeur est a envoyer sur le reseau KNX'))))
-			.append($('<div class="input-group">')
-				.append($('<input class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="ObjetTransmit">'))
-				.append($('<span class="input-group-btn">')
-					.append($('<a class="btn btn-success btn-sm bt_selectCmdExpression listCmdActionOther" id="ObjetTransmit">')
-						.append($('<i class="fa fa-list-alt">'))))))
 		.append($('<div class="RetourEtat">')
 			.append($('<label>')
 				.text('{{Retour d\'état}}')
