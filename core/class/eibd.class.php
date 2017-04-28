@@ -7,7 +7,7 @@ class eibd extends eqLogic {
 		foreach(eqLogic::byType('eibd') as $Equipement){		
 			if($Equipement->getIsEnable()){
 				foreach($Equipement->getCmd('info') as $Commande){
-					if(!$Commande->getConfiguration('eventOnly'))
+					if(!$Commande->getConfiguration('FlagWrite'))
 						$Commande->execute();
 				}
 			}
@@ -496,7 +496,7 @@ class eibd extends eqLogic {
 			$option=$Commande->getConfiguration('option');
 			if ($dpt!= 'aucun' && $dpt!= ''){
 				if($Mode=="Read"){
-					if($Commande->getConfiguration('transmitReponse')){
+					if($Commande->getConfiguration('FlagTransmit')){
 						log::add('eibd', 'debug','Mode Read sur le GAD '.$Commande->getLogicalId().': Transmettre une data en réponse');
 						$ActionData="";
 						$ActionValue=cmd::byId(str_replace('#','',$Commande->getConfiguration('ObjetTransmit')));
@@ -519,7 +519,7 @@ class eibd extends eqLogic {
 						}
 						$Commande->getEqlogic()->batteryStatus($valeur,date('Y-m-d H:i:s'));
 					}
-					if($Commande->getType() == 'info' && $Commande->getConfiguration('eventOnly')){
+					if($Commande->getType() == 'info' && $Commande->getConfiguration('FlagWrite')){
 						log::add('eibd', 'debug',$Commande->getLogicalId().' : Mise a jours de la valeur : '.$valeur.$unite);
 						$Commande->setCollectDate(date('Y-m-d H:i:s'));
 						$Commande->event($valeur);
