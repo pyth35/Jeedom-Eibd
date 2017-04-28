@@ -13,7 +13,10 @@ include_file('3rdparty', 'jquery.tablesorter/jquery.tablesorter.widgets.min', 'j
             <th>{{Destination}}</th>
             <th>{{Data Point Type}}</th>
             <th>{{Derniere valeur}}</th>
-            <th>{{Action sur cette adresse de groupe}}</th>
+  <?php
+  	if(!isset($_REQUEST['param']))
+            echo '<th>{{Action sur cette adresse de groupe}}</th>';
+?>
         </tr>
     </thead>
     <tbody></tbody>
@@ -21,11 +24,12 @@ include_file('3rdparty', 'jquery.tablesorter/jquery.tablesorter.widgets.min', 'j
 <script>
 initTableSorter();
 getKnxGadInconue();
+var SelectGad='';
 function getKnxGadInconue () {
 	$.ajax({
 		type: 'POST',
-	async: false,
-	url: 'plugins/eibd/core/ajax/eibd.ajax.php',
+		async: false,
+		url: 'plugins/eibd/core/ajax/eibd.ajax.php',
 		data: {
 			action: 'getCacheGadInconue',
 		},
@@ -43,18 +47,21 @@ function getKnxGadInconue () {
 			}
 			$('#table_GadInconue tbody').html('');
 			jQuery.each(jQuery.parseJSON(data.result),function(key, value) {
-				$('#table_GadInconue tbody').append($("<tr>")
+				var tr=$("<tr>")
 					.append($("<td>").text(value.AdressePhysique))
 					.append($("<td>").text(value.AdresseGroupe))
 					.append($("<td>").text(value.DataPointType))
-					.append($("<td>").text(value.valeur))
-					.append($("<td>")
+					.append($("<td>").text(value.valeur));
+              if($('#table_GadInconue thead th').length == 5){
+					tr.append($("<td>")
 						.append($('<a class="btn btn-danger btn-xs Gad pull-right" data-action="remove">')
 							.append($('<i class="fa fa-minus-circle">'))
 							.text('{{Supprimer}}'))
 						.append($('<a class="btn btn-primary btn-xs Gad pull-right" data-action="addEqLogic">')
 							.append($('<i class="fa fa-check-circle">'))
-							.text('{{Ajouter a un equipement}}'))));
+							.text('{{Ajouter a un equipement}}')));
+              }
+              $('#table_GadInconue tbody').append(tr);
 			});				
 			$('#table_GadInconue').trigger('update');
 			if ($('#md_modal').dialog('isOpen') === true) {
@@ -76,6 +83,9 @@ $('body').on('click', '.Gad[data-action=remove]', function(){
 	var gad=$(this).closest('tr').find('td:eq(1)').text();
 	removeInCache(gad, false);
 	$(this).closest('tr').remove();
+});	
+$('body').on('click', '#table_GadInconue tbody tr', function(){
+	SelectGad=$(this).closest('tr').find('td:eq(1)').text();
 });	
 function removeInCache(gad, destination){
 	$.ajax({
