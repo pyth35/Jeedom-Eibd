@@ -490,10 +490,10 @@ class eibd extends eqLogic {
 					$ActionData="";
 					$ActionValue=cmd::byId(str_replace('#','',$Commande->getValue()));
 					if(is_object($ActionValue)){
-						log::add('eibd', 'info','Reponse sur l\'adresse de groupe '.$Commande->getLogicalId().' la valeur '.$ActionValue->execCmd());
-						$ActionData=$ActionValue->execCmd();
-						$ActionData= Dpt::DptSelectEncode($dpt, $ActionData, $inverse,$option);
+						$valeur=$ActionValue->execCmd();
+						$ActionData= Dpt::DptSelectEncode($dpt, $valeur, $inverse,$option);
 						self::EibdReponse($Commande->getLogicalId(), $ActionData);
+						log::add('eibd', 'info','Reponse sur l\'adresse de groupe '.$Commande->getLogicalId().' la valeur '.$valeur);
 					}
 				}
 				if(($Mode=="Write" && $Commande->getConfiguration('FlagWrite')) || ($Mode=="Reponse" && $Commande->getConfiguration('FlagUpdate'))){
@@ -888,27 +888,6 @@ class eibdCmd extends cmd {
 	public function execute($_options = null){
 		$ga=$this->getLogicalId();
 		$dpt=$this->getConfiguration('KnxObjectType');
-		/*$option=null;
-		switch($dpt){
-			case '229.001':
-				$option=array(
-					"ValInfField"=>$this->getConfiguration('option1'),
-					"StatusCommande"=>$this->getConfiguration('option2'),
-					);
-			break;
-			case '235.001':
-				$option=array(
-					"Tarif"=>$this->getConfiguration('option1'),
-					"validityTarif"=>$this->getConfiguration('option2'),
-					"validityActiveElectricalEnergy"=>$this->getConfiguration('option3')
-				);
-			break;
-			case "x.001":
-				$option=array(
-					"Mode"=>$this->getConfiguration('option1'),
-				);
-			break;
-		}*/
 		$inverse=$this->getConfiguration('inverse');
 		$option=$this->getConfiguration('option');
 		switch ($this->getType()) {
