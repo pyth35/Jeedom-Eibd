@@ -270,7 +270,7 @@ $(function(){
 			$(this).find('option[value="'+valeur+'"]').prop('selected', true);
 		}
 	});			
-	$('body').on('change','.cmd .cmdAttr[data-l1key=configuration][data-l2key=transmitReponse]',function(){
+	$('body').on('change','.cmd .cmdAttr[data-l1key=configuration][data-l2key=FlagTransmit]',function(){
 		if($(this).is(':checked')){
 			$(this).closest('.cmd').find('.ObjetTransmit').show();
 		}else{
@@ -423,30 +423,47 @@ function addCmdToTable(_cmd) {
 					.attr('title','Saisisez l\'adresse de groupe de votre commande KNX'))))
 		.append($('<input class="cmdAttr form-control input-sm" data-l1key="logicalId" placeholder="{{GAD}}" title="GAD">')));
 	tr.append($('<td class="expertModeVisible">')
-		.append($('<div>')
+		  .append($('<div>')
 			.append($('<span>')
 				.append($('<label class="checkbox-inline">')
-					.append($('<input type="checkbox" class="cmdAttr checkbox-inline" data-size="mini" data-label-text="{{Initialiser}}" data-l1key="configuration" data-l2key="init"/>'))
-					.append('{{Initialiser}}')
+					.append($('<input type="checkbox" class="cmdAttr checkbox-inline" data-size="mini" data-label-text="{{Lecture}}" data-l1key="configuration" data-l2key="FlagRead"/>'))
+					.append('{{Lecture}}')
 					.append($('<sup>')
 						.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
-						.attr('title','Souhaitez vous initialiser cette commande au démarrage?  (Attention: Avant d\'activer cette option veillez a ce que dans ce groupe d\'adresse, le flag READ soit present'))))))
-		.append($('<div>')
+							.attr('title',': Si un télégramme de type "READ" répondre en envoyant sur le bus la valeur actuelle de l\’objet.'))))))
+		 .append($('<div>')
 			.append($('<span>')
 				.append($('<label class="checkbox-inline">')
-					.append($('<input type="checkbox" class="cmdAttr checkbox-inline" data-size="mini" data-label-text="{{Evenement}}" data-l1key="configuration" data-l2key="eventOnly" checked/>'))
-					.append('{{Evenement}}')
+					.append($('<input type="checkbox" class="cmdAttr checkbox-inline" data-size="mini" data-label-text="{{Ecriture}}" data-l1key="configuration" data-l2key="FlagWrite"/>'))
+					.append('{{Ecriture}}')
 					.append($('<sup>')
 						.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
-						.attr('title','Souhaitez vous que la valeur soit mise a jours par le bus monitor'))))))
-		.append($('<div>')
+							.attr('title','La valeur de cet objet sera modifiée si un télégramme de type "WRITE" est vue sur le bus monitor'))))))
+		  .append($('<div>')
 			.append($('<span>')
 				.append($('<label class="checkbox-inline">')
-					.append($('<input type="checkbox" class="cmdAttr checkbox-inline" data-size="mini" data-label-text="{{Transmetre}}" data-l1key="configuration" data-l2key="transmitReponse"/>'))
+					.append($('<input type="checkbox" class="cmdAttr checkbox-inline" data-size="mini" data-label-text="{{Transmetre}}" data-l1key="configuration" data-l2key="FlagTransmit"/>'))
 					.append('{{Transmetre}}')
 					.append($('<sup>')
 						.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
-							.attr('title','Souhaitez vous transmetre une information sur ce groupe d\'adresse')))))));	
+							.attr('title','Si la valeur de cet objet venait à être modifiée, envoyer un télégramme de type "WRITE" contenant la nouvelle valeur de l\’objet'))))))
+		.append($('<div>')
+			.append($('<span>')
+				.append($('<label class="checkbox-inline">')
+					.append($('<input type="checkbox" class="cmdAttr checkbox-inline" data-size="mini" data-label-text="{{Mise-à-jour}}" data-l1key="configuration" data-l2key="FlagUpdate"/>'))
+					.append('{{Mise-à-jour}}')
+					.append($('<sup>')
+						.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
+						.attr('title','Si un autre participant répond à un télégramme de type "READ" avec une valeur différente, mettre a jour la valeur par celle lue sur la réponse.'))))))
+		
+		.append($('<div>')
+			.append($('<span>')
+				.append($('<label class="checkbox-inline">')
+					.append($('<input type="checkbox" class="cmdAttr checkbox-inline" data-size="mini" data-label-text="{{Initialiser}}" data-l1key="configuration" data-l2key="FlagInit"/>'))
+					.append('{{Initialiser}}')
+					.append($('<sup>')
+						.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
+						.attr('title','Au démarrage du participant, envoyer un télégramme de type "READ" pour initiliser une valeur initial correcte')))))));	
 	tr.append($('<td>')
 		.append($('<div>')
 			.append($('<span>')
