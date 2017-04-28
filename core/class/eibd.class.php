@@ -491,12 +491,12 @@ class eibd extends eqLogic {
 					$ActionValue=cmd::byId(str_replace('#','',$Commande->getValue()));
 					if(is_object($ActionValue)){
 						$valeur=$ActionValue->execCmd();
-						$ActionData= Dpt::DptSelectEncode($dpt, $valeur, $inverse,$option);
-						self::EibdReponse($Commande->getLogicalId(), $ActionData);
+						$data= Dpt::DptSelectEncode($dpt, $valeur, $inverse,$option);
+						self::EibdReponse($Commande->getLogicalId(), $data);
 						log::add('eibd', 'info','Reponse sur l\'adresse de groupe '.$Commande->getLogicalId().' la valeur '.$valeur);
 					}
 				}
-				if(($Mode=="Write" && $Commande->getConfiguration('FlagWrite')) || ($Mode=="Reponse" && $Commande->getConfiguration('FlagUpdate'))){
+				if($Mode=="Write"  || $Mode=="Reponse"){
 					log::add('eibd', 'debug',$Commande->getLogicalId().' : Décodage de la valeur avec le DPT :'.$dpt);
 					$valeur=Dpt::DptSelectDecode($dpt, $data, $inverse, $option);
 					$unite=Dpt::getDptUnite($dpt);
@@ -508,7 +508,7 @@ class eibd extends eqLogic {
 						}
 						$Commande->getEqlogic()->batteryStatus($valeur,date('Y-m-d H:i:s'));
 					}
-					if($Commande->getType() == 'info'){
+					if($Commande->getType() == 'info'&& ($Commande->getConfiguration('FlagWrite') || $Commande->getConfiguration('FlagUpdate'))){
 						log::add('eibd', 'info',$Commande->getLogicalId().' : Mise a jours de la valeur : '.$valeur.$unite);
 						$Commande->setCollectDate(date('Y-m-d H:i:s'));
 						$Commande->event($valeur);
