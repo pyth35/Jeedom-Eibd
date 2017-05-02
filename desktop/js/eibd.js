@@ -412,6 +412,19 @@ function OptionSelectDpt(){
 	});
 	return DptSelectorOption;
 }
+function saveEqLogic(_eqLogic) {
+	if (typeof( _eqLogic.cmd) !== 'undefined') {
+		for(var index in  _eqLogic.cmd) { 
+			_eqLogic.cmd[index].configuration.action=new Object();
+			var ActionArray= new Array();
+			$('.cmd[data-cmd_id=' + init(_eqLogic.cmd[index].id)+ '] .ActionGroup').each(function( index ) {
+				ActionArray.push($(this).getValues('.expressionAttr')[0])
+			});
+			_eqLogic.cmd[index].configuration.action=ActionArray;
+		}
+	}
+   	return _eqLogic;
+}
 function addCmdToTable(_cmd) {
   if (!isset(_cmd)) {
         var _cmd = {};
@@ -597,6 +610,9 @@ function addCmdToTable(_cmd) {
 	tr.append(parmetre);
 	$('#table_cmd tbody').append(tr);
 	DptOption(_cmd.configuration.KnxObjectType,$('#table_cmd tbody tr:last').find('.option'));
+	$.each(_cmd.configuration.action, function(actionCmd) {
+		addAction(actionCmd,  '{{Action}}',$(this).closest('.form-horizontal').find('.div_action'));
+	});
 	$('#table_cmd tbody tr:last').setValues(_cmd, '.cmdAttr');
 	$('#table_cmd tbody tr:last .cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]').trigger('change');
 	$('#table_cmd tbody tr:last .cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').trigger('change');
