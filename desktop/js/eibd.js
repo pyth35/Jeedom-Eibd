@@ -424,7 +424,7 @@ function OptionSelectDpt(){
 	return DptSelectorOption;
 }
 function saveEqLogic(_eqLogic) {
-	if (typeof( _eqLogic.cmd) !== 'undefined') {
+	/*if (typeof( _eqLogic.cmd) !== 'undefined') {
 		for(var index in  _eqLogic.cmd) { 
 			_eqLogic.cmd[index].configuration.action=new Object();
 			var ActionArray= new Array();
@@ -433,7 +433,7 @@ function saveEqLogic(_eqLogic) {
 			});
 			_eqLogic.cmd[index].configuration.action=ActionArray;
 		}
-	}
+	}*/
    	return _eqLogic;
 }
 function addCmdToTable(_cmd) {
@@ -507,7 +507,7 @@ function addCmdToTable(_cmd) {
 						.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
 						.attr('title','Au démarrage du participant, envoyer un télégramme de type "READ" pour initiliser une valeur initial correcte')))))));	
 	tr.append($('<td>')
-		.append($('<div>')
+		/*.append($('<div>')
 			.append($('<a class="btn btn-default btn-xs dialogAction">')
 				.append($('<i class="fa fa-cogs">')
 			       		.text('{{Action du groupe}}')))
@@ -521,7 +521,7 @@ function addCmdToTable(_cmd) {
 							.append($('<a class="btn btn-success btn-xs ActionAttr" data-action="add" style="margin-left: 5px;">')
 									.append($('<i class="fa fa-plus-circle">'))
 									.text('{{Ajouter une Action}}')))
-							.append($('<div class="div_action">')))).hide()))
+							.append($('<div class="div_action">')))).hide()))*/
 		.append($('<div>')
 			.append($('<span>')
 				.append($('<label class="checkbox-inline">')
