@@ -291,8 +291,8 @@ $(function(){
 		}
 	});
     $('body').on('click','.dialogAction',function(){
-	var _el= $(this).closest('td div'));
-          _el.find('.ActionPage'.dialog({
+	var _el= $(this).closest('td div');
+          _el.find('.ActionPage').dialog({
 		title: "{{Liste des actions}}",
 		height: "auto",
 		width: "auto",
