@@ -451,6 +451,10 @@ function addCmdToTable(_cmd) {
 						.attr('title','Au démarrage du participant, envoyer un télégramme de type "READ" pour initiliser une valeur initial correcte')))))));	
 	tr.append($('<td>')
 		.append($('<div>')
+			.append($('<a class="btn btn-default btn-xs cmdAction tooltips" data-action="listAction">')
+				.append($('<i class="fa fa-cogs">')))
+			.append($('<div class="ActionListe">')))
+		.append($('<div>')
 			.append($('<span>')
 				.append($('<label class="checkbox-inline">')
 					.append($('<input type="checkbox" class="cmdAttr checkbox-inline" data-size="mini" data-label-text="{{Inverser}}" data-l1key="configuration" data-l2key="inverse"/>'))
@@ -555,3 +559,59 @@ function addCmdToTable(_cmd) {
 	$('#table_cmd tbody tr:last').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue] option[value="'+init(_cmd.configuration.KnxObjectValue)+'"]').prop('selected', true);		
 	jeedom.cmd.changeType($('#table_cmd tbody tr:last'), init(_cmd.subType));
 }
+function addAction(_action, _name, _el) {
+	var div = $('<div class="form-group ActionGroup">')
+		.append($('<label class="col-sm-1 control-label">')
+			.text(_name))
+		.append($('<div class="col-sm-4 has-success">')
+			.append($('<div class="input-group">')
+				.append($('<span class="input-group-btn">')
+					.append($('<input type="checkbox" class="expressionAttr" data-l1key="enable"/>'))
+					.append($('<a class="btn btn-default bt_removeAction btn-sm" data-type="inAction">')
+						.append($('<i class="fa fa-minus-circle">'))))
+				.append($('<input class="expressionAttr form-control input-sm cmdAction" data-l1key="cmd" data-type="inAction"/>'))
+				.append($('<span class="input-group-btn">')
+					.append($('<a class="btn btn-success btn-sm listAction" data-type="inAction" title="Sélectionner un mot-clé">')
+						.append($('<i class="fa fa-tasks">')))
+					.append($('<a class="btn btn-success btn-sm listCmdAction" data-type="inAction">')
+						.append($('<i class="fa fa-list-alt">'))))))
+		.append($('<div class="col-sm-7 actionOptions">')
+		       .append($(jeedom.cmd.displayActionOption(init(_action.cmd, ''), _action.options))))
+ 		.append($('<div class="col-sm-8">')
+  			.append($('<i class="fa fa-minus-circle pull-left cursor ActionAttr" data-action="remove">')));
+        _el.append(div);
+        _el.find('.ActionGroup:last').setValues(_action, '.expressionAttr');
+  
+}
+$('body').on('click','cmdAction[data-action=listAction]',function(){
+	$(this).find('.ActionListe')
+		.dialog({
+			title: "{{Liste des actions}}",
+			height: 700,
+			width: 850})
+		.dialog('open');
+});
+$('body').on('click','.ActionAttr[data-action=add]',function(){
+	addAction({},  '{{Action}}',$(this).closest('.form-horizontal').find('.div_action'));
+});
+$('body').on('click','.ActionAttr[data-action=remove]', function () {
+	$(this).closest('.ActionGroup').remove();
+});
+$("body").on('click', ".listAction", function() {
+	var el = $(this).closest('.form-group').find('.expressionAttr[data-l1key=cmd]');
+	jeedom.getSelectActionModal({}, function (result) {
+		el.value(result.human);
+		jeedom.cmd.displayActionOption(el.value(), '', function (html) {
+			el.closest('.form-group').find('.actionOptions').html(html);
+		});
+	});
+}); 
+$("body").on('click', ".listCmdAction", function() {
+	var el = $(this).closest('.form-group').find('.expressionAttr[data-l1key=cmd]');
+	jeedom.cmd.getSelectModal({cmd: {type: 'action'}}, function (result) {
+		el.value(result.human);
+		jeedom.cmd.displayActionOption(el.value(), '', function (html) {
+			el.closest('.form-group').find('.actionOptions').html(html);
+		});
+	});
+});
