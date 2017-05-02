@@ -291,18 +291,19 @@ $(function(){
 		}
 	});
     $('body').on('click','.dialogAction',function(){
-      	$(this).closest('td').find('.ActionPage')
-          .dialog({
+	var _el= $(this).closest('td div'));
+          _el.find('.ActionPage'.dialog({
 		title: "{{Liste des actions}}",
 		height: "auto",
 		width: "auto",
 		modal: true,
 		buttons: {
 			"Ajouter": function() {
-				$( this ).dialog( "close" );
+				_el.append($(this).html());
+				$(this).dialog("close");
 				},
 			Cancel: function() {
-				$( this ).dialog( "close" );
+				$(this).dialog("close");
 			}
      		}
 	})
