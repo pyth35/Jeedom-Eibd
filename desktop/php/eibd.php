@@ -119,7 +119,7 @@ $eqLogics = eqLogic::byType('eibd');
 		</li>
 	</ul>
 		<div class="tab-content" style="height:calc(100% - 50px);overflow:auto;overflow-x: hidden;">
-			<div role="tabpanel" class="tab-pane" id="eqlogictab">
+			<div role="tabpanel" class="tab-pane active" id="eqlogictab">
 				<br>
 				<form class="form-horizontal">
 					<fieldset>			
@@ -216,7 +216,7 @@ $eqLogics = eqLogic::byType('eibd');
 					</fieldset> 
 				</form>
 			</div>
-			<div role="tabpanel" class="tab-pane active" id="commandtab">
+			<div role="tabpanel" class="tab-pane" id="commandtab">
 				<br>
 					<div class="pull-right" >
 						<select class="Template input-sm" data-l1key="type">
