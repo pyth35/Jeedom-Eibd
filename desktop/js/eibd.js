@@ -299,7 +299,7 @@ $(function(){
 		modal: true,
 		buttons: {
 			"Ajouter": function() {
-				_el.append($(this).html());
+				_el.append($('<div class="ActionPage">').append($(this).html()).hide());
 				$(this).dialog("close");
 				},
 			Cancel: function() {
