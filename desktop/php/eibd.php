@@ -10,19 +10,16 @@ $eqLogics = eqLogic::byType('eibd');
         <div class="bs-sidebar">
             <ul id="ul_eqLogic" class="nav nav-list bs-sidenav">
                 <a class="btn btn-default btn-sm tooltips BusMoniteur" title="Bus Moniteur" style="width : 30%">
-					<i class="fa fa-archive"></i>
-				</a>
+			<i class="fa fa-archive"></i>
+		</a>
                 <a class="btn btn-default btn-sm tooltips Ets4Parser " title="Export ETS4" style="width : 30%">
-					<i class="fa fa-spinner"></i>
-				</a>
-                <!--a class="btn btn-default btn-sm tooltips " title="Ajouter avec" style="width : 30%">
-					<i class="fa fa-archive"></i>
-				</a-->
+			<i class="fa fa-spinner"></i>
+		</a>
                 <a class="btn btn-default eqLogicAction" style="width : 100%;margin-top : 5px;margin-bottom: 5px;" data-action="add">
-					<i class="fa fa-plus-circle"></i> {{Ajouter un équipement}}</a>
+			<i class="fa fa-plus-circle"></i> {{Ajouter un équipement}}</a>
                 <li class="filter" style="margin-bottom: 5px;">
-					<input class="filter form-control input-sm" placeholder="{{Rechercher}}" style="width: 100%"/>
-				</li>
+			<input class="filter form-control input-sm" placeholder="{{Rechercher}}" style="width: 100%"/>
+		</li>
                 <?php
                 foreach (eqLogic::byType('eibd') as $eqLogic) {
 					echo '<li class="cursor li_eqLogic" data-eqLogic_id="' . $eqLogic->getId() . '"><a>' . $eqLogic->getHumanName(true) . '</a></li>';
@@ -206,20 +203,21 @@ $eqLogics = eqLogic::byType('eibd');
 			</div>
 			<div role="tabpanel" class="tab-pane" id="commandtab">
 				<br>
-					<div class="pull-right" >
-						<select class="Template input-sm" data-l1key="type">
-							<option value="">{{Aucun}}</option>
-							<?php
-							foreach (eibd::devicesParameters() as $id => $info) {
-								echo '<option value="' . $id . '">' . $info['name'] . '</option>';
-							}
-							?>
-						</select>
-						<sup>
-							<i class="fa fa-question-circle tooltips" title="Choisissez si vous le souhaité un model de configuration d'équipement" style="font-size : 1em;color:grey;"></i>
-						</sup>
-						<a class="btn btn-success btn-sm Template" data-action="add"><i class="fa fa-plus-circle"></i> {{Ajouter les Commande}}</a>
-					</div>
+				<a class="btn btn-success btn-sm cmdAction pull-right" data-action="add" style="margin-top:5px;"><i class="fa fa-plus-circle"></i> Ajouter une commande</a>
+				<div class="pull-right" >
+					<select class="Template input-sm" data-l1key="type">
+						<option value="">{{Aucun}}</option>
+						<?php
+						foreach (eibd::devicesParameters() as $id => $info) {
+							echo '<option value="' . $id . '">' . $info['name'] . '</option>';
+						}
+						?>
+					</select>
+					<sup>
+						<i class="fa fa-question-circle tooltips" title="Choisissez si vous le souhaité un model de configuration d'équipement" style="font-size : 1em;color:grey;"></i>
+					</sup>
+					<a class="btn btn-success btn-sm Template" data-action="add"><i class="fa fa-plus-circle"></i> {{Ajouter les Commande}}</a>
+				</div>
 				<table id="table_cmd" class="table table-bordered table-condensed">
 					<thead>
 						<tr>
@@ -236,14 +234,6 @@ $eqLogics = eqLogic::byType('eibd');
 				</table>
 			</div>
 		</div>
-		<form class="form-horizontal">
-			<fieldset>
-				<div class="form-actions">
-					<a class="btn btn-danger eqLogicAction" data-action="remove"><i class="fa fa-minus-circle"></i> {{Supprimer}}</a>
-					<a class="btn btn-success eqLogicAction" data-action="save"><i class="fa fa-check-circle"></i> {{Sauvegarder}}</a>
-				</div>
-			</fieldset>
-		</form>
 	</div>
 </div>
 
