@@ -290,6 +290,39 @@ $(function(){
 			});
 		}
 	});
+    $('body').on('click','.dialogAction',function(){
+      	$(this).closest('td').find('.ActionPage')
+          .dialog({
+              title: "{{Liste des actions}}",
+              height: 700,
+              width: 850})
+          .dialog('open');
+  });
+  $('body').on('click','.ActionAttr[data-action=add]',function(){
+      addAction({},  '{{Action}}',$(this).closest('.form-horizontal').find('.div_action'));
+  });
+  $('body').on('click','.ActionAttr[data-action=remove]', function () {
+      $(this).closest('.ActionGroup').remove();
+  });
+  $("body").on('click', ".listAction", function() {
+      var el = $(this).closest('.form-group').find('.expressionAttr[data-l1key=cmd]');
+      jeedom.getSelectActionModal({}, function (result) {
+          el.value(result.human);
+          jeedom.cmd.displayActionOption(el.value(), '', function (html) {
+              el.closest('.form-group').find('.actionOptions').html(html);
+          });
+      });
+  }); 
+  $("body").on('click', ".listCmdAction", function() {
+      var el = $(this).closest('.form-group').find('.expressionAttr[data-l1key=cmd]');
+      jeedom.cmd.getSelectModal({cmd: {type: 'action'}}, function (result) {
+          el.value(result.human);
+          jeedom.cmd.displayActionOption(el.value(), '', function (html) {
+              el.closest('.form-group').find('.actionOptions').html(html);
+          });
+      });
+  });
+
 });
 function UpdateVar(){
 	$.ajax({
@@ -451,7 +484,7 @@ function addCmdToTable(_cmd) {
 						.attr('title','Au démarrage du participant, envoyer un télégramme de type "READ" pour initiliser une valeur initial correcte')))))));	
 	tr.append($('<td>')
 		.append($('<div>')
-			.append($('<a class="btn btn-default btn-xs cmdAction tooltips" data-action="listAction">')
+			.append($('<a class="btn btn-default btn-xs dialogAction">')
 				.append($('<i class="fa fa-cogs">')
 			       		.text('{{Action du groupe}}')))
 			.append($('<div class="ActionPage">')
@@ -592,37 +625,4 @@ function addAction(_action, _name, _el) {
   			.append($('<i class="fa fa-minus-circle pull-left cursor ActionAttr" data-action="remove">')));
         _el.append(div);
         _el.find('.ActionGroup:last').setValues(_action, '.expressionAttr');
-  
 }
-$('body').on('click','cmdAction[data-action=listAction]',function(){
-	$(this).closest('td').find('.ActionPage')
-		.dialog({
-			title: "{{Liste des actions}}",
-			height: 700,
-			width: 850})
-		.dialog('open');
-});
-$('body').on('click','.ActionAttr[data-action=add]',function(){
-	addAction({},  '{{Action}}',$(this).closest('.form-horizontal').find('.div_action'));
-});
-$('body').on('click','.ActionAttr[data-action=remove]', function () {
-	$(this).closest('.ActionGroup').remove();
-});
-$("body").on('click', ".listAction", function() {
-	var el = $(this).closest('.form-group').find('.expressionAttr[data-l1key=cmd]');
-	jeedom.getSelectActionModal({}, function (result) {
-		el.value(result.human);
-		jeedom.cmd.displayActionOption(el.value(), '', function (html) {
-			el.closest('.form-group').find('.actionOptions').html(html);
-		});
-	});
-}); 
-$("body").on('click', ".listCmdAction", function() {
-	var el = $(this).closest('.form-group').find('.expressionAttr[data-l1key=cmd]');
-	jeedom.cmd.getSelectModal({cmd: {type: 'action'}}, function (result) {
-		el.value(result.human);
-		jeedom.cmd.displayActionOption(el.value(), '', function (html) {
-			el.closest('.form-group').find('.actionOptions').html(html);
-		});
-	});
-});
