@@ -15,7 +15,7 @@ $eqLogics = eqLogic::byType('eibd');
                 <a class="btn btn-default btn-sm tooltips Ets4Parser " title="Export ETS4" style="width : 30%">
 					<i class="fa fa-spinner"></i>
 				</a>
-                <!--a class="btn btn-default btn-sm tooltips Wizard " title="Ajouter avec Wizard" style="width : 30%">
+                <!--a class="btn btn-default btn-sm tooltips " title="Ajouter avec" style="width : 30%">
 					<i class="fa fa-archive"></i>
 				</a-->
                 <a class="btn btn-default eqLogicAction" style="width : 100%;margin-top : 5px;margin-bottom: 5px;" data-action="add">
@@ -58,12 +58,6 @@ $eqLogics = eqLogic::byType('eibd');
 			    	</center>
 			    	<span style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;color:#767676"><center>Configuration</center></span>
 			</div>
-			<!--div class="cursor Wizard" style="background-color : #ffffff; height : 140px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >
-				<center>
-					<i class="fa fa-archive" style="font-size : 5em;color:#767676;"></i>
-				</center>
-				<span style="font-size : 1.1em;position:relative; top : 23px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;color:#767676"><center>{{Wizard}}</center></span>
-			</div-->
 			<div class="cursor BusMoniteur" style="background-color : #ffffff; height : 140px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >
 				<center>
 					<i class="fa fa-archive" style="font-size : 5em;color:#767676;"></i>
@@ -130,7 +124,7 @@ $eqLogics = eqLogic::byType('eibd');
 								<a class="btn btn-success btn-xs eqLogicAction pull-right" data-action="save"><i class="fa fa-check-circle"></i> Sauvegarder</a>
 								<a class="btn btn-danger btn-xs eqLogicAction pull-right" data-action="remove"><i class="fa fa-minus-circle"></i> Supprimer</a>
 						</legend>  
-						<div class="form-group wizard">
+						<div class="form-group">
 							<label class="col-md-2 control-label">
 								{{Nom de l'équipement KNX}}
 								<sup>
@@ -142,17 +136,17 @@ $eqLogics = eqLogic::byType('eibd');
 								<input type="text" class="eqLogicAttr form-control" data-l1key="name" placeholder="{{Nom de l'équipement KNX}}"/>
 							</div>
 						</div>
-						<div class="form-group wizard expertModeVisible">
+						<div class="form-group expertModeVisible">
 							<label class="col-md-2 control-label ">{{Adresse Physique de l'équipement}}
 								<sup>
 									<i class="fa fa-question-circle tooltips" title="Indiquez l'adresse physique de votre équipement. Cette information n'est pas obigatoire mais peut etre utile dans certain cas. Pour la trouver, il faut la retrouver sur le logiciel ETS" style="font-size : 1em;color:grey;"></i>
 								</sup>
 							</label>
-							<div class="col-lg-3">
+							<div class="col-md-3">
 								<input type="text" class="eqLogicAttr form-control" data-l1key="logicalId"/>
 							</div>
 						</div>
-						<div class="form-group wizard">
+						<div class="form-group">
 							<label class="col-md-2 control-label" >
 								{{Objet parent}}
 								<sup>
@@ -169,7 +163,7 @@ $eqLogics = eqLogic::byType('eibd');
 								</select>
 							</div>
 						</div>
-						<div class="form-group wizard">
+						<div class="form-group">
 							<label class="col-md-2 control-label">
 								{{Catégorie}}
 								<sup>
@@ -188,7 +182,7 @@ $eqLogics = eqLogic::byType('eibd');
 
 							</div>
 						</div>
-						<div class="form-group wizard">
+						<div class="form-group">
 							<label class="col-sm-2 control-label" >
 								{{Etat du widget}}
 								<sup>
@@ -202,7 +196,7 @@ $eqLogics = eqLogic::byType('eibd');
 								<label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="isVisible" checked/>{{Visible}}</label>
 							</div>
 						</div>
-						<div class="form-group expertModeVisible wizard">
+						<div class="form-group expertModeVisible">
 							<label class="col-md-2 control-label">
 								{{Délai max entre 2 messages}}
 								<sup>
