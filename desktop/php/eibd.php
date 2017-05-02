@@ -104,11 +104,11 @@ $eqLogics = eqLogic::byType('eibd');
 				<i class="fa fa-arrow-circle-left"></i>
 			</a>
 		</li>
-		<li role="presentation" class="">
+		<li role="presentation" class="active">
 			<a href="#eqlogictab" aria-controls="home" role="tab" data-toggle="tab" aria-expanded="true">
 				<i class="fa fa-tachometer"></i> Equipement</a>
 		</li>
-		<li role="presentation" class="active">
+		<li role="presentation" class="">
 			<a href="#commandtab" aria-controls="profile" role="tab" data-toggle="tab" aria-expanded="false">
 				<i class="fa fa-list-alt"></i> Commandes</a>
 		</li>
