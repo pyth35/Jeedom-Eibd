@@ -452,8 +452,8 @@ function addCmdToTable(_cmd) {
 	tr.append($('<td>')
 		.append($('<div>')
 			.append($('<a class="btn btn-default btn-xs cmdAction tooltips" data-action="listAction">')
-				.append($('<i class="fa fa-cogs">'))
-			       	.text('{{Action du groupe}}'))
+				.append($('<i class="fa fa-cogs">')
+			       		.text('{{Action du groupe}}')))
 			.append($('<div class="ActionPage">')
 				.append($('<form class="form-horizontal">')
 					.append($('<fieldset>')
@@ -464,7 +464,7 @@ function addCmdToTable(_cmd) {
 							.append($('<a class="btn btn-success btn-xs ActionAttr" data-action="add" style="margin-left: 5px;">')
 									.append($('<i class="fa fa-plus-circle">'))
 									.text('{{Ajouter une Action}}')))
-							.append($('<div class="div_action">'))))).hide())
+							.append($('<div class="div_action">')))).hide()))
 		.append($('<div>')
 			.append($('<span>')
 				.append($('<label class="checkbox-inline">')
@@ -595,7 +595,7 @@ function addAction(_action, _name, _el) {
   
 }
 $('body').on('click','cmdAction[data-action=listAction]',function(){
-	$(this).find('.ActionPage')
+	$(this).closest('td').find('.ActionPage')
 		.dialog({
 			title: "{{Liste des actions}}",
 			height: 700,
