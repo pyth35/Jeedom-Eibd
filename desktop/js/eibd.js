@@ -293,9 +293,19 @@ $(function(){
     $('body').on('click','.dialogAction',function(){
       	$(this).closest('td').find('.ActionPage')
           .dialog({
-              title: "{{Liste des actions}}",
-              height: 700,
-              width: 850})
+		title: "{{Liste des actions}}",
+		height: "auto",
+		width: "auto",
+		modal: true,
+		buttons: {
+			"Ajouter": function() {
+				$( this ).dialog( "close" );
+				},
+			Cancel: function() {
+				$( this ).dialog( "close" );
+			}
+     		}
+	})
           .dialog('open');
   });
   $('body').on('click','.ActionAttr[data-action=add]',function(){
