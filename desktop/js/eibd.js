@@ -453,7 +453,17 @@ function addCmdToTable(_cmd) {
 		.append($('<div>')
 			.append($('<a class="btn btn-default btn-xs cmdAction tooltips" data-action="listAction">')
 				.append($('<i class="fa fa-cogs">')))
-			.append($('<div class="ActionListe">')))
+			.append($('<div class="ActionPage">')
+				.append($('<form class="form-horizontal">')
+					.append($('<fieldset>')
+						.append($('<legend>')
+							.text('{{Actions a mener lors du changement d\'etat :}}')
+							.append($('<sup>')
+								.append($('<i class="fa fa-question-circle tooltips" title="Saisir toutes les actions à mener lors du changement d\'etat">')))
+							.append($('<a class="btn btn-success btn-xs ActionAttr" data-action="add" style="margin-left: 5px;">')
+									.append($('<i class="fa fa-plus-circle">'))
+									.text('{{Ajouter une Action}}')))
+							.append($('<div class="div_action">'))))))
 		.append($('<div>')
 			.append($('<span>')
 				.append($('<label class="checkbox-inline">')
@@ -584,7 +594,7 @@ function addAction(_action, _name, _el) {
   
 }
 $('body').on('click','cmdAction[data-action=listAction]',function(){
-	$(this).find('.ActionListe')
+	$(this).find('.ActionPage')
 		.dialog({
 			title: "{{Liste des actions}}",
 			height: 700,
