@@ -203,7 +203,7 @@ $eqLogics = eqLogic::byType('eibd');
 			</div>
 			<div role="tabpanel" class="tab-pane" id="commandtab">
 				<br>
-				<a class="btn btn-success btn-sm cmdAction pull-right" data-action="add" style="margin-top:5px;"><i class="fa fa-plus-circle"></i> Ajouter une commande</a>
+				<a class="btn btn-success btn-sm cmdAction pull-right" data-action="add"><i class="fa fa-plus-circle"></i> Ajouter une commande</a>
 				<div class="pull-right" >
 					<select class="Template input-sm" data-l1key="type">
 						<option value="">{{Aucun}}</option>
@@ -216,7 +216,7 @@ $eqLogics = eqLogic::byType('eibd');
 					<sup>
 						<i class="fa fa-question-circle tooltips" title="Choisissez si vous le souhaité un model de configuration d'équipement" style="font-size : 1em;color:grey;"></i>
 					</sup>
-					<a class="btn btn-success btn-sm Template" data-action="add"><i class="fa fa-plus-circle"></i> {{Ajouter les Commande}}</a>
+					<a class="btn btn-success btn-sm Template" data-action="add"><i class="fa fa-plus-circle"></i> {{Ajouter le template}}</a>
 				</div>
 				<table id="table_cmd" class="table table-bordered table-condensed">
 					<thead>
