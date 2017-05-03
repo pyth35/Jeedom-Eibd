@@ -8,15 +8,17 @@ Des fonction d'auto-configuration (auto-include, parser ETS4) ont été impléme
 == Installation et configuration
 include::Installation.asciidoc[]
 
-=== Utilisation du mode auto-implementation
-include::AutoImplementation.asciidoc[]
-
-=== Utilisation de mode initialisation au démarrage
-include::Initialisation.asciidoc[]
-include::Flag.asciidoc[]
+== Utilisation du Bus Monitor
+include::BusMonitor.asciidoc[]
 
 == Paramétrage des equipements et des commandes
 include::Parametrage.asciidoc[]
+
+== Utilisation des Templates
+include::Templates.asciidoc[]
+
+== Utilisation de la passerelle Jeedom/KNX
+include::Passerelle.asciidoc[]
 
 === Utilisation de dpt spécifique multi objet (235.000)
 include::DptSpecifique.asciidoc[]
@@ -26,15 +28,6 @@ include::ActionneurONOFF.asciidoc[]
 
 === Exemple config actionneur Dimmer :
 include::ActionneurDimmer.asciidoc[]
-
-== Utilisation du Bus Monitor
-include::BusMonitor.asciidoc[]
-
-== Utilisation de la passerelle Jeedom/KNX
-include::Passerelle.asciidoc[]
-
-== Utilisation du parser ETS
-include::ParserETS.asciidoc[]
 
 == FAQ
 include::faq.asciidoc[]

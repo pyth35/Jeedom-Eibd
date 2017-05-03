@@ -8,15 +8,17 @@ Eine Funktion der Auto-Konfiguration (Auto-inklude, ETS4 Parser), ist implementi
 == Installation und Konfiguration
 include::Installation.asciidoc[]
 
-=== Benutzung des Auto-Implementation Modus
-include::AutoImplementation.asciidoc[]
-
-=== Benutzung des Initialisierungsmodus beim Start
-include::Initialisation.asciidoc[]
-include::Flag.asciidoc[]
+== Verwendung des Bus Monitors
+include::BusMonitor.asciidoc[]
 
 == Einrichten von Geräten und Befehlen
 include::Parametrage.asciidoc[]
+
+== Utilisation des Templates
+include::Templates.asciidoc[]
+
+== Verwendung des Jeedom/KNX Gateways   
+include::Passerelle.asciidoc[]
 
 === Spezifische Verwendung von DPT Multi-Objekten (235.000)
 include::DptSpecifique.asciidoc[]
@@ -26,15 +28,6 @@ include::ActionneurONOFF.asciidoc[]
 
 === Beispielkonfiguration eines Dimmer-Aktors :
 include::ActionneurDimmer.asciidoc[]
-
-== Verwendung des Bus Monitors
-include::BusMonitor.asciidoc[]
-
-== Verwendung des Jeedom/KNX Gateways   
-include::Passerelle.asciidoc[]
-
-== Verwendung des ETS Parsers
-include::ParserETS.asciidoc[]
 
 == FAQ
 include::faq.asciidoc[]
