@@ -509,6 +509,12 @@ class eibd extends eqLogic {
 						$Commande->getEqlogic()->batteryStatus($valeur,date('Y-m-d H:i:s'));
 					}
 					if($Commande->getType() == 'info'&& ($Commande->getConfiguration('FlagWrite') || $Commande->getConfiguration('FlagUpdate'))){
+						foreach($Commande->getConfiguration('action') as $Action){
+							$Cmd = cmd::byId($Action['cmd']);
+							if (is_object($Cmd) && $Cmd->getIsEnable()) {
+								$Cmd->event($Action['options']);
+							}
+						}
 						log::add('eibd', 'info',$Commande->getLogicalId().' : Mise a jours de la valeur : '.$valeur.$unite);
 						$Commande->setCollectDate(date('Y-m-d H:i:s'));
 						$Commande->event($valeur);
