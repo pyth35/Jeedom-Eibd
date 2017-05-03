@@ -491,7 +491,7 @@ function addCmdToTable(_cmd) {
 	tr.append($('<td>')
 		.append($('<div class="ActionPage">')
 			.append($('<label>')
-				.text('{{Actions a mener lors du changement d\'etat :}}')
+				.text('{{Actions au changement d\'etat :}}')
 				.append($('<sup>')
 					.append($('<i class="fa fa-question-circle tooltips" title="Saisir toutes les actions à mener lors du changement d\'etat">'))))
 			.append($('<form class="form-horizontal">')
@@ -610,9 +610,7 @@ function addCmdToTable(_cmd) {
 }
 function addAction(_action, _el) {
 	var div = $('<div class="form-group ActionGroup">')
-		/*.append($('<label class="col-sm-1 control-label">')
-			.text(_name))*/
-		.append($('<div class="col-sm-4 has-success">')
+		.append($('<div class="has-success">')
 			.append($('<div class="input-group">')
 				/*.append($('<span class="input-group-btn">')
 					.append($('<input type="checkbox" class="expressionAttr" data-l1key="enable"/>'))
@@ -620,9 +618,9 @@ function addAction(_action, _el) {
 						.append($('<i class="fa fa-minus-circle">'))))*/
 				.append($('<input class="expressionAttr form-control input-sm cmdAction" data-l1key="cmd" data-type="inAction"/>'))
 				.append($('<span class="input-group-btn">')
-					.append($('<a class="btn btn-success btn-sm listAction" data-type="inAction" title="Sélectionner un mot-clé">')
+					.append($('<a class="btn btn-success btn-sm listAction" title="Sélectionner un mot-clé">')
 						.append($('<i class="fa fa-tasks">')))
-					.append($('<a class="btn btn-success btn-sm listCmdAction" data-type="inAction">')
+					.append($('<a class="btn btn-success btn-sm listCmdAction">')
 						.append($('<i class="fa fa-list-alt">'))))))
 		.append($('<div class="col-sm-7 actionOptions">')
 		       .append($(jeedom.cmd.displayActionOption(init(_action.cmd, ''), _action.options))))
