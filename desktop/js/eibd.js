@@ -216,17 +216,19 @@ $(function(){
 			case "info":
 				$(this).closest('.cmd').find('.RetourEtat').hide();
 				$(this).closest('.cmd').find('.bt_read').show();
+				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').hide();
 				$(this).closest('.cmd').find('.cmdAttr[data-l1key=isHistorized]').closest('.input-group').parent().show();
 			break;
 			case "action":		
 				$(this).closest('.cmd').find('.RetourEtat').show();
 				$(this).closest('.cmd').find('.bt_read').hide();
+				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').show();
 				$(this).closest('.cmd').find('.cmdAttr[data-l1key=isHistorized]').closest('.input-group').parent().hide();
 			break;
-			}
-		});			
+		}
+	});			
 	$('body').on('change', '.cmdAttr[data-l1key=subType]',function() {
-		switch ($(this).val()){
+		/*switch ($(this).val()){
 			case "cursor":
 			case "numeric":
 				$(this).closest('.cmd').find('.ValeurMinMax').show();
@@ -254,7 +256,7 @@ $(function(){
 				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=inverse]')
 					.closest('.input-group').parent().hide();
 			break;
-		}
+		}*/
 		if($(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=subTypeAuto]').is(':checked')){
 			var Dpt=$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]').val();
 			var type=$(this).closest('.cmd').find('.cmdAttr[data-l1key=type]').val();
@@ -290,50 +292,30 @@ $(function(){
 			});
 		}
 	});
-    $('body').on('click','.dialogAction',function(){
-	var _el= $(this).closest('td div');
-          _el.find('.ActionPage').dialog({
-		title: "{{Liste des actions}}",
-		height: "auto",
-		width: "auto",
-		modal: true,
-		buttons: {
-			"Ajouter": function() {
-				_el.append($('<div class="ActionPage">').append($(this).html()).hide());
-				$(this).dialog("close");
-				},
-			Cancel: function() {
-				$(this).dialog("close");
-			}
-     		}
-	})
-          .dialog('open');
-  });
-  $('body').on('click','.ActionAttr[data-action=add]',function(){
-      addAction({},  '{{Action}}',$(this).closest('.form-horizontal').find('.div_action'));
-  });
-  $('body').on('click','.ActionAttr[data-action=remove]', function () {
-      $(this).closest('.ActionGroup').remove();
-  });
-  $("body").on('click', ".listAction", function() {
-      var el = $(this).closest('.form-group').find('.expressionAttr[data-l1key=cmd]');
-      jeedom.getSelectActionModal({}, function (result) {
-          el.value(result.human);
-          jeedom.cmd.displayActionOption(el.value(), '', function (html) {
-              el.closest('.form-group').find('.actionOptions').html(html);
-          });
-      });
-  }); 
-  $("body").on('click', ".listCmdAction", function() {
-      var el = $(this).closest('.form-group').find('.expressionAttr[data-l1key=cmd]');
-      jeedom.cmd.getSelectModal({cmd: {type: 'action'}}, function (result) {
-          el.value(result.human);
-          jeedom.cmd.displayActionOption(el.value(), '', function (html) {
-              el.closest('.form-group').find('.actionOptions').html(html);
-          });
-      });
-  });
-
+	$('body').on('click','.ActionAttr[data-action=add]',function(){
+		addAction({},  '{{Action}}',$(this).closest('.form-horizontal').find('.div_action'));
+	});
+	$('body').on('click','.ActionAttr[data-action=remove]', function () {
+		$(this).closest('.ActionGroup').remove();
+	});
+	$("body").on('click', ".listAction", function() {
+		var el = $(this).closest('.form-group').find('.expressionAttr[data-l1key=cmd]');
+		jeedom.getSelectActionModal({}, function (result) {
+			el.value(result.human);
+			jeedom.cmd.displayActionOption(el.value(), '', function (html) {
+				el.closest('.form-group').find('.actionOptions').html(html);
+			});
+		});
+	}); 
+	$("body").on('click', ".listCmdAction", function() {
+		var el = $(this).closest('.form-group').find('.expressionAttr[data-l1key=cmd]');
+		jeedom.cmd.getSelectModal({cmd: {type: 'action'}}, function (result) {
+			el.value(result.human);
+			jeedom.cmd.displayActionOption(el.value(), '', function (html) {
+				el.closest('.form-group').find('.actionOptions').html(html);
+			});
+		});
+	});
 });
 function UpdateVar(){
 	$.ajax({
@@ -424,7 +406,7 @@ function OptionSelectDpt(){
 	return DptSelectorOption;
 }
 function saveEqLogic(_eqLogic) {
-	/*if (typeof( _eqLogic.cmd) !== 'undefined') {
+	if (typeof( _eqLogic.cmd) !== 'undefined') {
 		for(var index in  _eqLogic.cmd) { 
 			_eqLogic.cmd[index].configuration.action=new Object();
 			var ActionArray= new Array();
@@ -433,7 +415,7 @@ function saveEqLogic(_eqLogic) {
 			});
 			_eqLogic.cmd[index].configuration.action=ActionArray;
 		}
-	}*/
+	}
    	return _eqLogic;
 }
 function addCmdToTable(_cmd) {
@@ -507,21 +489,17 @@ function addCmdToTable(_cmd) {
 						.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
 						.attr('title','Au démarrage du participant, envoyer un télégramme de type "READ" pour initiliser une valeur initial correcte')))))));	
 	tr.append($('<td>')
-		/*.append($('<div>')
-			.append($('<a class="btn btn-default btn-xs dialogAction">')
-				.append($('<i class="fa fa-cogs">')
-			       		.text('{{Action du groupe}}')))
-			.append($('<div class="ActionPage">')
-				.append($('<form class="form-horizontal">')
-					.append($('<fieldset>')
-						.append($('<legend>')
-							.text('{{Actions a mener lors du changement d\'etat :}}')
-							.append($('<sup>')
-								.append($('<i class="fa fa-question-circle tooltips" title="Saisir toutes les actions à mener lors du changement d\'etat">')))
-							.append($('<a class="btn btn-success btn-xs ActionAttr" data-action="add" style="margin-left: 5px;">')
-									.append($('<i class="fa fa-plus-circle">'))
-									.text('{{Ajouter une Action}}')))
-							.append($('<div class="div_action">')))).hide()))*/
+		.append($('<div class="ActionPage">')
+			.append($('<label>')
+				.text('{{Actions a mener lors du changement d\'etat :}}')
+				.append($('<sup>')
+					.append($('<i class="fa fa-question-circle tooltips" title="Saisir toutes les actions à mener lors du changement d\'etat">'))))
+			.append($('<form class="form-horizontal">')
+				.append($('<fieldset>')
+					.append($('<a class="btn btn-success btn-xs ActionAttr" data-action="add" style="margin-left: 5px;">')
+						.append($('<i class="fa fa-plus-circle">')
+							.text('{{Ajouter une Action}}')))
+					.append($('<div class="div_action">')))))
 		.append($('<div>')
 			.append($('<span>')
 				.append($('<label class="checkbox-inline">')
@@ -632,14 +610,14 @@ function addCmdToTable(_cmd) {
 }
 function addAction(_action, _name, _el) {
 	var div = $('<div class="form-group ActionGroup">')
-		.append($('<label class="col-sm-1 control-label">')
-			.text(_name))
+		/*.append($('<label class="col-sm-1 control-label">')
+			.text(_name))*/
 		.append($('<div class="col-sm-4 has-success">')
 			.append($('<div class="input-group">')
-				.append($('<span class="input-group-btn">')
+				/*.append($('<span class="input-group-btn">')
 					.append($('<input type="checkbox" class="expressionAttr" data-l1key="enable"/>'))
 					.append($('<a class="btn btn-default bt_removeAction btn-sm" data-type="inAction">')
-						.append($('<i class="fa fa-minus-circle">'))))
+						.append($('<i class="fa fa-minus-circle">'))))*/
 				.append($('<input class="expressionAttr form-control input-sm cmdAction" data-l1key="cmd" data-type="inAction"/>'))
 				.append($('<span class="input-group-btn">')
 					.append($('<a class="btn btn-success btn-sm listAction" data-type="inAction" title="Sélectionner un mot-clé">')
