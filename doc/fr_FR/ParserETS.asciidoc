@@ -1,3 +1,0 @@
-Téléchargez votre projet ETS et jeedom se chargera de configurer au maximum vos commandes.
-L'utilisation du parser ne donne pas une configuration complète car elle est limitée aux informations saisies dans votre installation.
-Il est toujours nécessaire de verifier et compléter sa configuration.
