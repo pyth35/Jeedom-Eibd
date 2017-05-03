@@ -14,6 +14,9 @@ include::BusMonitor.asciidoc[]
 == Paramétrage des equipements et des commandes
 include::Parametrage.asciidoc[]
 
+== Utilisation des Templates
+include::Templates.asciidoc[]
+
 == Utilisation de la passerelle Jeedom/KNX
 include::Passerelle.asciidoc[]
 
