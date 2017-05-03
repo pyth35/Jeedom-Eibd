@@ -228,7 +228,7 @@ $(function(){
 		}
 	});			
 	$('body').on('change', '.cmdAttr[data-l1key=subType]',function() {
-		/*switch ($(this).val()){
+		switch ($(this).val()){
 			case "cursor":
 			case "numeric":
 				$(this).closest('.cmd').find('.ValeurMinMax').show();
@@ -256,7 +256,7 @@ $(function(){
 				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=inverse]')
 					.closest('.input-group').parent().hide();
 			break;
-		}*/
+		}
 		if($(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=subTypeAuto]').is(':checked')){
 			var Dpt=$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]').val();
 			var type=$(this).closest('.cmd').find('.cmdAttr[data-l1key=type]').val();
@@ -293,7 +293,7 @@ $(function(){
 		}
 	});
 	$('body').on('click','.ActionAttr[data-action=add]',function(){
-		addAction({},$(this).closest('.form-horizontal').find('.div_action'));
+		addAction({},$(this).closest('.ActionPage').find('.div_action'));
 	});
 	$('body').on('click','.ActionAttr[data-action=remove]', function () {
 		$(this).closest('.ActionGroup').remove();
@@ -494,12 +494,10 @@ function addCmdToTable(_cmd) {
 				.text('{{Actions au changement d\'etat :}}')
 				.append($('<sup>')
 					.append($('<i class="fa fa-question-circle tooltips" title="Saisir toutes les actions à mener lors du changement d\'etat">'))))
-			.append($('<form class="form-horizontal">')
-				.append($('<fieldset>')
-					.append($('<a class="btn btn-success btn-xs ActionAttr" data-action="add" style="margin-left: 5px;">')
-						.append($('<i class="fa fa-plus-circle">')
-							.text('{{Ajouter une Action}}')))
-					.append($('<div class="div_action">')))))
+			.append($('<a class="btn btn-success btn-xs ActionAttr" data-action="add" style="margin-left: 5px;">')
+				.append($('<i class="fa fa-plus-circle">')
+					.text('{{Ajouter une Action}}')))
+			.append($('<div class="div_action">')))
 		.append($('<div>')
 			.append($('<span>')
 				.append($('<label class="checkbox-inline">')
