@@ -597,9 +597,15 @@ function addCmdToTable(_cmd) {
 	tr.append(parmetre);
 	$('#table_cmd tbody').append(tr);
 	DptOption(_cmd.configuration.KnxObjectType,$('#table_cmd tbody tr:last').find('.option'));
-	$.each(_cmd.configuration.action, function(actionCmd) {
+	/*$.each(_cmd.configuration.action, function(actionCmd) {
 		addAction(actionCmd,$('#table_cmd tbody tr:last').find('.div_action'));
-	});
+	});*/
+	if (typeof(_cmd.configuration.action) !== 'undefined') {
+		for(var index in _cmd.configuration.action) { 
+			if( (typeof _cmd.configuration.action[index] === "object") && (_cmd.configuration.action[index] !== null) )
+				addAction(_cmd.configuration.action[index],$('#table_cmd tbody tr:last').find('.div_action'));
+		}
+	}
 	$('#table_cmd tbody tr:last').setValues(_cmd, '.cmdAttr');
 	$('#table_cmd tbody tr:last .cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]').trigger('change');
 	$('#table_cmd tbody tr:last .cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').trigger('change');
