@@ -24,6 +24,8 @@ $(function(){
       var input=$(this).closest('.input-group').find('.CmdEqLogicTemplateAttr');
 		bootbox.dialog({
 			title: "{{Choisir un Gad}}",
+			height: "auto",
+			width: "auto",
 			message: $('<div>').load('index.php?v=d&modal=eibd.gadInconnue&plugin=eibd&type=eibd&param'),
 			buttons: {
 				"Annuler": {
@@ -86,6 +88,8 @@ $(function(){
 		bootbox.dialog({
 			title: "{{Ajout d'un équipement avec template}}",
 			message: message,
+			height: "auto",
+			width: "auto",
 			buttons: {
 				"Annuler": {
 					className: "btn-default",
@@ -129,37 +133,37 @@ $(function(){
 	$('.log').on('click', function() {
 		$('#md_modal').dialog({
 			title: "{{log}}",
-			height: 600,
-			width: 850});
+			height: "auto",
+			width: "auto"});
 		$('#md_modal').load('index.php?v=d&modal=eibd.log&plugin=eibd&type=eibd').dialog('open');
 		});
 	$('.GadInconue').on('click', function() {
 		$('#md_modal').dialog({
 			title: "{{Importer les Gad inconnue}}",
-			height: 700,
-			width: 850});
+			height: "auto",
+			width: "auto"});
 		$('#md_modal').load('index.php?v=d&modal=eibd.gadInconnue&plugin=eibd&type=eibd').dialog('open');
 	});
 	$('.BusMoniteur').on('click', function() {
 		$('#md_modal').dialog({
 			title: "{{Bus Moniteur}}",
-			height: 700,
-			width: 850});
+			height: "auto",
+			width: "auto"});
 		$('#md_modal').load('index.php?v=d&modal=eibd.busmoniteur&plugin=eibd&type=eibd').dialog('open');
 	});
 	$('.Ets4Parser').on('click', function() {
 		$('#md_modal').dialog({
 			title: "{{Ajout de vos équipement par ETS}}",
-			height: 700,
-			width: 850});
+			height: "auto",
+			width: "auto"});
 		$('#md_modal').load('index.php?v=d&modal=eibd.EtsParser&plugin=eibd&type=eibd').dialog('open');
 
 	});
 	$('.EibdParametre').on('click', function() {
 		$('#md_modal').dialog({
 			title: "{{Parametre de connexion EIB}}",
-			height: 700,
-			width: 850});
+			height: "auto",
+			width: "auto"});
 		$('#md_modal').load('index.php?v=d&modal=eibd.parametre&plugin=eibd&type=eibd').dialog('open');
 	});
 	$('body').on( 'click','.bt_selectCmdExpression', function() {
