@@ -293,7 +293,7 @@ $(function(){
 		}
 	});
 	$('body').on('click','.ActionAttr[data-action=add]',function(){
-		addAction({},  '{{Action}}',$(this).closest('.form-horizontal').find('.div_action'));
+		addAction({},$(this).closest('.form-horizontal').find('.div_action'));
 	});
 	$('body').on('click','.ActionAttr[data-action=remove]', function () {
 		$(this).closest('.ActionGroup').remove();
@@ -600,7 +600,7 @@ function addCmdToTable(_cmd) {
 	$('#table_cmd tbody').append(tr);
 	DptOption(_cmd.configuration.KnxObjectType,$('#table_cmd tbody tr:last').find('.option'));
 	$.each(_cmd.configuration.action, function(actionCmd) {
-		addAction(actionCmd,  '{{Action}}',$(this).closest('.form-horizontal').find('.div_action'));
+		addAction(actionCmd,$('#table_cmd tbody tr:last').find('.div_action'));
 	});
 	$('#table_cmd tbody tr:last').setValues(_cmd, '.cmdAttr');
 	$('#table_cmd tbody tr:last .cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]').trigger('change');
@@ -608,7 +608,7 @@ function addCmdToTable(_cmd) {
 	$('#table_cmd tbody tr:last').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue] option[value="'+init(_cmd.configuration.KnxObjectValue)+'"]').prop('selected', true);		
 	jeedom.cmd.changeType($('#table_cmd tbody tr:last'), init(_cmd.subType));
 }
-function addAction(_action, _name, _el) {
+function addAction(_action, _el) {
 	var div = $('<div class="form-group ActionGroup">')
 		/*.append($('<label class="col-sm-1 control-label">')
 			.text(_name))*/
