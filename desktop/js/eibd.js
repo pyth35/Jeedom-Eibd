@@ -615,6 +615,7 @@ function addCmdToTable(_cmd) {
 function addAction(_action, _el) {
 	var div = $('<div class="form-group ActionGroup">')
 		.append($('<div class="has-success">')
+  			.append($('<i class="fa fa-minus-circle pull-left cursor ActionAttr" data-action="remove">'))
 			.append($('<div class="input-group">')
 				/*.append($('<span class="input-group-btn">')
 					.append($('<input type="checkbox" class="expressionAttr" data-l1key="enable"/>'))
@@ -626,10 +627,8 @@ function addAction(_action, _el) {
 						.append($('<i class="fa fa-tasks">')))
 					.append($('<a class="btn btn-success btn-sm listCmdAction">')
 						.append($('<i class="fa fa-list-alt">'))))))
-		.append($('<div class="col-sm-7 actionOptions">')
-		       .append($(jeedom.cmd.displayActionOption(init(_action.cmd, ''), _action.options))))
- 		.append($('<div class="col-sm-8">')
-  			.append($('<i class="fa fa-minus-circle pull-left cursor ActionAttr" data-action="remove">')));
+		.append($('<div class="actionOptions">')
+		       .append($(jeedom.cmd.displayActionOption(init(_action.cmd, ''), _action.options))));
         _el.append(div);
         _el.find('.ActionGroup:last').setValues(_action, '.expressionAttr');
 }
