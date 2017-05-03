@@ -510,9 +510,19 @@ class eibd extends eqLogic {
 					}
 					if($Commande->getType() == 'info'&& ($Commande->getConfiguration('FlagWrite') || $Commande->getConfiguration('FlagUpdate'))){
 						foreach($Commande->getConfiguration('action') as $Action){
-							$Cmd = cmd::byId($Action['cmd']);
+							try {
+								$options = array();
+								if (isset($Action['options'])) {
+									$options = $Action['options'];
+								}
+								scenarioExpression::createAndExec('action', $Action['cmd'], $options);
+							} catch (Exception $e) {
+								log::add('eibd', 'error', __('Erreur lors de l\'éxecution de ', __FILE__) . $action['cmd'] . __('. Détails : ', __FILE__) . $e->getMessage());
+							}
+							$Cmd=cmd::byId(str_replace('#','',$Action['cmd']));
 							if (is_object($Cmd) && $Cmd->getIsEnable()) {
 								$Cmd->event($Action['options']);
+								log::add('Volets','debug',$Commande->getHumanName().' Exécution de '.$Cmd->getHumanName());
 							}
 						}
 						log::add('eibd', 'info',$Commande->getLogicalId().' : Mise a jours de la valeur : '.$valeur.$unite);
