@@ -6,7 +6,7 @@ sendVarToJS('eqType', 'eibd');
 $eqLogics = eqLogic::byType('eibd');
 ?>
 <div class="row row-overflow">
-    <div class="col-md-2">
+    <div class="col-lg-2 col-md-3 col-sm-4">
         <div class="bs-sidebar">
             <ul id="ul_eqLogic" class="nav nav-list bs-sidenav">
                 <a class="btn btn-default btn-sm tooltips BusMoniteur" title="Bus Moniteur" style="width : 30%">
@@ -90,7 +90,7 @@ $eqLogics = eqLogic::byType('eibd');
 			?>
 		</div>
     </div>
-	<div class="eqLogic col-lg-12" style="border-left: 1px solid rgb(238, 238, 238); padding-left: 25px; height: auto; overflow: initial; padding-top: 5px;">
+	<div class="col-lg-10 col-md-9 col-sm-8 eqLogic" style="border-left: solid 1px #EEE; padding-left: 25px;display: none;">
 	<a class="btn btn-success eqLogicAction pull-right" data-action="save"><i class="fa fa-check-circle"></i> Sauvegarder</a>
 	<a class="btn btn-danger eqLogicAction pull-right" data-action="remove"><i class="fa fa-minus-circle"></i> Supprimer</a>
 	<a class="btn btn-default eqLogicAction pull-right" data-action="configure"><i class="fa fa-cogs"></i> Configuration avancée</a>
