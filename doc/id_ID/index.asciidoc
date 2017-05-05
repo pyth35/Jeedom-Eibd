@@ -11,6 +11,9 @@ include::Installation.asciidoc[]
 == Utilisation du Bus Monitor
 include::BusMonitor.asciidoc[]
 
+== Utilisation du parser ETS
+include::ParserETS.asciidoc[]
+
 == Paramétrage des equipements et des commandes
 include::Parametrage.asciidoc[]
 
@@ -20,13 +23,13 @@ include::Templates.asciidoc[]
 == Utilisation de la passerelle Jeedom/KNX
 include::Passerelle.asciidoc[]
 
-=== Utilisation de dpt spécifique multi objet (235.000)
+== Utilisation de dpt spécifique multi objet (235.000)
 include::DptSpecifique.asciidoc[]
 
-=== Exemple config actionneur ON/OFF :
+== Exemple config actionneur ON/OFF :
 include::ActionneurONOFF.asciidoc[]
 
-=== Exemple config actionneur Dimmer :
+== Exemple config actionneur Dimmer :
 include::ActionneurDimmer.asciidoc[]
 
 == FAQ

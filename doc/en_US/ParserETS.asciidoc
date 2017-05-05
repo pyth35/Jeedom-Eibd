@@ -1,3 +1,2 @@
-Download your ETS project and jeedom will to configure a maximum of your commands.
-The use of the parser does not give a complete configuration, because it is limited to the information entered in your installation.
-Il est toujours nécessaire de verifier et compléter sa configuration.
+En téléchargeant votre projets ETS (.knxproj), vous allez permetre a jeedom de charger dans son cache, tout les gad de votre installation.
+Il vous suffira par la suite de cree des equipements par template ou manellement en important les gad dans vos equipements

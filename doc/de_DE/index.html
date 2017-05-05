@@ -424,51 +424,58 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </li>
 <li><a href="#_verwendung_des_bus_monitors">3. Verwendung des Bus Monitors</a></li>
-<li><a href="#_einrichten_von_geräten_und_befehlen">4. Einrichten von Geräten und Befehlen</a>
-<ul class="sectlevel3">
-<li><a href="#_geräte">4.1. Geräte</a></li>
-<li><a href="#_befehle">4.2. Befehle</a></li>
-<li><a href="#_flag_kommunikation">4.3. Flag Kommunikation</a></li>
-<li><a href="#_flag_lecture_read">4.4. Flag  Lecture / Read</a></li>
-<li><a href="#_flag_ecriture_write">4.5. Flag  Ecriture / Write</a></li>
-<li><a href="#_flag_transmission_transmit">4.6. Flag  Transmission/Transmit</a></li>
-<li><a href="#_flag_mise_à_jour_update">4.7. Flag  Mise-à-jour/Update</a></li>
-<li><a href="#_flag_read_on_init">4.8. Flag Read-on-Init</a></li>
-</ul>
-</li>
-<li><a href="#_utilisation_des_templates">5. Utilisation des Templates</a>
+<li><a href="#_utilisation_du_parser_ets">4. Utilisation du parser ETS</a></li>
+<li><a href="#_einrichten_von_geräten_und_befehlen">5. Einrichten von Geräten und Befehlen</a>
 <ul class="sectlevel2">
-<li><a href="#_creation_d_un_equipement_par_template">5.1. Creation d&#8217;un equipement par template</a></li>
-<li><a href="#_creation_de_commandes_par_template">5.2. Creation de commandes par template</a></li>
+<li><a href="#_Équipement">5.1. Équipement</a></li>
+<li><a href="#_commande">5.2. Commande</a>
+<ul class="sectlevel3">
+<li><a href="#_ajout_des_commandes_par_template">5.2.1. Ajout des commandes par template</a></li>
+<li><a href="#_ajout_des_commandes_manuelement">5.2.2. Ajout des commandes manuelement</a></li>
+<li><a href="#_configuration_knx">5.2.3. Configuration KNX</a></li>
+<li><a href="#_flag_kommunikation">5.2.4. Flag Kommunikation</a></li>
+<li><a href="#_flag_lecture_read">5.2.5. Flag  Lecture / Read</a></li>
+<li><a href="#_flag_ecriture_write">5.2.6. Flag  Ecriture / Write</a></li>
+<li><a href="#_flag_transmission_transmit">5.2.7. Flag  Transmission/Transmit</a></li>
+<li><a href="#_flag_mise_à_jour_update">5.2.8. Flag  Mise-à-jour/Update</a></li>
+<li><a href="#_flag_read_on_init">5.2.9. Flag Read-on-Init</a></li>
 </ul>
 </li>
-<li><a href="#_verwendung_des_jeedom_knx_gateways">6. Verwendung des Jeedom/KNX Gateways</a>
+</ul>
+</li>
+<li><a href="#_utilisation_des_templates">6. Utilisation des Templates</a>
 <ul class="sectlevel2">
-<li><a href="#_envoyer_sur_le_bus_une_valeur">6.1. Envoyer sur le bus une valeur</a></li>
-<li><a href="#_executer_des_actions_a_la_mise_a_jours">6.2. Executer des actions a la mise a jours</a></li>
-<li><a href="#_reponse_a_une_commande_read_du_bus">6.3. Reponse a une commande Read du bus</a></li>
-<li><a href="#_spezifische_verwendung_von_dpt_multi_objekten_235_000">6.4. Spezifische Verwendung von DPT Multi-Objekten (235.000)</a>
+<li><a href="#_creation_d_un_equipement_par_template">6.1. Creation d&#8217;un equipement par template</a></li>
+<li><a href="#_creation_de_commandes_par_template">6.2. Creation de commandes par template</a></li>
+</ul>
+</li>
+<li><a href="#_verwendung_des_jeedom_knx_gateways">7. Verwendung des Jeedom/KNX Gateways</a>
+<ul class="sectlevel2">
+<li><a href="#_envoyer_une_valeur_sur_le_bus">7.1. Envoyer une valeur sur le bus.</a></li>
+<li><a href="#_exécuter_des_actions_lors_de_la_mise_à_jour">7.2. Exécuter des actions lors de la mise à jour.</a></li>
+<li><a href="#_répondre_à_une_commande_read_en_provenance_du_bus">7.3. Répondre à une commande "Read" en provenance du bus</a></li>
+</ul>
+</li>
+<li><a href="#_utilisation_de_dpt_spécifique_multi_objet_235_000">8. Utilisation de dpt spécifique multi objet (235.000)</a>
 <ul class="sectlevel3">
-<li><a href="#_präsentation">6.4.1. Präsentation</a></li>
-<li><a href="#_composition_du_dpt_235_001">6.4.2. Composition du DPT 235.001</a></li>
-<li><a href="#_befehls_konfiguration">6.4.3. Befehls Konfiguration</a></li>
+<li><a href="#_präsentation">8.1. Präsentation</a></li>
+<li><a href="#_composition_du_dpt_235_001">8.2. Composition du DPT 235.001</a></li>
+<li><a href="#_befehls_konfiguration">8.3. Befehls Konfiguration</a></li>
 </ul>
 </li>
-<li><a href="#_beispielkonfiguration_eines_an_aus_aktors">6.5. Beispielkonfiguration eines AN/AUS-Aktors :</a>
+<li><a href="#_exemple_config_actionneur_on_off">9. Exemple config actionneur ON/OFF :</a>
 <ul class="sectlevel3">
-<li><a href="#_créer_un_équipement_correspondant_à_votre_actionneur_knx">6.5.1. Créer un équipement correspondant à votre actionneur KNX :</a></li>
-<li><a href="#_créer_un_équipement_qui_se_comportera_comme_un_intérrupteur_knx">6.5.2. Créer un équipement qui se comportera comme un intérrupteur KNX :</a></li>
+<li><a href="#_créer_un_équipement_correspondant_à_votre_actionneur_knx">9.1. Créer un équipement correspondant à votre actionneur KNX :</a></li>
+<li><a href="#_créer_un_équipement_qui_se_comportera_comme_un_intérrupteur_knx">9.2. Créer un équipement qui se comportera comme un intérrupteur KNX :</a></li>
 </ul>
 </li>
-<li><a href="#_beispielkonfiguration_eines_dimmer_aktors">6.6. Beispielkonfiguration eines Dimmer-Aktors :</a>
+<li><a href="#_exemple_config_actionneur_dimmer">10. Exemple config actionneur Dimmer :</a>
 <ul class="sectlevel3">
-<li><a href="#_créer_un_équipement_correspondant_à_votre_dimmer_knx">6.6.1. Créer un équipement correspondant à votre dimmer KNX :</a></li>
-<li><a href="#_créer_la_commande_pour_dimmer_votre_lumière">6.6.2. Créer la commande pour dimmer votre lumière :</a></li>
+<li><a href="#_créer_un_équipement_correspondant_à_votre_dimmer_knx">10.1. Créer un équipement correspondant à votre dimmer KNX :</a></li>
+<li><a href="#_créer_la_commande_pour_dimmer_votre_lumière">10.2. Créer la commande pour dimmer votre lumière :</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li><a href="#_faq">7. FAQ</a></li>
+<li><a href="#_faq">11. FAQ</a></li>
 </ul>
 </div>
 </div>
@@ -576,17 +583,36 @@ Pour le débugage d&#8217;une configuration défaillante, il est aussi possible 
 <div class="paragraph">
 <p>Le bus monitor affiche l&#8217;adresse physique de l’équipement, l&#8217;adresse de groupe, la data en hexa et sa conversion</p>
 </div>
+<div class="paragraph">
+<p>Le bus monitor vas mettre en cache egalement tous les gad qu&#8217;il voit et qui sont inconnue a votre installation.
+Cette liste est disponible sur la page de configuration et il vous est possible d&#8217;importer le gad dans un equipement.
+Cette liste est egalment disponible si vous utilisez la creation d&#8217;equipement par template.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ListeGadInconnue.jpg" alt="ListeGadInconnue">
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_einrichten_von_geräten_und_befehlen">4. Einrichten von Geräten und Befehlen</h2>
+<h2 id="_utilisation_du_parser_ets">4. Utilisation du parser ETS</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>En téléchargeant votre projets ETS (.knxproj), vous allez permetre a jeedom de charger dans son cache, tout les gad de votre installation.
+Il vous suffira par la suite de cree des equipements par template ou manellement en important les gad dans vos equipements</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_einrichten_von_geräten_und_befehlen">5. Einrichten von Geräten und Befehlen</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Si vous avez activé l&#8217;ajout automatique ou l&#8217;import ETS4, les equipements et les commandes ont été créer, mais il reste certain parametre a configurer.
 La suite de ce paragraphe va vous etre utiles.</p>
 </div>
-<div class="sect3">
-<h4 id="_geräte">4.1. Geräte</h4>
+<div class="sect2">
+<h3 id="_Équipement">5.1. Équipement</h3>
 <div class="paragraph">
 <p>Dans un premier temps, il faut créer un nouvelle équipement et le nommé.
 Comme dans tous les plugins Jeedom vous avez un bouton ajouté un equipement sur la gauche de votre fenetre.</p>
@@ -625,8 +651,8 @@ Comme dans tous les plugins Jeedom vous avez un bouton ajouté un equipement sur
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_befehle">4.2. Befehle</h4>
+<div class="sect2">
+<h3 id="_commande">5.2. Commande</h3>
 <div class="paragraph">
 <p>Maintenant que votre équipement est crée et configurée, on vas pouvoir y ajouter des commandes.</p>
 </div>
@@ -638,8 +664,8 @@ Comme dans tous les plugins Jeedom vous avez un bouton ajouté un equipement sur
 <img src="../images/Configuration_commande.jpg" alt="Configuration commande">
 </div>
 </div>
-<div class="sect4">
-<h5 id="_ajout_des_commandes_par_template">Ajout des commandes par template</h5>
+<div class="sect3">
+<h4 id="_ajout_des_commandes_par_template">5.2.1. Ajout des commandes par template</h4>
 <div class="imageblock">
 <div class="content">
 <img src="../images/Configuration_commande_tempate.jpg" alt="Configuration commande tempate">
@@ -650,13 +676,14 @@ Comme dans tous les plugins Jeedom vous avez un bouton ajouté un equipement sur
 Le plugin ajoutera et configurera les commandes defini par le template, il vous restera plus qu&#8217;a configurer les GAD</p>
 </div>
 </div>
-<div class="sect4">
-<h5 id="_ajout_des_commandes_manuelement">Ajout des commandes manuelement</h5>
+<div class="sect3">
+<h4 id="_ajout_des_commandes_manuelement">5.2.2. Ajout des commandes manuelement</h4>
 <div class="paragraph">
 <p>Nommée votre commande de manière a la retrouve facilement dans Jeedom</p>
 </div>
-<div class="sect5">
-<h6 id="_configuration_knx">Configuration KNX</h6>
+</div>
+<div class="sect3">
+<h4 id="_configuration_knx">5.2.3. Configuration KNX</h4>
 <div class="paragraph">
 <p>Ces champs de configuration sont important pour la communication
 * Data Point Type : ce champs est important et indispensable pour l&#8217;encodage et décodage de la valeur.
@@ -667,15 +694,13 @@ Le plugin ajoutera et configurera les commandes defini par le template, il vous 
 <img src="../images/Configuration_commande_knx.jpg" alt="Configuration commande knx">
 </div>
 </div>
-</div>
 <div class="sect5">
 <h6 id="_flag">Flag</h6>
 
 </div>
 </div>
-</div>
 <div class="sect3">
-<h4 id="_flag_kommunikation">4.3. Flag Kommunikation</h4>
+<h4 id="_flag_kommunikation">5.2.4. Flag Kommunikation</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -706,7 +731,7 @@ d&#8217;erreur par exemple.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_flag_lecture_read">4.4. Flag  Lecture / Read</h4>
+<h4 id="_flag_lecture_read">5.2.5. Flag  Lecture / Read</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -760,7 +785,7 @@ surtout après une panne de courent ou un problème sur le bus &#8230;&#8203;</p
 </div>
 </div>
 <div class="sect3">
-<h4 id="_flag_ecriture_write">4.5. Flag  Ecriture / Write</h4>
+<h4 id="_flag_ecriture_write">5.2.6. Flag  Ecriture / Write</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -800,7 +825,7 @@ du style reed-relais dans une porte ou une fenêtre, &#8230;&#8203;).</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_flag_transmission_transmit">4.6. Flag  Transmission/Transmit</h4>
+<h4 id="_flag_transmission_transmit">5.2.7. Flag  Transmission/Transmit</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -860,7 +885,7 @@ la liste.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_flag_mise_à_jour_update">4.7. Flag  Mise-à-jour/Update</h4>
+<h4 id="_flag_mise_à_jour_update">5.2.8. Flag  Mise-à-jour/Update</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -910,7 +935,7 @@ généraliser je pense, au moins sur les modules de supervision.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_flag_read_on_init">4.8. Flag Read-on-Init</h4>
+<h4 id="_flag_read_on_init">5.2.9. Flag Read-on-Init</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -1034,22 +1059,33 @@ lors d&#8217;un reset général du bus).</p>
 </div>
 </div>
 </div>
+</div>
 <div class="sect1">
-<h2 id="_utilisation_des_templates">5. Utilisation des Templates</h2>
+<h2 id="_utilisation_des_templates">6. Utilisation des Templates</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Ils existes sur le plugin plusieur templates.
 Ceci vous permette de configurer rapidement un equipement.</p>
 </div>
 <div class="sect2">
-<h3 id="_creation_d_un_equipement_par_template">5.1. Creation d&#8217;un equipement par template</h3>
+<h3 id="_creation_d_un_equipement_par_template">6.1. Creation d&#8217;un equipement par template</h3>
+<div class="imageblock">
+<div class="content">
+<img src="../images/Configuration_equipement_tempate.jpg" alt="Configuration equipement tempate">
+</div>
+</div>
 <div class="paragraph">
 <p>Sur la page principal, un bouton "Ajouter Par template" est présent.
 Il vous suffit de selectionné le template et de saisir les gad, ou d&#8217;allez chercher les gad importé par ETS ou inconnue.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_creation_de_commandes_par_template">5.2. Creation de commandes par template</h3>
+<h3 id="_creation_de_commandes_par_template">6.2. Creation de commandes par template</h3>
+<div class="imageblock">
+<div class="content">
+<img src="../images/Configuration_commande_tempate.jpg" alt="Configuration commande tempate">
+</div>
+</div>
 <div class="paragraph">
 <p>Nous l&#8217;avons vue précédement, dans la page de configuration nous pouvons ajouté des templates.
 Ce mode est pratique si par exemple dans une meme equipement vous voulez ajouté plusieur template</p>
@@ -1058,72 +1094,88 @@ Ce mode est pratique si par exemple dans une meme equipement vous voulez ajouté
 </div>
 </div>
 <div class="sect1">
-<h2 id="_verwendung_des_jeedom_knx_gateways">6. Verwendung des Jeedom/KNX Gateways</h2>
+<h2 id="_verwendung_des_jeedom_knx_gateways">7. Verwendung des Jeedom/KNX Gateways</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Pour etre au plus proche du KNX, le plugin peut ce comporter comme un participant.
-On peut donc configurer le plugin pour qui realise de action automatiquement</p>
+<p>Pour être au plus proche du KNX, le plugin peut se comporter comme un participant.
+On peut donc configurer le plugin pour qu&#8217;il réalise des actions automatiquement.</p>
 </div>
 <div class="sect2">
-<h3 id="_envoyer_sur_le_bus_une_valeur">6.1. Envoyer sur le bus une valeur</h3>
+<h3 id="_envoyer_une_valeur_sur_le_bus">7.1. Envoyer une valeur sur le bus.</h3>
 <div class="paragraph">
-<p>Vous avez sur votre jeedom un capteur qui n&#8217;est pas KNX, mais vous souhaité le liée directement a votre réseau.
-Vous pouvez le faire directement depuis le plugin en configurant ainsi votre commande</p>
+<p>Vous avez sur jeedom un capteur qui n&#8217;est pas KNX, mais vous souhaiteriez le lier directement à votre réseau ?
+Pour cela il suffit de configurer votre commande ainsi:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Cree une commande de type "action"</p>
+<p>Créer une commande de type "action"</p>
 </li>
 <li>
-<p>Saisir le GAD qui correspond a l&#8217;objet KNX que vous voulez mettre a jours</p>
+<p>Saisir le GAD qui correspond à l&#8217;objet KNX que vous souhaitez mettre à jour</p>
 </li>
 <li>
 <p>Activer le Flag "Transmettre"</p>
 </li>
 <li>
-<p>En retour d&#8217;etat allez chercher la commande de votre capteur</p>
+<p>En retour d&#8217;état allez chercher la commande de votre capteur.</p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_executer_des_actions_a_la_mise_a_jours">6.2. Executer des actions a la mise a jours</h3>
+<h3 id="_exécuter_des_actions_lors_de_la_mise_à_jour">7.2. Exécuter des actions lors de la mise à jour.</h3>
 <div class="paragraph">
-<p>Vous avez un interrupteur KNX et vous voulez declanché un scénrio ou un commande jeedom
-Vous pouvez le faire directement depuis le plugin en configurant ainsi votre commande</p>
+<p>Vous avez un interrupteur KNX et vous voulez déclancher un scénario ou une commande jeedom ?
+Pour cela il suffit de configurer votre commande ainsi:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Cree une commande de type "info"</p>
+<p>Créer une commande de type "info"</p>
 </li>
 <li>
-<p>Saisir le GAD qui correspond a l&#8217;objet KNX que vous voulez surveiller</p>
+<p>Saisir le GAD qui correspond à l&#8217;objet KNX que vous souhaitez surveiller.</p>
 </li>
 <li>
 <p>Activer le flag "Ecriture"</p>
 </li>
 <li>
-<p>Saisir la liste des actions a mener</p>
+<p>Saisir la liste des actions à mener.</p>
+</li>
+<li>
+<p>Ajouter le tag <mark>value</mark> dans les options des actions, qui sera remplacé par la valeur recu</p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_reponse_a_une_commande_read_du_bus">6.3. Reponse a une commande Read du bus</h3>
+<h3 id="_répondre_à_une_commande_read_en_provenance_du_bus">7.3. Répondre à une commande "Read" en provenance du bus</h3>
 <div class="paragraph">
-<p>Le plugin est capable de repondre a un interrogation du bus
-Vous pouvez le faire directement depuis le plugin en configurant ainsi votre commande
-* Cree une commande de type "info"
-* Saisir le GAD qui correspond a l&#8217;objet KNX que vous voulez surveiller
-* Activer le flag "Lecture"</p>
+<p>Le plugin est capable de répondre à un interrogation du bus.
+Pour cela il suffit de configurer votre commande ainsi:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Créer une commande de type "info"</p>
+</li>
+<li>
+<p>Saisir le GAD qui correspond à l&#8217;objet KNX que vous souhaitez surveiller</p>
+</li>
+<li>
+<p>Activer le flag "Lecture"</p>
+</li>
+</ul>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_spezifische_verwendung_von_dpt_multi_objekten_235_000">6.4. Spezifische Verwendung von DPT Multi-Objekten (235.000)</h3>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_utilisation_de_dpt_spécifique_multi_objet_235_000">8. Utilisation de dpt spécifique multi objet (235.000)</h2>
+<div class="sectionbody">
 <div class="sect3">
-<h4 id="_präsentation">6.4.1. Präsentation</h4>
+<h4 id="_präsentation">8.1. Präsentation</h4>
 <div class="paragraph">
 <p>Ce DPT permet l&#8217;emission ou réception des informations "Choix de tarif" et "Energie réactive". Il est utiliser pour récupérer l&#8217;index du compteur ainsi que les états HP/HC &#8230;&#8203;</p>
 </div>
@@ -1137,7 +1189,7 @@ Vous pouvez le faire directement depuis le plugin en configurant ainsi votre com
 </div>
 </div>
 <div class="sect3">
-<h4 id="_composition_du_dpt_235_001">6.4.2. Composition du DPT 235.001</h4>
+<h4 id="_composition_du_dpt_235_001">8.2. Composition du DPT 235.001</h4>
 <div class="paragraph">
 <p>Il est sur 6 octets découpé comme suit :</p>
 </div>
@@ -1161,7 +1213,7 @@ Vous pouvez le faire directement depuis le plugin en configurant ainsi votre com
 </div>
 </div>
 <div class="sect3">
-<h4 id="_befehls_konfiguration">6.4.3. Befehls Konfiguration</h4>
+<h4 id="_befehls_konfiguration">8.3. Befehls Konfiguration</h4>
 <div class="paragraph">
 <p>Créer un équipement (Lien vers doc)</p>
 </div>
@@ -1175,10 +1227,12 @@ Vous pouvez le faire directement depuis le plugin en configurant ainsi votre com
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_beispielkonfiguration_eines_an_aus_aktors">6.5. Beispielkonfiguration eines AN/AUS-Aktors :</h3>
+</div>
+<div class="sect1">
+<h2 id="_exemple_config_actionneur_on_off">9. Exemple config actionneur ON/OFF :</h2>
+<div class="sectionbody">
 <div class="sect3">
-<h4 id="_créer_un_équipement_correspondant_à_votre_actionneur_knx">6.5.1. Créer un équipement correspondant à votre actionneur KNX :</h4>
+<h4 id="_créer_un_équipement_correspondant_à_votre_actionneur_knx">9.1. Créer un équipement correspondant à votre actionneur KNX :</h4>
 <div class="paragraph">
 <p>L&#8217;Adresse KNX ( elle doit être identique à votre actionneur )
 Notre retour d&#8217;état : La Groupe Adresse choisie dans l&#8217;exemple : 0/1/0 ( A adapter à votre configuration).</p>
@@ -1199,7 +1253,7 @@ Objet status ( Retour d&#8217;Etat ) doit avoir au minimum les flags C R et T, c
 </div>
 </div>
 <div class="sect3">
-<h4 id="_créer_un_équipement_qui_se_comportera_comme_un_intérrupteur_knx">6.5.2. Créer un équipement qui se comportera comme un intérrupteur KNX :</h4>
+<h4 id="_créer_un_équipement_qui_se_comportera_comme_un_intérrupteur_knx">9.2. Créer un équipement qui se comportera comme un intérrupteur KNX :</h4>
 <div class="paragraph">
 <p>son Adresse KNX ( elle peut être identique à un vrai intérrupteur KNX qui remplira les même fonctions)</p>
 </div>
@@ -1225,10 +1279,12 @@ Objet status ( Retour d&#8217;Etat ) doit avoir au minimum les flags C R et T, c
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_beispielkonfiguration_eines_dimmer_aktors">6.6. Beispielkonfiguration eines Dimmer-Aktors :</h3>
+</div>
+<div class="sect1">
+<h2 id="_exemple_config_actionneur_dimmer">10. Exemple config actionneur Dimmer :</h2>
+<div class="sectionbody">
 <div class="sect3">
-<h4 id="_créer_un_équipement_correspondant_à_votre_dimmer_knx">6.6.1. Créer un équipement correspondant à votre dimmer KNX :</h4>
+<h4 id="_créer_un_équipement_correspondant_à_votre_dimmer_knx">10.1. Créer un équipement correspondant à votre dimmer KNX :</h4>
 <div class="paragraph">
 <p>L&#8217;Adresse KNX ( elle doit être identique à votre actionneur dimmer )</p>
 </div>
@@ -1256,7 +1312,7 @@ Objet status ( Retour d&#8217;Etat ) doit avoir au minimum les flags C R et T, c
 </div>
 </div>
 <div class="sect3">
-<h4 id="_créer_la_commande_pour_dimmer_votre_lumière">6.6.2. Créer la commande pour dimmer votre lumière :</h4>
+<h4 id="_créer_la_commande_pour_dimmer_votre_lumière">10.2. Créer la commande pour dimmer votre lumière :</h4>
 <div class="paragraph">
 <p>La commande Write brightness 5.001 0/0/10 doit avoir le paramètre "Slider" et comme retour état la commande créée précédemment "brightness value"</p>
 </div>
@@ -1271,9 +1327,8 @@ Objet status ( Retour d&#8217;Etat ) doit avoir au minimum les flags C R et T, c
 </div>
 </div>
 </div>
-</div>
 <div class="sect1">
-<h2 id="_faq">7. FAQ</h2>
+<h2 id="_faq">11. FAQ</h2>
 <div class="sectionbody">
 <div class="openblock panel">
 <div class="title">Wie wird ein Befehl erstellt, um das Licht anzuschalten, obwohl ich physisch keinen Schalter habe?</div><div class="content">
