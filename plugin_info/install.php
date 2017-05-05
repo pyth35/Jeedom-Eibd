@@ -1,4 +1,8 @@
 <?php
+require_once dirname(__FILE__) . '/../../../core/php/core.inc.php';
+
+function eibd_install() {
+}
 function eibd_update() {
 	foreach(eqLogic::byType('eibd') as $eqLogic){
 		foreach($eqLogic->getCmd() as $cmd){
@@ -16,5 +20,7 @@ function eibd_update() {
 			$cmd->save();
 		}
 	}
+}
+function eibd_remove() {
 }
 ?>
