@@ -133,37 +133,52 @@ $(function(){
 	$('.log').on('click', function() {
 		$('#md_modal').dialog({
 			title: "{{log}}",
+  			resizable: true,
 			height: "auto",
-			width: "auto"});
+			width: "auto",
+			maxWidth: $(window).width(),
+			maxHeight: $(window).height()});
 		$('#md_modal').load('index.php?v=d&modal=eibd.log&plugin=eibd&type=eibd').dialog('open');
 		});
 	$('.GadInconue').on('click', function() {
 		$('#md_modal').dialog({
 			title: "{{Importer les Gad inconnue}}",
+  			resizable: true,
 			height: "auto",
-			width: "auto"});
+			width: "auto",
+			maxWidth: $(window).width(),
+			maxHeight: $(window).height()});
 		$('#md_modal').load('index.php?v=d&modal=eibd.gadInconnue&plugin=eibd&type=eibd').dialog('open');
 	});
 	$('.BusMoniteur').on('click', function() {
 		$('#md_modal').dialog({
 			title: "{{Bus Moniteur}}",
+  			resizable: true,
 			height: "auto",
-			width: "auto"});
+			width: "auto",
+			maxWidth: $(window).width(),
+			maxHeight: $(window).height()});
 		$('#md_modal').load('index.php?v=d&modal=eibd.busmoniteur&plugin=eibd&type=eibd').dialog('open');
 	});
 	$('.Ets4Parser').on('click', function() {
 		$('#md_modal').dialog({
 			title: "{{Ajout de vos équipement par ETS}}",
+  			resizable: true,
 			height: "auto",
-			width: "auto"});
+			width: "auto",
+			maxWidth: $(window).width(),
+			maxHeight: $(window).height()});
 		$('#md_modal').load('index.php?v=d&modal=eibd.EtsParser&plugin=eibd&type=eibd').dialog('open');
 
 	});
 	$('.EibdParametre').on('click', function() {
 		$('#md_modal').dialog({
 			title: "{{Parametre de connexion EIB}}",
+  			resizable: true,
 			height: "auto",
-			width: "auto"});
+			width: "auto",
+			maxWidth: $(window).width(),
+			maxHeight: $(window).height()});
 		$('#md_modal').load('index.php?v=d&modal=eibd.parametre&plugin=eibd&type=eibd').dialog('open');
 	});
 	$('body').on( 'click','.bt_selectCmdExpression', function() {
