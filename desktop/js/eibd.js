@@ -133,6 +133,7 @@ $(function(){
 	$('.log').on('click', function() {
 		$('#md_modal').dialog({
 			title: "{{log}}",
+			position: 'center',
   			resizable: true,
 			height: "auto",
 			width: "auto",
@@ -144,6 +145,7 @@ $(function(){
 		$('#md_modal').dialog({
 			title: "{{Importer les Gad inconnue}}",
   			resizable: true,
+			position: 'center',
 			height: "auto",
 			width: "auto",
 			maxWidth: $(window).width(),
@@ -154,6 +156,7 @@ $(function(){
 		$('#md_modal').dialog({
 			title: "{{Bus Moniteur}}",
   			resizable: true,
+			position: 'center',
 			height: "auto",
 			width: "auto",
 			maxWidth: $(window).width(),
@@ -164,6 +167,7 @@ $(function(){
 		$('#md_modal').dialog({
 			title: "{{Ajout de vos équipement par ETS}}",
   			resizable: true,
+			position: 'center',
 			height: "auto",
 			width: "auto",
 			maxWidth: $(window).width(),
@@ -175,6 +179,7 @@ $(function(){
 		$('#md_modal').dialog({
 			title: "{{Parametre de connexion EIB}}",
   			resizable: true,
+			position: 'center',
 			height: "auto",
 			width: "auto",
 			maxWidth: $(window).width(),
