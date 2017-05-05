@@ -1,5 +1,5 @@
 <?php
-eibd_update(){
+function eibd_update() {
 	foreach(eqLogic::byType('eibd') as $eqLogic){
 		foreach($eqLogic->getCmd() as $cmd){
 			if(isset($cmd->getConfiguration('eventOnly')){
