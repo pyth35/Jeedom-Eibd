@@ -11,6 +11,9 @@ include::Installation.asciidoc[]
 == Utilisation du Bus Monitor
 include::BusMonitor.asciidoc[]
 
+== Utilisation du parser ETS
+include::ParserETS.asciidoc[]
+
 == Paramétrage des equipements et des commandes
 include::Parametrage.asciidoc[]
 
