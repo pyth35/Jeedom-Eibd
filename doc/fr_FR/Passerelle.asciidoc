@@ -19,6 +19,7 @@ Pour cela il suffit de configurer votre commande ainsi:
 * Saisir le GAD qui correspond à l'objet KNX que vous souhaitez surveiller.
 * Activer le flag "Ecriture"
 * Saisir la liste des actions à mener.
+* Ajouter le tag #value# dans les options des actions, qui sera remplacé par la valeur recu
 
 === Répondre à une commande "Read" en provenance du bus
 
