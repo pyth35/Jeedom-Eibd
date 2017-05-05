@@ -1,29 +1,30 @@
-Pour etre au plus proche du KNX, le plugin peut ce comporter comme un participant.
-On peut donc configurer le plugin pour qui realise de action automatiquement
+Pour être au plus proche du KNX, le plugin peut se comporter comme un participant.
+On peut donc configurer le plugin pour qu'il réalise des actions automatiquement.
 
-=== Envoyer sur le bus une valeur
-Vous avez sur votre jeedom un capteur qui n'est pas KNX, mais vous souhaité le liée directement a votre réseau.
-Vous pouvez le faire directement depuis le plugin en configurant ainsi votre commande
+=== Envoyer une valeur sur le bus. 
+Vous avez sur jeedom un capteur qui n'est pas KNX, mais vous souhaiteriez le lier directement à votre réseau ?
+Pour cela il suffit de configurer votre commande ainsi:
 
-* Cree une commande de type "action"
-* Saisir le GAD qui correspond a l'objet KNX que vous voulez mettre a jours
+* Créer une commande de type "action"
+* Saisir le GAD qui correspond à l'objet KNX que vous souhaitez mettre à jour
 * Activer le Flag "Transmettre"
-* En retour d'etat allez chercher la commande de votre capteur
+* En retour d'état allez chercher la commande de votre capteur.
 
-=== Executer des actions a la mise a jours
+=== Exécuter des actions lors de la mise à jour.
 
-Vous avez un interrupteur KNX et vous voulez declanché un scénrio ou un commande jeedom
-Vous pouvez le faire directement depuis le plugin en configurant ainsi votre commande
+Vous avez un interrupteur KNX et vous voulez déclancher un scénario ou une commande jeedom ?
+Pour cela il suffit de configurer votre commande ainsi:
 
-* Cree une commande de type "info"
-* Saisir le GAD qui correspond a l'objet KNX que vous voulez surveiller
+* Créer une commande de type "info"
+* Saisir le GAD qui correspond à l'objet KNX que vous souhaitez surveiller.
 * Activer le flag "Ecriture"
-* Saisir la liste des actions a mener
+* Saisir la liste des actions à mener.
 
-=== Reponse a une commande Read du bus
+=== Répondre à une commande "Read" en provenance du bus
 
-Le plugin est capable de repondre a un interrogation du bus
-Vous pouvez le faire directement depuis le plugin en configurant ainsi votre commande
-* Cree une commande de type "info"
-* Saisir le GAD qui correspond a l'objet KNX que vous voulez surveiller
+Le plugin est capable de répondre à un interrogation du bus.
+Pour cela il suffit de configurer votre commande ainsi:
+
+* Créer une commande de type "info"
+* Saisir le GAD qui correspond à l'objet KNX que vous souhaitez surveiller
 * Activer le flag "Lecture"
