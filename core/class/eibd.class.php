@@ -521,7 +521,10 @@ class eibd extends eqLogic {
 							}
 							$Cmd=cmd::byId(str_replace('#','',$Action['cmd']));
 							if (is_object($Cmd) && $Cmd->getIsEnable()) {
-								$Cmd->event($Action['options']);
+								$options=$Action['options'];
+								foreach($options as $index => $value)
+									$options[$index]=str_replace('#value#',$valeur,$value);
+								$Cmd->event($options);
 								log::add('Volets','debug',$Commande->getHumanName().' Exécution de '.$Cmd->getHumanName());
 							}
 						}
