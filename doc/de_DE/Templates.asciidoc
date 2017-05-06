@@ -1,16 +1,16 @@
 Ils existes sur le plugin plusieur templates.
-Ceci vous permette de configurer rapidement un equipement.
+So können Sie Geräte schnell konfigurieren.
 
-=== Creation d'un equipement par template
+=== Ein Gerät durch eine Vorlage erstellen
 
 image::../images/Configuration_equipement_tempate.jpg[]
 
-Sur la page principal, un bouton "Ajouter Par template" est présent.
+Auf der Hauptseite ist eine Schaltfläche "Vorlage hinzufügen" vorhanden. 
 Il vous suffit de selectionné le template et de saisir les gad, ou d'allez chercher les gad importé par ETS ou inconnue.
 
-=== Creation de commandes par template
+=== Befehlen durch Vorlage erstellen
 
 image::../images/Configuration_commande_tempate.jpg[]
 
-Nous l'avons vue précédement, dans la page de configuration nous pouvons ajouté des templates.
-Ce mode est pratique si par exemple dans une meme equipement vous voulez ajouté plusieur template
+Wir haben bereits auf der Konfigurationsseite gesehen, wie wir Vorlagen hinzufügen können.
+Diese Methode ist praktisch, wenn Sie zum Beispiel in dem gleichen Gerät mehrere Vorlagen hinzufügen wollen
