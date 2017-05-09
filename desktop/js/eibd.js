@@ -20,7 +20,7 @@ $(function(){
 		form.find('.CmdsTempates').remove();
 		form.append(cmds);
 	});
-	$('body').off('click').on('click','.bt_selectGadInconnue', function () {
+	$('.bt_selectGadInconnue').off('click').on('click', function () {
       var input=$(this).closest('.input-group').find('.CmdEqLogicTemplateAttr');
 		bootbox.dialog({
 			title: "{{Choisir un Gad}}",
@@ -186,7 +186,7 @@ $(function(){
 			maxHeight: $(window).height()});
 		$('#md_modal').load('index.php?v=d&modal=eibd.parametre&plugin=eibd&type=eibd').dialog('open');
 	});
-	$('body').on( 'click','.bt_selectCmdExpression', function() {
+	$('.bt_selectCmdExpression').off('click').on('click',function() {
 		var el=$(this).closest('.input-group').find('.cmdAttr');
 		$(this).value()
 		jeedom.cmd.getSelectModal({cmd: {type: 'info'},eqLogic: {eqType_name : ''}}, function (result) {
@@ -197,7 +197,7 @@ $(function(){
 			el.val(value);
 		});  
 	});  
-	$('body').on( 'click','.bt_read', function() {
+	$('.bt_read').off('click').on( 'click', function() {
 		$.ajax({
 			type: 'POST',            
 			async: false,
@@ -218,14 +218,14 @@ $(function(){
 				}
 		});
 	});
-	$('body').on('keyup','.cmdAttr[data-l1key=logicalId]', function() {
+	$('.cmdAttr[data-l1key=logicalId]').off('keyup').on('keyup', function() {
 		var lastCar=$(this).val().substr(-1);
 		var doublelastCar=$(this).val().substr(-2);
 		var oldvalue=$(this).val().substring(0,$(this).val().length-1);
 		if(!$.isNumeric(lastCar) && lastCar!='/' || doublelastCar=='//')
 			$(this).val(oldvalue);
 	}); 
-	$('body').on('change','.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]', function() {
+	$('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]').off('change').on('change', function() {
 		DptOption($(this).val(),$(this).closest('.cmd').find('.option'));
 		if ($(this).closest('.cmd').find('.cmdAttr[data-l1key=unite]').val() == '')
 			$(this).closest('.cmd').find('.cmdAttr[data-l1key=unite]').val(DptUnit($(this).val()));
@@ -235,7 +235,7 @@ $(function(){
 		$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue] option[value="'+valeur+'"]').prop('selected', true);
 		$(this).closest('.cmd').find('.cmdAttr[data-l1key=subType]').trigger('change');
 	}); 
-	$('body').on('change', '.cmdAttr[data-l1key=type]',function() {
+	$('.cmdAttr[data-l1key=type]').off('change').on('change',function() {
 		switch ($(this).val()){
 			case "info":
 				$(this).closest('.cmd').find('.RetourEtat').hide();
@@ -251,7 +251,7 @@ $(function(){
 			break;
 		}
 	});			
-	$('body').on('change', '.cmdAttr[data-l1key=subType]',function() {
+	$('.cmdAttr[data-l1key=subType]').off('change').on('change', function() {
 		switch ($(this).val()){
 			case "cursor":
 			case "numeric":
@@ -288,14 +288,14 @@ $(function(){
 			$(this).find('option[value="'+valeur+'"]').prop('selected', true);
 		}
 	});			
-	$('body').on('change','.cmd .cmdAttr[data-l1key=configuration][data-l2key=subTypeAuto]', function() {
+	$('.cmdAttr[data-l1key=configuration][data-l2key=subTypeAuto]').off('change').on('change', function() {
 		$(this).closest('.cmd').find('.cmdAttr[data-l1key=subType]').trigger('change');
 	});
 	$("#table_cmd").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
 	$(".eqLogicAttr[data-l1key=configuration][data-l2key=device]").html($(".eqLogicAttr[data-l1key=configuration][data-l2key=device] option").sort(function (a, b) {
 		return a.text == b.text ? 0 : a.text < b.text ? -1 : 1
 	}));
-	$('.Template[data-action=add]').on('click', function () {
+	$('.Template[data-action=add]').off('click').on('click', function () {
 		if($('.Template[data-l1key=type]').val()!=""){
 			$('.eqLogicAction[data-action=save]').trigger('click');
 			$.ajax({
@@ -316,13 +316,13 @@ $(function(){
 			});
 		}
 	});
-	$('body').on('click','.ActionAttr[data-action=add]',function(){
+	$('.ActionAttr[data-action=add]').off('click').on('click',function(){
 		addAction({},$(this).closest('.ActionPage').find('.div_action'));
 	});
-	$('body').on('click','.ActionAttr[data-action=remove]', function () {
+	$('.ActionAttr[data-action=remove]').off('click').on('click', function () {
 		$(this).closest('.ActionGroup').remove();
 	});
-	$("body").on('click', ".listAction", function() {
+	$(".listAction").off('click').on('click', function() {
 		var el = $(this).closest('.form-group').find('.expressionAttr[data-l1key=cmd]');
 		jeedom.getSelectActionModal({}, function (result) {
 			el.value(result.human);
@@ -331,7 +331,7 @@ $(function(){
 			});
 		});
 	}); 
-	$("body").on('click', ".listCmdAction", function() {
+	$(".listCmdAction").off('click').on('click', function() {
 		var el = $(this).closest('.form-group').find('.expressionAttr[data-l1key=cmd]');
 		jeedom.cmd.getSelectModal({cmd: {type: 'action'}}, function (result) {
 			el.value(result.human);
