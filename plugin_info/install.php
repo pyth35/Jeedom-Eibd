@@ -8,20 +8,20 @@ function eibd_update() {
 	foreach(eqLogic::byType('eibd') as $eqLogic){ 
 		foreach($eqLogic->getCmd('info') as $cmd){ 
 			if(is_object($cmd)){
-			if(!isset($cmd->getConfiguration('FlagWrite')) /*&& !isset($cmd->getConfiguration('FlagUpdate')) && isset($cmd->getConfiguration('eventOnly'))*/){ 
-				//log::add('eibd','debug','Remplacement du Flags eventOnly  par FlagWrite et FlagUpdate sur la commande '.$cmd->getHumanName()); 
-				//$cmd->setConfiguration('FlagWrite',true); 
-				//$cmd->setConfiguration('FlagUpdate',true); 
-			} 
-			/*if(!isset($cmd->getConfiguration('FlagInit')) && isset($cmd->getConfiguration('init'))){ 
+			//if(!isset($cmd->getConfiguration('FlagWrite')) && !isset($cmd->getConfiguration('FlagUpdate')) && isset($cmd->getConfiguration('eventOnly'))){ 
+				log::add('eibd','debug','Remplacement du Flags eventOnly  par FlagWrite et FlagUpdate sur la commande '.$cmd->getHumanName()); 
+				$cmd->setConfiguration('FlagWrite',$cmd->getConfiguration('eventOnly')); 
+				$cmd->setConfiguration('FlagUpdate',$cmd->getConfiguration('eventOnly')); 
+			//} 
+			//if(!isset($cmd->getConfiguration('FlagInit')) && isset($cmd->getConfiguration('init'))){ 
 				log::add('eibd','debug','Remplacement du Flags init  par FlagInit sur la commande '.$cmd->getHumanName()); 
-				//$cmd->setConfiguration('FlagInit',true); 
-			} 
-			if(!isset($cmd->getConfiguration('FlagRead')) && isset($cmd->getConfiguration('transmitReponse'))){ 
+				$cmd->setConfiguration('FlagInit',$cmd->getConfiguration('init')); 
+			//} 
+			//if(!isset($cmd->getConfiguration('FlagRead')) && isset($cmd->getConfiguration('transmitReponse'))){ 
 				log::add('eibd','debug','Remplacement du Flags transmitReponse par FlagRead sur la commande '.$cmd->getHumanName()); 
-				//$cmd->setConfiguration('FlagRead',true); 
-				//$cmd->setValue($cmd->getConfiguration('ObjetTransmit')); 
-			} */
+				$cmd->setConfiguration('FlagRead',$cmd->getConfiguration('transmitReponse')); 
+				$cmd->setValue($cmd->getConfiguration('ObjetTransmit')); 
+			//} 
 			//$cmd->save(); 
 			}
 		}
