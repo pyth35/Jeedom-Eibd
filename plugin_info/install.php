@@ -7,6 +7,7 @@ function eibd_update() {
 	log::add('eibd','debug','Lancement du scripte de mise a  jours des Flags'); 
 	foreach(eqLogic::byType('eibd') as $eqLogic){ 
 		foreach($eqLogic->getCmd('info') as $cmd){ 
+			if(is_object($cmd)){
 			if(!isset($cmd->getConfiguration('FlagWrite')) /*&& !isset($cmd->getConfiguration('FlagUpdate')) && isset($cmd->getConfiguration('eventOnly'))*/){ 
 				//log::add('eibd','debug','Remplacement du Flags eventOnly  par FlagWrite et FlagUpdate sur la commande '.$cmd->getHumanName()); 
 				//$cmd->setConfiguration('FlagWrite',true); 
@@ -22,6 +23,7 @@ function eibd_update() {
 				//$cmd->setValue($cmd->getConfiguration('ObjetTransmit')); 
 			} */
 			//$cmd->save(); 
+			}
 		}
 	}
 }
