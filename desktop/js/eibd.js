@@ -322,7 +322,7 @@ $(function(){
 	$('.ActionAttr[data-action=remove]').off('click').on('click', function () {
 		$(this).closest('.ActionGroup').remove();
 	});
-	$(".listAction").off('click').on('click', function() {
+	$("body").off('click').on('click', '.listAction', function() {
 		var el = $(this).closest('.form-group').find('.expressionAttr[data-l1key=cmd]');
 		jeedom.getSelectActionModal({}, function (result) {
 			el.value(result.human);
@@ -331,7 +331,7 @@ $(function(){
 			});
 		});
 	}); 
-	$(".listCmdAction").off('click').on('click', function() {
+	$("body").off('click').on('click', '.listCmdAction', function() {
 		var el = $(this).closest('.form-group').find('.expressionAttr[data-l1key=cmd]');
 		jeedom.cmd.getSelectModal({cmd: {type: 'action'}}, function (result) {
 			el.value(result.human);
