@@ -316,10 +316,10 @@ $(function(){
 			});
 		}
 	});
-	$('.ActionAttr[data-action=add]').off('click').on('click',function(){
+	$("body").off('click').on('click','.ActionAttr[data-action=add]',function(){
 		addAction({},$(this).closest('.ActionPage').find('.div_action'));
 	});
-	$('.ActionAttr[data-action=remove]').off('click').on('click', function () {
+	$("body").off('click').on('click','.ActionAttr[data-action=remove]', function () {
 		$(this).closest('.ActionGroup').remove();
 	});
 	$("body").off('click').on('click', '.listAction', function() {
