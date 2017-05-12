@@ -509,25 +509,6 @@ class eibd extends eqLogic {
 						$Commande->getEqlogic()->batteryStatus($valeur,date('Y-m-d H:i:s'));
 					}
 					if($Commande->getType() == 'info'&& ($Commande->getConfiguration('FlagWrite') || $Commande->getConfiguration('FlagUpdate'))){
-						foreach($Commande->getConfiguration('action') as $Action){
-							try {
-								$options = array();
-								if (isset($Action['options'])) {
-									$options = $Action['options'];
-								}
-								scenarioExpression::createAndExec('action', $Action['cmd'], $options);
-							} catch (Exception $e) {
-								log::add('eibd', 'error', __('Erreur lors de l\'éxecution de ', __FILE__) . $action['cmd'] . __('. Détails : ', __FILE__) . $e->getMessage());
-							}
-							$Cmd=cmd::byId(str_replace('#','',$Action['cmd']));
-							if (is_object($Cmd) && $Cmd->getIsEnable()) {
-								$options=$Action['options'];
-								foreach($options as $index => $value)
-									$options[$index]=str_replace('#value#',$valeur,$value);
-								$Cmd->event($options);
-								log::add('Volets','debug',$Commande->getHumanName().' Exécution de '.$Cmd->getHumanName());
-							}
-						}
 						log::add('eibd', 'info',$Commande->getLogicalId().' : Mise a jours de la valeur : '.$valeur.$unite);
 						$Commande->setCollectDate(date('Y-m-d H:i:s'));
 						$Commande->event($valeur);
