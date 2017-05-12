@@ -316,30 +316,6 @@ $(function(){
 			});
 		}
 	});
-	$("body").off('click').on('click','.ActionAttr[data-action=add]',function(){
-		addAction({},$(this).closest('.ActionPage').find('.div_action'));
-	});
-	$("body").off('click').on('click','.ActionAttr[data-action=remove]', function () {
-		$(this).closest('.ActionGroup').remove();
-	});
-	$("body").off('click').on('click', '.listAction', function() {
-		var el = $(this).closest('.form-group').find('.expressionAttr[data-l1key=cmd]');
-		jeedom.getSelectActionModal({}, function (result) {
-			el.value(result.human);
-			jeedom.cmd.displayActionOption(el.value(), '', function (html) {
-				el.closest('.form-group').find('.actionOptions').html(html);
-			});
-		});
-	}); 
-	$("body").off('click').on('click', '.listCmdAction', function() {
-		var el = $(this).closest('.form-group').find('.expressionAttr[data-l1key=cmd]');
-		jeedom.cmd.getSelectModal({cmd: {type: 'action'}}, function (result) {
-			el.value(result.human);
-			jeedom.cmd.displayActionOption(el.value(), '', function (html) {
-				el.closest('.form-group').find('.actionOptions').html(html);
-			});
-		});
-	});
 });
 function UpdateVar(){
 	$.ajax({
@@ -513,15 +489,6 @@ function addCmdToTable(_cmd) {
 						.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
 						.attr('title','Au démarrage du participant, envoyer un télégramme de type "READ" pour initiliser une valeur initial correcte')))))));	
 	tr.append($('<td>')
-		.append($('<div class="ActionPage">')
-			.append($('<label>')
-				.text('{{Actions au changement d\'etat :}}')
-				.append($('<sup>')
-					.append($('<i class="fa fa-question-circle tooltips" title="Saisir toutes les actions à mener lors du changement d\'etat">'))))
-			.append($('<a class="btn btn-success btn-xs ActionAttr" data-action="add" style="margin-left: 5px;">')
-				.append($('<i class="fa fa-plus-circle">')
-					.text('{{Ajouter une Action}}')))
-			.append($('<div class="div_action">')))
 		.append($('<div>')
 			.append($('<span>')
 				.append($('<label class="checkbox-inline">')
