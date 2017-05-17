@@ -135,57 +135,47 @@ $(function(){
 			title: "{{log}}",
 			position: 'center',
   			resizable: true,
-			height: "auto",
-			width: "auto",
-			maxWidth: $(window).width(),
-			maxHeight: $(window).height()});
+			height: 600,
+			width: 850});
 		$('#md_modal').load('index.php?v=d&modal=eibd.log&plugin=eibd&type=eibd').dialog('open');
 		});
 	$('.GadInconue').on('click', function() {
 		$('#md_modal').dialog({
 			title: "{{Importer les Gad inconnue}}",
-  			resizable: true,
 			position: 'center',
-			height: "auto",
-			width: "auto",
-			maxWidth: $(window).width(),
-			maxHeight: $(window).height()});
+  			resizable: true,
+			height: 700,
+			width: 850});
 		$('#md_modal').load('index.php?v=d&modal=eibd.gadInconnue&plugin=eibd&type=eibd').dialog('open');
 	});
 	$('.BusMoniteur').on('click', function() {
 		$('#md_modal').dialog({
 			title: "{{Bus Moniteur}}",
-  			resizable: true,
 			position: 'center',
-			height: "auto",
-			width: "auto",
-			maxWidth: $(window).width(),
-			maxHeight: $(window).height()});
+  			resizable: true,
+			height: 700,
+			width: 850});
 		$('#md_modal').load('index.php?v=d&modal=eibd.busmoniteur&plugin=eibd&type=eibd').dialog('open');
 	});
 	$('.Ets4Parser').on('click', function() {
 		$('#md_modal').dialog({
 			title: "{{Ajout de vos équipement par ETS}}",
-  			resizable: true,
 			position: 'center',
-			height: "auto",
-			width: "auto",
-			maxWidth: $(window).width(),
-			maxHeight: $(window).height()});
+  			resizable: true,
+			height: 700,
+			width: 850});
 		$('#md_modal').load('index.php?v=d&modal=eibd.EtsParser&plugin=eibd&type=eibd').dialog('open');
 
 	});
 	$('.EibdParametre').on('click', function() {
 		$('#md_modal').dialog({
 			title: "{{Parametre de connexion EIB}}",
-  			resizable: true,
 			position: 'center',
-			height: "auto",
-			width: "auto",
-			maxWidth: $(window).width(),
-			maxHeight: $(window).height()});
+  			resizable: true,
+			height: 700,
+			width: 850});
 		$('#md_modal').load('index.php?v=d&modal=eibd.parametre&plugin=eibd&type=eibd').dialog('open');
-	});
+	}
 	$('.bt_selectCmdExpression').off('click').on('click',function() {
 		var el=$(this).closest('.input-group').find('.cmdAttr');
 		$(this).value()
