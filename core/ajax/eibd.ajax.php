@@ -104,7 +104,10 @@ try {
 			ajax::success(eibd::ParserEtsFile($_FILES['Knxproj']['tmp_name']));
 		}
 	}
-  if (init('action') == 'AppliTemplate') {
+  	if (init('action') == 'getTemplate') {
+		ajax::success(eibd::devicesParameters());
+	}
+  	if (init('action') == 'AppliTemplate') {
 		$EqLogic=eqLogic::byId(init('id'));
 		if (is_object($EqLogic)){
 			$EqLogic->applyModuleConfiguration(init('template'));

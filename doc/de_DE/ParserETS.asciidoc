@@ -1,3 +1,2 @@
-Laden Sie Ihr ETS-Projekt und Jeedom wird Ihre Befehle bis zum Maximum einstellen.
-Die Benutzung des Parser ergibt keine vollständige Konfiguration, denn sie ist auf die Informationen begrenzt, die in Ihrer Einrichtung erfasst wurde.
-Es ist immer notwendig, seine Konfiguration zu prüfen und zu vervollständigen.
+En téléchargeant votre projets ETS (.knxproj), vous allez permetre a jeedom de charger dans son cache, tout les gad de votre installation.
+Il vous suffira par la suite de cree des equipements par template ou manellement en important les gad dans vos equipements

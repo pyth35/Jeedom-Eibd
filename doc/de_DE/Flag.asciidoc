@@ -1,4 +1,5 @@
 ==== Flag Kommunikation
+
 * Actif : Cet objet de communication peut interagir avec le bus (lire,
 écrire, etc ...), si un télégramme du bus correspond à cet objet (=
 l'objet est lié à l'adresse de groupe de destination du télégramme),
@@ -21,6 +22,7 @@ d'erreur par exemple.
 
 
 ==== Flag  Lecture / Read
+
 * Actif : Si le participant voit sur le bus un télégramme de type
 "Lecture de la valeur" qui correspond à cet objet (= l'objet est lié à
 l'adresse de groupe de destination du télégramme) alors le participant
