@@ -1,0 +1,10 @@
+{
+	"id" : "eibd",
+	"name" : "EIB - KNX",
+	"description" : "Connecter Jeedom avec votre installation domotique KNX et Jeedom deviendra un participant de votre installation",
+	"licence" : "AGPL",
+	"author" : "Halbout Michael",
+	"require" : "3.0",
+	"category" : "automation protocol",
+	"mobile" : "event"
+}
