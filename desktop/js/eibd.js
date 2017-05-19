@@ -167,7 +167,7 @@ $(function(){
 		$('#md_modal').load('index.php?v=d&modal=eibd.EtsParser&plugin=eibd&type=eibd').dialog('open');
 
 	});
-	$('.bt_selectCmdExpression').off('click').on('click',function() {
+	$('body').off('click').on('click','.bt_selectCmdExpression',function() {
 		var el=$(this).closest('.input-group').find('.cmdAttr');
 		$(this).value()
 		jeedom.cmd.getSelectModal({cmd: {type: 'info'},eqLogic: {eqType_name : ''}}, function (result) {
@@ -178,7 +178,7 @@ $(function(){
 			el.val(value);
 		});  
 	});  
-	$('.bt_read').off('click').on( 'click', function() {
+	$('body').off('click').on( 'click','.bt_read', function() {
 		$.ajax({
 			type: 'POST',            
 			async: false,
