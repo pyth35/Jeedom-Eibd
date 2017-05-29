@@ -83,11 +83,19 @@ sudo apt-get update --yes -y -qq
 sudo apt-get install git-core --yes -y -qq
 sudo apt-get install build-essential 
 sudo apt-get install dpkg-buildpackage --yes -y -qq
+sudo apt-get install cdbs --yes -y -qq
+sudo apt-get install git-core  --yes -y -qq
+sudo apt-get install debhelper  --yes -y -qq
+sudo apt-get install autoconf  --yes -y -qq
+sudo apt-get install automake  --yes -y -qq
+sudo apt-get install libtool  --yes -y -qq
+sudo apt-get install libusb-1.0-0-dev  --yes -y -qq
+sudo apt-get install libsystemd-daemon-dev  --yes -y -qq
+sudo apt-get install dh-systemd --yes -y -qq
 echo 30 > /tmp/compilation_eibd_in_progress
 echo "*****************************************************************************************************"
 echo "*                                  Installation de PTHSEM 2.0.8                                     *"
 echo "*****************************************************************************************************"
-sudo apt-get install cdbs --yes -y -qq
 wget https://www.auto.tuwien.ac.at/~mkoegler/pth/pthsem_2.0.8.tar.gz
 sudo tar xzf pthsem_2.0.8.tar.gz
 cd pthsem-2.0.8
@@ -100,12 +108,11 @@ echo "*                                      Installation de KnxD               
 echo "*****************************************************************************************************"
 sudo echo " " > /var/log/knxd.log
 sudo chmod 777 /var/log/knxd.log
-sudo apt-get install git-core build-essential debhelper cdbs autoconf automake libtool libusb-1.0-0-dev libsystemd-daemon-dev dh-systemd --yes -y -qq
 sudo git clone https://github.com/knxd/knxd.git
 #mv knxd-master knxd
 cd knxd
 git checkout stable  # utilisation de la version stable avec pthsem le master ne l'utisant plus et ayant quelques bugs actifs
-sudo dpkg-buildpackage -b -uc
+sudo dpkg-buildpackage -b -uc -d
 cd ..
 sudo dpkg -i knxd_*.deb knxd-tools_*.deb
 sudo usermod -a -G dialout knxd
