@@ -4,7 +4,7 @@
 	"description" : "Connecter Jeedom avec votre installation domotique KNX et Jeedom deviendra un participant de votre installation",
 	"licence" : "AGPL",
 	"author" : "Halbout Michael",
-	"require" : "3.0",
+	"require" : "2.4",
 	"category" : "automation protocol",
 	"hasOwnDeamon" : true,
 	"hasDependency" : true
