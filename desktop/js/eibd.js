@@ -20,8 +20,8 @@ UpdateVar();
 		form.find('.CmdsTempates').remove();
 		form.append(cmds);
 	});
-	$('.bt_selectGadInconnue').off('click').on('click', function () {
-      var input=$(this).closest('.input-group').find('.CmdEqLogicTemplateAttr');
+	$('body').off('click').on('click','.bt_selectGadInconnue', function () {
+      		var input=$(this).closest('.input-group').find('.CmdEqLogicTemplateAttr');
 		bootbox.dialog({
 			title: "{{Choisir un Gad}}",
 			height: "auto",
@@ -38,7 +38,7 @@ UpdateVar();
 					label: "Valider",
 					className: "btn-primary",
 					callback: function () {
-                      input.val(SelectGad);
+                      				input.val(SelectGad);
 					}
 				},
 			}
