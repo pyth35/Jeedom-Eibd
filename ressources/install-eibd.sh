@@ -80,7 +80,7 @@ then
   rm -rf /usr/local/lib/libeibclient.so.0.0.0
 fi
 echo 15 > /tmp/compilation_eibd_in_progress
-if [ -d "/usr/local/src/Knx/" ]; then 
+if [ -d "/usr/local/src/Knx/" ] then 
   rm -R /usr/local/src/Knx/
 fi
 mkdir /usr/local/src/Knx/
@@ -106,7 +106,7 @@ echo 30 > /tmp/compilation_eibd_in_progress
 cd pthsem-2.0.8
 
 echo "Compiliing pthsem..." 
-if [ arch = "arm64" ]
+if [ arch = "arm64" ] then 
     wget -O config.guess 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.guess;hb=HEAD'
     wget -O config.sub 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.sub;hb=HEAD'
 fi
@@ -132,7 +132,7 @@ echo 60 > /tmp/compilation_eibd_in_progress
 cd bcusdk-0.0.5 
 
 echo "Compiliing bcusdk..."
-if [ arch = "arm64" ]
+if [ arch = "arm64" ] then 
     wget -O config.guess 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.guess;hb=HEAD'
     wget -O config.sub 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.sub;hb=HEAD'
 fi

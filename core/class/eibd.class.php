@@ -678,6 +678,10 @@ class eibd extends eqLogic {
 		self::deamon_stop();
 		switch(config::byKey('KnxSoft', 'eibd')){
 			case 'knxd':
+				// Recherche automatique par knd
+				//$cmd = 'sudo  eibnetsearch  -';
+				//$cmd .= ' >> ' . log::getPathToLog('eibd') . ' 2>&1 &';
+				//exec($cmd);
 				$cmd = 'sudo knxd --daemon=/var/log/knx.log --pid-file=/var/run/knx.pid --eibaddr='.config::byKey('EibdGad', 'eibd').' --Name=JeedomKnx -D -T -S --listen-tcp='.config::byKey('EibdPort', 'eibd').' -b';
 			break;
 			case 'eibd':

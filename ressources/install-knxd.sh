@@ -67,7 +67,7 @@ then
   sudo rm -rf /usr/local/lib/libeibclient.so.0.0.0
 fi
 echo 15 > /tmp/compilation_eibd_in_progress
-if [ -d "/usr/local/src/Knx/" ]; then 
+if [ -d "/usr/local/src/Knx/" ] then 
   echo "*****************************************************************************************************"
   echo "*                                         Remove knxd                                               *"
   echo "*****************************************************************************************************"
@@ -83,21 +83,55 @@ sudo apt-get update --yes -y -qq
 sudo apt-get install git-core --yes -y -qq
 sudo apt-get install build-essential 
 sudo apt-get install dpkg-buildpackage --yes -y -qq
+sudo apt-get install cdbs --yes -y -qq
+sudo apt-get install git-core  --yes -y -qq
+sudo apt-get install debhelper  --yes -y -qq
+sudo apt-get install autoconf  --yes -y -qq
+sudo apt-get install automake  --yes -y -qq
+sudo apt-get install libtool  --yes -y -qq
+sudo apt-get install libusb-1.0-0-dev  --yes -y -qq
+sudo apt-get install libsystemd-daemon-dev  --yes -y -qq
+sudo apt-get install dh-systemd --yes -y -qq
 echo 30 > /tmp/compilation_eibd_in_progress
+echo "*****************************************************************************************************"
+echo "*                                  Installation de PTHSEM 2.0.8                                     *"
+echo "*****************************************************************************************************"
+sudo pkill eibd  
+sudo pkill knxd  
+wget https://www.auto.tuwien.ac.at/~mkoegler/pth/pthsem_2.0.8.tar.gz
+sudo tar xzf pthsem_2.0.8.tar.gz
+cd pthsem-2.0.8
+sudo dpkg-buildpackage -b -uc
+cd ..
+sudo dpkg -i libpthsem*.deb
+echo 50 > /tmp/compilation_eibd_in_progress
 echo "*****************************************************************************************************"
 echo "*                                      Installation de KnxD                                         *"
 echo "*****************************************************************************************************"
-sudo mkdir /usr/local/src/Knx/
-sudo chmod 777 /usr/local/src/Knx/
-cd /usr/local/src/Knx
-git clone https://github.com/knxd/knxd.git
-echo 55 > /tmp/compilation_eibd_in_progress
+sudo pkill eibd  
+sudo pkill knxd  
+sudo echo " " > /var/log/knxd.log
+sudo chmod 777 /var/log/knxd.log
+sudo git clone https://github.com/knxd/knxd.git
+#mv knxd-master knxd
 cd knxd
-git checkout master
-dpkg-buildpackage -b -uc -d
-echo 70 > /tmp/compilation_eibd_in_progress
+git checkout stable  # utilisation de la version stable avec pthsem le master ne l'utisant plus et ayant quelques bugs actifs
+sudo dpkg-buildpackage -b -uc -d
 cd ..
 sudo dpkg -i knxd_*.deb knxd-tools_*.deb
+sudo usermod -a -G dialout knxd
+
+##sudo mkdir /usr/local/src/Knx/
+#sudo chmod 777 /usr/local/src/Knx/
+#cd /usr/local/src/Knx
+#git clone https://github.com/knxd/knxd.git
+#echo 55 > /tmp/compilation_eibd_in_progress
+#cd knxd
+#git checkout master
+#dpkg-buildpackage -b -uc -d
+#echo 70 > /tmp/compilation_eibd_in_progress
+#cd ..
+#sudo dpkg -i knxd_*.deb knxd-tools_*.deb
 echo 90 > /tmp/compilation_eibd_in_progress
 systemctl stop knxd.service
 echo 91 > /tmp/compilation_eibd_in_progress
@@ -116,3 +150,6 @@ mkdir /etc/eibd/
 chmod 777 /etc/eibd/
 echo "v0.10" > /etc/eibd/knxd_VERSION
 rm /tmp/compilation_eibd_in_progress
+echo "*****************************************************************************************************"
+echo "*                                       Installation terminé                                        *"
+echo "*****************************************************************************************************"
