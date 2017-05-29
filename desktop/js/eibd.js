@@ -1,32 +1,6 @@
 var AllDpt=null;
 UpdateVar();
 var template;	
-//$(function(){
-	$('body').off('click').on('click','.bt_selectGadInconnue', function () {
-      	var input=$(this).closest('.input-group').find('.CmdEqLogicTemplateAttr');
-		bootbox.dialog({
-			title: "{{Choisir un Gad}}",
-			height: "auto",
-			width: "auto",
-			message: $('<div>').load('index.php?v=d&modal=eibd.gadInconnue&plugin=eibd&type=eibd&param'),
-			buttons: {
-				"Annuler": {
-					className: "btn-default",
-					callback: function () {
-						//el.atCaret('insert', result.human);
-					}
-				},
-				success: {
-					label: "Valider",
-					className: "btn-primary",
-					callback: function () {
-                      				input.val(SelectGad);
-					}
-				},
-			}
-		});
-	});
-//});
 $('body').off('change').on('change','.EqLogicTemplateAttr[data-l1key=template]', function () {
 	//Creation du formulaire du template
 	var form=$(this).closest('form');
@@ -40,7 +14,30 @@ $('body').off('change').on('change','.EqLogicTemplateAttr[data-l1key=template]',
 					.append($('<input class="CmdEqLogicTemplateAttr form-control input-sm" data-l1key="'+index+'">'))
 					.append($('<span class="input-group-btn">')
 						.append($('<a class="btn btn-success btn-sm bt_selectGadInconnue">')
-							.append($('<i class="fa fa-list-alt">')))))));
+							.append($('<i class="fa fa-list-alt">')).off().on('click',function () {
+								var input=$(this).closest('.input-group').find('.CmdEqLogicTemplateAttr');
+								bootbox.dialog({
+									title: "{{Choisir un Gad}}",
+									height: "auto",
+									width: "auto",
+									message: $('<div>').load('index.php?v=d&modal=eibd.gadInconnue&plugin=eibd&type=eibd&param'),
+									buttons: {
+										"Annuler": {
+											className: "btn-default",
+											callback: function () {
+												//el.atCaret('insert', result.human);
+											}
+										},
+										success: {
+											label: "Valider",
+											className: "btn-primary",
+											callback: function () {
+															input.val(SelectGad);
+											}
+										},
+									}
+								});
+							}))))));
 	});
 	form.find('.CmdsTempates').remove();
 	form.append(cmds);
@@ -569,9 +566,6 @@ function addCmdToTable(_cmd) {
 	tr.append(parmetre);
 	$('#table_cmd tbody').append(tr);
 	DptOption(_cmd.configuration.KnxObjectType,$('#table_cmd tbody tr:last').find('.option'));
-	/*$.each(_cmd.configuration.action, function(actionCmd) {
-		addAction(actionCmd,$('#table_cmd tbody tr:last').find('.div_action'));
-	});*/
 	if (typeof(_cmd.configuration.action) !== 'undefined') {
 		for(var index in _cmd.configuration.action) { 
 			if( (typeof _cmd.configuration.action[index] === "object") && (_cmd.configuration.action[index] !== null) )
