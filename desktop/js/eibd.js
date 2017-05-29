@@ -1,6 +1,6 @@
 var AllDpt=null;
 UpdateVar();
-$(function(){
+//$(function(){
 	var template;	
 	$('body').off('change').on('change','.EqLogicTemplateAttr[data-l1key=template]', function () {
 		//Creation du formulaire du template
@@ -297,7 +297,7 @@ $(function(){
 			});
 		}
 	});
-});
+//});
 function UpdateVar(){
 	$.ajax({
 		type: 'POST',            
