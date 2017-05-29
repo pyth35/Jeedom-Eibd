@@ -67,14 +67,14 @@ then
   sudo rm -rf /usr/local/lib/libeibclient.so.0.0.0
 fi
 echo 15 > /tmp/compilation_eibd_in_progress
-if [ -d "/usr/local/src/Knx/" ] then 
+#if [ -d "/usr/local/src/Knx/" ] then 
   echo "*****************************************************************************************************"
   echo "*                                         Remove knxd                                               *"
   echo "*****************************************************************************************************"
   apt-get autoremove --yes -y -qq knxd
   sudo rm knxd*.deb
   sudo rm -R /usr/local/src/Knx/
-fi
+#fi
 echo 20 > /tmp/compilation_eibd_in_progress
 echo "*****************************************************************************************************"
 echo "*                                Installation des dependances                                       *"
