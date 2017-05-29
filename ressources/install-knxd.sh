@@ -85,19 +85,42 @@ sudo apt-get install build-essential
 sudo apt-get install dpkg-buildpackage --yes -y -qq
 echo 30 > /tmp/compilation_eibd_in_progress
 echo "*****************************************************************************************************"
+echo "*                                  Installation de PTHSEM 2.0.8                                     *"
+echo "*****************************************************************************************************"
+sudo apt-get install cdbs --yes -y -qq
+wget https://www.auto.tuwien.ac.at/~mkoegler/pth/pthsem_2.0.8.tar.gz
+sudo tar xzf pthsem_2.0.8.tar.gz
+cd pthsem-2.0.8
+sudo dpkg-buildpackage -b -uc
+cd ..
+sudo dpkg -i libpthsem*.deb
+echo 50 > /tmp/compilation_eibd_in_progress
+echo "*****************************************************************************************************"
 echo "*                                      Installation de KnxD                                         *"
 echo "*****************************************************************************************************"
-sudo mkdir /usr/local/src/Knx/
-sudo chmod 777 /usr/local/src/Knx/
-cd /usr/local/src/Knx
-git clone https://github.com/knxd/knxd.git
-echo 55 > /tmp/compilation_eibd_in_progress
+sudo echo " " > /var/log/knxd.log
+sudo chmod 777 /var/log/knxd.log
+sudo apt-get install git-core build-essential debhelper cdbs autoconf automake libtool libusb-1.0-0-dev libsystemd-daemon-dev dh-systemd --yes -y -qq
+sudo git clone https://github.com/knxd/knxd.git
+#mv knxd-master knxd
 cd knxd
-git checkout master
-dpkg-buildpackage -b -uc -d
-echo 70 > /tmp/compilation_eibd_in_progress
+git checkout stable  # utilisation de la version stable avec pthsem le master ne l'utisant plus et ayant quelques bugs actifs
+sudo dpkg-buildpackage -b -uc
 cd ..
 sudo dpkg -i knxd_*.deb knxd-tools_*.deb
+sudo usermod -a -G dialout knxd
+
+##sudo mkdir /usr/local/src/Knx/
+#sudo chmod 777 /usr/local/src/Knx/
+#cd /usr/local/src/Knx
+#git clone https://github.com/knxd/knxd.git
+#echo 55 > /tmp/compilation_eibd_in_progress
+#cd knxd
+#git checkout master
+#dpkg-buildpackage -b -uc -d
+#echo 70 > /tmp/compilation_eibd_in_progress
+#cd ..
+#sudo dpkg -i knxd_*.deb knxd-tools_*.deb
 echo 90 > /tmp/compilation_eibd_in_progress
 systemctl stop knxd.service
 echo 91 > /tmp/compilation_eibd_in_progress
