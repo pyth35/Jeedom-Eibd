@@ -106,8 +106,10 @@ echo 30 > /tmp/compilation_eibd_in_progress
 cd pthsem-2.0.8
 
 echo "Compiliing pthsem..." 
+if [ arch = "arm64" ]
     wget -O config.guess 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.guess;hb=HEAD'
-    wget -O config.sub 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.sub;hb=HEAD
+    wget -O config.sub 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.sub;hb=HEAD'
+fi
 check_run ./configure --with-mctx-mth=sjlj --with-mctx-dsp=ssjlj --with-mctx-stk=sas --disable-shared
 
 echo 40 > /tmp/compilation_eibd_in_progress
@@ -130,8 +132,10 @@ echo 60 > /tmp/compilation_eibd_in_progress
 cd bcusdk-0.0.5 
 
 echo "Compiliing bcusdk..."
+if [ arch = "arm64" ]
     wget -O config.guess 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.guess;hb=HEAD'
-    wget -O config.sub 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.sub;hb=HEAD
+    wget -O config.sub 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.sub;hb=HEAD'
+fi
 check_run ./configure --without-pth-test --enable-onlyeibd --enable-eibnetip --enable-eibnetiptunnel --enable-eibnetipserver --enable-groupcache --enable-usb --enable-ft12 --enable-tpuarts
 
 echo 70 > /tmp/compilation_eibd_in_progress
