@@ -224,7 +224,7 @@ $eqLogics = eqLogic::byType('eibd');
 							<th ></th>
 							<th>Nom</th>
 							<th>Configuration KNX</th>
-							<th class="expertModeVisible">Flag</th>
+							<th>Flag</th>
 							<th>Valeur</th>
 							<th>Paramètre</th>
 							<th></th>
