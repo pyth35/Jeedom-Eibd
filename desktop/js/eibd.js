@@ -1,7 +1,7 @@
 var AllDpt=null;
 UpdateVar();
 var template;	
-$(function(){
+//$(function(){
 	$('body').off('click').on('click','.bt_selectGadInconnue', function () {
       	var input=$(this).closest('.input-group').find('.CmdEqLogicTemplateAttr');
 		bootbox.dialog({
@@ -26,7 +26,7 @@ $(function(){
 			}
 		});
 	});
-});
+//});
 $('body').off('change').on('change','.EqLogicTemplateAttr[data-l1key=template]', function () {
 	//Creation du formulaire du template
 	var form=$(this).closest('form');
