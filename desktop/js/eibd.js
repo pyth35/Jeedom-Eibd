@@ -1,27 +1,9 @@
 var AllDpt=null;
 UpdateVar();
-//$(function(){
-	var template;	
-	$('body').off('change').on('change','.EqLogicTemplateAttr[data-l1key=template]', function () {
-		//Creation du formulaire du template
-		var form=$(this).closest('form');
-		var cmds=$('<div class="form-horizontal CmdsTempates">');
-		$.each(template[$(this).value()].cmd,function(index, value){
-			cmds.append($('<div class="form-group">')
-				.append($('<label class="col-xs-6 control-label" >')
-					.text(value.name))
-				.append($('<div class="col-xs-5">')
-					.append($('<div class="input-group">')
-						.append($('<input class="CmdEqLogicTemplateAttr form-control input-sm" data-l1key="'+index+'">'))
-						.append($('<span class="input-group-btn">')
-							.append($('<a class="btn btn-success btn-sm bt_selectGadInconnue">')
-								.append($('<i class="fa fa-list-alt">')))))));
-		});
-		form.find('.CmdsTempates').remove();
-		form.append(cmds);
-	});
+var template;	
+$(function(){
 	$('body').off('click').on('click','.bt_selectGadInconnue', function () {
-      		var input=$(this).closest('.input-group').find('.CmdEqLogicTemplateAttr');
+      	var input=$(this).closest('.input-group').find('.CmdEqLogicTemplateAttr');
 		bootbox.dialog({
 			title: "{{Choisir un Gad}}",
 			height: "auto",
@@ -44,260 +26,278 @@ UpdateVar();
 			}
 		});
 	});
-	$('.eqLogicAction[data-action=addByTemplate]').off('click').on('click', function () {
-		$.ajax({
-			type: 'POST',            
-			async: false,
-			url: 'plugins/eibd/core/ajax/eibd.ajax.php',
-			data:
-				{
-				action: 'getTemplate',
-				},
-			dataType: 'json',
-			global: false,
-			error: function(request, status, error) {},
-			success: function(data) {
-				if (!data.result){
-					$('#div_alert').showAlert({message: 'Aucun message recu', level: 'error'});
-					return;
-				}
-				template=data.result;
+});
+$('body').off('change').on('change','.EqLogicTemplateAttr[data-l1key=template]', function () {
+	//Creation du formulaire du template
+	var form=$(this).closest('form');
+	var cmds=$('<div class="form-horizontal CmdsTempates">');
+	$.each(template[$(this).value()].cmd,function(index, value){
+		cmds.append($('<div class="form-group">')
+			.append($('<label class="col-xs-6 control-label" >')
+				.text(value.name))
+			.append($('<div class="col-xs-5">')
+				.append($('<div class="input-group">')
+					.append($('<input class="CmdEqLogicTemplateAttr form-control input-sm" data-l1key="'+index+'">'))
+					.append($('<span class="input-group-btn">')
+						.append($('<a class="btn btn-success btn-sm bt_selectGadInconnue">')
+							.append($('<i class="fa fa-list-alt">')))))));
+	});
+	form.find('.CmdsTempates').remove();
+	form.append(cmds);
+});
+$('.eqLogicAction[data-action=addByTemplate]').off('click').on('click', function () {
+	$.ajax({
+		type: 'POST',            
+		async: false,
+		url: 'plugins/eibd/core/ajax/eibd.ajax.php',
+		data:
+			{
+			action: 'getTemplate',
+			},
+		dataType: 'json',
+		global: false,
+		error: function(request, status, error) {},
+		success: function(data) {
+			if (!data.result){
+				$('#div_alert').showAlert({message: 'Aucun message recu', level: 'error'});
+				return;
 			}
-		});
-		var message = $('<div class="row">')
-			.append($('<div class="col-md-12">')
-				.append($('<form class="form-horizontal" onsubmit="return false;">')
-					.append($('<div class="form-group">')
-						.append($('<label class="col-xs-5 control-label" >')
-							.text('{{Nom de votre équipement}}'))
-						.append($('<div class="col-xs-7">')
-							.append($('<input class="EqLogicTemplateAttr form-control" data-l1key="name"/>'))))
-					.append($('<div class="form-group">')
-						.append($('<label class="col-xs-5 control-label" >')
-							.text('{{Template de votre équipement}}'))
-						.append($('<div class="col-xs-3">')
-							.append($('<select class="EqLogicTemplateAttr form-control" data-l1key="template">')
-							       .append($('<option>')
-									.text('{{Séléctionner un template}}')))))
-				       .append($('<label>').text('{{Configurer les adresse de groupe}}'))));				
-		$.each(template,function(index, value){
-			message.find('.EqLogicTemplateAttr[data-l1key=template]')
-				.append($('<option value="'+index+'">')
-					.text(value.name))
-		});
-		bootbox.dialog({
-			title: "{{Ajout d'un équipement avec template}}",
-			message: message,
-			height: "auto",
-			width: "auto",
-			buttons: {
-				"Annuler": {
-					className: "btn-default",
-					callback: function () {
-						//el.atCaret('insert', result.human);
-					}
-				},
-				success: {
-					label: "Valider",
-					className: "btn-primary",
-					callback: function () {
-						var eqLogic=template[$('.EqLogicTemplateAttr[data-l1key=template]').value()];
-						eqLogic.name=$('.EqLogicTemplateAttr[data-l1key=name]').value();
-						$.each(eqLogic.cmd,function(index, value){
-							eqLogic.cmd.logicalId=$('.CmdEqLogicTemplateAttr[data-l1key='+index+']').value();
-						});
-						jeedom.eqLogic.save({
-							type: eqType,
-							eqLogics: eqLogic,
-							error: function (error) {
-								$('#div_alert').showAlert({message: error.message, level: 'danger'});
-							},
-							success: function (_data) {
-								var vars = getUrlVars();
-								var url = 'index.php?';
-								for (var i in vars) {
-									if (i != 'id' && i != 'saveSuccessFull' && i != 'removeSuccessFull') {
-										url += i + '=' + vars[i].replace('#', '') + '&';
-									}
+			template=data.result;
+		}
+	});
+	var message = $('<div class="row">')
+		.append($('<div class="col-md-12">')
+			.append($('<form class="form-horizontal" onsubmit="return false;">')
+				.append($('<div class="form-group">')
+					.append($('<label class="col-xs-5 control-label" >')
+						.text('{{Nom de votre équipement}}'))
+					.append($('<div class="col-xs-7">')
+						.append($('<input class="EqLogicTemplateAttr form-control" data-l1key="name"/>'))))
+				.append($('<div class="form-group">')
+					.append($('<label class="col-xs-5 control-label" >')
+						.text('{{Template de votre équipement}}'))
+					.append($('<div class="col-xs-3">')
+						.append($('<select class="EqLogicTemplateAttr form-control" data-l1key="template">')
+							   .append($('<option>')
+								.text('{{Séléctionner un template}}')))))
+				   .append($('<label>').text('{{Configurer les adresse de groupe}}'))));				
+	$.each(template,function(index, value){
+		message.find('.EqLogicTemplateAttr[data-l1key=template]')
+			.append($('<option value="'+index+'">')
+				.text(value.name))
+	});
+	bootbox.dialog({
+		title: "{{Ajout d'un équipement avec template}}",
+		message: message,
+		height: "auto",
+		width: "auto",
+		buttons: {
+			"Annuler": {
+				className: "btn-default",
+				callback: function () {
+					//el.atCaret('insert', result.human);
+				}
+			},
+			success: {
+				label: "Valider",
+				className: "btn-primary",
+				callback: function () {
+					var eqLogic=template[$('.EqLogicTemplateAttr[data-l1key=template]').value()];
+					eqLogic.name=$('.EqLogicTemplateAttr[data-l1key=name]').value();
+					$.each(eqLogic.cmd,function(index, value){
+						eqLogic.cmd.logicalId=$('.CmdEqLogicTemplateAttr[data-l1key='+index+']').value();
+					});
+					jeedom.eqLogic.save({
+						type: eqType,
+						eqLogics: eqLogic,
+						error: function (error) {
+							$('#div_alert').showAlert({message: error.message, level: 'danger'});
+						},
+						success: function (_data) {
+							var vars = getUrlVars();
+							var url = 'index.php?';
+							for (var i in vars) {
+								if (i != 'id' && i != 'saveSuccessFull' && i != 'removeSuccessFull') {
+									url += i + '=' + vars[i].replace('#', '') + '&';
 								}
-								modifyWithoutSave = false;
-								url += 'id=' + _data.id + '&saveSuccessFull=1';
-								loadPage(url);
 							}
-						});
-					}
-				},
-			}
-		});
+							modifyWithoutSave = false;
+							url += 'id=' + _data.id + '&saveSuccessFull=1';
+							loadPage(url);
+						}
+					});
+				}
+			},
+		}
 	});
-	$('.log').on('click', function() {
-		$('#md_modal').dialog({
-			title: "{{log}}",
-			position: 'center',
-  			resizable: true,
-			height: 600,
-			width: 850});
-		$('#md_modal').load('index.php?v=d&modal=eibd.log&plugin=eibd&type=eibd').dialog('open');
-	});
-	$('.GadInconue').on('click', function() {
-		$('#md_modal').dialog({
-			title: "{{Importer les Gad inconnue}}",
-			position: 'center',
-  			resizable: true,
-			height: 700,
-			width: 850});
-		$('#md_modal').load('index.php?v=d&modal=eibd.gadInconnue&plugin=eibd&type=eibd').dialog('open');
-	});
-	$('.BusMoniteur').on('click', function() {
-		$('#md_modal').dialog({
-			title: "{{Bus Moniteur}}",
-			position: 'center',
-  			resizable: true,
-			height: 700,
-			width: 850});
-		$('#md_modal').load('index.php?v=d&modal=eibd.busmoniteur&plugin=eibd&type=eibd').dialog('open');
-	});
-	$('.Ets4Parser').on('click', function() {
-		$('#md_modal').dialog({
-			title: "{{Ajout de vos équipement par ETS}}",
-			position: 'center',
-  			resizable: true,
-			height: 700,
-			width: 850});
-		$('#md_modal').load('index.php?v=d&modal=eibd.EtsParser&plugin=eibd&type=eibd').dialog('open');
+});
+$('.log').on('click', function() {
+	$('#md_modal').dialog({
+		title: "{{log}}",
+		position: 'center',
+		resizable: true,
+		height: 600,
+		width: 850});
+	$('#md_modal').load('index.php?v=d&modal=eibd.log&plugin=eibd&type=eibd').dialog('open');
+});
+$('.GadInconue').on('click', function() {
+	$('#md_modal').dialog({
+		title: "{{Importer les Gad inconnue}}",
+		position: 'center',
+		resizable: true,
+		height: 700,
+		width: 850});
+	$('#md_modal').load('index.php?v=d&modal=eibd.gadInconnue&plugin=eibd&type=eibd').dialog('open');
+});
+$('.BusMoniteur').on('click', function() {
+	$('#md_modal').dialog({
+		title: "{{Bus Moniteur}}",
+		position: 'center',
+		resizable: true,
+		height: 700,
+		width: 850});
+	$('#md_modal').load('index.php?v=d&modal=eibd.busmoniteur&plugin=eibd&type=eibd').dialog('open');
+});
+$('.Ets4Parser').on('click', function() {
+	$('#md_modal').dialog({
+		title: "{{Ajout de vos équipement par ETS}}",
+		position: 'center',
+		resizable: true,
+		height: 700,
+		width: 850});
+	$('#md_modal').load('index.php?v=d&modal=eibd.EtsParser&plugin=eibd&type=eibd').dialog('open');
 
-	});
-	$('body').off('click').on('click','.bt_selectCmdExpression',function() {
-		var el=$(this).closest('.input-group').find('.cmdAttr');
-		$(this).value()
-		jeedom.cmd.getSelectModal({cmd: {type: 'info'},eqLogic: {eqType_name : ''}}, function (result) {
-			var value=el.val();
-			if(value != '')
-				value= value+'|';
-			value=value+result.human;
-			el.val(value);
-		});  
+});
+$('body').off('click').on('click','.bt_selectCmdExpression',function() {
+	var el=$(this).closest('.input-group').find('.cmdAttr');
+	$(this).value()
+	jeedom.cmd.getSelectModal({cmd: {type: 'info'},eqLogic: {eqType_name : ''}}, function (result) {
+		var value=el.val();
+		if(value != '')
+			value= value+'|';
+		value=value+result.human;
+		el.val(value);
 	});  
-	$('body').off('click').on( 'click','.bt_read', function() {
+});  
+$('body').off('click').on( 'click','.bt_read', function() {
+	$.ajax({
+		type: 'POST',            
+		async: false,
+		url: 'plugins/eibd/core/ajax/eibd.ajax.php',
+		data:
+			{
+			action: 'Read',
+			Gad:$(this).closest('.cmd').find('.cmdAttr[data-l1key=logicalId]').val(),
+			},
+		dataType: 'json',
+		global: false,
+		error: function(request, status, error) {},
+		success: function(data) {
+			if (!data.result)
+				$('#div_alert').showAlert({message: 'Aucun message recu', level: 'error'});
+			else
+				$('#div_alert').showAlert({message: 'Message recu', level: 'success'});
+			}
+	});
+});
+$('.cmdAttr[data-l1key=logicalId]').off('keyup').on('keyup', function() {
+	var lastCar=$(this).val().substr(-1);
+	var doublelastCar=$(this).val().substr(-2);
+	var oldvalue=$(this).val().substring(0,$(this).val().length-1);
+	if(!$.isNumeric(lastCar) && lastCar!='/' || doublelastCar=='//')
+		$(this).val(oldvalue);
+}); 
+$('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]').off('change').on('change', function() {
+	DptOption($(this).val(),$(this).closest('.cmd').find('.option'));
+	if ($(this).closest('.cmd').find('.cmdAttr[data-l1key=unite]').val() == '')
+		$(this).closest('.cmd').find('.cmdAttr[data-l1key=unite]').val(DptUnit($(this).val()));
+	var valeur =$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').val();
+	$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').empty();
+	$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').append(DptValue($(this).val()));
+	$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue] option[value="'+valeur+'"]').prop('selected', true);
+	$(this).closest('.cmd').find('.cmdAttr[data-l1key=subType]').trigger('change');
+}); 
+$('.cmdAttr[data-l1key=type]').off('change').on('change',function() {
+	switch ($(this).val()){
+		case "info":
+			$(this).closest('.cmd').find('.RetourEtat').hide();
+			$(this).closest('.cmd').find('.bt_read').show();
+			$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').hide();
+			$(this).closest('.cmd').find('.cmdAttr[data-l1key=isHistorized]').closest('.input-group').parent().show();
+		break;
+		case "action":		
+			$(this).closest('.cmd').find('.RetourEtat').show();
+			$(this).closest('.cmd').find('.bt_read').hide();
+			$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').show();
+			$(this).closest('.cmd').find('.cmdAttr[data-l1key=isHistorized]').closest('.input-group').parent().hide();
+		break;
+	}
+});			
+$('.cmdAttr[data-l1key=subType]').off('change').on('change', function() {
+	switch ($(this).val()){
+		case "cursor":
+		case "numeric":
+			$(this).closest('.cmd').find('.ValeurMinMax').show();
+			$(this).closest('.cmd').find('.ValeurUnite').show();
+			$(this).closest('.cmd').find('.ValeurDefaut').hide();
+			$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=inverse]').closest('.input-group').parent().show();
+		break;
+		case "other":
+			$(this).closest('.cmd').find('.ValeurDefaut').show();
+			$(this).closest('.cmd').find('.ValeurMinMax').hide();
+			$(this).closest('.cmd').find('.ValeurUnite').hide();
+			$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=inverse]').closest('.input-group').parent().hide();
+		break;	
+		case "binary":
+			$(this).closest('.cmd').find('.ValeurMinMax').hide();
+			$(this).closest('.cmd').find('.ValeurUnite').hide();
+			$(this).closest('.cmd').find('.ValeurDefaut').hide();
+			$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=inverse]')
+				.closest('.input-group').parent().show();
+		break;
+		default:
+			$(this).closest('.cmd').find('.ValeurDefaut').hide();
+			$(this).closest('.cmd').find('.ValeurMinMax').hide();
+			$(this).closest('.cmd').find('.ValeurUnite').hide();
+			$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=inverse]')
+				.closest('.input-group').parent().hide();
+		break;
+	}
+	if($(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=subTypeAuto]').is(':checked')){
+		var Dpt=$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]').val();
+		var type=$(this).closest('.cmd').find('.cmdAttr[data-l1key=type]').val();
+		var valeur=getDptSousType(Dpt,type);
+		$(this).find('option[value="'+valeur+'"]').prop('selected', true);
+	}
+});			
+$('.cmdAttr[data-l1key=configuration][data-l2key=subTypeAuto]').off('change').on('change', function() {
+	$(this).closest('.cmd').find('.cmdAttr[data-l1key=subType]').trigger('change');
+});
+$("#table_cmd").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
+$(".eqLogicAttr[data-l1key=configuration][data-l2key=device]").html($(".eqLogicAttr[data-l1key=configuration][data-l2key=device] option").sort(function (a, b) {
+	return a.text == b.text ? 0 : a.text < b.text ? -1 : 1
+}));
+$('.Template[data-action=add]').off('click').on('click', function () {
+	if($('.Template[data-l1key=type]').val()!=""){
+		$('.eqLogicAction[data-action=save]').trigger('click');
 		$.ajax({
-			type: 'POST',            
-			async: false,
+			type: 'POST',   
 			url: 'plugins/eibd/core/ajax/eibd.ajax.php',
 			data:
-				{
-				action: 'Read',
-				Gad:$(this).closest('.cmd').find('.cmdAttr[data-l1key=logicalId]').val(),
-				},
+			{
+				action: 'AppliTemplate',
+				id:$('.eqLogicAttr[data-l1key=id]').val(),
+				template:$('.Template[data-l1key=type]').val()
+			},
 			dataType: 'json',
-			global: false,
+			global: true,
 			error: function(request, status, error) {},
 			success: function(data) {
-				if (!data.result)
-					$('#div_alert').showAlert({message: 'Aucun message recu', level: 'error'});
-				else
-					$('#div_alert').showAlert({message: 'Message recu', level: 'success'});
-				}
+				window.location.reload();
+			}
 		});
-	});
-	$('.cmdAttr[data-l1key=logicalId]').off('keyup').on('keyup', function() {
-		var lastCar=$(this).val().substr(-1);
-		var doublelastCar=$(this).val().substr(-2);
-		var oldvalue=$(this).val().substring(0,$(this).val().length-1);
-		if(!$.isNumeric(lastCar) && lastCar!='/' || doublelastCar=='//')
-			$(this).val(oldvalue);
-	}); 
-	$('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]').off('change').on('change', function() {
-		DptOption($(this).val(),$(this).closest('.cmd').find('.option'));
-		if ($(this).closest('.cmd').find('.cmdAttr[data-l1key=unite]').val() == '')
-			$(this).closest('.cmd').find('.cmdAttr[data-l1key=unite]').val(DptUnit($(this).val()));
-		var valeur =$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').val();
-		$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').empty();
-		$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').append(DptValue($(this).val()));
-		$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue] option[value="'+valeur+'"]').prop('selected', true);
-		$(this).closest('.cmd').find('.cmdAttr[data-l1key=subType]').trigger('change');
-	}); 
-	$('.cmdAttr[data-l1key=type]').off('change').on('change',function() {
-		switch ($(this).val()){
-			case "info":
-				$(this).closest('.cmd').find('.RetourEtat').hide();
-				$(this).closest('.cmd').find('.bt_read').show();
-				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').hide();
-				$(this).closest('.cmd').find('.cmdAttr[data-l1key=isHistorized]').closest('.input-group').parent().show();
-			break;
-			case "action":		
-				$(this).closest('.cmd').find('.RetourEtat').show();
-				$(this).closest('.cmd').find('.bt_read').hide();
-				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').show();
-				$(this).closest('.cmd').find('.cmdAttr[data-l1key=isHistorized]').closest('.input-group').parent().hide();
-			break;
-		}
-	});			
-	$('.cmdAttr[data-l1key=subType]').off('change').on('change', function() {
-		switch ($(this).val()){
-			case "cursor":
-			case "numeric":
-				$(this).closest('.cmd').find('.ValeurMinMax').show();
-				$(this).closest('.cmd').find('.ValeurUnite').show();
-				$(this).closest('.cmd').find('.ValeurDefaut').hide();
-				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=inverse]').closest('.input-group').parent().show();
-			break;
-			case "other":
-				$(this).closest('.cmd').find('.ValeurDefaut').show();
-				$(this).closest('.cmd').find('.ValeurMinMax').hide();
-				$(this).closest('.cmd').find('.ValeurUnite').hide();
-				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=inverse]').closest('.input-group').parent().hide();
-			break;	
-			case "binary":
-				$(this).closest('.cmd').find('.ValeurMinMax').hide();
-				$(this).closest('.cmd').find('.ValeurUnite').hide();
-				$(this).closest('.cmd').find('.ValeurDefaut').hide();
-				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=inverse]')
-					.closest('.input-group').parent().show();
-			break;
-			default:
-				$(this).closest('.cmd').find('.ValeurDefaut').hide();
-				$(this).closest('.cmd').find('.ValeurMinMax').hide();
-				$(this).closest('.cmd').find('.ValeurUnite').hide();
-				$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=inverse]')
-					.closest('.input-group').parent().hide();
-			break;
-		}
-		if($(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=subTypeAuto]').is(':checked')){
-			var Dpt=$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]').val();
-			var type=$(this).closest('.cmd').find('.cmdAttr[data-l1key=type]').val();
-			var valeur=getDptSousType(Dpt,type);
-			$(this).find('option[value="'+valeur+'"]').prop('selected', true);
-		}
-	});			
-	$('.cmdAttr[data-l1key=configuration][data-l2key=subTypeAuto]').off('change').on('change', function() {
-		$(this).closest('.cmd').find('.cmdAttr[data-l1key=subType]').trigger('change');
-	});
-	$("#table_cmd").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
-	$(".eqLogicAttr[data-l1key=configuration][data-l2key=device]").html($(".eqLogicAttr[data-l1key=configuration][data-l2key=device] option").sort(function (a, b) {
-		return a.text == b.text ? 0 : a.text < b.text ? -1 : 1
-	}));
-	$('.Template[data-action=add]').off('click').on('click', function () {
-		if($('.Template[data-l1key=type]').val()!=""){
-			$('.eqLogicAction[data-action=save]').trigger('click');
-			$.ajax({
-				type: 'POST',   
-				url: 'plugins/eibd/core/ajax/eibd.ajax.php',
-				data:
-				{
-					action: 'AppliTemplate',
-					id:$('.eqLogicAttr[data-l1key=id]').val(),
-					template:$('.Template[data-l1key=type]').val()
-				},
-				dataType: 'json',
-				global: true,
-				error: function(request, status, error) {},
-				success: function(data) {
-					window.location.reload();
-				}
-			});
-		}
-	});
-//});
+	}
+});
 function UpdateVar(){
 	$.ajax({
 		type: 'POST',            
