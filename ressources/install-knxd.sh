@@ -67,14 +67,13 @@ then
   sudo rm -rf /usr/local/lib/libeibclient.so.0.0.0
 fi
 echo 15 > /tmp/compilation_eibd_in_progress
-if [ -d "/usr/local/src/Knx/" ] then 
+#if [ -d "/usr/local/src/Knx/" ] then 
   echo "*****************************************************************************************************"
   echo "*                                         Remove knxd                                               *"
   echo "*****************************************************************************************************"
   apt-get autoremove --yes -y -qq knxd
-  sudo rm knxd*.deb
   sudo rm -R /usr/local/src/Knx/
-fi
+#fi
 echo 20 > /tmp/compilation_eibd_in_progress
 echo "*****************************************************************************************************"
 echo "*                                Installation des dependances                                       *"
@@ -96,6 +95,9 @@ echo 30 > /tmp/compilation_eibd_in_progress
 echo "*****************************************************************************************************"
 echo "*                                  Installation de PTHSEM 2.0.8                                     *"
 echo "*****************************************************************************************************"
+sudo mkdir /usr/local/src/Knx/
+sudo chmod 777 /usr/local/src/Knx/
+cd /usr/local/src/Knx
 sudo pkill eibd  
 sudo pkill knxd  
 wget https://www.auto.tuwien.ac.at/~mkoegler/pth/pthsem_2.0.8.tar.gz
@@ -121,9 +123,6 @@ cd ..
 sudo dpkg -i knxd_*.deb knxd-tools_*.deb
 sudo usermod -a -G dialout knxd
 
-##sudo mkdir /usr/local/src/Knx/
-#sudo chmod 777 /usr/local/src/Knx/
-#cd /usr/local/src/Knx
 #git clone https://github.com/knxd/knxd.git
 #echo 55 > /tmp/compilation_eibd_in_progress
 #cd knxd

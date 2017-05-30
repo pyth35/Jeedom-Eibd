@@ -383,26 +383,10 @@ function OptionSelectDpt(){
 	});
 	return DptSelectorOption;
 }
-function saveEqLogic(_eqLogic) {
-	if (typeof( _eqLogic.cmd) !== 'undefined') {
-		for(var index in  _eqLogic.cmd) { 
-			_eqLogic.cmd[index].configuration.action=new Object();
-			var ActionArray= new Array();
-			$('.cmd[data-cmd_id=' + init(_eqLogic.cmd[index].id)+ '] .ActionGroup').each(function( index ) {
-				ActionArray.push($(this).getValues('.expressionAttr')[0])
-			});
-			_eqLogic.cmd[index].configuration.action=ActionArray;
-		}
-	}
-   	return _eqLogic;
-}
 function addCmdToTable(_cmd) {
-  if (!isset(_cmd)) {
-        var _cmd = {};
-    }
-    if (!isset(_cmd.configuration)) {
-        _cmd.configuration = {};
-    }
+	if (!isset(_cmd)) {
+		var _cmd = {configuration: {}};
+	}
 	var tr =$('<tr class="cmd" data-cmd_id="' + init(_cmd.id) + '">');
   	tr.append($('<td>')
 		.append($('<i class="fa fa-minus-circle pull-right cmdAction cursor" data-action="remove">'))
@@ -566,35 +550,9 @@ function addCmdToTable(_cmd) {
 	tr.append(parmetre);
 	$('#table_cmd tbody').append(tr);
 	DptOption(_cmd.configuration.KnxObjectType,$('#table_cmd tbody tr:last').find('.option'));
-	if (typeof(_cmd.configuration.action) !== 'undefined') {
-		for(var index in _cmd.configuration.action) { 
-			if( (typeof _cmd.configuration.action[index] === "object") && (_cmd.configuration.action[index] !== null) )
-				addAction(_cmd.configuration.action[index],$('#table_cmd tbody tr:last').find('.div_action'));
-		}
-	}
 	$('#table_cmd tbody tr:last').setValues(_cmd, '.cmdAttr');
 	$('#table_cmd tbody tr:last .cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]').trigger('change');
 	$('#table_cmd tbody tr:last .cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue]').trigger('change');
 	$('#table_cmd tbody tr:last').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue] option[value="'+init(_cmd.configuration.KnxObjectValue)+'"]').prop('selected', true);		
 	jeedom.cmd.changeType($('#table_cmd tbody tr:last'), init(_cmd.subType));
-}
-function addAction(_action, _el) {
-	var div = $('<div class="form-group ActionGroup">')
-		.append($('<div class="has-success">')
-  			.append($('<i class="fa fa-minus-circle pull-left cursor ActionAttr" data-action="remove">'))
-			.append($('<div class="input-group">')
-				/*.append($('<span class="input-group-btn">')
-					.append($('<input type="checkbox" class="expressionAttr" data-l1key="enable"/>'))
-					.append($('<a class="btn btn-default bt_removeAction btn-sm" data-type="inAction">')
-						.append($('<i class="fa fa-minus-circle">'))))*/
-				.append($('<input class="expressionAttr form-control input-sm cmdAction" data-l1key="cmd" data-type="inAction"/>'))
-				.append($('<span class="input-group-btn">')
-					.append($('<a class="btn btn-success btn-sm listAction" title="Sélectionner un mot-clé">')
-						.append($('<i class="fa fa-tasks">')))
-					.append($('<a class="btn btn-success btn-sm listCmdAction">')
-						.append($('<i class="fa fa-list-alt">'))))))
-		.append($('<div class="actionOptions">')
-		       .append($(jeedom.cmd.displayActionOption(init(_action.cmd, ''), _action.options))));
-        _el.append(div);
-        _el.find('.ActionGroup:last').setValues(_action, '.expressionAttr');
 }
