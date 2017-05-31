@@ -107,9 +107,9 @@ echo 30 > /tmp/compilation_eibd_in_progress
 cd pthsem-2.0.8
 
 echo "Compiliing pthsem..." 
-architecture= arch
-if [ $architecture = "aarch64" ] 
-then 
+architecture=$(uname -m)
+if [ "$architecture" = 'aarch64' ]
+then
     wget -O config.guess 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.guess;hb=HEAD'
     wget -O config.sub 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.sub;hb=HEAD'
 fi
@@ -134,8 +134,8 @@ tar zxvf "$PWDRESSOURCE/bcusdk_0.0.5.tar.gz"
 echo 60 > /tmp/compilation_eibd_in_progress
 cd bcusdk-0.0.5 
 echo "Compiliing bcusdk..."
-if [ $architecture = "aarch64" ] 
-then 
+if [ "$architecture" = 'aarch64' ]
+then
     wget -O config.guess 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.guess;hb=HEAD'
     wget -O config.sub 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.sub;hb=HEAD'
 fi
