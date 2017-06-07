@@ -408,7 +408,7 @@ function addCmdToTable(_cmd) {
 				.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
 					.attr('title','Saisisez l\'adresse de groupe de votre commande KNX'))))
 		.append($('<input class="cmdAttr form-control input-sm" data-l1key="logicalId" placeholder="{{GAD}}" title="GAD">')));
-	tr.append($('<td class="expertModeVisible">')
+	tr.append($('<td>')
 		  .append($('<div>')
 			.append($('<span>')
 				.append($('<label class="checkbox-inline">')
