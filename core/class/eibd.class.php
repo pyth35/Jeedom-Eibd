@@ -462,8 +462,8 @@ class eibd extends eqLogic {
 		$cache = cache::byKey('eibd::CreateNewGad');
 		$value = json_decode($cache->getValue('[]'), true);
 		foreach ($value as $key => $val) {
-		       if (isset($_parameter['value']) && $val['AdresseGroupe'] == $_parameter['AdresseGroupe']){
-			       $value[$key]['value']=$_parameter['value'];
+		       if (isset($_parameter['valeur']) && $val['AdresseGroupe'] == $_parameter['AdresseGroupe']){
+			       $value[$key]['value']=$_parameter['valeur'];
 			       cache::set('eibd::CreateNewGad', json_encode($value), 0);
 			       return;
 		       }
