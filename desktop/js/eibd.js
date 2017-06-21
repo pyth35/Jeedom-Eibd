@@ -197,7 +197,7 @@ $('body').off('click').on( 'click','.bt_read', function() {
 			}
 	});
 });
-$('.cmdAttr[data-l1key=logicalId]').off('keyup').on('keyup', function() {
+$('body').off('keyup').on('keyup','.cmdAttr[data-l1key=logicalId]', function() {
 	var lastCar=$(this).val().substr(-1);
 	var doublelastCar=$(this).val().substr(-2);
 	var oldvalue=$(this).val().substring(0,$(this).val().length-1);
@@ -214,7 +214,7 @@ $('body').off('change').on('change','.cmdAttr[data-l1key=configuration][data-l2k
 	$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue] option[value="'+valeur+'"]').prop('selected', true);
 	$(this).closest('.cmd').find('.cmdAttr[data-l1key=subType]').trigger('change');
 }); 
-$('.cmdAttr[data-l1key=type]').off('change').on('change',function() {
+$('body').off('change').on('change','.cmdAttr[data-l1key=type]',function() {
 	switch ($(this).val()){
 		case "info":
 			$(this).closest('.cmd').find('.RetourEtat').hide();
@@ -230,7 +230,7 @@ $('.cmdAttr[data-l1key=type]').off('change').on('change',function() {
 		break;
 	}
 });			
-$('.cmdAttr[data-l1key=subType]').off('change').on('change', function() {
+$('body').off('change').on('change','.cmdAttr[data-l1key=subType]', function() {
 	switch ($(this).val()){
 		case "cursor":
 		case "numeric":
@@ -267,7 +267,7 @@ $('.cmdAttr[data-l1key=subType]').off('change').on('change', function() {
 		$(this).find('option[value="'+valeur+'"]').prop('selected', true);
 	}
 });			
-$('.cmdAttr[data-l1key=configuration][data-l2key=subTypeAuto]').off('change').on('change', function() {
+$('body').off('change').on('change','.cmdAttr[data-l1key=configuration][data-l2key=subTypeAuto]', function() {
 	$(this).closest('.cmd').find('.cmdAttr[data-l1key=subType]').trigger('change');
 });
 $("#table_cmd").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
@@ -338,10 +338,10 @@ function getDptSousType(Dpt,type){
 }
 function DptOption(Dpt,div){
 	$.each(AllDpt, function(DptKeyGroup, DptValueGroup){
-		$.each(DptValueGroup, function(DptValue, DptValue){
-			if (DptValue==Dpt){
+		$.each(DptValueGroup, function(DptKey, DptValue){
+			if (DptKey==Dpt){
 				$.each(DptValue.Option, function(Optionkey, Optionvalue){
-					if (DptValue==Dpt && div.find('.cmdAttr[data-l2key=option][data-l3key='+Optionvalue+']').length <= 0){
+					if (DptKey==Dpt && div.find('.cmdAttr[data-l2key=option][data-l3key='+Optionvalue+']').length <= 0){
 						div.append($('<label>')
 								   .text('{{'+Optionvalue+'}}')
 								   .append($('<sup>')
