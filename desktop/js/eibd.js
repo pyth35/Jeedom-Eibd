@@ -198,11 +198,13 @@ $('body').on( 'click','.bt_read', function() {
 	});
 });
 $('body').on('keyup','.cmdAttr[data-l1key=logicalId]', function() {
-	var lastCar=$(this).val().substr(-1);
-	var doublelastCar=$(this).val().substr(-2);
-	var oldvalue=$(this).val().substring(0,$(this).val().length-1);
-	if(!$.isNumeric(lastCar) && lastCar!='/' || doublelastCar=='//')
-		$(this).val(oldvalue);
+	var Gad=$(this).val().split('/');
+	if($.isNumeric(Gad[Gad.length - 1])){
+		if(Gad[Gad.length - 1]==0 || Gad[Gad.length - 1]>254)
+			$(this).val($(this).val()+'/');
+	}
+	if($(this).val().substr(-2) =='//' || Gad.length>3)
+		$(this).val($(this).val().substring(0,$(this).val().length-1));
 }); 
 $('body').on('change','.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]', function() {
 	DptOption($(this).val(),$(this).closest('.cmd').find('.option'));
