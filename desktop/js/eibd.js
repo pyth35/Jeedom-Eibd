@@ -1,7 +1,7 @@
 var AllDpt=null;
 UpdateVar();
 var template;	
-$('body').off('change').on('change','.EqLogicTemplateAttr[data-l1key=template]', function () {
+$('body').on('change','.EqLogicTemplateAttr[data-l1key=template]', function () {
 	//Creation du formulaire du template
 	var form=$(this).closest('form');
 	var cmds=$('<div class="form-horizontal CmdsTempates">');
@@ -14,7 +14,7 @@ $('body').off('change').on('change','.EqLogicTemplateAttr[data-l1key=template]',
 					.append($('<input class="CmdEqLogicTemplateAttr form-control input-sm" data-l1key="'+index+'">'))
 					.append($('<span class="input-group-btn">')
 						.append($('<a class="btn btn-success btn-sm bt_selectGadInconnue">')
-							.append($('<i class="fa fa-list-alt">')).off().on('click',function () {
+							.append($('<i class="fa fa-list-alt">')).on('click',function () {
 								var input=$(this).closest('.input-group').find('.CmdEqLogicTemplateAttr');
 								bootbox.dialog({
 									title: "{{Choisir un Gad}}",
@@ -42,7 +42,7 @@ $('body').off('change').on('change','.EqLogicTemplateAttr[data-l1key=template]',
 	form.find('.CmdsTempates').remove();
 	form.append(cmds);
 });
-$('.eqLogicAction[data-action=addByTemplate]').off('click').on('click', function () {
+$('.eqLogicAction[data-action=addByTemplate]').on('click', function () {
 	$.ajax({
 		type: 'POST',            
 		async: false,
@@ -165,7 +165,7 @@ $('.Ets4Parser').on('click', function() {
 	$('#md_modal').load('index.php?v=d&modal=eibd.EtsParser&plugin=eibd&type=eibd').dialog('open');
 
 });
-$('body').off('click').on('click','.bt_selectCmdExpression',function() {
+$('body').on('click','.bt_selectCmdExpression',function() {
 	var el=$(this).closest('.input-group').find('.cmdAttr');
 	$(this).value()
 	jeedom.cmd.getSelectModal({cmd: {type: 'info'},eqLogic: {eqType_name : ''}}, function (result) {
@@ -176,7 +176,7 @@ $('body').off('click').on('click','.bt_selectCmdExpression',function() {
 		el.val(value);
 	});  
 });  
-$('body').off('click').on( 'click','.bt_read', function() {
+$('body').on( 'click','.bt_read', function() {
 	$.ajax({
 		type: 'POST',            
 		async: false,
@@ -197,14 +197,16 @@ $('body').off('click').on( 'click','.bt_read', function() {
 			}
 	});
 });
-$('.cmdAttr[data-l1key=logicalId]').off('keyup').on('keyup', function() {
-	var lastCar=$(this).val().substr(-1);
-	var doublelastCar=$(this).val().substr(-2);
-	var oldvalue=$(this).val().substring(0,$(this).val().length-1);
-	if(!$.isNumeric(lastCar) && lastCar!='/' || doublelastCar=='//')
-		$(this).val(oldvalue);
+$('body').on('keyup','.cmdAttr[data-l1key=logicalId]', function() {
+	var Gad=$(this).val().split('/');
+	if($.isNumeric(Gad[Gad.length - 1])){
+		if(Gad[Gad.length - 1]==0 || Gad[Gad.length - 1]>254)
+			$(this).val($(this).val()+'/');
+	}
+	if($(this).val().substr(-2) =='//' || Gad.length>3)
+		$(this).val($(this).val().substring(0,$(this).val().length-1));
 }); 
-$('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]').off('change').on('change', function() {
+$('body').on('change','.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]', function() {
 	DptOption($(this).val(),$(this).closest('.cmd').find('.option'));
 	if ($(this).closest('.cmd').find('.cmdAttr[data-l1key=unite]').val() == '')
 		$(this).closest('.cmd').find('.cmdAttr[data-l1key=unite]').val(DptUnit($(this).val()));
@@ -214,7 +216,7 @@ $('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]').off('change').
 	$(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectValue] option[value="'+valeur+'"]').prop('selected', true);
 	$(this).closest('.cmd').find('.cmdAttr[data-l1key=subType]').trigger('change');
 }); 
-$('.cmdAttr[data-l1key=type]').off('change').on('change',function() {
+$('body').on('change','.cmdAttr[data-l1key=type]',function() {
 	switch ($(this).val()){
 		case "info":
 			$(this).closest('.cmd').find('.RetourEtat').hide();
@@ -230,7 +232,7 @@ $('.cmdAttr[data-l1key=type]').off('change').on('change',function() {
 		break;
 	}
 });			
-$('.cmdAttr[data-l1key=subType]').off('change').on('change', function() {
+$('body').on('change','.cmdAttr[data-l1key=subType]', function() {
 	switch ($(this).val()){
 		case "cursor":
 		case "numeric":
@@ -267,14 +269,14 @@ $('.cmdAttr[data-l1key=subType]').off('change').on('change', function() {
 		$(this).find('option[value="'+valeur+'"]').prop('selected', true);
 	}
 });			
-$('.cmdAttr[data-l1key=configuration][data-l2key=subTypeAuto]').off('change').on('change', function() {
+$('body').on('change','.cmdAttr[data-l1key=configuration][data-l2key=subTypeAuto]', function() {
 	$(this).closest('.cmd').find('.cmdAttr[data-l1key=subType]').trigger('change');
 });
 $("#table_cmd").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
 $(".eqLogicAttr[data-l1key=configuration][data-l2key=device]").html($(".eqLogicAttr[data-l1key=configuration][data-l2key=device] option").sort(function (a, b) {
 	return a.text == b.text ? 0 : a.text < b.text ? -1 : 1
 }));
-$('.Template[data-action=add]').off('click').on('click', function () {
+$('.Template[data-action=add]').on('click', function () {
 	if($('.Template[data-l1key=type]').val()!=""){
 		$('.eqLogicAction[data-action=save]').trigger('click');
 		$.ajax({
@@ -338,10 +340,10 @@ function getDptSousType(Dpt,type){
 }
 function DptOption(Dpt,div){
 	$.each(AllDpt, function(DptKeyGroup, DptValueGroup){
-		$.each(DptValueGroup, function(DptValue, DptValue){
-			if (DptValue==Dpt){
+		$.each(DptValueGroup, function(DptKey, DptValue){
+			if (DptKey==Dpt){
 				$.each(DptValue.Option, function(Optionkey, Optionvalue){
-					if (DptValue==Dpt && div.find('.cmdAttr[data-l2key=option][data-l3key='+Optionvalue+']').length <= 0){
+					if (DptKey==Dpt && div.find('.cmdAttr[data-l2key=option][data-l3key='+Optionvalue+']').length <= 0){
 						div.append($('<label>')
 								   .text('{{'+Optionvalue+'}}')
 								   .append($('<sup>')
@@ -408,7 +410,7 @@ function addCmdToTable(_cmd) {
 				.append($('<i class="fa fa-question-circle tooltips" style="font-size : 1em;color:grey;">')
 					.attr('title','Saisisez l\'adresse de groupe de votre commande KNX'))))
 		.append($('<input class="cmdAttr form-control input-sm" data-l1key="logicalId" placeholder="{{GAD}}" title="GAD">')));
-	tr.append($('<td class="expertModeVisible">')
+	tr.append($('<td>')
 		  .append($('<div>')
 			.append($('<span>')
 				.append($('<label class="checkbox-inline">')
