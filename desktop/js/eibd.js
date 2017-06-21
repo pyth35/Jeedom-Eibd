@@ -204,7 +204,7 @@ $('.cmdAttr[data-l1key=logicalId]').off('keyup').on('keyup', function() {
 	if(!$.isNumeric(lastCar) && lastCar!='/' || doublelastCar=='//')
 		$(this).val(oldvalue);
 }); 
-$('.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]').off('change').on('change', function() {
+$('body').off('change').on('change','.cmdAttr[data-l1key=configuration][data-l2key=KnxObjectType]', function() {
 	DptOption($(this).val(),$(this).closest('.cmd').find('.option'));
 	if ($(this).closest('.cmd').find('.cmdAttr[data-l1key=unite]').val() == '')
 		$(this).closest('.cmd').find('.cmdAttr[data-l1key=unite]').val(DptUnit($(this).val()));
