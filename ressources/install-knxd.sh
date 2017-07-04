@@ -30,6 +30,7 @@ echo 10 > /tmp/compilation_eibd_in_progress
 echo "*****************************************************************************************************"
 echo "*                                         Remove eibd                                               *"
 echo "*****************************************************************************************************"
+sudo rm -r /usr/local/bin/{eibd,knxtool,group*} /usr/local/lib/lib{eib,pthsem}*.so* /usr/local/include/pth*
 if [ -f "/etc/logrotate.d/eibd" ]
 then
   sudo rm /etc/logrotate.d/eibd
@@ -103,15 +104,13 @@ sudo pkill knxd
 sudo echo " " > /var/log/knxd.log
 sudo chmod 777 /var/log/knxd.log
 sudo git clone https://github.com/knxd/knxd.git
-#mv knxd-master knxd
 cd knxd
 git checkout stable
 sudo dpkg-buildpackage -b -uc -d
 cd ..
 sudo dpkg -i knxd_*.deb knxd-tools_*.deb
 sudo usermod -a -G dialout knxd
-
-#sudo dpkg -i knxd_*.deb knxd-tools_*.deb
+sudo pkill knxd 
 echo 90 > /tmp/compilation_eibd_in_progress
 systemctl stop knxd.service
 echo 91 > /tmp/compilation_eibd_in_progress
