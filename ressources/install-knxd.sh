@@ -79,22 +79,22 @@ echo 20 > /tmp/compilation_eibd_in_progress
 echo "*****************************************************************************************************"
 echo "*                                Installation des dependances                                       *"
 echo "*****************************************************************************************************"
-sudo apt-get update --yes -y -qq
-sudo apt-get install libev-dev --yes -y -qq
-sudo apt-get install git-core --yes -y -qq
-sudo apt-get install build-essential 
-sudo apt-get install dpkg-buildpackage --yes -y -qq
-sudo apt-get install cdbs --yes -y -qq
-sudo apt-get install git-core  --yes -y -qq
-sudo apt-get install debhelper  --yes -y -qq
-sudo apt-get install autoconf  --yes -y -qq
-sudo apt-get install automake  --yes -y -qq
-sudo apt-get install libtool  --yes -y -qq
-sudo apt-get install libusb-1.0-0-dev  --yes -y -qq
-sudo apt-get install libsystemd-daemon-dev  --yes -y -qq
-sudo apt-get install libsystemd-dev --yes -y -qq
-sudo apt-get install dh-systemd --yes -y -qq
-sudo apt-get install cmake --yes -y -qq
+sudo apt-get -qy update
+sudo apt-get -qy install build-essential 
+sudo apt-get -qy install libev-dev
+sudo apt-get -qy install git-core
+sudo apt-get -qy install dpkg-buildpackage
+sudo apt-get -qy install cdb
+sudo apt-get -qy install git-core
+sudo apt-get -qy install debhelper
+sudo apt-get -qy install autoconf
+sudo apt-get -qy install automake
+sudo apt-get -qy install libtool
+sudo apt-get -qy install libusb-1.0-0-dev
+sudo apt-get -qy install libsystemd-daemon-dev
+sudo apt-get -qy install libsystemd-dev
+sudo apt-get -qy install dh-systemd
+sudo apt-get -qy install cmake
 echo 30 > /tmp/compilation_eibd_in_progress
 echo "*****************************************************************************************************"
 echo "*                                      Installation de KnxD                                         *"
