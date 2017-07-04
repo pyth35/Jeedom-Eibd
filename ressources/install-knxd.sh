@@ -111,24 +111,23 @@ cd ..
 sudo dpkg -i knxd_*.deb knxd-tools_*.deb
 sudo usermod -a -G dialout knxd
 sudo pkill knxd 
+sudo rm /etc/init.d/
 echo 90 > /tmp/compilation_eibd_in_progress
-systemctl stop knxd.service
-echo 91 > /tmp/compilation_eibd_in_progress
-systemctl stop knxd.socket     
-echo 92 > /tmp/compilation_eibd_in_progress                                                                                      
-systemctl disable knxd.service   
-echo 94 > /tmp/compilation_eibd_in_progress                                                                                           
-systemctl disable knxd.socket 
+sudo systemctl stop knxd.service                                                                                   
+sudosystemctl disable knxd.service  
+sudo rm /lib/systemd/system/knxd.service
 echo 95 > /tmp/compilation_eibd_in_progress
-systemctl daemon-reload
+sudo systemctl stop knxd.socket                                                                                              
+sudo systemctl disable knxd.socket 
+sudo rm /lib/systemd/system/knxd.socket
 echo 97 > /tmp/compilation_eibd_in_progress
-systemctl reset-failed
+sudo systemctl daemon-reload
+sudo systemctl reset-failed
 echo 99 > /tmp/compilation_eibd_in_progress
-rm /lib/systemd/system/knxd.service
-mkdir /etc/eibd/
-chmod 777 /etc/eibd/
+sudo mkdir /etc/eibd/
+sudo chmod 777 /etc/eibd/
 echo "v0.10" > /etc/eibd/knxd_VERSION
-rm /tmp/compilation_eibd_in_progress
+sudo rm /tmp/compilation_eibd_in_progress
 echo "*****************************************************************************************************"
 echo "*                                       Installation terminé                                        *"
 echo "*****************************************************************************************************"
