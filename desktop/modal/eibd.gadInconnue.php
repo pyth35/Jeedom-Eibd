@@ -83,19 +83,19 @@ function getKnxGadInconue () {
 	});
 }
 $('body').on('click', '.Gad[data-action=addEqLogic]', function(){
-	var gad=$(this).closest('tr').find('td:eq(1)').text();
+	var gad=$(this).closest('tr').find('td:eq(3)').text();
 	jeedom.eqLogic.getSelectModal({},function (result) {
 		removeInCache(gad,result.id);
 	}); 
 	$(this).closest('tr').remove();
 });
 $('body').on('click', '.Gad[data-action=remove]', function(){
-	var gad=$(this).closest('tr').find('td:eq(1)').text();
+	var gad=$(this).closest('tr').find('td:eq(3)').text();
 	removeInCache(gad, false);
 	$(this).closest('tr').remove();
 });	
 $('body').on('click', '#table_GadInconue tbody tr', function(){
-	SelectGad=$(this).closest('tr').find('td:eq(1)').text();
+	SelectGad=$(this).closest('tr').find('td:eq(3)').text();
 });	
 function removeInCache(gad, destination){
 	$.ajax({
