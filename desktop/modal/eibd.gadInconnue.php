@@ -9,7 +9,9 @@ include_file('3rdparty', 'jquery.tablesorter/jquery.tablesorter.widgets.min', 'j
 <table id="table_GadInconue" class="table table-bordered table-condensed tablesorter">
     <thead>
         <tr>
+            <th>{{Equipement}}</th>
             <th>{{Source}}</th>
+            <th>{{Commande}}</th>
             <th>{{Destination}}</th>
             <th>{{Data Point Type}}</th>
             <th>{{Derniere valeur}}</th>
@@ -47,11 +49,19 @@ function getKnxGadInconue () {
 			}
 			$('#table_GadInconue tbody').html('');
 			jQuery.each(jQuery.parseJSON(data.result),function(key, value) {
-				var tr=$("<tr>")
-					.append($("<td>").text(value.AdressePhysique))
-					.append($("<td>").text(value.AdresseGroupe))
-					.append($("<td>").text(value.DataPointType))
-					.append($("<td>").text(value.valeur));
+				var tr=$("<tr>");
+				if (typeof(value.DeviceName) !== 'undefined') {
+					tr.append($("<td>").text(value.DeviceName));
+				else
+					tr.append($("<td>"));
+				tr.append($("<td>").text(value.AdressePhysique));
+				if (typeof(value.cmdName) !== 'undefined') {
+					tr.append($("<td>").text(value.cmdName));
+				else
+					tr.append($("<td>"));
+				tr.append($("<td>").text(value.AdresseGroupe));
+				tr.append($("<td>").text(value.DataPointType));
+				tr.append($("<td>").text(value.valeur));
               if($('#table_GadInconue thead th').length == 5){
 					tr.append($("<td>")
 						.append($('<a class="btn btn-danger btn-xs Gad pull-right" data-action="remove">')
