@@ -50,12 +50,12 @@ function getKnxGadInconue () {
 			$('#table_GadInconue tbody').html('');
 			jQuery.each(jQuery.parseJSON(data.result),function(key, value) {
 				var tr=$("<tr>");
-				if (typeof(value.DeviceName) !== 'undefined') {
+				if (typeof(value.DeviceName) !== 'undefined') 
 					tr.append($("<td>").text(value.DeviceName));
 				else
 					tr.append($("<td>"));
 				tr.append($("<td>").text(value.AdressePhysique));
-				if (typeof(value.cmdName) !== 'undefined') {
+				if (typeof(value.cmdName) !== 'undefined') 
 					tr.append($("<td>").text(value.cmdName));
 				else
 					tr.append($("<td>"));
