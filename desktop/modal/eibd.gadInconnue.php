@@ -62,7 +62,7 @@ function getKnxGadInconue () {
 				tr.append($("<td>").text(value.AdresseGroupe));
 				tr.append($("<td>").text(value.DataPointType));
 				tr.append($("<td>").text(value.valeur));
-              if($('#table_GadInconue thead th').length == 5){
+             			if($('#table_GadInconue thead th').length == 7){
 					tr.append($("<td>")
 						.append($('<a class="btn btn-danger btn-xs Gad pull-right" data-action="remove">')
 							.append($('<i class="fa fa-minus-circle">'))
@@ -70,8 +70,8 @@ function getKnxGadInconue () {
 						.append($('<a class="btn btn-primary btn-xs Gad pull-right" data-action="addEqLogic">')
 							.append($('<i class="fa fa-check-circle">'))
 							.text('{{Ajouter a un equipement}}')));
-              }
-              $('#table_GadInconue tbody').append(tr);
+			      }
+			      $('#table_GadInconue tbody').append(tr);
 			});				
 			$('#table_GadInconue').trigger('update');
 			if ($('#md_modal').dialog('isOpen') === true) {
