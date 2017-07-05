@@ -9,7 +9,9 @@ include_file('3rdparty', 'jquery.tablesorter/jquery.tablesorter.widgets.min', 'j
 <table id="table_GadInconue" class="table table-bordered table-condensed tablesorter">
     <thead>
         <tr>
+            <th>{{Equipement}}</th>
             <th>{{Source}}</th>
+            <th>{{Commande}}</th>
             <th>{{Destination}}</th>
             <th>{{Data Point Type}}</th>
             <th>{{Derniere valeur}}</th>
@@ -47,12 +49,20 @@ function getKnxGadInconue () {
 			}
 			$('#table_GadInconue tbody').html('');
 			jQuery.each(jQuery.parseJSON(data.result),function(key, value) {
-				var tr=$("<tr>")
-					.append($("<td>").text(value.AdressePhysique))
-					.append($("<td>").text(value.AdresseGroupe))
-					.append($("<td>").text(value.DataPointType))
-					.append($("<td>").text(value.valeur));
-              if($('#table_GadInconue thead th').length == 5){
+				var tr=$("<tr>");
+				if (typeof(value.DeviceName) !== 'undefined') 
+					tr.append($("<td>").text(value.DeviceName));
+				else
+					tr.append($("<td>"));
+				tr.append($("<td>").text(value.AdressePhysique));
+				if (typeof(value.cmdName) !== 'undefined') 
+					tr.append($("<td>").text(value.cmdName));
+				else
+					tr.append($("<td>"));
+				tr.append($("<td>").text(value.AdresseGroupe));
+				tr.append($("<td>").text(value.DataPointType));
+				tr.append($("<td>").text(value.valeur));
+             			if($('#table_GadInconue thead th').length == 7){
 					tr.append($("<td>")
 						.append($('<a class="btn btn-danger btn-xs Gad pull-right" data-action="remove">')
 							.append($('<i class="fa fa-minus-circle">'))
@@ -60,8 +70,8 @@ function getKnxGadInconue () {
 						.append($('<a class="btn btn-primary btn-xs Gad pull-right" data-action="addEqLogic">')
 							.append($('<i class="fa fa-check-circle">'))
 							.text('{{Ajouter a un equipement}}')));
-              }
-              $('#table_GadInconue tbody').append(tr);
+			      }
+			      $('#table_GadInconue tbody').append(tr);
 			});				
 			$('#table_GadInconue').trigger('update');
 			if ($('#md_modal').dialog('isOpen') === true) {
@@ -73,19 +83,19 @@ function getKnxGadInconue () {
 	});
 }
 $('body').on('click', '.Gad[data-action=addEqLogic]', function(){
-	var gad=$(this).closest('tr').find('td:eq(1)').text();
+	var gad=$(this).closest('tr').find('td:eq(3)').text();
 	jeedom.eqLogic.getSelectModal({},function (result) {
 		removeInCache(gad,result.id);
 	}); 
 	$(this).closest('tr').remove();
 });
 $('body').on('click', '.Gad[data-action=remove]', function(){
-	var gad=$(this).closest('tr').find('td:eq(1)').text();
+	var gad=$(this).closest('tr').find('td:eq(3)').text();
 	removeInCache(gad, false);
 	$(this).closest('tr').remove();
 });	
 $('body').on('click', '#table_GadInconue tbody tr', function(){
-	SelectGad=$(this).closest('tr').find('td:eq(1)').text();
+	SelectGad=$(this).closest('tr').find('td:eq(3)').text();
 });	
 function removeInCache(gad, destination){
 	$.ajax({
