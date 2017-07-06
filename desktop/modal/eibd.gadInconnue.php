@@ -75,13 +75,14 @@ function getKnxGadInconue () {
 						.append($('<a class="btn btn-primary btn-xs Gad pull-right" data-action="addEqLogic">')
 							.append($('<i class="fa fa-check-circle">'))
 							.text('{{Ajouter a un equipement}}')));
-				}else{
-					$(".tablesorter-filter[data-column=1]").val(SelectAddr);
-					$(".tablesorter-filter[data-column=4]").val(SelectDpt);
 				}
 			      	$('#table_GadInconue tbody').append(tr);
 			});				
 			$('#table_GadInconue').trigger('update');
+			if($('#table_GadInconue thead th').length == 6){
+				$(".tablesorter-filter[data-column=1]").val(SelectAddr);
+				$(".tablesorter-filter[data-column=4]").val(SelectDpt);
+			}
 			if ($('#md_modal').dialog('isOpen') === true) {
 				setTimeout(function() {
 					getKnxGadInconue()
