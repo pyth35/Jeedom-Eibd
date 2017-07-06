@@ -26,7 +26,12 @@ include_file('3rdparty', 'jquery.tablesorter/jquery.tablesorter.widgets.min', 'j
 <script>
 initTableSorter();
 getKnxGadInconue();
-var SelectGad='';
+if (typeof(SelectAddr) !== 'undefined') 
+	var SelectAddr='';
+if (typeof(SelectGad) !== 'undefined') 
+	var SelectGad='';
+if (typeof(SelectDpt) !== 'undefined') 
+	var SelectDpt='';
 function getKnxGadInconue () {
 	$.ajax({
 		type: 'POST',
@@ -70,8 +75,11 @@ function getKnxGadInconue () {
 						.append($('<a class="btn btn-primary btn-xs Gad pull-right" data-action="addEqLogic">')
 							.append($('<i class="fa fa-check-circle">'))
 							.text('{{Ajouter a un equipement}}')));
-			      }
-			      $('#table_GadInconue tbody').append(tr);
+				}else{
+					$(".tablesorter-filter[data-column=1]").val(SelectAddr);
+					$(".tablesorter-filter[data-column=4]").val(SelectDpt);
+				}
+			      	$('#table_GadInconue tbody').append(tr);
 			});				
 			$('#table_GadInconue').trigger('update');
 			if ($('#md_modal').dialog('isOpen') === true) {
@@ -96,6 +104,7 @@ $('body').on('click', '.Gad[data-action=remove]', function(){
 });	
 $('body').on('click', '#table_GadInconue tbody tr', function(){
 	SelectGad=$(this).closest('tr').find('td:eq(3)').text();
+	SelectAddr=$(this).closest('tr').find('td:eq(1)').text();
 });	
 function removeInCache(gad, destination){
 	$.ajax({
