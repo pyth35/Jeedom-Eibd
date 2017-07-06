@@ -22,7 +22,7 @@ $('body').on('change','.EqLogicTemplateAttr[data-l1key=template]', function () {
 									title: "{{Choisir un Gad}}",
 									height: "800px",
 									width: "auto",
-									mmessage: $('<div>').load('index.php?v=d&modal=eibd.gadInconnue&plugin=eibd&type=eibd&SelectAddr='+SelectAddr+'&SelectDpt='+SelectDpt+'&param'),
+									message: $('<div>').load('index.php?v=d&modal=eibd.gadInconnue&plugin=eibd&type=eibd&SelectAddr='+SelectAddr+'&SelectDpt='+SelectDpt+'&param'),
 									buttons: {
 										"Annuler": {
 											className: "btn-default",
