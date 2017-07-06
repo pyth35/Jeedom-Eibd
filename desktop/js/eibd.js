@@ -15,6 +15,8 @@ $('body').on('change','.EqLogicTemplateAttr[data-l1key=template]', function () {
 					.append($('<span class="input-group-btn">')
 						.append($('<a class="btn btn-success btn-sm bt_selectGadInconnue">')
 							.append($('<i class="fa fa-list-alt">')).on('click',function () {
+								var SelectAddr=$(this).closest('.row').find('.EqLogicTemplateAttr[data-l1key=logicalId]').val();	
+								var SelectDpt=value.configuration.KnxObjectType;
 								var input=$(this).closest('.input-group').find('.CmdEqLogicTemplateAttr');
 								bootbox.dialog({
 									title: "{{Choisir un Gad}}",
@@ -32,7 +34,8 @@ $('body').on('change','.EqLogicTemplateAttr[data-l1key=template]', function () {
 											label: "Valider",
 											className: "btn-primary",
 											callback: function () {
-															input.val(SelectGad);
+												input.closest('.row').find('.EqLogicTemplateAttr[data-l1key=logicalId]').val(SelectAddr);
+												input.val(SelectGad);
 											}
 										},
 									}
@@ -70,6 +73,11 @@ $('.eqLogicAction[data-action=addByTemplate]').on('click', function () {
 						.text('{{Nom de votre équipement}}'))
 					.append($('<div class="col-xs-7">')
 						.append($('<input class="EqLogicTemplateAttr form-control" data-l1key="name"/>'))))
+				.append($('<div class="form-group">')
+					.append($('<label class="col-xs-5 control-label" >')
+						.text('{{Adresse physique de l\'equipement}}'))
+					.append($('<div class="col-xs-7">')
+						.append($('<input class="EqLogicTemplateAttr form-control" data-l1key="logicalId"/>'))))
 				.append($('<div class="form-group">')
 					.append($('<label class="col-xs-5 control-label" >')
 						.text('{{Template de votre équipement}}'))
