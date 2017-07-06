@@ -20,7 +20,7 @@ $('body').on('change','.EqLogicTemplateAttr[data-l1key=template]', function () {
 								var input=$(this).closest('.input-group').find('.CmdEqLogicTemplateAttr');
 								bootbox.dialog({
 									title: "{{Choisir un Gad}}",
-									height: "auto",
+									height: "800px",
 									width: "auto",
 									mmessage: $('<div>').load('index.php?v=d&modal=eibd.gadInconnue&plugin=eibd&type=eibd&SelectAddr='+SelectAddr+'&SelectDpt='+SelectDpt+'&param'),
 									buttons: {
@@ -94,7 +94,7 @@ $('.eqLogicAction[data-action=addByTemplate]').on('click', function () {
 	bootbox.dialog({
 		title: "{{Ajout d'un équipement avec template}}",
 		message: message,
-		height: "auto",
+		height: "800px",
 		width: "auto",
 		buttons: {
 			"Annuler": {
