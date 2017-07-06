@@ -5,6 +5,10 @@ if (!isConnect('admin')) {
 include_file('3rdparty', 'jquery.tablesorter/theme.bootstrap', 'css');
 include_file('3rdparty', 'jquery.tablesorter/jquery.tablesorter.min', 'js');
 include_file('3rdparty', 'jquery.tablesorter/jquery.tablesorter.widgets.min', 'js');
+//if(!isset($_REQUEST['SelectAddr']))
+	echo '<script>var SelectAddr="'.$_REQUEST['SelectAddr'].'";</script>';
+//if(!isset($_REQUEST['SelectDpt']))
+	echo '<script>var SelectDpt="'.$_REQUEST['SelectDpt'].'";</script>';
 ?>
 <table id="table_GadInconue" class="table table-bordered table-condensed tablesorter">
     <thead>
@@ -15,23 +19,18 @@ include_file('3rdparty', 'jquery.tablesorter/jquery.tablesorter.widgets.min', 'j
             <th>{{Destination}}</th>
             <th>{{Data Point Type}}</th>
             <th>{{Derniere valeur}}</th>
-  <?php
-  	if(!isset($_REQUEST['param']))
-            echo '<th>{{Action sur cette adresse de groupe}}</th>';
-?>
+		<?php
+  			if(!isset($_REQUEST['param']))
+           			echo '<th>{{Action sur cette adresse de groupe}}</th>';
+		?>
         </tr>
     </thead>
     <tbody></tbody>
 </table>
 <script>
+var SelectGad='';
 initTableSorter();
 getKnxGadInconue();
-if (typeof(SelectAddr) !== 'undefined') 
-	var SelectAddr='';
-if (typeof(SelectGad) !== 'undefined') 
-	var SelectGad='';
-if (typeof(SelectDpt) !== 'undefined') 
-	var SelectDpt='';
 function getKnxGadInconue () {
 	$.ajax({
 		type: 'POST',
@@ -81,7 +80,9 @@ function getKnxGadInconue () {
 			$('#table_GadInconue').trigger('update');
 			if($('#table_GadInconue thead th').length == 6){
 				$(".tablesorter-filter[data-column=1]").val(SelectAddr);
+				$(".tablesorter-filter[data-column=1]").trigger('change');
 				$(".tablesorter-filter[data-column=4]").val(SelectDpt);
+				$(".tablesorter-filter[data-column=4]").trigger('change');
 			}
 			if ($('#md_modal').dialog('isOpen') === true) {
 				setTimeout(function() {
