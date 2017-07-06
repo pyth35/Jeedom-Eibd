@@ -15,14 +15,14 @@ $('body').on('change','.EqLogicTemplateAttr[data-l1key=template]', function () {
 					.append($('<span class="input-group-btn">')
 						.append($('<a class="btn btn-success btn-sm bt_selectGadInconnue">')
 							.append($('<i class="fa fa-list-alt">')).attr('data-dpt',value.configuration.KnxObjectType).on('click',function () {
-								var SelectAddr=$(this).closest('.form-horizontal').find('.EqLogicTemplateAttr[data-l1key=logicalId]').val();	
+								var SelectAddr=$(this).closest('.modal-body').find('.EqLogicTemplateAttr[data-l1key=logicalId]').val();	
 								var SelectDpt=$(this).attr('data-dpt');
 								var input=$(this).closest('.input-group').find('.CmdEqLogicTemplateAttr');
 								bootbox.dialog({
 									title: "{{Choisir un Gad}}",
 									height: "auto",
 									width: "auto",
-									message: $('<div>').load('index.php?v=d&modal=eibd.gadInconnue&plugin=eibd&type=eibd&param'),
+									mmessage: $('<div>').load('index.php?v=d&modal=eibd.gadInconnue&plugin=eibd&type=eibd&SelectAddr='+SelectAddr+'&SelectDpt='+SelectDpt+'&param'),
 									buttons: {
 										"Annuler": {
 											className: "btn-default",
@@ -34,7 +34,7 @@ $('body').on('change','.EqLogicTemplateAttr[data-l1key=template]', function () {
 											label: "Valider",
 											className: "btn-primary",
 											callback: function () {
-												input.closest('.form-horizontal').find('.EqLogicTemplateAttr[data-l1key=logicalId]').val(SelectAddr);	
+												input.closest('.modal-body').find('.EqLogicTemplateAttr[data-l1key=logicalId]').val(SelectAddr);	
 												input.val(SelectGad);
 											}
 										},
