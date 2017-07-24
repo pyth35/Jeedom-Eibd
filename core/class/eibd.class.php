@@ -785,6 +785,7 @@ class eibd extends eqLogic {
 		foreach($ComObjectInstanceRef->getElementsByTagName($type) as $Commande){
 			$GroupAddressRefId=$Commande->getAttribute('GroupAddressRefId');
 			foreach($Projet->getElementsByTagName('GroupRange') as $GroupRange){
+				$NewGad['groupName']=$GroupRange->getAttribute('Name');
 				foreach($GroupRange->getElementsByTagName('GroupAddress') as $GroupAddress){
 					$NewGad['cmdName']=$GroupAddress->getAttribute('Name');
 					$GroupAddressId=$GroupAddress->getAttribute('Id');
@@ -816,13 +817,12 @@ class eibd extends eqLogic {
 		}
 	}
 	public static function ParserEtsFile($File){
-		$dir='../../../../tmp/knxproj/';
+		$dir='/tmp/knxproj/';
 		self::unzipKnxProj($dir,$File);
 		$ProjetFile=self::SearchFolder($dir,"P-").'/0.xml';
 		$Projet = new DomDocument();
 		if ($Projet->load($ProjetFile)){ // XML décrivant le projet
 			foreach($Projet->getElementsByTagName('Area') as $Area){
-				$Equipement['AreaName']=$Area->getAttribute('Name');
 				$AreaAddress=$Area->getAttribute('Address');
 				foreach($Area->getElementsByTagName('Line') as $Line){
 					$LineAddress=$Line->getAttribute('Address');

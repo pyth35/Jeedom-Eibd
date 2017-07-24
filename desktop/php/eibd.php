@@ -127,7 +127,7 @@ $eqLogics = eqLogic::byType('eibd');
 								<input type="text" class="eqLogicAttr form-control" data-l1key="name" placeholder="{{Nom de l'équipement KNX}}"/>
 							</div>
 						</div>
-						<div class="form-group expertModeVisible">
+						<div class="form-group">
 							<label class="col-md-2 control-label ">{{Adresse Physique de l'équipement}}
 								<sup>
 									<i class="fa fa-question-circle tooltips" title="Indiquez l'adresse physique de votre équipement. Cette information n'est pas obigatoire mais peut etre utile dans certain cas. Pour la trouver, il faut la retrouver sur le logiciel ETS" style="font-size : 1em;color:grey;"></i>
