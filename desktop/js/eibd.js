@@ -327,7 +327,7 @@ function DptUnit(Dpt)	{
 	$.each(AllDpt, function(DptKeyGroup, DptValueGroup){
 		$.each(DptValueGroup, function(DptKey, DptValue){
 			if (DptKey==Dpt)
-				result=value.DptValue;
+				result=DptValue;
 		});
 	});
 	return result;
@@ -369,29 +369,30 @@ function DptOption(Dpt,div){
 	});
 }
 function DptValue(Dpt){
-	var result='<option value="">{{Imposer une valeur}}</option>';
+  	var DptValues=$('<div>');
+  	DptValues.append($('<option>').attr('value','').text('{{Imposer une valeur}}'));
 	$.each(AllDpt, function(DptKeyGroup, DptValueGroup){
 		$.each(DptValueGroup, function(DptKey, DptValue){
-			if (DptKey==Dpt)
-			{
+			if (DptKey==Dpt){
 				$.each(DptValue.Valeurs, function(keyValeurs, Valeurs){
-					result+='<option value="'+keyValeurs+'">{{'+Valeurs+'}}</option>';
+					DptValues.append($('<option>').attr('value',keyValeurs).text('{{'+Valeurs+'}}'));
 				});
 			}
 		});
 	});
-	return result;
+	return DptValues.children();
 }
 function OptionSelectDpt(){
-	var DptSelectorOption='<option value="">{{Sélèctionner un DPT}}</option>';
+  var DptSelectorOption=$('<div>');
+    DptSelectorOption.append($('<option>').attr('value','').text('{{Sélèctionner un DPT}}'));
 	$.each(AllDpt, function(DptKeyGroup, DptValueGroup){
-		DptSelectorOption+= '<optgroup label="{{'+DptKeyGroup+'}}">';
+      var DptOptionGroup=$('<optgroup>').attr('label','{{'+DptKeyGroup+'}}');
 		$.each(DptValueGroup, function(DptKey, DptValue){
-			DptSelectorOption+='<option value="'+DptKey+'">{{'+DptKey+' - '+DptValue["Name"]+'}}</option>';
+          DptOptionGroup.append($('<option>').attr('value',DptKey).text('{{'+DptKey+' - '+DptValue["Name"]+'}}'));
 		});
-	DptSelectorOption+='</optgroup>';
+		DptSelectorOption.append(DptOptionGroup);
 	});
-	return DptSelectorOption;
+	return DptSelectorOption.children();
 }
 function addCmdToTable(_cmd) {
 	if (!isset(_cmd)) {
