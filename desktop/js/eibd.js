@@ -370,7 +370,7 @@ function DptOption(Dpt,div){
 }
 function DptValue(Dpt){
   	var DptValues=$('<div>');
-  	DptValues.append($('<option>').attr('value','').text('{{{Imposer une valeur}}'));
+  	DptValues.append($('<option>').attr('value','').text('{{Imposer une valeur}}'));
 	$.each(AllDpt, function(DptKeyGroup, DptValueGroup){
 		$.each(DptValueGroup, function(DptKey, DptValue){
 			if (DptKey==Dpt){
