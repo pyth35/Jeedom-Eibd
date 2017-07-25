@@ -376,7 +376,7 @@ function DptValue(Dpt){
 			if (DptKey==Dpt)
 			{
 				$.each(DptValue.Valeurs, function(keyValeurs, Valeurs){
-					result.add($('<option>').attr('value',keyValeurs).text('{{'+Valeurs+'}}'));
+					DptValue.append($('<option>').attr('value',keyValeurs).text('{{'+Valeurs+'}}'));
 				});
 			}
 		});
