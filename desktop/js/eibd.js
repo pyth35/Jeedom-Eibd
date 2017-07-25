@@ -369,19 +369,18 @@ function DptOption(Dpt,div){
 	});
 }
 function DptValue(Dpt){
-  	var DptValue=$('<div>');
-  	DptValue.append($('<option>').attr('value','').text('{{{Imposer une valeur}}'));
+  	var DptValues=$('<div>');
+  	DptValues.append($('<option>').attr('value','').text('{{{Imposer une valeur}}'));
 	$.each(AllDpt, function(DptKeyGroup, DptValueGroup){
 		$.each(DptValueGroup, function(DptKey, DptValue){
-			if (DptKey==Dpt)
-			{
+			if (DptKey==Dpt){
 				$.each(DptValue.Valeurs, function(keyValeurs, Valeurs){
-					DptValue.append($('<option>').attr('value',keyValeurs).text('{{'+Valeurs+'}}'));
+					DptValues.append($('<option>').attr('value',keyValeurs).text('{{'+Valeurs+'}}'));
 				});
 			}
 		});
 	});
-	return DptValue.children();
+	return DptValues.children();
 }
 function OptionSelectDpt(){
   var DptSelectorOption=$('<div>');
