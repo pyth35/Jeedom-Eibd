@@ -30,8 +30,7 @@ $('body').on('eibd::monitor', function (_event,_options) {
 		.append($("<td>").text(_options.monitor.AdresseGroupe))
 		.append($("<td>").text(_options.monitor.data))
 		.append($("<td>").text(_options.monitor.DataPointType))
-		.append($("<td>").text(_options.monitor.valeur)));
-	});				
+		.append($("<td>").text(_options.monitor.valeur)));			
 	$('#table_BusMonitor').trigger('update');
 });
 //event::add('clientSIP::call', utils::o2a($monitor));
