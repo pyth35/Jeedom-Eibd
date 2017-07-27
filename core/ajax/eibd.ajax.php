@@ -70,9 +70,6 @@ try {
 		}
 		ajax::success(false);
 	}
-	if (init('action') == 'getCacheMonitor') {
-		ajax::success(cache::byKey('eibd::Monitor')->getValue('[]'));
-	}
 	if (init('action') == 'getCacheGadInconue') {
 		ajax::success(cache::byKey('eibd::CreateNewGad')->getValue('[]'));
 	}
