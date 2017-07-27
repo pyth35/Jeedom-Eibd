@@ -461,7 +461,7 @@ class eibd extends eqLogic {
 			log::add('eibd', 'debug', 'Aucune commande avec l\'adresse de groupe  '.$monitor['AdresseGroupe'].' n\'a pas été trouvée');
 		}
 		//self::addCacheMonitor($monitor);
-		event::add('clientSIP::call', utils::o2a($monitor));
+		event::add('eibd::monitor', utils::o2a($monitor));
 	}
 	public static function addCacheNoGad($_parameter) {
 		$cache = cache::byKey('eibd::CreateNewGad');
