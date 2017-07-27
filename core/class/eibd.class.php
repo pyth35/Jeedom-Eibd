@@ -461,6 +461,8 @@ class eibd extends eqLogic {
 			log::add('eibd', 'debug', 'Aucune commande avec l\'adresse de groupe  '.$monitor['AdresseGroupe'].' n\'a pas été trouvée');
 		}
 		//self::addCacheMonitor($monitor);
+		
+		$monitor['datetime'] = date('d-m-Y H:i:s');
 		event::add('eibd::monitor', json_encode($monitor));
 	}
 	public static function addCacheNoGad($_parameter) {
