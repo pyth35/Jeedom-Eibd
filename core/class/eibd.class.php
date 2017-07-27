@@ -392,9 +392,13 @@ class eibd extends eqLogic {
 							$option=$Commande->getConfiguration('option');
 							$BusValue=Dpt::DptSelectDecode($dpt, $DataBus, $inverse,$option);
 							log::add('eibd', 'debug', '['.$Equipement->getName().']['.$Commande->getName().'] => '.$BusValue);
-							$Commande->setCollectDate(date('Y-m-d H:i:s'));
-							$Commande->event($BusValue);
-							$Commande->save();
+							//$Commande->setCollectDate(date('Y-m-d H:i:s'));
+							//$Commande->event($BusValue);
+							//$Commande->save();
+							if ($Commande->execCmd() != $Commande->formatValue($BusValue)) {
+								$Commande->event($BusValue);
+							}
+							$Commande->setCache('collectDate', date('Y-m-d H:i:s'));
 						}
 					}
 				}
@@ -456,7 +460,10 @@ class eibd extends eqLogic {
 				$monitor['valeur']="Impossible de convertire la valeur";
 			log::add('eibd', 'debug', 'Aucune commande avec l\'adresse de groupe  '.$monitor['AdresseGroupe'].' n\'a pas été trouvée');
 		}
-		self::addCacheMonitor($monitor);
+		//self::addCacheMonitor($monitor);
+		
+		$monitor['datetime'] = date('d-m-Y H:i:s');
+		event::add('eibd::monitor', json_encode($monitor));
 	}
 	public static function addCacheNoGad($_parameter) {
 		$cache = cache::byKey('eibd::CreateNewGad');
@@ -510,9 +517,13 @@ class eibd extends eqLogic {
 					}
 					if($Commande->getType() == 'info'&& ($Commande->getConfiguration('FlagWrite') || $Commande->getConfiguration('FlagUpdate'))){
 						log::add('eibd', 'info',$Commande->getLogicalId().' : Mise a jours de la valeur : '.$valeur.$unite);
-						$Commande->setCollectDate(date('Y-m-d H:i:s'));
-						$Commande->event($valeur);
-						$Commande->save();
+						//$Commande->setCollectDate(date('Y-m-d H:i:s'));
+						//$Commande->event($valeur);
+						//$Commande->save();					
+						if ($Commande->execCmd() != $Commande->formatValue($valeur)) {
+							$Commande->event($valeur);
+						}
+						$Commande->setCache('collectDate', date('Y-m-d H:i:s'));
 					}
 				}
 			}else{
@@ -919,10 +930,14 @@ class eibdCmd extends cmd {
 				$BusValue=Dpt::DptSelectDecode($dpt, $data, $inverse,$option);
 				$WriteBusValue=eibd::EibdWrite($ga, $data);
 				if ($WriteBusValue != -1 && isset($Listener) && is_object($Listener) && $ga==$Listener->getLogicalId()){
-					$Listener->setCollectDate(date('Y-m-d H:i:s'));
+					//$Listener->setCollectDate(date('Y-m-d H:i:s'));
 					//$Listener->setConfiguration('doNotRepeatEvent', 1);
-					$Listener->event($BusValue);
-					$Listener->save();
+					//$Listener->event($BusValue);
+					//$Listener->save();
+					if ($Listener->execCmd() != $Listener->formatValue($BusValue)) {
+						$Listener->event($BusValue);
+					}
+					$Listener->setCache('collectDate', date('Y-m-d H:i:s'));
 				}
 			break;
 			case 'info':
@@ -932,8 +947,12 @@ class eibdCmd extends cmd {
 				$BusValue=Dpt::DptSelectDecode($dpt, $DataBus, $inverse,$option);
 				$this->setCollectDate(date('Y-m-d H:i:s'));
 				//$this->setConfiguration('doNotRepeatEvent', 1);
-				$this->event($BusValue);
-				$this->save();
+				//$this->event($BusValue);
+				//$this->save();
+				if ($this->execCmd() != $this->formatValue($BusValue)) {
+					$this->event($BusValue);
+				}
+				$this->setCache('collectDate', date('Y-m-d H:i:s'));
 			break;
 		}
 		return $BusValue;
