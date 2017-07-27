@@ -460,7 +460,8 @@ class eibd extends eqLogic {
 				$monitor['valeur']="Impossible de convertire la valeur";
 			log::add('eibd', 'debug', 'Aucune commande avec l\'adresse de groupe  '.$monitor['AdresseGroupe'].' n\'a pas été trouvée');
 		}
-		self::addCacheMonitor($monitor);
+		//self::addCacheMonitor($monitor);
+		event::add('clientSIP::call', utils::o2a($monitor));
 	}
 	public static function addCacheNoGad($_parameter) {
 		$cache = cache::byKey('eibd::CreateNewGad');
