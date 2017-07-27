@@ -23,14 +23,15 @@ include_file('3rdparty', 'jquery.tablesorter/jquery.tablesorter.widgets.min', 'j
 <script>
 initTableSorter();
 $('body').on('eibd::monitor', function (_event,_options) {
+	var monitors=jQuery.parseJSON(_options);
 	$('#table_BusMonitor tbody').append($("<tr>")
-		.append($("<td>").text(_options.datetime))
-		.append($("<td>").text(_options.monitor.Mode))
-		.append($("<td>").text(_options.monitor.AdressePhysique))
-		.append($("<td>").text(_options.monitor.AdresseGroupe))
-		.append($("<td>").text(_options.monitor.data))
-		.append($("<td>").text(_options.monitor.DataPointType))
-		.append($("<td>").text(_options.monitor.valeur)));			
+		.append($("<td>").text(monitors.datetime))
+		.append($("<td>").text(monitors.Mode))
+		.append($("<td>").text(monitors.AdressePhysique))
+		.append($("<td>").text(monitors.AdresseGroupe))
+		.append($("<td>").text(monitors.data))
+		.append($("<td>").text(monitors.DataPointType))
+		.append($("<td>").text(monitors.valeur)));			
 	$('#table_BusMonitor').trigger('update');
 });
 //event::add('clientSIP::call', utils::o2a($monitor));
