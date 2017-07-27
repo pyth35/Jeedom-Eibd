@@ -22,7 +22,20 @@ include_file('3rdparty', 'jquery.tablesorter/jquery.tablesorter.widgets.min', 'j
 </table>
 <script>
 initTableSorter();
-getKnxBusMonitor();
+$('body').on('eibd::monitor', function (_event,_options) {
+	$('#table_BusMonitor tbody').append($("<tr>")
+		.append($("<td>").text(_options.datetime))
+		.append($("<td>").text(_options.monitor.Mode))
+		.append($("<td>").text(_options.monitor.AdressePhysique))
+		.append($("<td>").text(_options.monitor.AdresseGroupe))
+		.append($("<td>").text(_options.monitor.data))
+		.append($("<td>").text(_options.monitor.DataPointType))
+		.append($("<td>").text(_options.monitor.valeur)));
+	});				
+	$('#table_BusMonitor').trigger('update');
+});
+//event::add('clientSIP::call', utils::o2a($monitor));
+/*getKnxBusMonitor();
 function getKnxBusMonitor () {
 	$.ajax({
 		type: 'POST',
@@ -64,6 +77,6 @@ function getKnxBusMonitor () {
 			}
 		}
 	});
-}		   
+}*/		   
 </script>
 		
