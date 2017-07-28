@@ -377,33 +377,33 @@ class eibd extends eqLogic {
 	//                                                            Gestion du BusMonitor                                                              // 
 	//                                                                                                                                               //
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	public static function BusMonitor() { 
-		if (config::byKey('initInfo', 'eibd'))	{
-			log::add('eibd', 'debug', 'Initialisation de valeur des objets KNX');
-			foreach(eqLogic::byType('eibd') as $Equipement)		{
-				if ($Equipement->getIsEnable()){
-					foreach($Equipement->getCmd('info') as $Commande)	{
-						if ($Commande->getConfiguration('FlagInit')){
-							$ga=$Commande->getLogicalId();
-							$dpt=$Commande->getConfiguration('KnxObjectType');
-							$inverse=$Commande->getConfiguration('inverse');
-							log::add('eibd', 'debug', 'Lecture de ['.$Equipement->getName().']['.$Commande->getName().'] sur le GAD '.$ga);
-							$DataBus=self::EibdRead($ga);
-							$option=$Commande->getConfiguration('option');
-							$BusValue=Dpt::DptSelectDecode($dpt, $DataBus, $inverse,$option);
-							log::add('eibd', 'debug', '['.$Equipement->getName().']['.$Commande->getName().'] => '.$BusValue);
-							//$Commande->setCollectDate(date('Y-m-d H:i:s'));
-							//$Commande->event($BusValue);
-							//$Commande->save();
-							if ($Commande->execCmd() != $Commande->formatValue($BusValue)) {
-								$Commande->event($BusValue);
-							}
-							$Commande->setCache('collectDate', date('Y-m-d H:i:s'));
+	public static function InitInformation() { 
+		log::add('eibd', 'debug', 'Initialisation de valeur des objets KNX');
+		foreach(eqLogic::byType('eibd') as $Equipement)	{
+			if ($Equipement->getIsEnable()){
+				foreach($Equipement->getCmd('info') as $Commande)	{
+					if ($Commande->getConfiguration('FlagInit')){
+						$ga=$Commande->getLogicalId();
+						$dpt=$Commande->getConfiguration('KnxObjectType');
+						$inverse=$Commande->getConfiguration('inverse');
+						log::add('eibd', 'debug', 'Lecture de '. $Commande->getHumanName().' sur le GAD '.$ga);
+						$DataBus=self::EibdRead($ga);
+						$option=$Commande->getConfiguration('option');
+						$BusValue=Dpt::DptSelectDecode($dpt, $DataBus, $inverse,$option);
+						log::add('eibd', 'debug', $Commande->getHumanName().' => '.$BusValue);
+						//$Commande->setCollectDate(date('Y-m-d H:i:s'));
+						//$Commande->event($BusValue);
+						//$Commande->save();
+						if ($Commande->execCmd() != $Commande->formatValue($BusValue)) {
+							$Commande->event($BusValue);
 						}
+						$Commande->setCache('collectDate', date('Y-m-d H:i:s'));
 					}
 				}
 			}
 		}
+	}
+	public static function BusMonitor() { 
 		log::add('eibd', 'debug', 'Lancement du Bus Monitor');
 		$host=config::byKey('EibdHost', 'eibd');
 		$port=config::byKey('EibdPort', 'eibd');
@@ -740,6 +740,8 @@ class eibd extends eqLogic {
 		}
 		$cron->start();
 		$cron->run();
+		if (config::byKey('initInfo', 'eibd'))
+			self::InitInformation();
 	}
 	public static function deamon_stop() {
 		$cache = cache::byKey('eibd::Monitor');
