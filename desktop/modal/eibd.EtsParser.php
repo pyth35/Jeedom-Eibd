@@ -36,7 +36,8 @@ if (!isConnect('admin')) {
 					title: "{{Importer les Gad inconnue}}",
 					height: 800,
 					width: 1024});
-				$('#md_modal').load('index.php?v=d&modal=eibd.gadInconnue&plugin=eibd&type=eibd').dialog('open');
+				$('.eqLogicAction[data-action=addByTemplate]').trigger('click');
+				//$('#md_modal').load('index.php?v=d&modal=eibd.gadInconnue&plugin=eibd&type=eibd').dialog('open');
 			$//('#div_alert').showAlert({message: '{{L\'intégration par l\export ETS est terminé avec succes}}', level: 'success'});
 			}
 		}
