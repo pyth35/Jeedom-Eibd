@@ -377,33 +377,33 @@ class eibd extends eqLogic {
 	//                                                            Gestion du BusMonitor                                                              // 
 	//                                                                                                                                               //
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	public static function BusMonitor() { 
-		if (config::byKey('initInfo', 'eibd'))	{
-			log::add('eibd', 'debug', 'Initialisation de valeur des objets KNX');
-			foreach(eqLogic::byType('eibd') as $Equipement)		{
-				if ($Equipement->getIsEnable()){
-					foreach($Equipement->getCmd('info') as $Commande)	{
-						if ($Commande->getConfiguration('FlagInit')){
-							$ga=$Commande->getLogicalId();
-							$dpt=$Commande->getConfiguration('KnxObjectType');
-							$inverse=$Commande->getConfiguration('inverse');
-							log::add('eibd', 'debug', 'Lecture de ['.$Equipement->getName().']['.$Commande->getName().'] sur le GAD '.$ga);
-							$DataBus=self::EibdRead($ga);
-							$option=$Commande->getConfiguration('option');
-							$BusValue=Dpt::DptSelectDecode($dpt, $DataBus, $inverse,$option);
-							log::add('eibd', 'debug', '['.$Equipement->getName().']['.$Commande->getName().'] => '.$BusValue);
-							//$Commande->setCollectDate(date('Y-m-d H:i:s'));
-							//$Commande->event($BusValue);
-							//$Commande->save();
-							if ($Commande->execCmd() != $Commande->formatValue($BusValue)) {
-								$Commande->event($BusValue);
-							}
-							$Commande->setCache('collectDate', date('Y-m-d H:i:s'));
+	public static function InitInformation() { 
+		log::add('eibd', 'debug', 'Initialisation de valeur des objets KNX');
+		foreach(eqLogic::byType('eibd') as $Equipement)	{
+			if ($Equipement->getIsEnable()){
+				foreach($Equipement->getCmd('info') as $Commande)	{
+					if ($Commande->getConfiguration('FlagInit')){
+						$ga=$Commande->getLogicalId();
+						$dpt=$Commande->getConfiguration('KnxObjectType');
+						$inverse=$Commande->getConfiguration('inverse');
+						log::add('eibd', 'debug', 'Lecture de '. $Commande->getHumanName().' sur le GAD '.$ga);
+						$DataBus=self::EibdRead($ga);
+						$option=$Commande->getConfiguration('option');
+						$BusValue=Dpt::DptSelectDecode($dpt, $DataBus, $inverse,$option);
+						log::add('eibd', 'debug', $Commande->getHumanName().' => '.$BusValue);
+						//$Commande->setCollectDate(date('Y-m-d H:i:s'));
+						//$Commande->event($BusValue);
+						//$Commande->save();
+						if ($Commande->execCmd() != $Commande->formatValue($BusValue)) {
+							$Commande->event($BusValue);
 						}
+						$Commande->setCache('collectDate', date('Y-m-d H:i:s'));
 					}
 				}
 			}
 		}
+	}
+	public static function BusMonitor() { 
 		log::add('eibd', 'debug', 'Lancement du Bus Monitor');
 		$host=config::byKey('EibdHost', 'eibd');
 		$port=config::byKey('EibdPort', 'eibd');
@@ -460,8 +460,6 @@ class eibd extends eqLogic {
 				$monitor['valeur']="Impossible de convertire la valeur";
 			log::add('eibd', 'debug', 'Aucune commande avec l\'adresse de groupe  '.$monitor['AdresseGroupe'].' n\'a pas été trouvée');
 		}
-		//self::addCacheMonitor($monitor);
-		
 		$monitor['datetime'] = date('d-m-Y H:i:s');
 		event::add('eibd::monitor', json_encode($monitor));
 	}
@@ -477,12 +475,6 @@ class eibd extends eqLogic {
 		}
 		$value[] = $_parameter;
 		cache::set('eibd::CreateNewGad', json_encode($value), 0);
-	}
-	public static function addCacheMonitor($_monitor) {
-		$cache = cache::byKey('eibd::Monitor');
-		$value = json_decode($cache->getValue('[]'), true);
-		$value[] = array('datetime' => date('d-m-Y H:i:s'), 'monitor' => $_monitor);
-		cache::set('eibd::Monitor', json_encode(array_slice($value, -250, 250)), 0);
 	}
 	public static function UpdateCommande($Commande,$Mode,$data){	
 		$valeur='';
@@ -689,10 +681,6 @@ class eibd extends eqLogic {
 		self::deamon_stop();
 		switch(config::byKey('KnxSoft', 'eibd')){
 			case 'knxd':
-				// Recherche automatique par knd
-				//$cmd = 'sudo  eibnetsearch  -';
-				//$cmd .= ' >> ' . log::getPathToLog('eibd') . ' 2>&1 &';
-				//exec($cmd);
 				$cmd = 'sudo knxd --daemon=/var/log/knx.log --pid-file=/var/run/knx.pid --eibaddr='.config::byKey('EibdGad', 'eibd').' --Name=JeedomKnx -D -T -S --listen-tcp='.config::byKey('EibdPort', 'eibd').' -b';
 			break;
 			case 'eibd':
@@ -740,6 +728,7 @@ class eibd extends eqLogic {
 		}
 		$cron->start();
 		$cron->run();
+		self::InitInformation();
 	}
 	public static function deamon_stop() {
 		$cache = cache::byKey('eibd::Monitor');

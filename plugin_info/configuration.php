@@ -83,18 +83,6 @@ if (!isConnect()) {
 					</select>
 				</div>
 			</div>
-			<!--div class="form-group">
-				<label class="col-lg-4 control-label">{{Ajouter automatiquement les equipements}}</label>
-				<div class="col-lg-4">
-					<label class="checkbox-inline"><input type="checkbox" class="configKey" data-l1key="autoAddDevice" checked/>{{Automatique}}</label>
-				</div>
-			</div-->
-			<div class="form-group">
-				<label class="col-lg-4 control-label">{{Initialiser les retours d'etat au lancement}}</label>
-				<div class="col-lg-4">
-					<label class="checkbox-inline"><input type="checkbox" class="configKey" data-l1key="initInfo" checked/>{{Activer}}</label>
-				</div>
-			</div>
 		</fieldset>
 	</form>
 </div>
