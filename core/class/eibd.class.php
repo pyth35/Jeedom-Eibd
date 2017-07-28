@@ -460,8 +460,6 @@ class eibd extends eqLogic {
 				$monitor['valeur']="Impossible de convertire la valeur";
 			log::add('eibd', 'debug', 'Aucune commande avec l\'adresse de groupe  '.$monitor['AdresseGroupe'].' n\'a pas été trouvée');
 		}
-		//self::addCacheMonitor($monitor);
-		
 		$monitor['datetime'] = date('d-m-Y H:i:s');
 		event::add('eibd::monitor', json_encode($monitor));
 	}
@@ -477,12 +475,6 @@ class eibd extends eqLogic {
 		}
 		$value[] = $_parameter;
 		cache::set('eibd::CreateNewGad', json_encode($value), 0);
-	}
-	public static function addCacheMonitor($_monitor) {
-		$cache = cache::byKey('eibd::Monitor');
-		$value = json_decode($cache->getValue('[]'), true);
-		$value[] = array('datetime' => date('d-m-Y H:i:s'), 'monitor' => $_monitor);
-		cache::set('eibd::Monitor', json_encode(array_slice($value, -250, 250)), 0);
 	}
 	public static function UpdateCommande($Commande,$Mode,$data){	
 		$valeur='';
@@ -689,10 +681,6 @@ class eibd extends eqLogic {
 		self::deamon_stop();
 		switch(config::byKey('KnxSoft', 'eibd')){
 			case 'knxd':
-				// Recherche automatique par knd
-				//$cmd = 'sudo  eibnetsearch  -';
-				//$cmd .= ' >> ' . log::getPathToLog('eibd') . ' 2>&1 &';
-				//exec($cmd);
 				$cmd = 'sudo knxd --daemon=/var/log/knx.log --pid-file=/var/run/knx.pid --eibaddr='.config::byKey('EibdGad', 'eibd').' --Name=JeedomKnx -D -T -S --listen-tcp='.config::byKey('EibdPort', 'eibd').' -b';
 			break;
 			case 'eibd':
@@ -740,8 +728,7 @@ class eibd extends eqLogic {
 		}
 		$cron->start();
 		$cron->run();
-		if (config::byKey('initInfo', 'eibd'))
-			self::InitInformation();
+		self::InitInformation();
 	}
 	public static function deamon_stop() {
 		$cache = cache::byKey('eibd::Monitor');
