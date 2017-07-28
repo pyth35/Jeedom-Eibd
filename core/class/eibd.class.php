@@ -799,7 +799,7 @@ class eibd extends eqLogic {
 								$NewGad['cmdType']='action';
 							else
 								$NewGad['cmdType']='info';
-							if(count(cmd::byLogicalId($NewGad))<=0)
+							if(count(cmd::byLogicalId($NewGad['AdresseGroupe']))<=0)
 								self::addCacheNoGad($NewGad);
 						}
 					}
