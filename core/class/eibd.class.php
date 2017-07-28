@@ -467,11 +467,13 @@ class eibd extends eqLogic {
 		$cache = cache::byKey('eibd::CreateNewGad');
 		$value = json_decode($cache->getValue('[]'), true);
 		foreach ($value as $key => $val) {
-		       if (isset($_parameter['valeur']) && $val['AdresseGroupe'] == $_parameter['AdresseGroupe']){
-			       $value[$key]['value']=$_parameter['valeur'];
-			       cache::set('eibd::CreateNewGad', json_encode($value), 0);
-			       return;
-		       }
+			if ($val['AdresseGroupe'] == $_parameter['AdresseGroupe']){
+				if (isset($_parameter['valeur'])){
+					$value[$key]['value']=$_parameter['valeur'];
+					cache::set('eibd::CreateNewGad', json_encode($value), 0);
+				}
+				return;
+			}
 		}
 		$value[] = $_parameter;
 		cache::set('eibd::CreateNewGad', json_encode($value), 0);
@@ -797,19 +799,8 @@ class eibd extends eqLogic {
 								$NewGad['cmdType']='action';
 							else
 								$NewGad['cmdType']='info';
-							self::addCacheNoGad($NewGad);
-							/*$newCommande=self::AddCommande($Equipement,$GroupAddressName,$AdressGroup,$type,$DatapointType);
-							foreach(eqLogic::byLogicalId($AdressGroup) as $Cmd){
-								if($Cmd!=$newCommande){
-									if($Cmd->getType() == 'info'){
-										$newCommande->setValue($Cmd->getId());
-										$newCommande->save();
-									} else {
-										$Cmd->setValue($newCommande->getId());
-										$Cmd->save();
-									}
-								}
-							}*/
+							if(count(cmd::byLogicalId($NewGad))<=0)
+								self::addCacheNoGad($NewGad);
 						}
 					}
 				}
