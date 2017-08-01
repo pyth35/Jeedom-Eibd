@@ -142,6 +142,7 @@ class EIBConnection {
 	private $readlen;
 	private $datalen;
 	private $socket;
+	private $timeout=0;
 	function __construct ($host, $port = 6720){
 		$this->readlen = 0;
 		$this->socket = stream_socket_client ("tcp://".$host.":".$port, $errno, $errstr, 30);
@@ -150,6 +151,9 @@ class EIBConnection {
 	}
 	public function getLastError (){
 		return $this->errno;
+	}
+	public function setTimeout ($timeout){
+		$this->timeout=$timeout;
 	}
 	private function _EIB_SendRequest ($data){
 		if ($this->socket === FALSE){
@@ -172,7 +176,8 @@ class EIBConnection {
 			$this->errno = self::ECONNRESET;
 			return -1;
 		}
-		stream_set_timeout($this->socket, 5);
+		if($this->timeout != 0)
+			stream_set_timeout($this->socket,$this->timeout);
 		if ($this->readlen == 0){
 			$this->head = array (" ", " ");
 			$this->data = array ();
@@ -180,11 +185,13 @@ class EIBConnection {
 		if ($this->readlen < 2){
 			stream_set_blocking ($this->socket, $block ? 1 : 0);
 			$read = fread ($this->socket, 2 - $this->readlen);
-			$info = stream_get_meta_data($this->socket);
-			if ($info['timed_out']) {
-				$this->errno = "Timeout";
-				return -1;
-			} 
+			if($this->timeout != 0){
+				$info = stream_get_meta_data($this->socket);
+				if ($info['timed_out']) {
+					$this->errno = "Timeout";
+					return -1;
+				} 
+			}
 			if ($read === FALSE){
 				$this->errno = self::ECONNRESET;
 				return -1;
@@ -202,10 +209,12 @@ class EIBConnection {
 		if ($this->readlen < $this->datalen + 2){
 			stream_set_blocking ($this->socket, $block ? 1 : 0);
 			$read = fread ($this->socket, $this->datalen + 2 - $this->readlen);
-			$info = stream_get_meta_data($this->socket);
-			if ($info['timed_out']) {
-				$this->errno = "Timeout";
-				return -1;
+			if($this->timeout != 0){
+				$info = stream_get_meta_data($this->socket);
+				if ($info['timed_out']) {
+					$this->errno = "Timeout";
+					return -1;
+				} 
 			}
 			if ($read === FALSE){
 				$this->errno = self::ECONNRESET;
