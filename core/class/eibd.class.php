@@ -300,6 +300,7 @@ class eibd extends eqLogic {
 		$host=config::byKey('EibdHost', 'eibd');
 		$port=config::byKey('EibdPort', 'eibd');
 		$EibdConnexion = new EIBConnection($host,$port);
+		$EibdConnexion->setTimeout(5);
 		$addr = self::gaddrparse($addr);
 		if ($EibdConnexion->EIBOpenT_Group ($addr, 0) == -1)
 			throw new Exception(__('Erreur de connexion au Bus KNX', __FILE__));
