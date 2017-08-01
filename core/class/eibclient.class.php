@@ -180,6 +180,11 @@ class EIBConnection {
 		if ($this->readlen < 2){
 			stream_set_blocking ($this->socket, $block ? 1 : 0);
 			$read = fread ($this->socket, 2 - $this->readlen);
+			$info = stream_get_meta_data($$this->socket);
+			if ($info['timed_out']) {
+				$this->errno = "Timeout";
+				return -1;
+			} 
 			if ($read === FALSE){
 				$this->errno = self::ECONNRESET;
 				return -1;
@@ -197,6 +202,11 @@ class EIBConnection {
 		if ($this->readlen < $this->datalen + 2){
 			stream_set_blocking ($this->socket, $block ? 1 : 0);
 			$read = fread ($this->socket, $this->datalen + 2 - $this->readlen);
+			$info = stream_get_meta_data($$this->socket);
+			if ($info['timed_out']) {
+				$this->errno = "Timeout";
+				return -1;
+			}
 			if ($read === FALSE){
 				$this->errno = self::ECONNRESET;
 				return -1;
@@ -859,8 +869,8 @@ class EIBConnection {
 		if (((EIBConnection::upack (substr ($this->data,0, 2), "n"))) != 0x0053 || strlen ($this->data) < 2) {
 			$this->errno = self::ECONNRESET;
 			return -1;
-		} $
-		this->buf->buffer = substr ($this->data, 2);
+		}
+		$this->buf->buffer = substr ($this->data, 2);
 		return strlen ($this->buf->buffer);
 	}
 	public function EIB_MC_PropertyRead_async ( $obj , $property , $start , $nr_of_elem , EIBBuffer $buf ) {
