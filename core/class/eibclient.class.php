@@ -128,9 +128,6 @@ class EIBConnection {
 	const ENODEV = 10;
 	const EBADF = 11;
 	private $errno = 0;
-	public function getLastError (){
-		return $this->errno;
-	}
 	private $buf;
 	private $ptr1;
 	private $ptr2;
@@ -150,6 +147,9 @@ class EIBConnection {
 		$this->socket = stream_socket_client ("tcp://".$host.":".$port, $errno, $errstr, 30);
 		if ($this->socket === FALSE)
 			throw new Exception ("connect failed");
+	}
+	public function getLastError (){
+		return $this->errno;
 	}
 	private function _EIB_SendRequest ($data){
 		if ($this->socket === FALSE){
@@ -172,13 +172,13 @@ class EIBConnection {
 			$this->errno = self::ECONNRESET;
 			return -1;
 		}
+		stream_set_timeout($this->socket, 1);
 		if ($this->readlen == 0){
 			$this->head = array (" ", " ");
 			$this->data = array ();
 		}
 		if ($this->readlen < 2){
 			stream_set_blocking ($this->socket, $block ? 1 : 0);
-			stream_set_timeout($this->socket, 1);
 			$read = fread ($this->socket, 2 - $this->readlen);
 			if ($read === FALSE){
 				$this->errno = self::ECONNRESET;
@@ -196,7 +196,6 @@ class EIBConnection {
 		}
 		if ($this->readlen < $this->datalen + 2){
 			stream_set_blocking ($this->socket, $block ? 1 : 0);
-			stream_set_timeout($this->socket, 1);
 			$read = fread ($this->socket, $this->datalen + 2 - $this->readlen);
 			if ($read === FALSE){
 				$this->errno = self::ECONNRESET;
@@ -310,7 +309,7 @@ class EIBConnection {
 		return 0;
 	} 
 	public function EIBGetBusmonitorPacket ( EIBBuffer $buf ) {
-		if ($this->EIBGetBusmonitorPacket_async ($buf ) == -1).
+		if ($this->EIBGetBusmonitorPacket_async ($buf ) == -1)
 			return -1;
 		return $this->EIBComplete ();
 	}
